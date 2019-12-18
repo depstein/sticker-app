@@ -1,5 +1,7 @@
 {
   "name": "data-stickers",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
