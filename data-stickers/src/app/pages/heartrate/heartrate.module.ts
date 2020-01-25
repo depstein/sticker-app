@@ -7,15 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { HeartratePageRoutingModule } from './heartrate-routing.module';
 
 import { HeartratePage } from './heartrate.page';
-import { NavigationbarComponent } from '../../navigationbar/navigationbar.component';
+import { NavigationbarModule } from '../../navigationbar/navigationbar.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    HeartratePageRoutingModule
+    HeartratePageRoutingModule,
+	NavigationbarModule
   ],
-  declarations: [HeartratePage, NavigationbarComponent]
+  declarations: [HeartratePage]
 })
 export class HeartratePageModule {}

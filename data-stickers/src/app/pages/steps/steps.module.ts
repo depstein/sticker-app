@@ -6,16 +6,17 @@ import { IonicModule } from '@ionic/angular';
 import { StepsPageRoutingModule } from './steps-routing.module';
 
 import { StepsPage } from './steps.page';
-import { NavigationbarComponent } from '../../navigationbar/navigationbar.component';
+import { NavigationbarModule } from '../../navigationbar/navigationbar.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    StepsPageRoutingModule
+    StepsPageRoutingModule,
+	NavigationbarModule
   ],
-  declarations: [StepsPage, NavigationbarComponent]
+  declarations: [StepsPage]
 })
 export class StepsPageModule {}
 

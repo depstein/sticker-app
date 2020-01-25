@@ -2,14 +2,24 @@
 // http://ionicframework.com/docs/theming/
 
 /** Ionic CSS Variables **/
+
+@font-face {
+	font-family: 'My Dear Watson';
+	font-style: normal;
+	font-weight: normal;
+	src: url('../assets/fonts/MyDearWatson-Regular.otf')
+}
+
 :root {
+	--ion-font-family: 'My Dear Watson';
+
   /** primary **/
-  --ion-color-primary: #3880ff;
-  --ion-color-primary-rgb: 56, 128, 255;
+  --ion-color-primary: #5c5c5c;
+  --ion-color-primary-rgb: 92, 92, 92;
   --ion-color-primary-contrast: #ffffff;
   --ion-color-primary-contrast-rgb: 255, 255, 255;
-  --ion-color-primary-shade: #3171e0;
-  --ion-color-primary-tint: #4c8dff;
+  --ion-color-primary-shade: #5c5c5c;
+  --ion-color-primary-tint: #5c5c5c;
 
   /** secondary **/
   --ion-color-secondary: #0cd1e8;
@@ -74,4 +84,89 @@
   --ion-color-light-contrast-rgb: 0, 0, 0;
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
+	
+	/** steps **/
+	--ion-color-steps: #68C2BD;
+  --ion-color-steps-rgb: 104,194,189;
+  --ion-color-steps-contrast: #000000;
+  --ion-color-steps-contrast-rgb: 0,0,0;
+  --ion-color-steps-shade: #5caba6;
+  --ion-color-steps-tint: #77c8c4;
+	
+	/* music */
+	--ion-color-music: #59819F;
+  --ion-color-music-rgb: 89,129,159;
+  --ion-color-music-contrast: #ffffff;
+  --ion-color-music-contrast-rgb: 255,255,255;
+  --ion-color-music-shade: #4e728c;
+  --ion-color-music-tint: #6a8ea9;
+	
+	/* calories */ 
+	--ion-color-calories: #7D79A3;
+  --ion-color-calories-rgb: 125,121,163;
+  --ion-color-calories-contrast: #ffffff;
+  --ion-color-calories-contrast-rgb: 255,255,255;
+  --ion-color-calories-shade: #6e6a8f;
+  --ion-color-calories-tint: #8a86ac;
+	
+	/* time */
+	--ion-color-time: #F87D7B;
+  --ion-color-time-rgb: 248,125,123;
+  --ion-color-time-contrast: #000000;
+  --ion-color-time-contrast-rgb: 0,0,0;
+  --ion-color-time-shade: #da6e6c;
+  --ion-color-time-tint: #f98a88;
+	
+	/* heart rate */ 
+	--ion-color-heartrate: #FFC1A5;
+  --ion-color-heartrate-rgb: 255,193,165;
+  --ion-color-heartrate-contrast: #000000;
+  --ion-color-heartrate-contrast-rgb: 0,0,0;
+  --ion-color-heartrate-shade: #e0aa91;
+  --ion-color-heartrate-tint: #ffc7ae;
+}
+
+.ion-color-steps {
+  --ion-color-base: var(--ion-color-steps);
+  --ion-color-base-rgb: var(--ion-color-steps-rgb);
+  --ion-color-contrast: var(--ion-color-steps-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-steps-contrast-rgb);
+  --ion-color-shade: var(--ion-color-steps-shade);
+  --ion-color-tint: var(--ion-color-steps-tint);
+}
+
+.ion-color-music {
+  --ion-color-base: var(--ion-color-music);
+  --ion-color-base-rgb: var(--ion-color-music-rgb);
+  --ion-color-contrast: var(--ion-color-music-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-music-contrast-rgb);
+  --ion-color-shade: var(--ion-color-music-shade);
+  --ion-color-tint: var(--ion-color-music-tint);
+}
+
+.ion-color-calories {
+  --ion-color-base: var(--ion-color-calories);
+  --ion-color-base-rgb: var(--ion-color-calories-rgb);
+  --ion-color-contrast: var(--ion-color-calories-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-calories-contrast-rgb);
+  --ion-color-shade: var(--ion-color-calories-shade);
+  --ion-color-tint: var(--ion-color-calories-tint);
+}
+
+.ion-color-time {
+  --ion-color-base: var(--ion-color-time);
+  --ion-color-base-rgb: var(--ion-color-time-rgb);
+  --ion-color-contrast: var(--ion-color-time-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-time-contrast-rgb);
+  --ion-color-shade: var(--ion-color-time-shade);
+  --ion-color-tint: var(--ion-color-time-tint);
+}
+
+.ion-color-heartrate {
+  --ion-color-base: var(--ion-color-heartrate);
+  --ion-color-base-rgb: var(--ion-color-heartrate-rgb);
+  --ion-color-contrast: var(--ion-color-heartrate-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-heartrate-contrast-rgb);
+  --ion-color-shade: var(--ion-color-heartrate-shade);
+  --ion-color-tint: var(--ion-color-heartrate-tint);
 }
