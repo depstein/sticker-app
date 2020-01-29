@@ -7,6 +7,7 @@ import { StepsPageRoutingModule } from './steps-routing.module';
 
 import { StepsPage } from './steps.page';
 import { NavigationbarModule } from '../../navigationbar/navigationbar.module';
+import { CreateStickersPageModule } from '../../create-stickers/create-stickers.module';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import { NavigationbarModule } from '../../navigationbar/navigationbar.module';
     FormsModule,
     IonicModule,
     StepsPageRoutingModule,
-	NavigationbarModule
+		NavigationbarModule,
+		CreateStickersPageModule
   ],
   declarations: [StepsPage]
 })

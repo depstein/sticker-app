@@ -26,6 +26,10 @@ const routes: Routes = [
     path: 'music',
     loadChildren: () => import('./pages/music/music.module').then( m => m.MusicPageModule)
   },
+	{
+		path: 'create-sticker',
+		loadChildren: () => import('./create-stickers/create-stickers.module').then( m => m.CreateStickersPageModule)
+	}
 
 ];
 
