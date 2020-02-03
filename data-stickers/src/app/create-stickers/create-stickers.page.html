@@ -12,18 +12,29 @@
 </ion-header>
 
 <ion-content>
-
-  <ion-card>
-    <ion-item>
+    <ion-item class = "b" >
       <ion-img src= "../../assets/icon/foot.png"></ion-img>
-    </ion-item>
-  
-  </ion-card>
-
+    </ion-item  >
+    
   <ion-item>
-    <ion-label position="floating">Enter your Steps</ion-label>
-    <ion-textarea></ion-textarea>
+    <ion-label position="floating" style="color:#618775" >Enter your Amount Of Steps</ion-label>
+    <ion-row>
+      <ion-col col-4> 
+        <input type="text" placeholder="" style="width: 70%" >
+      </ion-col>
+      <ion-col col-8>
+      
+        <ion-select placeholder="Units"  style = "width: 190px">
+          <ion-select-option value="steps">steps</ion-select-option>
+          <ion-select-option value="cal">calories</ion-select-option>
+        </ion-select>
+      </ion-col>
+    </ion-row>
+  
+  <ion-button class="col text-center" style = "background-color:#618775" >
+    <ion-icon name="add"></ion-icon>
+    Add Goal</ion-button> 
   </ion-item>
-  <ion-button class = "goal" color="success">Add Goal</ion-button>
+  
 
 </ion-content>
