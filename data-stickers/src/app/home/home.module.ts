@@ -5,7 +5,6 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { HomePage } from './home.page';
-import { SendToSnapchatComponent } from '../send-to-snapchat/send-to-snapchat.component';
 import { NavigationbarModule } from '../navigationbar/navigationbar.module';
 //import { HomePageRoutingModule } from  './home-routing.module';
 
@@ -23,6 +22,6 @@ import { NavigationbarModule } from '../navigationbar/navigationbar.module';
       }
     ])
   ],
-  declarations: [HomePage, SendToSnapchatComponent]
+  declarations: [HomePage]
 })
 export class HomePageModule {}
