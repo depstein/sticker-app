@@ -6,15 +6,15 @@ import { RouterModule } from '@angular/router';
 
 import { HomePage } from './home.page';
 import { NavigationbarModule } from '../navigationbar/navigationbar.module';
-//import { HomePageRoutingModule } from  './home-routing.module';
+import { HomePageRoutingModule } from  './home-routing.module';
 
 @NgModule({
   imports: [
-    CommonModule,
+    CommonModule, 
     FormsModule,
     IonicModule,
 		NavigationbarModule,
-		//HomePageRoutingModule
+		HomePageRoutingModule,
     RouterModule.forChild([
       {
         path: '',

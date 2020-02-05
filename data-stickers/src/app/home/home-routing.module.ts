@@ -3,9 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomePage } from './home.page';
 
 /* 
-I'm trying to use ion tabs to set up the links at the bottom of the page but haven't gotten it to work yet. For now I have removed this page from the imports and am just using ion-button components for the links. 
+I'm trying to use ion-tabs but haven't gotten it to work yet. For now I have removed this page from the imports and am just using ion-button components for the links. 
 
-Examples:
+Examples for ion-tabs:
+https://ionicacademy.com/ionic-routing-navigation/
 https://alligator.io/ionic/ionic-4-tabs/
 https://github.com/ionic-team/ionic-conference-app/blob/master/src/app/pages/tabs-page/tabs-page-routing.module.ts
 */

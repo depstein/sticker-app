@@ -20,7 +20,10 @@ export class NavigationbarComponent implements OnInit {
   
   ngOnInit() {}
 	
+	//tabs = document.getElementById('navigationTabs');
+	
 	goToStepsPage() {
+		//document.getElementById('navigationTabs').select('steps');
 		this.navCtrl.navigateForward('/steps');
 	}
 	
