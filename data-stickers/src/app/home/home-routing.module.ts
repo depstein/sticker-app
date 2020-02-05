@@ -13,45 +13,45 @@ https://github.com/ionic-team/ionic-conference-app/blob/master/src/app/pages/tab
 
 const routes: Routes = [
 	{
-		path: 'home',
+		path: '',
 		component: HomePage,
 		children: [
 			{
 				path: 'steps',
 				children: [{
 					path: '',
-					loadChildren: () => import('../pages/steps/steps.module').then(m => m.StepsPageModule)
+					loadChildren: '../pages/steps/steps.module#StepsPageModule'
 				}]
 			},
 			{
 				path: 'heartrate',
 				children: [{
 					path: '',
-					loadChildren: () => import('../pages/heartrate/heartrate.module').then(m => m.HeartratePageModule)
+					loadChildren: '../pages/heartrate/heartrate.module#HeartratePageModule'
 				}]
 			},
 			{
 				path: 'calories',
 				children: [{
 					path: '',
-					loadChildren: () => import('../pages/calories/calories.module').then(m => m.CaloriesPageModule)
+					loadChildren: '../pages/calories/calories.module#CaloriesPageModule'
 				}]
 			},
 			{
 				path: 'time',
 				children: [{
 					path: '',
-					loadChildren: () => import('../pages/time/time.module').then(m => m.TimePageModule)
+					loadChildren: '../pages/time/time.module#TimePageModule'
 				}]
 			},
 			{
 				path: 'music',
 				children: [{
 					path: '',
-					loadChildren: () => import('../pages/music/music.module').then(m => m.MusicPageModule)
+					loadChildren: '../pages/music/music.module#MusicPageModule'
 				}]
 			}
-		]
+		],
 	}
 ];
 

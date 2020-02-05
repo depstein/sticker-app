@@ -15,12 +15,6 @@ import { HomePageRoutingModule } from  './home-routing.module';
     IonicModule,
 		NavigationbarModule,
 		HomePageRoutingModule,
-    RouterModule.forChild([
-      {
-        path: '',
-        component: HomePage
-      }
-    ])
   ],
   declarations: [HomePage]
 })
