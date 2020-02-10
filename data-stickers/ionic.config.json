@@ -1,7 +1,8 @@
 {
   "name": "data-stickers",
   "integrations": {
-    "cordova": {}
+    "cordova": {},
+    "capacitor": {}
   },
   "type": "angular"
 }
