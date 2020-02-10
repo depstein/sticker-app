@@ -13,7 +13,7 @@ https://github.com/ionic-team/ionic-conference-app/blob/master/src/app/pages/tab
 
 const routes: Routes = [
 	{
-		path: 'home',
+		path: '',
 		component: HomePage,
 		children: [
 			{
