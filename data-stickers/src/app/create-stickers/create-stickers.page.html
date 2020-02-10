@@ -30,19 +30,22 @@
         </ion-select>
       </ion-col>
     </ion-row>
+		
+		<ion-range min="0" max="100" step="1" pin="true">
+			<ion-icon size="small" slot="start" src="../../assets/icon/footprint.svg"></ion-icon>
+			<ion-icon slot="end" src="../../assets/icon/footprint.svg"></ion-icon>
+		</ion-range>
+	</ion-item>
   
-  <ion-button color="button" style="margin:auto;">
-    <ion-icon name="add"></ion-icon>
-    Add Goal</ion-button> 
-  </ion-item>
-<<<<<<< HEAD
 	<ion-item>
-=======
+		<ion-button color="button" style="margin:auto;">
+			<ion-icon name="add"></ion-icon>Add Goal
+		</ion-button> 
+  </ion-item>
+
   <ion-item>
->>>>>>> master
     <!--NOTE: sticker must be 1000x1000 pixels or it will not load-->
     <app-send-to-snapchat sticker="testanim_meta"></app-send-to-snapchat>
   </ion-item>
   
-
 </ion-content>
