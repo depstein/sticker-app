@@ -1,21 +1,29 @@
+ion-tab-bar {
+	padding: 0.3em;
+}
+
+ion-tab-button {
+	border-radius: 1em;
+}
+
 .steps.tab-selected {
-	--background: #d5efee !important; 
+	--background: var(--ion-color-steps-tint) !important; 
 }
 
 .heartrate.tab-selected {
-	--background: #dee6ee !important;
+	--background: var(--ion-color-heartrate-tint) !important;
 }
 
 .calories.tab-selected {
-	--background: #e5e4ee !important;
+	--background: var(--ion-color-calories-tint) !important;
 }
 
 .time.tab-selected {
-	--background: #f9dce3 !important;
+	--background: var(--ion-color-time-tint) !important;
 }
 
 .music.tab-selected {
-	--background: #ffe5db !important;
+	--background: var(--ion-color-music-tint) !important;
 }
 
 ion-content {
