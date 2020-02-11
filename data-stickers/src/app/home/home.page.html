@@ -1,13 +1,35 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-  <div class="ion-padding">
-    <app-send-to-snapchat></app-send-to-snapchat>
-  </div>
+<ion-content class="ion-padding" color="primary">
+	<br>
+	<ion-text>Here are some directions for getting started</ion-text>
 </ion-content>
+
+<ion-tabs>
+  <ion-tab-bar slot="bottom">
+	
+		<ion-tab-button class="steps" tab="steps">
+			<ion-icon src="../../assets/icon/footprint.svg"></ion-icon>
+			<ion-label>Steps</ion-label>
+		</ion-tab-button>
+		
+		<ion-tab-button class="heartrate" tab="heartrate">
+			<ion-icon src="../../assets/icon/bxs-heart.svg"></ion-icon>
+			<ion-label>Heart Rate</ion-label>
+		</ion-tab-button>
+		
+		<ion-tab-button class="calories" tab="calories">
+			<ion-icon src="../../assets/icon/bxs-hot.svg"></ion-icon>
+			<ion-label>Calories</ion-label>
+		</ion-tab-button>
+		
+		<ion-tab-button class="time" tab="time">
+			<ion-icon src="../../assets/icon/bxs-time-five.svg"></ion-icon>
+			<ion-label>Time</ion-label>
+		</ion-tab-button>
+		
+		<ion-tab-button class="music" tab="music">
+			<ion-icon src="../../assets/icon/bxs-music.svg"></ion-icon>
+			<ion-label>Music</ion-label>
+		</ion-tab-button>
+		
+  </ion-tab-bar>
+</ion-tabs>

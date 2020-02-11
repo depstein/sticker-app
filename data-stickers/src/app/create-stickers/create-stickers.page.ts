@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { NavController, NavParams } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
-
 @Component({
   selector: 'app-create-stickers',
   templateUrl: './create-stickers.page.html',
@@ -15,18 +14,19 @@ export class CreateStickersPage implements OnInit {
   image:String;
   domain:String;
   unit:any[] = [];
-  
-  constructor(public alertController: AlertController, public route: ActivatedRoute) { 
+	addedGoal:Boolean;
+	
+  constructor(public alertController: AlertController, public route: ActivatedRoute) {
     this.custom = "custom";
     this.goal = "ADD GOAL"; 
     this.image = this.route.snapshot.paramMap.get("img");
     this.domain = this.route.snapshot.paramMap.get("domain");
-    if(this.domain == "cal"){
+		this.addedGoal = false;
+		if(this.domain == "calories"){
       this.unit = ["calories"];
     }
     else if(this.domain == "steps"){
       this.unit = ["steps", "mile", "km"];
-
     }
     else if(this.domain == "music"){
       this.unit=["minutes", "hour","times" ];
@@ -37,27 +37,21 @@ export class CreateStickersPage implements OnInit {
     else if(this.domain == "heartrate"){
       this.unit=["bpm"];
     }
-
   }
-
   ngOnInit() {
- 
   }
-
   changeUnit(){
-   
   }
-
   addGoal(){
-    if(this.goal == "goal"){
+    if(this.goal == "REMOVE GOAL"){
       this.goal = "ADD GOAL";
+			this.addedGoal = true;
     }
     else{
-      this.goal = "goal";
+      this.goal = "REMOVE GOAL";
+			this.addedGoal = false;
     }
-    
   }
-
   customUnit(selector){
     if (selector == "custom"){
       this.presentPrompt() ;
@@ -84,16 +78,12 @@ export class CreateStickersPage implements OnInit {
         }, {
           text: 'OK',
           handler: data => {
-            this.custom = data.name;
+            //this.custom = data.name;
+						this.unit.push(data.name);	
           }
         }
       ]
     });
     await alert.present();
   }
-
-  }
-
-
-
-
+}

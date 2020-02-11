@@ -1,12 +1,23 @@
-.goal{
-    margin: 5px 5px ;
-    
+.unit{
+    margin:auto;
 }
-
-.b{
-    background: color(  --ion-color-medium-shade);
+ion-label{
+    text-align: center;
+    font: size 100px;
 }
-
-.ion-text-center{
-    margin-bottom: 0px;
+ion-item{
+    text-align: center !important;
+    margin:auto !important; 
+}
+ion-button{
+	margin:auto;
+}
+.select{
+    max-width: 100% !important;
+}
+#share{
+    text-align: center !important;
+}
+p{
+    color:white;
 }

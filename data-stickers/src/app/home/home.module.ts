@@ -5,20 +5,17 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { HomePage } from './home.page';
-import { SendToSnapchatComponent } from '../send-to-snapchat/send-to-snapchat.component';
+import { NavigationbarModule } from '../navigationbar/navigationbar.module';
+import { HomePageRoutingModule } from  './home-routing.module';
 
 @NgModule({
   imports: [
-    CommonModule,
+    CommonModule, 
     FormsModule,
     IonicModule,
-    RouterModule.forChild([
-      {
-        path: '',
-        component: HomePage
-      }
-    ])
+		NavigationbarModule,
+		HomePageRoutingModule,
   ],
-  declarations: [HomePage, SendToSnapchatComponent]
+  declarations: [HomePage]
 })
 export class HomePageModule {}

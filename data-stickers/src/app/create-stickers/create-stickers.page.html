@@ -1,5 +1,4 @@
 <ion-header>
-  
   <ion-toolbar>
     <ion-title>Edit Sticker </ion-title>
     <ion-buttons slot="start">
@@ -12,14 +11,13 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
-    <ion-item lines = "none"  >
-      <ion-img src = {{image}}></ion-img>
-    </ion-item>
-    
+	<ion-item lines = "none"  >
+		<ion-img src = {{image}}></ion-img>
+	</ion-item>
+	
   <ion-item lines = "none"  class="ion-text-center">
-    <ion-label position="floating" color="steps">Enter your Amount Of Steps</ion-label>
+    <ion-label position="floating" color={{domain}}>Enter your Amount Of {{domain}}</ion-label>
     <ion-row class = "unit">
       <ion-col col-6> 
         <ion-input value = "5,793"> </ion-input>
@@ -27,29 +25,33 @@
       <ion-col col-6>
         <ion-select class = "select" [(ngModel)]= "selector" value = "steps" [interfaceOptions]="customPopoverOptions" interface="popover" placeholder="Select One"  (ngModelChange) = "customUnit(selector)">
           <ion-select-option *ngFor="let op1 of unit"> {{op1}}</ion-select-option>
-    
           <ion-select-option value="custom"> {{custom}}</ion-select-option>
         </ion-select>
       </ion-col>
-
     </ion-row>
-  </ion-item>
-
-  <ion-item lines = "none">
-    <ion-button color="steps" (click)="addGoal()">
-      <ion-icon name="add"></ion-icon>
+		
+		<ion-row>
+			<ion-col col-6 *ngIf="goal == 'REMOVE GOAL'">
+				<ion-text>12345</ion-text>
+			</ion-col>
+      <ion-col col-6>
+        <ion-button color={{domain}} (click)="addGoal()">
+      <ion-icon *ngIf="goal == 'ADD GOAL'" name="add"></ion-icon>
+			<ion-icon *ngIf="goal == 'REMOVE GOAL'" name="trash"></ion-icon>
        {{goal}}</ion-button> 
+      </ion-col>
+		</ion-row>
+	
   </ion-item>
+	
+		<!--<ion-range min="0" max="100" step="1" pin="true">
+		<ion-icon size="small" slot="start" src="../../assets/icon/footprint.svg"></ion-icon>
+		<ion-icon slot="end" src="../../assets/icon/footprint.svg"></ion-icon>
+		</ion-range>-->
 
-  <ion-item lines = "none" color = "steps" >
-    <ion-icon name = "share" color = "light"> </ion-icon>
-      <p>Share</p>
-  </ion-item>
-
-  <!-- 
-  <ion-item lines = "none" >
-    NOTE: sticker must be 1000x1000 pixels or it will not load
+  <ion-item lines = "none" style="text-align:center">
+    <!--NOTE: sticker must be 1000x1000 pixels or it will not load-->
     <app-send-to-snapchat sticker="testanim_meta"></app-send-to-snapchat>
-  </ion-item> -->
-
+  </ion-item>
 </ion-content>
+

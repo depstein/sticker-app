@@ -24,3 +24,23 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+
+/* This class works to hide the scrollbar but messes up the formatting of blank pages */
+.hide-scrollbar {
+	--offset-bottom: auto!important;
+	--overflow: hidden;
+	overflow: auto;
+	&::-webkit-scrollbar {
+		display: none;
+	}
+}
+
+ion-col {
+	text-align: center;
+}
+
+img {
+		height: 100px;
+		width: 100px;
+}

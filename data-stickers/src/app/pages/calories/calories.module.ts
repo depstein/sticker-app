@@ -1,0 +1,22 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
+import { IonicModule } from '@ionic/angular';
+
+import { CaloriesPageRoutingModule } from './calories-routing.module';
+
+import { CaloriesPage } from './calories.page';
+import { NavigationbarModule } from '../../navigationbar/navigationbar.module';
+
+@NgModule({
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    CaloriesPageRoutingModule,
+		NavigationbarModule
+  ],
+  declarations: [CaloriesPage]
+})
+export class CaloriesPageModule {}
