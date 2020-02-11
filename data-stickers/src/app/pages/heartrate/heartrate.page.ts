@@ -20,13 +20,12 @@ export class HeartratePage implements OnInit {
 	img10: any;
 	img11: any;
 	img12: any;
-	img12:any;
-	img13:any;
-	img14:any;
-	img15:any;
-	img16:any;
-	img17:any;
-	img18:any;
+	img13: any;
+	img14: any;
+	img15: any;
+	img16: any;
+	img17: any;
+	img18: any;
 	
   constructor(private navCtrl: NavController, private router: Router) {
 		this.img1 = "../../../assets/stickers/heart rate/embellished-05.png" 

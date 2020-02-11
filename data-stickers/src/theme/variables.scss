@@ -89,48 +89,48 @@
 	/** custom color for steps page **/
 	--ion-color-steps: #35a8a1;
   --ion-color-steps-rgb: 42,48,48;
-  --ion-color-steps-contrast: #000000;
-  --ion-color-steps-contrast-rgb: 0,0,0;
+  --ion-color-steps-contrast: #ffffff;
+  --ion-color-steps-contrast-rgb: 255,255,255;
   --ion-color-steps-shade: #77cdc8;
   --ion-color-steps-tint: #D5efee;
 	
 	/* custom color for music page */
 	--ion-color-music: #5a819e;
   --ion-color-music-rgb: 90,129,158;
-  --ion-color-music-contrast: #000000;
-  --ion-color-music-contrast-rgb: 0,0,0;
+  --ion-color-music-contrast: #ffffff;
+  --ion-color-music-contrast-rgb: 255,255,255;
   --ion-color-music-shade: #78a9ce;
   --ion-color-music-tint: #dee6ee;
 	
 	/* custom color for calories page */ 
 	--ion-color-calories: #7d7aa2;
   --ion-color-calories-rgb: 125,122,162;
-  --ion-color-calories-contrast: #000000;
-  --ion-color-calories-contrast-rgb: 0,0,0;
+  --ion-color-calories-contrast: #ffffff;
+  --ion-color-calories-contrast-rgb: 255,255,255;
   --ion-color-calories-shade: #6a29fd4;
   --ion-color-calories-tint: #e5e4ee;
 	
 	/* custom color for time page */
 	--ion-color-time: #d85372;
   --ion-color-time-rgb: 216,83,114;
-  --ion-color-time-contrast: #000000;
-  --ion-color-time-contrast-rgb: 0,0,0;
+  --ion-color-time-contrast: #ffffff;
+  --ion-color-time-contrast-rgb: 255,255,255;
   --ion-color-time-shade: #e8899f;
   --ion-color-time-tint: #f9dce3;
 	
 	/* custom color for heart rate page */ 
 	--ion-color-heartrate: #f27c4c;
   --ion-color-heartrate-rgb: 242,124,76;
-  --ion-color-heartrate-contrast: #000000;
-  --ion-color-heartrate-contrast-rgb: 0,0,0;
+  --ion-color-heartrate-contrast: #ffffff;
+  --ion-color-heartrate-contrast-rgb: 255,255,255;
   --ion-color-heartrate-shade: #f4a482;
   --ion-color-heartrate-tint: #ffe5db;
 	
 		/* button */ 
 	--ion-color-button: #4C8985;
   --ion-color-button-rgb: 76, 137, 133;
-  --ion-color-button-contrast: #000000;
-  --ion-color-button-contrast-rgb: 0,0,0;
+  --ion-color-button-contrast: #ffffff;
+  --ion-color-button-contrast-rgb: 255,255,255;
   --ion-color-button-shade: #4C8985;
   --ion-color-button-tint: #4C8985;
 }
@@ -174,8 +174,8 @@
 .ion-color-heartrate {
   --ion-color-base: var(--ion-color-heartrate);
   --ion-color-base-rgb: var(--ion-color-heartrate-rgb);
-  //--ion-color-contrast: var(--ion-color-heartrate-contrast);
-  //--ion-color-contrast-rgb: var(--ion-color-heartrate-contrast-rgb);
+  --ion-color-contrast: var(--ion-color-heartrate-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-heartrate-contrast-rgb);
   --ion-color-shade: var(--ion-color-heartrate-shade);
   --ion-color-tint: var(--ion-color-heartrate-tint);
 }

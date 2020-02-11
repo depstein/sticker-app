@@ -1,23 +1,36 @@
 .unit{
-    margin:auto;
-}
-ion-label{
-    text-align: center;
-    font: size 100px;
-}
-ion-item{
-    text-align: center !important;
-    margin:auto !important; 
-}
-ion-button{
 	margin:auto;
 }
+
 .select{
-    max-width: 100% !important;
+	max-width: 100% !important;
 }
-#share{
-    text-align: center !important;
+
+.directions {
+	text-align: center;
+	font: size 100px;
+	margin: auto !important;
 }
-p{
-    color:white;
+
+ion-item{
+	text-align: center !important;
+}
+
+ion-input{
+	border-bottom: 2px solid black;
+}
+
+ion-row {
+	display: flex;
+	margin: auto;
+}
+
+ion-col {
+	margin: auto;
+	margin-right: 10px;
+	margin-left: 10px;
+}
+
+ion-button{
+	margin:auto;
 }
