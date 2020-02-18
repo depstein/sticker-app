@@ -12,8 +12,29 @@
 	margin: auto !important;
 }
 
-ion-item{
+.input-wrapper {
+	text-align: center;
+	margin: auto;
+}
+
+.image-container {
+	text-align: center;
+}
+
+.item-native {
+	padding-left: 0;
+}
+
+ion-img {
+	width: 200px;
+	height: 200px;
+	margin: auto;
+}
+
+ion-item {
 	text-align: center !important;
+	--padding-start: 0px;
+	--inner-padding-end: 0px;
 }
 
 ion-input{
