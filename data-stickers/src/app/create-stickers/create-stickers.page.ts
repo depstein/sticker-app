@@ -11,23 +11,23 @@ export class CreateStickersPage implements OnInit {
   unit_selector:any;
   custom:any;
   goal:any;
-  image:String;
-  domain:String;
+  image:string;
+  domain:string;
   unit_list:any[] = [];
 	unit_copy:any[] = [];	// Used for slider's *ngIf to check for custom unit
 	input_value:number;
 	slider_input_value:number;
 	max_slider_value:number;
-	slider_image_url:String;
-	music_input_value:String;
-	selected_unit:String;	// Used for error prevention
+	slider_image_url:string;
+	music_input_value:string;
+	selected_unit:string;	// Used for error prevention
 	goal_str:any;
 	music_units:any[] = [];
-	music_selector:String;
+	music_selector:string;
 	pulse:boolean;
-	music_str:String;
+	music_str:string;
 	saved_value:number;	// Used to save initial input value (for steps conversions) 
-	saved_unit:String;	// Same as above
+	saved_unit:string;	// Same as above
 	domain_info = {}; 
 	
   constructor(public alertController: AlertController, public route: ActivatedRoute) {
