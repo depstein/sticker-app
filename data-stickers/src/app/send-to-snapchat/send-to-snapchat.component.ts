@@ -13,6 +13,7 @@ export class SendToSnapchatComponent implements OnInit {
 	}
 
   ngOnInit() {
+		console.log('here');
     //This may not work if you have an adblocker running.
   	var js, sjs = document.getElementsByTagName('script')[0];
 		var tag = document.getElementById('snapkit-creative-kit-sdk');
