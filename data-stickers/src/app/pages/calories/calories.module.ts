@@ -7,15 +7,13 @@ import { IonicModule } from '@ionic/angular';
 import { CaloriesPageRoutingModule } from './calories-routing.module';
 
 import { CaloriesPage } from './calories.page';
-import { NavigationbarModule } from '../../navigationbar/navigationbar.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    CaloriesPageRoutingModule,
-		NavigationbarModule
+    CaloriesPageRoutingModule
   ],
   declarations: [CaloriesPage]
 })

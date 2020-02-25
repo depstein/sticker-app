@@ -8,23 +8,27 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./create-stickers.page.scss'],
 })
 export class CreateStickersPage implements OnInit {
-  selector:any;
+  unit_selector:any;
   custom:any;
   goal:any;
   image:String;
   domain:String;
-  unit:any[] = [];
+  unit_list:any[] = [];
+	unit_copy:any[] = [];	// Used for slider's *ngIf to check for custom unit
 	input_value:number;
+	slider_input_value:number;
+	max_slider_value:number;
+	slider_image_url:String;
 	music_input_value:String;
-	selected_unit:String;
+	selected_unit:String;	// Used for error prevention
 	goal_str:any;
 	music_units:any[] = [];
-	defaultUnit:any; 
+	music_selector:String;
 	pulse:boolean;
-	shake:boolean;
-	fill:boolean;
-	countUp:boolean;
 	music_str:String;
+	saved_value:number;	// Used to save initial input value (for steps conversions) 
+	saved_unit:String;	// Same as above
+	domain_info = {}; 
 	
   constructor(public alertController: AlertController, public route: ActivatedRoute) {
     this.custom = "custom";
@@ -32,58 +36,95 @@ export class CreateStickersPage implements OnInit {
     this.image = this.route.snapshot.paramMap.get("img");
     this.domain = this.route.snapshot.paramMap.get("domain");
 		this.input_value = 0;
+		this.slider_input_value = 0;
 		this.music_input_value = "The Beatles";
 		this.goal_str = '';
 		this.music_units = ['songs', 'albums', 'artists']; 
 		
-		this.pulse = false;
-		this.shake = false;
-		this.fill = false;
-		this.countUp = false;
-		
-		
-		if(this.domain == "calories"){
-      this.unit = ["calories"];
-			this.selector = this.unit[0].trim();
-			this.selected_unit = this.selector;
-    }
-    else if(this.domain == "steps"){
-      this.unit = ["steps", "mile", "km"];
-			this.selector = this.unit[0].trim();
-			this.selected_unit = this.selector;
-    }
-    else if(this.domain == "music"){
-      this.unit=["minutes", "hours", "plays"]; 
-			this.selector = this.unit[0].trim();
-			this.music_selector = this.music_units[0].trim();
-			this.selected_unit = this.selector;
-    }
-    else if(this.domain == "time"){
-      this.unit=["hours", "minutes", "days"];
-			this.selector = this.unit[0].trim();
-			this.selected_unit = this.selector;
-    }
-    else if(this.domain == "heartrate"){
-      this.unit=["bpm"];
-			this.selector = this.unit[0].trim();
-			this.selected_unit = this.selector;
-    }
+		this.domain_info = {
+			"steps": {
+				"units": {
+					"steps": {
+						"maxAmount": 10000
+					},
+					"miles": {
+						"maxAmount": 100
+					},
+					"km": {
+						"maxAmount": 100
+					}
+				},
+				"slider_image_url": "../../assets/icon/footprint.svg"
+			},
+			"heartrate": {
+				"units": {
+					"bpm": {
+						"maxAmount": 100
+					}
+				},
+				"slider_image_url": "../../assets/icon/bxs-heart.svg"
+			},
+			"calories": {
+				"units": {
+					"calories": {
+						"maxAmount": 10000
+					}
+				},
+				"slider_image_url": "../../assets/icon/bxs-hot.svg"
+			},
+			"time": {
+				"units": {
+					"hours": {
+						"maxAmount": 24
+					},
+					"minutes": {
+						"maxAmount": 60
+					},
+					"days": {
+						"maxAmount": 14
+					}
+				},
+				"slider_image_url": "../../assets/icon/bxs-time-five.svg"
+			},
+			"music": {
+				"units": {
+					"minutes": {
+						"maxAmount": 60
+					},
+					"hours": {
+						"maxAmount": 24
+					},
+					"plays": {
+						"maxAmount": 50
+					}
+				},
+				"slider_image_url": "../../assets/icon/bxs-music.svg"
+			}
+		}		
+
+		this.unit_list = Object.keys(this.domain_info[this.domain].units);
+		this.unit_copy = this.unit_list;
+		this.unit_selector = this.unit_list[0].trim();
+		this.selected_unit = this.unit_selector;
+		this.max_slider_value = this.domain_info[this.domain].units[this.selected_unit].maxAmount;
+		this.slider_image_url = this.domain_info[this.domain].slider_image_url;
+		console.log(this.slider_image_url);
   }
 	
   ngOnInit() {
   }
-	
-  changeUnit(){
-  }
-	
+
+	// Called to calculate unit conversions when the selected unit is changed 
 	convertValue(currentUnit, newUnit){
-		// Add error prevention for custom units (check to verify that both currentUnit and newUnit are present in the units array)
+		if (!this.unit_list.includes(currentUnit) || !this.unit_list.includes(newUnit)) {
+			return 0;
+		}
 		let result;
 		currentUnit = currentUnit.trim();
 		newUnit = newUnit.trim();
 		
 		if (this.domain == 'steps') { // average step distance = 2.5 feet 
-			if (currentUnit == 'mile') {
+			if (currentUnit == 'miles') {
 				if (newUnit == 'km') {
 					result = this.input_value * 1.60934;
 					return result.toFixed(2);
@@ -92,7 +133,7 @@ export class CreateStickersPage implements OnInit {
 					return result.toFixed(2);
 				}
 			} else if (currentUnit == 'km') {
-				if (newUnit == 'mile') {
+				if (newUnit == 'miles') {
 					result = this.input_value / 1.60934;
 					return result.toFixed(2);
 				} else if (newUnit == 'steps') {
@@ -100,7 +141,7 @@ export class CreateStickersPage implements OnInit {
 					return result.toFixed(2);
 				}
 			} else {  // currentUnit = 'steps'
-				if (newUnit == 'mile') {
+				if (newUnit == 'miles') {
 					result = this.input_value * 2.5 / 5280;
 					return result.toFixed(2);
 				} else if (newUnit == 'km') {
@@ -166,7 +207,8 @@ export class CreateStickersPage implements OnInit {
 		}
 	}
 	
-  addGoal(){
+	// Bound to click event for add/remove goal button
+  toggleGoal(){
     if(this.goal == "REMOVE"){
       this.goal = "ADD GOAL";
     }
@@ -178,10 +220,14 @@ export class CreateStickersPage implements OnInit {
 			} else if (this.input_value <= 0 || this.input_value == undefined) {
 				this.presentErrorPrompt2();
 				return;
+			} else if (isNaN(this.input_value)) {
+				this.presentErrorPrompt3();
+				return;
 			}
+			
       this.goal = "REMOVE";
 			if (this.domain == "music") {
-				this.goal_str = this.input_value
+				this.goal_str = this.input_value;
 				this.music_str = this.selected_unit + ' of ' + this.music_input_value;
 			} else {
 				this.goal_str = this.input_value;
@@ -189,48 +235,54 @@ export class CreateStickersPage implements OnInit {
     }
   }
 	
-	updateGoal() {
-		if (this.goal == "REMOVE") {
+	// Bound to onChange event for input box 
+	updateInputValue() {
+		if (this.goal == "REMOVE") {	// If a goal has been created it must be updated
 			if (this.domain == "music") {
 				this.goal_str = this.input_value + ' ' + this.selected_unit + ' of ' + this.music_input_value;
 			} else {
 				this.goal_str = this.input_value;
 			}
 		}
+		this.slider_input_value = this.input_value;
 	}
 	
-  customUnit(selector){
-    if (selector == "custom"){
-      this.presentPrompt();
+	// Bound to onChange event for the unit selector 
+  unitChanged(unit_selector){
+    if (unit_selector == "custom"){
+      this.presentCustomUnitPrompt();
     }
 		if (this.selected_unit != undefined) {
-			// Save the value so that conversions don't mess up original input (mostly for steps) 
+			// Saves the value so that conversions don't mess up original input (mostly for steps) 
 			if (this.saved_value == undefined) {
 				this.saved_value = this.input_value;
 				this.saved_unit = this.selected_unit;
+				console.log(this.saved_value);
+				console.log(this.saved_unit);
 			} else {
-				if (this.selector == this.saved_unit) {
+				if (this.unit_selector == this.saved_unit) {
 					this.input_value = this.saved_value;
-					this.selected_unit = this.selector;
+					this.selected_unit = this.saved_unit;
+					this.updateInputValue();
 					return;
 				}
 			}
-			console.log("calling convertValue");
-			this.input_value = this.convertValue(this.selected_unit, this.selector)
-		} else {
-			console.log("undefined");
+			this.input_value = this.convertValue(this.selected_unit, this.unit_selector)
 		}
-		this.selected_unit = this.selector;
+		this.updateInputValue();
+		this.selected_unit = this.unit_selector;
+		this.max_slider_value = this.domain_info[this.domain].units[this.selected_unit].maxAmount;
+		this.slider_image_url = this.domain_info[this.domain].slider_image_url;
   }
 	
-	/*customMusicUnit(music_unit) {
-		if (music_unit == "custom"){
-			this.presentMusicPrompt();
+	// Bound to onChange event for slider
+	updateInputValueFromSlider() {
+		if (this.slider_input_value >= 0 && this.slider_input_value <= this.max_slider_value) {
+			this.input_value = this.slider_input_value; 
 		}
-		this.music_selector = music_unit;
-	}*/
+	}
 	
-  async presentPrompt() {
+  async presentCustomUnitPrompt() {
     const alert = await this.alertController.create({
       header: 'Customize Unit!',
       inputs: [
@@ -251,8 +303,38 @@ export class CreateStickersPage implements OnInit {
         }, {
           text: 'OK',
           handler: data => {
-						this.unit.push(data.name);
-						this.selector = data.name;
+						this.unit_list.push(data.name);
+						this.unit_selector = data.name;
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+	
+	async presentCustomMusicUnitPrompt() {
+    const alert = await this.alertController.create({
+      header: 'Customize Unit!',
+      inputs: [
+        {
+          name: 'name',
+          type: 'text',
+          placeholder: 'units'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'OK',
+          handler: data => {
+						this.music_units.push(data.name);
+						this.music_selector = data.name;
           }
         }
       ]
@@ -284,44 +366,33 @@ export class CreateStickersPage implements OnInit {
 		await alert.present();
 	}
 	
+	async presentErrorPrompt3() {
+		const alert = await this.alertController.create({
+			header: 'Error: Amount must be numeric',
+			buttons: [
+				{
+					text: 'Got It!',
+				}
+			]
+		});
+		await alert.present();
+	}
 	
-	// Bindings to click events for animation buttons
 	pulseAnimation() {
+		// Variable to toggle the animation
 		if (this.pulse == false) { // activate pulse animation
-			this.pulse == true; 
+			this.pulse = true; 
 			
 		} else {								   // deactivate
-			this.pulse == false;
+			this.pulse = false;
 			
 		}
 	}
-	shakeAnmiation() {
-		if (this.shake == false) { // activate shake animation
-			this.shake == true; 
-			
-		} else {								   // deactivate
-			this.shake == false;
-			
-		}
-	}
-	fillAnimation() {
-		if (this.fill == false) { // activate fill animation
-			this.fill == true; 
-			
-		} else {								  // deactivate
-			this.fill == false;
-			
-		}
-	}
-	countAnimation() {
-		if (this.countUp == false) { // activate count up animation
-			this.countUp == true; 
-		} else {								     // deactivate
-			this.countUp == false;
-		}
-	}	
+	shakeAnmiation() {}
+	fillAnimation() {}
+	countAnimation() {}	
 	
-	// Binding to sharesheet button 
-	shareButton() {}
+	// Binding to onClick event of sharesheet button 
+	shareButton() {}  
 	
 }
