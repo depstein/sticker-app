@@ -1,23 +1,27 @@
-.unit{
-	margin:auto;
+ion-content {
+	height: 100vh;
+	background-color: white;
 }
 
-.select{
-	max-width: 100% !important;
+ion-img {
+	height: 151px;
+	width: 151px;
+	margin: auto;
 }
 
-.directions {
-	text-align: center;
-	font: size 100px;
-	margin: auto !important;
-}
-
-ion-item{
+ion-item {
 	text-align: center !important;
+	--padding-start: 0px;
+	--inner-padding-end: 0px;
 }
 
 ion-input{
 	border-bottom: 2px solid black;
+}
+
+ion-range {
+	padding-top: 5px;
+	--knob-size: 20px;
 }
 
 ion-row {
@@ -33,4 +37,63 @@ ion-col {
 
 ion-button{
 	margin:auto;
+}
+
+.unit {
+	margin:auto;
+}
+
+.select {
+	max-width: 100% !important;
+}
+
+.input_label {
+	text-align: center;
+	width: 100%;
+	font: size 100px;
+	margin: auto !important;
+	padding-left: 10%;
+}
+
+.ios .slider-icon-left {
+	padding-right: 5px;
+}
+
+.ios .slider-icon-right {
+	padding-left: 5px;
+}
+
+.goal {
+	color: black;
+}
+
+.share-banner {
+	text-align: center; 
+	margin-top: 12%;
+	--min-height: 70px;
+}
+
+.share-label {
+	margin-right: 0;
+}
+
+.share-icon {
+	margin-right: 7%;
+}
+
+.share-button {
+	margin-right: 5%;
+}
+
+.input-wrapper {
+	text-align: center;
+	margin: auto;
+}
+
+.image-container {
+	text-align: center;
+}
+
+.item-native {
+	padding-left: 0;
 }

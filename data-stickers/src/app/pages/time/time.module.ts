@@ -7,15 +7,13 @@ import { IonicModule } from '@ionic/angular';
 import { TimePageRoutingModule } from './time-routing.module';
 
 import { TimePage } from './time.page';
-import { NavigationbarModule } from '../../navigationbar/navigationbar.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    TimePageRoutingModule,
-	NavigationbarModule
+    TimePageRoutingModule
   ],
   declarations: [TimePage]
 })
