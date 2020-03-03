@@ -8,12 +8,12 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./create-stickers.page.scss'],
 })
 export class CreateStickersPage implements OnInit {
-  unit_selector:any;
-  custom:any;
-  goal:any;
-  image:string;
-  domain:string;
-  unit_list:any[] = [];
+	unit_selector:any;
+	custom:any;
+	goal:any;
+	image:string;
+	domain:string;
+	unit_list:any[] = [];
 	unit_copy:any[] = [];	// Used for slider's *ngIf to check for custom unit
 	input_value:number;
 	slider_input_value:number;
@@ -31,16 +31,15 @@ export class CreateStickersPage implements OnInit {
 	domain_info = {}; 
 	
   constructor(public alertController: AlertController, public route: ActivatedRoute) {
-    this.custom = "custom";
-    this.goal = "ADD GOAL"; 
-    this.image = this.route.snapshot.paramMap.get("img");
-    this.domain = this.route.snapshot.paramMap.get("domain");
+		this.custom = "custom";
+		this.goal = "ADD GOAL"; 
+		this.image = this.route.snapshot.paramMap.get("img");
+		this.domain = this.route.snapshot.paramMap.get("domain");
 		this.input_value = 0;
 		this.slider_input_value = 0;
 		this.music_input_value = "The Beatles";
 		this.goal_str = '';
 		this.music_units = ['songs', 'albums', 'artists']; 
-		
 		this.domain_info = {
 			"steps": {
 				"units": {
@@ -100,8 +99,7 @@ export class CreateStickersPage implements OnInit {
 				},
 				"slider_image_url": "../../assets/icon/bxs-music.svg"
 			}
-		}		
-
+		}		  
 		this.unit_list = Object.keys(this.domain_info[this.domain].units);
 		this.unit_copy = this.unit_list;
 		this.unit_selector = this.unit_list[0].trim();
@@ -177,7 +175,6 @@ export class CreateStickersPage implements OnInit {
 					return result.toFixed(2);
 				}
 			}
-			
 		} else {	// time
 			if (currentUnit == 'hours') {
 				if (newUnit == 'minutes') {
@@ -225,7 +222,7 @@ export class CreateStickersPage implements OnInit {
 				return;
 			}
 			
-      this.goal = "REMOVE";
+      		this.goal = "REMOVE";
 			if (this.domain == "music") {
 				this.goal_str = this.input_value;
 				this.music_str = this.selected_unit + ' of ' + this.music_input_value;
@@ -252,27 +249,27 @@ export class CreateStickersPage implements OnInit {
     if (unit_selector == "custom"){
       this.presentCustomUnitPrompt();
     }
-		if (this.selected_unit != undefined) {
-			// Saves the value so that conversions don't mess up original input (mostly for steps) 
-			if (this.saved_value == undefined) {
-				this.saved_value = this.input_value;
-				this.saved_unit = this.selected_unit;
-				console.log(this.saved_value);
-				console.log(this.saved_unit);
-			} else {
-				if (this.unit_selector == this.saved_unit) {
-					this.input_value = this.saved_value;
-					this.selected_unit = this.saved_unit;
-					this.updateInputValue();
-					return;
-				}
+	if (this.selected_unit != undefined) {
+		// Saves the value so that conversions don't mess up original input (mostly for steps) 
+		if (this.saved_value == undefined) {
+			this.saved_value = this.input_value;
+			this.saved_unit = this.selected_unit;
+		//	console.log(this.saved_value);
+		//	console.log(this.saved_unit);
+		} else {
+			if (this.unit_selector == this.saved_unit) {
+				this.input_value = this.saved_value;
+				this.selected_unit = this.saved_unit;
+				this.updateInputValue();
+				return;
 			}
-			this.input_value = this.convertValue(this.selected_unit, this.unit_selector)
 		}
-		this.updateInputValue();
-		this.selected_unit = this.unit_selector;
-		this.max_slider_value = this.domain_info[this.domain].units[this.selected_unit].maxAmount;
-		this.slider_image_url = this.domain_info[this.domain].slider_image_url;
+		this.input_value = this.convertValue(this.selected_unit, this.unit_selector)
+	}
+	this.updateInputValue();
+	this.selected_unit = this.unit_selector;
+	this.max_slider_value = this.domain_info[this.domain].units[this.selected_unit].maxAmount;
+	this.slider_image_url = this.domain_info[this.domain].slider_image_url;
   }
 	
 	// Bound to onChange event for slider
@@ -391,7 +388,6 @@ export class CreateStickersPage implements OnInit {
 	shakeAnmiation() {}
 	fillAnimation() {}
 	countAnimation() {}	
-	
 	// Binding to onClick event of sharesheet button 
 	shareButton() {}  
 	

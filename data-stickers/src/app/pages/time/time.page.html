@@ -1,7 +1,27 @@
 <ion-content class="hide-scrollbar" color="time">
 	
 	<!-- This grid is a placeholder; will be dynamically rendered with ngFor --> 
-	<ion-grid>
+	<ion-grid >
+		<ion-row *ngFor = "let it of image">
+			<ion-col >
+				<div>
+					<img [src]= "it" (click)="goToCreateStickerPage(it)">
+				</div>
+			</ion-col>
+			<ion-col>
+				<div>
+					<img [src] = "it" (click)="goToCreateStickerPage(it)">
+				</div>
+			</ion-col>
+			<ion-col>
+				<div>
+					<img [src] = "it" (click)="goToCreateStickerPage(it)">
+				</div>
+			</ion-col>
+		</ion-row>
+		
+
+
 		<ion-row>
 			<ion-col>
 				<div>
