@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { NavigationbarComponent } from './navigationbar.component';
+import { AnimationButtonsComponent } from './animation-buttons.component';
 
-describe('NavigationbarComponent', () => {
-  let component: NavigationbarComponent;
-  let fixture: ComponentFixture<NavigationbarComponent>;
+describe('AnimationButtonsComponent', () => {
+  let component: AnimationButtonsComponent;
+  let fixture: ComponentFixture<AnimationButtonsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NavigationbarComponent ],
+      declarations: [ AnimationButtonsComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(NavigationbarComponent);
+    fixture = TestBed.createComponent(AnimationButtonsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

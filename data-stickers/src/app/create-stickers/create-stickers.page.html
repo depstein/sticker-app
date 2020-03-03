@@ -18,61 +18,11 @@
 		<ion-img src={{image}}></ion-img>
 	</ion-item>
 	
-	<!-- Animation buttons --> 
-	<ion-item lines="none">
-		<ion-row>
-			<!-- Pulse animation --> 
-			<ion-col>
-				<ion-icon name="pulse" (click)="pulseAnimation()"></ion-icon>
-			</ion-col>
-			<!-- Shake animation --> 
-			<ion-col>
-				<ion-icon name="radio" (click)="shakeAnimation()"></ion-icon>
-			</ion-col>
-			<!-- Fill animation (goal only) --> 
-			<ion-col>
-				<ion-icon name="color-fill" (click)="fillAnimation()"></ion-icon>
-			</ion-col>
-			<!-- Count up animation (analogy/no goal) --> 
-			<ion-col>
-				<ion-icon name="arrow-up" (click)="countAnimation()"></ion-icon>
-			</ion-col>
-		</ion-row>
-	</ion-item>
+	<!-- Animation buttons component --> 
+	<app-animation-buttons></app-animation-buttons>
 	
-	<!-- Input box and unit selector --> 
-  <ion-item lines="none">
-    <ion-label class="input_label" position="floating" color={{domain}}>Enter your amount of {{selected_unit}}</ion-label>
-    <ion-row class = "unit">
-      <ion-col col-6> 
-        <ion-input [(ngModel)]="input_value" (ngModelChange)="updateInputValue()"> </ion-input>
-      </ion-col>
-      <ion-col col-6>
-        <ion-select class="select" [(ngModel)]="unit_selector" [interfaceOptions]="customPopoverOptions" interface="popover" (ngModelChange)="unitChanged(unit_selector)">
-          <ion-select-option *ngFor="let op1 of unit_list" value={{op1}}> {{op1}}</ion-select-option>
-          <ion-select-option value="custom"> {{custom}}</ion-select-option>
-        </ion-select>
-      </ion-col>
-    </ion-row>
-	</ion-item>
-	
-	<!-- Input slider --> 
-	<ion-range *ngIf="unit_copy.includes(unit_selector)" color={{domain}} min="0" max={{max_slider_value}} step="1" [(ngModel)]="slider_input_value" (ngModelChange)="updateInputValueFromSlider()">
-		<ion-icon class="slider-icon-left" size="small" slot="start" src={{slider_image_url}}></ion-icon>
-		<ion-icon class="slider-icon-right" slot="end" src={{slider_image_url}}></ion-icon>
-	</ion-range>
-	
-	<!-- Additional input for music domain --> 
-	<ion-item *ngIf ="domain == 'music'" lines="none">
-		<ion-row class = "unit">
-			<ion-col size="3"> 
-				<ion-text>of</ion-text>
-			</ion-col>
-			<ion-col>
-				<ion-input [(ngModel)]="music_input_value"> </ion-input>
-			</ion-col>
-		</ion-row>
-	</ion-item>
+	<!-- Input component (includes input and unit selector) --> 
+	<app-input [(unit_selector)]="unit_selector" [(custom)]="custom" [(input_value)]="input_value" [(slider_input_value)]="slider_input_value" [(max_slider_value)]="max_slider_value" [(slider_image_url)]="slider_image_url" [(music_input_value)]="music_input_value" [(selected_unit)]="selected_unit"  [(domain)]="domain" [(unit_list)]="unit_list" [(unit_copy)]="unit_copy" [(music_selector)]="music_selector" [(goal)]="goal" [(goal_str)]="goal_str" [(domain_info)]="domain_info" (input_changed)="onInputChange($event)" (unit_changed)="onUnitChange($event)"></app-input>
 		
 	<!-- Add/Remove Goal --> 
 	<ion-item lines="none">
@@ -89,12 +39,19 @@
 		</ion-row>
   </ion-item>
 		
-	<!-- Share to Snapchat banner --> 
-	<ion-item class="share-banner" lines="none" color={{domain}} >
+
+	
+</ion-content>
+
+<ion-footer>
+	<ion-toolbar  color={{domain}}>
+	  
+	  	<!-- Share to Snapchat banner --> 
+	<ion-item class="share-banner" lines="none"  color={{domain}}>
 		<!--NOTE: sticker must be 1000x1000 pixels or it will not load-->
 		<ion-label class="share-label">Share to Snapchat</ion-label>
 		<ion-icon class="share-icon" name="arrow-forward"></ion-icon>
 		<app-send-to-snapchat class="share-button" sticker="testanim_meta"></app-send-to-snapchat>
 	</ion-item>
-	
-</ion-content>
+	</ion-toolbar>
+  </ion-footer>
