@@ -1,0 +1,16 @@
+ion-item {
+	text-align: center !important;
+	--padding-start: 0px;
+	--inner-padding-end: 0px;
+}
+
+ion-row {
+	display: flex;
+	margin: auto;
+}
+
+ion-col {
+	margin: auto;
+	margin-right: 10px;
+	margin-left: 10px;
+}

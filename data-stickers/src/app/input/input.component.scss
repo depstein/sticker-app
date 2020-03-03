@@ -1,0 +1,53 @@
+ion-item {
+	text-align: center !important;
+	--padding-start: 0px;
+	--inner-padding-end: 0px;
+}
+
+ion-input{
+	border-bottom: 2px solid black;
+}
+
+ion-range {
+	padding-top: 5px;
+	--knob-size: 20px;
+}
+
+ion-row {
+	display: flex;
+	margin: auto;
+}
+
+ion-col {
+	margin: auto;
+	margin-right: 10px;
+	margin-left: 10px;
+}
+
+ion-button{
+	margin:auto;
+}
+
+.unit {
+	margin:auto;
+}
+
+.select {
+	max-width: 100% !important;
+}
+
+.input_label {
+	text-align: center;
+	width: 100%;
+	font: size 100px;
+	margin: auto !important;
+	padding-left: 10%;
+}
+
+.ios .slider-icon-left {
+	padding-right: 5px;
+}
+
+.ios .slider-icon-right {
+	padding-left: 5px;
+}

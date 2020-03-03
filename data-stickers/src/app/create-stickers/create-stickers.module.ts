@@ -7,6 +7,8 @@ import { IonicModule } from '@ionic/angular';
 import { CreateStickersPageRoutingModule } from './create-stickers-routing.module';
 
 import { CreateStickersPage } from './create-stickers.page';
+import { InputComponent } from '../input/input.component';
+import { AnimationButtonsComponent } from '../animation-buttons/animation-buttons.component';
 import { SendToSnapchatComponent } from '../send-to-snapchat/send-to-snapchat.component';
 
 @NgModule({
@@ -16,6 +18,6 @@ import { SendToSnapchatComponent } from '../send-to-snapchat/send-to-snapchat.co
     IonicModule,
     CreateStickersPageRoutingModule
   ],
-  declarations: [CreateStickersPage, SendToSnapchatComponent]
+  declarations: [CreateStickersPage, SendToSnapchatComponent, InputComponent, AnimationButtonsComponent]
 })
 export class CreateStickersPageModule {}
