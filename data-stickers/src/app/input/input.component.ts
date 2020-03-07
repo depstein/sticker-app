@@ -28,6 +28,8 @@ export class InputComponent implements OnInit {
 	@Input() goal_str;
 	@Input() saved_value;
 	@Input() saved_unit;
+
+	music_str: string;
 	
   constructor(public alertController: AlertController) {}
 

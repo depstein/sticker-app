@@ -2,8 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\app"
+    "\\src\\app",
+    "\\src\\app\\animation-buttons",
+    "\\src\\app\\sticker-list"
   ],
-  "SelectedNode": "\\src\\app\\pages",
+  "SelectedNode": "\\src\\app\\animation-buttons\\animation-buttons.component.ts",
   "PreviewInSolutionExplorer": false
 }

@@ -23,7 +23,6 @@ export class CreateStickersPage implements OnInit {
 	selected_unit:string;	// Used for error prevention
 	goal_str:any;
 	music_selector:string;
-	music_str:string;
 	saved_value:number;	// Used to save initial input value (for steps conversions) 
 	saved_unit:string;	// Same as above
 	domain_info = {}; 

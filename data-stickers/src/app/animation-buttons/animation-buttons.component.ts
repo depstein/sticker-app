@@ -7,10 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AnimationButtonsComponent implements OnInit {
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {}
-	
+
+  noAnimation() {}
 	pulseAnimation() {}
 	shakeAnmiation() {}
 	fillAnimation() {}
