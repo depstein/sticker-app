@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { TimePageRoutingModule } from './time-routing.module';
+import { StickerListPageRoutingModule } from './sticker-list-routing.module';
 
-import { TimePage } from './time.page';
+import { StickerListPage } from './sticker-list.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    TimePageRoutingModule
+    StickerListPageRoutingModule
   ],
-  declarations: [TimePage]
+  declarations: [StickerListPage]
 })
-export class TimePageModule {}
+export class StickerListPageModule {}

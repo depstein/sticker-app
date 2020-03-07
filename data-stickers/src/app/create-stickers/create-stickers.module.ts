@@ -8,8 +8,10 @@ import { CreateStickersPageRoutingModule } from './create-stickers-routing.modul
 
 import { CreateStickersPage } from './create-stickers.page';
 import { InputComponent } from '../input/input.component';
+import { StickerComponent } from '../sticker/sticker.component';
 import { AnimationButtonsComponent } from '../animation-buttons/animation-buttons.component';
 import { SendToSnapchatComponent } from '../send-to-snapchat/send-to-snapchat.component';
+
 
 @NgModule({
   imports: [
@@ -18,6 +20,6 @@ import { SendToSnapchatComponent } from '../send-to-snapchat/send-to-snapchat.co
     IonicModule,
     CreateStickersPageRoutingModule
   ],
-  declarations: [CreateStickersPage, SendToSnapchatComponent, InputComponent, AnimationButtonsComponent]
+  declarations: [CreateStickersPage, SendToSnapchatComponent, InputComponent, StickerComponent, AnimationButtonsComponent]
 })
 export class CreateStickersPageModule {}

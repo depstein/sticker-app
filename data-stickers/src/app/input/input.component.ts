@@ -168,6 +168,37 @@ export class InputComponent implements OnInit {
 			this.input_value = this.slider_input_value; 
 		}
 	}
+
+	// Bound to click event for add/remove goal button
+	toggleGoal() {
+		if (this.goal == "REMOVE") {
+			this.goal = "ADD GOAL";
+		}
+		else {
+			// Error prevention 
+			if (this.selected_unit == undefined) {
+				this.presentErrorPrompt();
+				return;
+			} else if (this.input_value <= 0 || this.input_value == undefined) {
+				this.presentErrorPrompt2();
+				return;
+			} else if (isNaN(this.input_value)) {
+				this.presentErrorPrompt3();
+				return;
+			} else if (this.selected_unit == 'custom') {
+				this.presentErrorPrompt4();
+				return;
+			}
+
+			this.goal = "REMOVE";
+			if (this.domain == "music") {
+				this.goal_str = this.input_value;
+				this.music_str = this.selected_unit + ' of ' + this.music_input_value;
+			} else {
+				this.goal_str = this.input_value;
+			}
+		}
+	}
 	
   async presentCustomUnitPrompt() {
     const alert = await this.alertController.create({
@@ -197,6 +228,54 @@ export class InputComponent implements OnInit {
       ]
     });
     await alert.present();
-  }
+	}
+
+	async presentErrorPrompt() {
+		const alert = await this.alertController.create({
+			header: 'Error: select units with the drop-down menu before adding a goal',
+			buttons: [
+				{
+					text: 'Got It!',
+				}
+			]
+		});
+		await alert.present();
+	}
+
+	async presentErrorPrompt2() {
+		const alert = await this.alertController.create({
+			header: 'Error: Amount must be greater than 0',
+			buttons: [
+				{
+					text: 'Got It!',
+				}
+			]
+		});
+		await alert.present();
+	}
+
+	async presentErrorPrompt3() {
+		const alert = await this.alertController.create({
+			header: 'Error: Amount must be numeric',
+			buttons: [
+				{
+					text: 'Got It!',
+				}
+			]
+		});
+		await alert.present();
+	}
+
+	async presentErrorPrompt4() {
+		const alert = await this.alertController.create({
+			header: 'Error: Must specify units before creating goal',
+			buttons: [
+				{
+					text: 'Got It!',
+				}
+			]
+		});
+		await alert.present();
+	}
 
 }

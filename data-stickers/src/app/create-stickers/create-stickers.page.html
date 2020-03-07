@@ -14,30 +14,13 @@
 
 <ion-content class="hide-scrollbar">
 	<!-- Sticker image --> 
-	<ion-item class="image-container" lines="none">
-		<ion-img src={{image}}></ion-img>
-	</ion-item>
+	<app-sticker [(image)]="image"></app-sticker>
 	
 	<!-- Animation buttons component --> 
 	<app-animation-buttons></app-animation-buttons>
 	
 	<!-- Input component (includes input and unit selector) --> 
 	<app-input [(unit_selector)]="unit_selector" [(custom)]="custom" [(input_value)]="input_value" [(slider_input_value)]="slider_input_value" [(max_slider_value)]="max_slider_value" [(slider_image_url)]="slider_image_url" [(music_input_value)]="music_input_value" [(selected_unit)]="selected_unit"  [(domain)]="domain" [(unit_list)]="unit_list" [(unit_copy)]="unit_copy" [(music_selector)]="music_selector" [(goal)]="goal" [(goal_str)]="goal_str" [(domain_info)]="domain_info" (input_changed)="onInputChange($event)" (unit_changed)="onUnitChange($event)"></app-input>
-		
-	<!-- Add/Remove Goal --> 
-	<ion-item lines="none">
-		<ion-row>
-			<ion-col col-6 *ngIf="goal == 'REMOVE'">
-				<ion-input class="goal" value={{goal_str}}></ion-input>{{music_str}}
-			</ion-col>
-      <ion-col col-6>
-        <ion-button class="addGoalButton" color={{domain}} (click)="toggleGoal()">
-					<ion-icon *ngIf="goal == 'ADD GOAL'" name="add"></ion-icon>
-					<ion-icon *ngIf="goal == 'REMOVE'" name="trash"></ion-icon>
-       {{goal}}</ion-button> 
-      </ion-col>
-		</ion-row>
-  </ion-item>
 		
 
 	
