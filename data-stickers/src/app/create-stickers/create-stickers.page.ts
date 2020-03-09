@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { NavController, NavParams } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
+import { GlobalDataService } from './../global-data.service';
+
 @Component({
   selector: 'app-create-stickers',
   templateUrl: './create-stickers.page.html',
@@ -23,11 +25,8 @@ export class CreateStickersPage implements OnInit {
 	selected_unit:string;	// Used for error prevention
 	goal_str:any;
 	music_selector:string;
-	saved_value:number;	// Used to save initial input value (for steps conversions) 
-	saved_unit:string;	// Same as above
-	domain_info = {}; 
 	
-  constructor(public alertController: AlertController, public route: ActivatedRoute) {
+  constructor(public alertController: AlertController, public route: ActivatedRoute, public global: GlobalDataService ) {
     this.custom = "custom";
     this.goal = "ADD GOAL"; 
     this.image = this.route.snapshot.paramMap.get("img");
@@ -37,73 +36,12 @@ export class CreateStickersPage implements OnInit {
 		this.music_input_value = "The Beatles";
 		this.goal_str = '';
 		
-		this.domain_info = {
-			"steps": {
-				"units": {
-					"steps": {
-						"maxAmount": 10000
-					},
-					"miles": {
-						"maxAmount": 100
-					},
-					"km": {
-						"maxAmount": 100
-					}
-				},
-				"slider_image_url": "../../assets/icon/footprint.svg"
-			},
-			"heartrate": {
-				"units": {
-					"bpm": {
-						"maxAmount": 100
-					}
-				},
-				"slider_image_url": "../../assets/icon/bxs-heart.svg"
-			},
-			"calories": {
-				"units": {
-					"calories": {
-						"maxAmount": 10000
-					}
-				},
-				"slider_image_url": "../../assets/icon/bxs-hot.svg"
-			},
-			"time": {
-				"units": {
-					"hours": {
-						"maxAmount": 24
-					},
-					"minutes": {
-						"maxAmount": 60
-					},
-					"days": {
-						"maxAmount": 14
-					}
-				},
-				"slider_image_url": "../../assets/icon/bxs-time-five.svg"
-			},
-			"music": {
-				"units": {
-					"minutes": {
-						"maxAmount": 60
-					},
-					"hours": {
-						"maxAmount": 24
-					},
-					"plays": {
-						"maxAmount": 50
-					}
-				},
-				"slider_image_url": "../../assets/icon/bxs-music.svg"
-			}
-		}		
-
-		this.unit_list = Object.keys(this.domain_info[this.domain].units);
+		this.unit_list = Object.keys(this.global.domain_info[this.domain].units);
 		this.unit_copy = this.unit_list;
 		this.unit_selector = this.unit_list[0].trim();
 		this.selected_unit = this.unit_selector;
-		this.max_slider_value = this.domain_info[this.domain].units[this.selected_unit].maxAmount;
-		this.slider_image_url = this.domain_info[this.domain].slider_image_url;
+		this.max_slider_value = this.global.domain_info[this.domain].units[this.selected_unit].maxAmount;
+		this.slider_image_url = this.global.domain_info[this.domain].slider_image_url;
   }
 	
   ngOnInit() {}

@@ -1,24 +1,36 @@
 <ion-item lines="none">
-	<ion-row>
+	<ion-row  >
 		<!-- No Animation -->
 		<ion-col>
-			<ion-icon name="radio-button-off" routerLinkActive="active" (click)="noAnimation()"></ion-icon>
+				<ion-button (click)="noAnimation()" fill="clear" >
+					<ion-icon name="radio-button-off" routerLinkActive="active" ></ion-icon>
+			  </ion-button>
 		</ion-col>
 		<!-- Pulse animation --> 
 		<ion-col>
-			<ion-icon name="pulse" routerLinkActive="active" (click)="pulseAnimation()"></ion-icon>
+			<ion-button (click)="pulseAnimation()"fill="clear" >
+				<ion-icon name="pulse" routerLinkActive="active" ></ion-icon>
+		  </ion-button>
 		</ion-col>
 		<!-- Shake animation --> 
 		<ion-col>
-			<ion-icon name="radio" routerLinkActive="active" (click)="shakeAnimation()"></ion-icon>
+			<ion-button (click)="shakeAnimation()" fill="clear" >
+				<ion-icon name="radio" routerLinkActive="active" ></ion-icon>
+		  </ion-button>
 		</ion-col>
 		<!-- Fill animation (goal only) --> 
 		<ion-col>
-			<ion-icon name="color-fill" routerLinkActive="active" (click)="fillAnimation()"></ion-icon>
+			<ion-button (click)="fillAnimation()"fill="clear" >
+				<ion-icon name="color-fill" routerLinkActive="active" ></ion-icon>		 
+			 </ion-button>
+			
 		</ion-col>
 		<!-- Count up animation (analogy/no goal) --> 
 		<ion-col>
-			<ion-icon name="arrow-up" routerLinkActive="active" (click)="countAnimation()"></ion-icon>
+			<ion-button  (click)="countAnimation()" fill="clear" >
+				<ion-icon name="arrow-up" routerLinkActive="active"></ion-icon>
+			</ion-button>
 		</ion-col>
+			
 	</ion-row>
 </ion-item>

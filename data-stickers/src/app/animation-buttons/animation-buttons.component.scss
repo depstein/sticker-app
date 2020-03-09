@@ -11,6 +11,18 @@ ion-row {
 
 ion-col {
 	margin: auto;
-	margin-right: 10px;
-	margin-left: 10px;
+	margin-right: 2px;
+	margin-left: 2px;
 }
+
+ion-button {
+	--padding-start: 0;
+	--padding-end: 0;
+
+}
+
+ion-button:hover ion-icon {
+	background-color:#fcf700a9;
+	//border: 1px solid black;
+}
+

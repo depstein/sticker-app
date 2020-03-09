@@ -20,21 +20,16 @@
 	<app-animation-buttons></app-animation-buttons>
 	
 	<!-- Input component (includes input and unit selector) --> 
-	<app-input [(unit_selector)]="unit_selector" [(custom)]="custom" [(input_value)]="input_value" [(slider_input_value)]="slider_input_value" [(max_slider_value)]="max_slider_value" [(slider_image_url)]="slider_image_url" [(music_input_value)]="music_input_value" [(selected_unit)]="selected_unit"  [(domain)]="domain" [(unit_list)]="unit_list" [(unit_copy)]="unit_copy" [(music_selector)]="music_selector" [(goal)]="goal" [(goal_str)]="goal_str" [(domain_info)]="domain_info" (input_changed)="onInputChange($event)" (unit_changed)="onUnitChange($event)"></app-input>
+	<app-input [(unit_selector)]="unit_selector" [(custom)]="custom" [(input_value)]="input_value" [(slider_input_value)]="slider_input_value" [(music_input_value)]="music_input_value" [(selected_unit)]="selected_unit" [(domain)]="domain" [(unit_list)]="unit_list" [(unit_copy)]="unit_copy" [(music_selector)]="music_selector" [(goal)]="goal" [(goal_str)]="goal_str" (input_changed)="onInputChange($event)" (unit_changed)="onUnitChange($event)"></app-input>
 		
-
-	
 </ion-content>
 
-<ion-footer>
-	<ion-toolbar  color={{domain}}>
-	  
-	  	<!-- Share to Snapchat banner --> 
-	<ion-item class="share-banner" lines="none"  color={{domain}}>
-		<!--NOTE: sticker must be 1000x1000 pixels or it will not load-->
-		<ion-label class="share-label">Share to Snapchat</ion-label>
-		<ion-icon class="share-icon" name="arrow-forward"></ion-icon>
-		<app-send-to-snapchat class="share-button" sticker="testanim_meta"></app-send-to-snapchat>
-	</ion-item>
-	</ion-toolbar>
-  </ion-footer>
+<ion-toolbar  color={{domain}}>
+		<!-- Share to Snapchat banner --> 
+		<ion-item class="share-banner" lines="none"  color={{domain}}>
+				<!--NOTE: sticker must be 1000x1000 pixels or it will not load-->
+				<ion-label class="share-label">Share to Snapchat</ion-label>
+				<ion-icon class="share-icon" name="arrow-forward"></ion-icon>
+				<app-send-to-snapchat class="share-button" sticker="testanim_meta"></app-send-to-snapchat>
+		</ion-item>
+</ion-toolbar>
