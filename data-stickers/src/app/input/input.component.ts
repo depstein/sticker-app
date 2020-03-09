@@ -18,14 +18,13 @@ export class InputComponent implements OnInit {
 	@Output() input_changed = new EventEmitter<number>();
 	@Input() slider_input_value;
 	@Input() music_input_value;
-	@Input() selected_unit;	// Used for error prevention
 	@Input() domain;
-	@Input() unit_list;
-	@Input() unit_copy;
-	@Input() music_selector;
-	@Input() goal;
-	@Input() goal_str;
 
+	unit_list: any[] = [];
+	unit_copy: any[] = [];	// Used for slider's *ngIf to check for custom unit
+	selected_unit: string;
+  goal: string;
+	goal_str: string;
 	saved_value: number;
 	saved_unit: string;
 	max_slider_value: number;
@@ -35,12 +34,19 @@ export class InputComponent implements OnInit {
 		constructor(public alertController: AlertController, public global: GlobalDataService) {}
 
 		ngOnInit() {
-			this.max_slider_value = this.global.domain_info[this.domain].units[this.selected_unit].maxAmount;
+			this.unit_list = Object.keys(this.global.domain_info[this.domain].units);
+			this.unit_copy = Object.keys(this.global.domain_info[this.domain].units);
+			this.unit_selector = this.unit_list[0].trim();
+			this.selected_unit = this.unit_list[0].trim();
+			this.max_slider_value = this.global.domain_info[this.domain].units[this.unit_selector].maxAmount;
 			this.slider_image_url = this.global.domain_info[this.domain].slider_image_url;
+			this.goal_str = '';
+			this.goal = "ADD GOAL";	
 		}
 	
 	// Called to calculate unit conversions when the selected unit is changed 
-	convertValue(currentUnit, newUnit){
+	convertValue(currentUnit, newUnit) {
+		console.log("calling convert value for ", currentUnit, newUnit);
 		if (!this.unit_list.includes(currentUnit) || !this.unit_list.includes(newUnit)) {
 			return 0;
 		}
@@ -135,6 +141,13 @@ export class InputComponent implements OnInit {
 	// Bound to onChange event for input box 
 	updateInputValue() {
 		this.slider_input_value = this.input_value;
+		if (this.goal == "REMOVE") {	// If a goal has been created it must be updated
+				if (this.domain == "music") {
+						this.goal_str = this.input_value + ' ' + this.selected_unit + ' of ' + this.music_input_value;
+				} else {
+						this.goal_str = this.input_value;
+				}
+		}
 		this.input_changed.emit(this.input_value);
 	}
 	
@@ -145,21 +158,22 @@ export class InputComponent implements OnInit {
     }
 		if (this.selected_unit != undefined) {
 			// Saves the value so that conversions don't mess up original input (mostly for steps) 
-			if (this.saved_value == undefined) {
-				this.saved_value = this.input_value;
-				this.saved_unit = this.selected_unit;
-			} else {
-				if (this.unit_selector == this.saved_unit) {
-					this.input_value = this.saved_value;
-					this.selected_unit = this.saved_unit;
-					this.updateInputValue();
-					this.max_slider_value = this.global.domain_info[this.domain].units[this.selected_unit].maxAmount;
-					this.unit_changed.emit(this.selected_unit);
-					return;
+				if (this.saved_value == undefined) {
+						this.saved_value = this.input_value;
+						this.saved_unit = this.selected_unit;
+				} else {
+						if (this.unit_selector == this.saved_unit) {
+								this.input_value = this.saved_value;
+								this.selected_unit = this.saved_unit;
+								this.updateInputValue();
+								this.max_slider_value = this.global.domain_info[this.domain].units[this.selected_unit].maxAmount;
+								this.unit_changed.emit(this.selected_unit);
+								return;
+						}
 				}
-			}
-			this.input_value = this.convertValue(this.selected_unit, this.unit_selector)
+				this.input_value = this.convertValue(this.selected_unit, this.unit_selector)
 		}
+		//this.input_value = this.convertValue(this.selected_unit, this.unit_selector)
 		this.updateInputValue();
 		this.selected_unit = this.unit_selector;
 		if (this.unit_copy.includes(this.selected_unit)) {
@@ -182,17 +196,11 @@ export class InputComponent implements OnInit {
 		}
 		else {
 			// Error prevention 
-			if (this.selected_unit == undefined) {
+			if (this.input_value <= 0 || this.input_value == undefined) {
 				this.presentErrorPrompt();
 				return;
-			} else if (this.input_value <= 0 || this.input_value == undefined) {
-				this.presentErrorPrompt2();
-				return;
 			} else if (isNaN(this.input_value)) {
-				this.presentErrorPrompt3();
-				return;
-			} else if (this.selected_unit == 'custom') {
-				this.presentErrorPrompt4();
+				this.presentErrorPrompt2();
 				return;
 			}
 
@@ -204,6 +212,10 @@ export class InputComponent implements OnInit {
 				this.goal_str = this.input_value;
 			}
 		}
+	}
+
+	cancelledCustomUnitInput() {
+		this.unit_selector = this.unit_list[0];
 	}
 	
   async presentCustomUnitPrompt() {
@@ -222,13 +234,15 @@ export class InputComponent implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: () => {
-            console.log('Confirm Cancel');
+							console.log('Confirm Cancel');
+							this.cancelledCustomUnitInput();
           }
         }, {
           text: 'OK',
           handler: data => {
 						this.unit_list.push(data.name);
-						this.unit_selector = data.name;
+							this.unit_selector = data.name;
+							console.log(this.unit_copy);
           }
         }
       ]
@@ -237,18 +251,6 @@ export class InputComponent implements OnInit {
 	}
 
 	async presentErrorPrompt() {
-		const alert = await this.alertController.create({
-			header: 'Error: select units with the drop-down menu before adding a goal',
-			buttons: [
-				{
-					text: 'Got It!',
-				}
-			]
-		});
-		await alert.present();
-	}
-
-	async presentErrorPrompt2() {
 		const alert = await this.alertController.create({
 			header: 'Error: Amount must be greater than 0',
 			buttons: [
@@ -260,21 +262,9 @@ export class InputComponent implements OnInit {
 		await alert.present();
 	}
 
-	async presentErrorPrompt3() {
+	async presentErrorPrompt2() {
 		const alert = await this.alertController.create({
 			header: 'Error: Amount must be numeric',
-			buttons: [
-				{
-					text: 'Got It!',
-				}
-			]
-		});
-		await alert.present();
-	}
-
-	async presentErrorPrompt4() {
-		const alert = await this.alertController.create({
-			header: 'Error: Must specify units before creating goal',
 			buttons: [
 				{
 					text: 'Got It!',

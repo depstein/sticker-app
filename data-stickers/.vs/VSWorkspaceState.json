@@ -4,8 +4,11 @@
     "\\src",
     "\\src\\app",
     "\\src\\app\\animation-buttons",
-    "\\src\\app\\sticker-list"
+    "\\src\\app\\create-stickers",
+    "\\src\\app\\input",
+    "\\src\\app\\sticker-list",
+    "\\src\\theme"
   ],
-  "SelectedNode": "\\src\\app\\animation-buttons\\animation-buttons.component.ts",
+  "SelectedNode": "\\src\\app\\sticker-list\\sticker-list.page.html",
   "PreviewInSolutionExplorer": false
 }
