@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Input, Output, EventEmitter } from '@angular/core';
 import { AlertController } from '@ionic/angular';
+import { GlobalDataService } from './../global-data.service';
+
 
 @Component({
   selector: 'app-input',
@@ -15,23 +17,27 @@ export class InputComponent implements OnInit {
 	@Input() input_value;
 	@Output() input_changed = new EventEmitter<number>();
 	@Input() slider_input_value;
-	@Input() max_slider_value;
-	@Input() slider_image_url;
 	@Input() music_input_value;
 	@Input() selected_unit;	// Used for error prevention
 	@Input() domain;
 	@Input() unit_list;
 	@Input() unit_copy;
 	@Input() music_selector;
-	@Input() domain_info;
 	@Input() goal;
 	@Input() goal_str;
-	@Input() saved_value;
-	@Input() saved_unit;
-	
-  constructor(public alertController: AlertController) {}
 
-  ngOnInit() {}
+	saved_value: number;
+	saved_unit: string;
+	max_slider_value: number;
+	slider_image_url: string;
+	music_str: string;
+	
+		constructor(public alertController: AlertController, public global: GlobalDataService) {}
+
+		ngOnInit() {
+			this.max_slider_value = this.global.domain_info[this.domain].units[this.selected_unit].maxAmount;
+			this.slider_image_url = this.global.domain_info[this.domain].slider_image_url;
+		}
 	
 	// Called to calculate unit conversions when the selected unit is changed 
 	convertValue(currentUnit, newUnit){
@@ -147,6 +153,7 @@ export class InputComponent implements OnInit {
 					this.input_value = this.saved_value;
 					this.selected_unit = this.saved_unit;
 					this.updateInputValue();
+					this.max_slider_value = this.global.domain_info[this.domain].units[this.selected_unit].maxAmount;
 					this.unit_changed.emit(this.selected_unit);
 					return;
 				}
@@ -156,8 +163,7 @@ export class InputComponent implements OnInit {
 		this.updateInputValue();
 		this.selected_unit = this.unit_selector;
 		if (this.unit_copy.includes(this.selected_unit)) {
-			this.max_slider_value = this.domain_info[this.domain].units[this.selected_unit].maxAmount;
-			this.slider_image_url = this.domain_info[this.domain].slider_image_url;
+				this.max_slider_value = this.global.domain_info[this.domain].units[this.selected_unit].maxAmount;
 		}
 		this.unit_changed.emit(this.selected_unit);
   }
@@ -166,6 +172,37 @@ export class InputComponent implements OnInit {
 	updateInputValueFromSlider() {
 		if (this.slider_input_value >= 0 && this.slider_input_value <= this.max_slider_value) {
 			this.input_value = this.slider_input_value; 
+		}
+	}
+
+	// Bound to click event for add/remove goal button
+	toggleGoal() {
+		if (this.goal == "REMOVE") {
+			this.goal = "ADD GOAL";
+		}
+		else {
+			// Error prevention 
+			if (this.selected_unit == undefined) {
+				this.presentErrorPrompt();
+				return;
+			} else if (this.input_value <= 0 || this.input_value == undefined) {
+				this.presentErrorPrompt2();
+				return;
+			} else if (isNaN(this.input_value)) {
+				this.presentErrorPrompt3();
+				return;
+			} else if (this.selected_unit == 'custom') {
+				this.presentErrorPrompt4();
+				return;
+			}
+
+			this.goal = "REMOVE";
+			if (this.domain == "music") {
+				this.goal_str = this.input_value;
+				this.music_str = this.selected_unit + ' of ' + this.music_input_value;
+			} else {
+				this.goal_str = this.input_value;
+			}
 		}
 	}
 	
@@ -197,6 +234,54 @@ export class InputComponent implements OnInit {
       ]
     });
     await alert.present();
-  }
+	}
+
+	async presentErrorPrompt() {
+		const alert = await this.alertController.create({
+			header: 'Error: select units with the drop-down menu before adding a goal',
+			buttons: [
+				{
+					text: 'Got It!',
+				}
+			]
+		});
+		await alert.present();
+	}
+
+	async presentErrorPrompt2() {
+		const alert = await this.alertController.create({
+			header: 'Error: Amount must be greater than 0',
+			buttons: [
+				{
+					text: 'Got It!',
+				}
+			]
+		});
+		await alert.present();
+	}
+
+	async presentErrorPrompt3() {
+		const alert = await this.alertController.create({
+			header: 'Error: Amount must be numeric',
+			buttons: [
+				{
+					text: 'Got It!',
+				}
+			]
+		});
+		await alert.present();
+	}
+
+	async presentErrorPrompt4() {
+		const alert = await this.alertController.create({
+			header: 'Error: Must specify units before creating goal',
+			buttons: [
+				{
+					text: 'Got It!',
+				}
+			]
+		});
+		await alert.present();
+	}
 
 }
