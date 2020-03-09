@@ -12,11 +12,7 @@ export class StickerListPage implements OnInit {
 	imageDict = {}
 	imageArray = [];
 	
-<<<<<<< HEAD
-  constructor(private route: ActivatedRoute, private router: Router,public global: GlobalDataService ) { 
-=======
-	constructor(private route: ActivatedRoute, private router: Router, private global: GlobalDataService) {
->>>>>>> d487e44ea5ffe6ab50f830272179667e69100de2
+  constructor(private route: ActivatedRoute, private router: Router,private global: GlobalDataService ) { 
 		this.domain = this.router.url;
 		this.domain = this.domain.substring(6);
 		this.imageArray = this.global.image_dict[this.domain];
