@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { GlobalDataService } from './../global-data.service';
 
 @Component({
   selector: 'app-sticker-list',
@@ -10,7 +11,7 @@ export class StickerListPage implements OnInit {
 	domain: string;
 	imageArray = [];
 	
-  constructor(private route: ActivatedRoute, private router: Router) { 
+  constructor(private route: ActivatedRoute, private router: Router,public global: GlobalDataService ) { 
 		this.domain = this.router.url;
 		this.domain = this.domain.substring(6);
 		console.log(this.domain);

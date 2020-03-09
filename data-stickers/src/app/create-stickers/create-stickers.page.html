@@ -13,6 +13,8 @@
 </ion-header>
 
 <ion-content class="hide-scrollbar">
+
+	
 	<!-- Sticker image --> 
 	<app-sticker [(image)]="image"></app-sticker>
 	
@@ -26,10 +28,10 @@
 
 <ion-toolbar  color={{domain}}>
 		<!-- Share to Snapchat banner --> 
-		<ion-item class="share-banner" lines="none"  color={{domain}}>
+		<ion-item class="share-banner" lines="none"  color={{domain}} >
 				<!--NOTE: sticker must be 1000x1000 pixels or it will not load-->
 				<ion-label class="share-label">Share to Snapchat</ion-label>
 				<ion-icon class="share-icon" name="arrow-forward"></ion-icon>
-				<app-send-to-snapchat class="share-button" sticker="testanim_meta"></app-send-to-snapchat>
+				<app-send-to-snapchat (click) = "addToRecentUse()" class="share-button" sticker="testanim_meta"></app-send-to-snapchat>
 		</ion-item>
 </ion-toolbar>

@@ -4,7 +4,8 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class GlobalDataService {
-		domain_info = {};
+	domain_info = {};
+	recent_use:any [] = [];
 
   constructor() {
 			this.domain_info = {

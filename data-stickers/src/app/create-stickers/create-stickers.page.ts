@@ -67,4 +67,10 @@ export class CreateStickersPage implements OnInit {
 	// Binding to onClick event of sharesheet button 
 	shareButton() {}  
 	
+	addToRecentUse(){
+		this.global.recent_use.push(this.image);
+		if(this.global.recent_use.length > 3){
+			this.global.recent_use = this.global.recent_use.slice(1,4);
+		}
+	}
 }

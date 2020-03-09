@@ -1,3 +1,13 @@
-<p>
-  recent-use works!
-</p>
+
+<label *ngIf="global.recent_use.length != 0" > Recently Used </label>
+<ion-item  *ngIf="global.recent_use.length != 0" >
+  
+  <ion-grid  >
+		<ion-row >
+			<ion-col *ngFor="let image of global.recent_use">
+				<img [src]="image" (click)="goToCreateStickerPage(image)" >
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+
+</ion-item>
