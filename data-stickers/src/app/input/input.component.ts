@@ -13,10 +13,12 @@ export class InputComponent implements OnInit {
 	@Input() input_value;
 	@Input() music_input_value;
 	@Input() domain;
+	@Input() hasGoal;
 	
 	@Output() input_changed = new EventEmitter<number>();
 	@Output() music_input_changed = new EventEmitter<string>();
 	@Output() unit_changed = new EventEmitter<string>();
+	@Output() goal_changed = new EventEmitter<boolean>();
 
 	unit_list: any[] = [];
 	unit_copy: any[] = [];	// Used for slider's *ngIf to check for custom unit
@@ -41,7 +43,6 @@ export class InputComponent implements OnInit {
 	ngOnInit() {
 		this.unit_list = Object.keys(this.global.domain_info[this.domain].units);
 		this.unit_copy = Object.keys(this.global.domain_info[this.domain].units);
-		this.unit_selector = this.unit_list[0].trim();
 		this.selected_unit = this.unit_list[0].trim();
 		this.max_slider_value = this.global.domain_info[this.domain].units[this.unit_selector].maxAmount;
 		this.slider_image_url = this.global.domain_info[this.domain].slider_image_url;
@@ -201,6 +202,8 @@ export class InputComponent implements OnInit {
 	toggleGoal() {
 		if (this.goal == "REMOVE") {
 			this.goal = "ADD GOAL";
+			this.hasGoal = false;
+			this.goal_changed.emit(this.hasGoal);
 		}
 		else {
 			// Error prevention 
@@ -213,6 +216,8 @@ export class InputComponent implements OnInit {
 			}
 
 			this.goal = "REMOVE";
+			this.hasGoal = true;
+			this.goal_changed.emit(this.hasGoal);
 			if (this.domain == "music") {
 				this.goal_str = this.input_value;
 				this.music_str = this.selected_unit + ' of ' + this.music_input_value;

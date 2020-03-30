@@ -5,11 +5,14 @@ export class StickerInfo {
 	unit: string;
 	music_value: string;
 	animation: string;
-	constructor(image: string, domain: string, value: number, unit: string, animation: string){
+	hasGoal: boolean;
+
+	constructor(image: string, domain: string, value: number, unit: string, animation: string, goal: boolean){
 		this.image = image;
 		this.domain = domain;
 		this.value = value;
 		this.unit = unit;
 		this.animation = animation;
+		this.hasGoal = goal;
 	}
 }

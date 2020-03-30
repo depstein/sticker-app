@@ -22,7 +22,7 @@
 	<app-animation-buttons [(animation)]="animation" (animation_changed)="onAnimationChange($event)"></app-animation-buttons>
 	
 	<!-- Input component (includes input and unit selector) --> 
-	<app-input [(unit_selector)]="unit_selector" [(input_value)]="input_value" [(music_input_value)]="music_input_value" [(domain)]="domain" (input_changed)="onInputChange($event)" (music_input_changed)="onMusicInputChange($event)" (unit_changed)="onUnitChange($event)"></app-input>
+	<app-input [(unit_selector)]="unit_selector" [(input_value)]="input_value" [(music_input_value)]="music_input_value" [(domain)]="domain" [(hasGoal)]="hasGoal" (input_changed)="onInputChange($event)" (music_input_changed)="onMusicInputChange($event)" (unit_changed)="onUnitChange($event)" (goal_changed)="onGoalChange($event)"></app-input>
 		
 </ion-content>
 
