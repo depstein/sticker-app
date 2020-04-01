@@ -7,6 +7,8 @@ export class GlobalDataService {
 		domain_info = {};
 		image_dict = {};
 		recent_use = [];
+		noAddGoal = [];
+		
   constructor() {
 			this.domain_info = {
 					"steps": {
@@ -231,6 +233,7 @@ export class GlobalDataService {
 							]
 					]
 			}
+			this.noAddGoal = [""];
 
 	}
 }
