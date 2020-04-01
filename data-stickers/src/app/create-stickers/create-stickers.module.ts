@@ -1,3 +1,4 @@
+import { ShareButtonComponent } from './../share-button/share-button.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -13,6 +14,7 @@ import { AnimationButtonsComponent } from '../animation-buttons/animation-button
 import { SendToSnapchatComponent } from '../send-to-snapchat/send-to-snapchat.component';
 
 
+
 @NgModule({
   imports: [
     CommonModule,
@@ -20,6 +22,6 @@ import { SendToSnapchatComponent } from '../send-to-snapchat/send-to-snapchat.co
     IonicModule,
     CreateStickersPageRoutingModule
   ],
-  declarations: [CreateStickersPage, SendToSnapchatComponent, InputComponent, StickerComponent, AnimationButtonsComponent]
+  declarations: [CreateStickersPage, SendToSnapchatComponent, InputComponent, StickerComponent, AnimationButtonsComponent, ShareButtonComponent]
 })
 export class CreateStickersPageModule {}

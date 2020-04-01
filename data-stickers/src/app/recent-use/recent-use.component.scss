@@ -1,9 +1,17 @@
-ion-item{
+ion-item {
     background-color: rgba(196, 191, 191, 0.1);
-    opacity: 0.8;
+    border-radius: 5px;
+    align-items: flex-start;
+    float: left;
+    
 }
 
-img{
-   // opacity: 1;
-   
+ion-grid {
+    padding: 0;
+}
+ion-img{
+    width: 100%;
+}
+ion-label{
+    position: fixed;
 }

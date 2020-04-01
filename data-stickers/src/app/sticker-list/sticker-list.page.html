@@ -1,12 +1,15 @@
+<ion-header class="ion-no-border" >
+	<ion-toolbar>
+	  <ion-title *ngIf="global.recent_use.length == 0">Select stickers</ion-title>
+	  <ion-title *ngIf="global.recent_use.length != 0"> Recently Used </ion-title>
+	  <app-recent-use  [(domain)]="domain"></app-recent-use>
 
-
+	</ion-toolbar>
+  </ion-header>
 
 <ion-content class="hide-scrollbar" color={{domain}}>
-	
-	
-	
 	<ion-grid>
-		<app-recent-use [(domain)]="domain"></app-recent-use>
+		
 		<ion-row *ngFor="let row of imageArray">
 			<ion-col *ngFor="let image of row">
 				<img [src]="image" (click)="goToCreateStickerPage(image)" >

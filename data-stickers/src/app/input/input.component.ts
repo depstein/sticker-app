@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { GlobalDataService } from './../global-data.service';
 
@@ -10,39 +9,44 @@ import { GlobalDataService } from './../global-data.service';
   styleUrls: ['./input.component.scss'],
 })
 export class InputComponent implements OnInit {
-	// Documentation for binding variables between parent/child components: https://angular.io/guide/component-interaction
 	@Input() unit_selector;
-	@Output() unit_changed = new EventEmitter<string>();
-	@Input() custom;
 	@Input() input_value;
-	@Output() input_changed = new EventEmitter<number>();
-	@Input() slider_input_value;
 	@Input() music_input_value;
 	@Input() domain;
+	@Input() hasGoal;
+	
+	@Output() input_changed = new EventEmitter<number>();
+	@Output() music_input_changed = new EventEmitter<string>();
+	@Output() unit_changed = new EventEmitter<string>();
+	@Output() goal_changed = new EventEmitter<boolean>();
 
 	unit_list: any[] = [];
 	unit_copy: any[] = [];	// Used for slider's *ngIf to check for custom unit
 	selected_unit: string;
+	custom: string;
   goal: string;
 	goal_str: string;
 	saved_value: number;
 	saved_unit: string;
 	max_slider_value: number;
+	slider_input_value:number;
 	slider_image_url: string;
 	music_str: string;
 	
-		constructor(public alertController: AlertController, public global: GlobalDataService) {}
+	constructor(public alertController: AlertController, public global: GlobalDataService) {
+		this.slider_input_value = 0;
+		this.goal_str = '';
+		this.goal = "ADD GOAL";
+		this.custom = "custom";
+	}
 
-		ngOnInit() {
-			this.unit_list = Object.keys(this.global.domain_info[this.domain].units);
-			this.unit_copy = Object.keys(this.global.domain_info[this.domain].units);
-			this.unit_selector = this.unit_list[0].trim();
-			this.selected_unit = this.unit_list[0].trim();
-			this.max_slider_value = this.global.domain_info[this.domain].units[this.unit_selector].maxAmount;
-			this.slider_image_url = this.global.domain_info[this.domain].slider_image_url;
-			this.goal_str = '';
-			this.goal = "ADD GOAL";	
-		}
+	ngOnInit() {
+		this.unit_list = Object.keys(this.global.domain_info[this.domain].units);
+		this.unit_copy = Object.keys(this.global.domain_info[this.domain].units);
+		this.selected_unit = this.unit_list[0].trim();
+		this.max_slider_value = this.global.domain_info[this.domain].units[this.unit_selector].maxAmount;
+		this.slider_image_url = this.global.domain_info[this.domain].slider_image_url;
+	}
 	
 	// Called to calculate unit conversions when the selected unit is changed 
 	convertValue(currentUnit, newUnit) {
@@ -151,6 +155,11 @@ export class InputComponent implements OnInit {
 		this.input_changed.emit(this.input_value);
 	}
 	
+	// Bound to onChange event for music input box
+	updateMusicInputValue() {
+		this.music_input_changed.emit(this.music_input_value);
+	}
+	
 	// Bound to onChange event for the unit selector 
   unitChanged(unit_selector){
     if (unit_selector == "custom"){
@@ -193,6 +202,8 @@ export class InputComponent implements OnInit {
 	toggleGoal() {
 		if (this.goal == "REMOVE") {
 			this.goal = "ADD GOAL";
+			this.hasGoal = false;
+			this.goal_changed.emit(this.hasGoal);
 		}
 		else {
 			// Error prevention 
@@ -205,6 +216,8 @@ export class InputComponent implements OnInit {
 			}
 
 			this.goal = "REMOVE";
+			this.hasGoal = true;
+			this.goal_changed.emit(this.hasGoal);
 			if (this.domain == "music") {
 				this.goal_str = this.input_value;
 				this.music_str = this.selected_unit + ' of ' + this.music_input_value;
