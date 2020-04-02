@@ -1,44 +1,35 @@
 <ion-header>
   <ion-toolbar>
+    <ion-title>Edit Sticker </ion-title>
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <ion-back-button text=""></ion-back-button>
     </ion-buttons>
     <ion-buttons slot="end">
-      <ion-button> 
-        <ion-icon name="download"></ion-icon>
-      </ion-button>
+      <app-share-button></app-share-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-    <ion-item class="background">
-      <ion-img src= "../../assets/foot.png"></ion-img>
-    </ion-item>
-    
-  <ion-item style="text-align: center;">
-    <ion-label position="floating" color="button">Enter your Amount Of Steps</ion-label>
-    <ion-row>
-      <ion-col col-6> 
-        <ion-input></ion-input>
-      </ion-col>
-      <ion-col col-6>
-      
-        <ion-select placeholder="Units" style="width: 190px;"  >
-          <ion-select-option value="steps">steps</ion-select-option>
-          <ion-select-option value="cal">calories</ion-select-option>
-        </ion-select>
-      </ion-col>
-    </ion-row>
-  
-  <ion-button color="button" style="margin:auto;">
-    <ion-icon name="add"></ion-icon>
-    Add Goal</ion-button> 
-  </ion-item>
-  <ion-item>
-    <!--NOTE: sticker must be 1000x1000 pixels or it will not load-->
-    <app-send-to-snapchat sticker="testanim_meta"></app-send-to-snapchat>
-  </ion-item>
-  
+<ion-content class="hide-scrollbar">
 
+	
+	<!-- Sticker image --> 
+	<app-sticker [(image)]="image"></app-sticker>
+	
+	<!-- Animation buttons component --> 
+	<app-animation-buttons [(animation)]="animation" (animation_changed)="onAnimationChange($event)"></app-animation-buttons>
+	
+	<!-- Input component (includes input and unit selector) --> 
+	<app-input [(unit_selector)]="unit_selector" [(input_value)]="input_value" [(music_input_value)]="music_input_value" [(domain)]="domain" [(hasGoal)]="hasGoal" (input_changed)="onInputChange($event)" (music_input_changed)="onMusicInputChange($event)" (unit_changed)="onUnitChange($event)" (goal_changed)="onGoalChange($event)"></app-input>
+		
 </ion-content>
+
+<ion-toolbar  color={{domain}}>
+		<!-- Share to Snapchat banner --> 
+		<ion-item class="share-banner" lines="none"  color={{domain}} >
+				<!--NOTE: sticker must be 1000x1000 pixels or it will not load-->
+				<ion-label class="share-label">Share to Snapchat</ion-label>
+				<ion-icon class="share-icon" name="arrow-forward"></ion-icon>
+				<app-send-to-snapchat (click) = "addToRecentUse()" class="share-button" sticker="testanim_meta"></app-send-to-snapchat>
+		</ion-item>
+</ion-toolbar>

@@ -1,1 +1,43 @@
+ion-tab-bar {
+	padding: 0.3em;
+}
 
+ion-tab-button {
+	border-radius: 10px;
+}
+
+.md ion-tab-button {
+	--padding-start: 2px;
+	--padding-end: 2px;
+	max-width: 240px;
+	font-size: 10px;
+}
+
+.md ion-icon {
+	height: 30px;
+	width: 30px;
+}
+
+.steps-tab.tab-selected {
+	--background: var(--ion-color-steps-tint) !important; 
+}
+
+.heartrate-tab.tab-selected {
+	--background: var(--ion-color-heartrate-tint) !important;
+}
+
+.calories-tab.tab-selected {
+	--background: var(--ion-color-calories-tint) !important;
+}
+
+.time-tab.tab-selected {
+	--background: var(--ion-color-time-tint) !important;
+}
+
+.music-tab.tab-selected {
+	--background: var(--ion-color-music-tint) !important;
+}
+
+ion-content {
+	text-align: center;
+}

@@ -1,41 +1,35 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Home
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content padding color="primary" style="text-align:center;">
+<ion-content class="ion-padding" color="primary">
+	<br>
 	<ion-text>Here are some directions for getting started</ion-text>
 </ion-content>
 
-<app-navigationbar></app-navigationbar>
-
-<!-- Tabs are currently not working; using app-navigationbar with NavController for now
 <ion-tabs>
   <ion-tab-bar slot="bottom">
 	
-		<ion-tab-button tab="steps">
-			<ion-icon name="walk"></ion-icon>
+		<ion-tab-button class="steps-tab" tab="steps">
+			<ion-icon src="../../assets/icon/footprint.svg"></ion-icon>
+			<ion-label>Steps</ion-label>
 		</ion-tab-button>
 		
-		<ion-tab-button tab="heartrate">
-			<ion-icon name="heart"></ion-icon>
+		<ion-tab-button class="heartrate-tab" tab="heartrate">
+			<ion-icon src="../../assets/icon/bxs-heart.svg"></ion-icon>
+			<ion-label>Heart Rate</ion-label>
 		</ion-tab-button>
 		
-		<ion-tab-button tab="calories">
-			<ion-icon name="flame"></ion-icon>
+		<ion-tab-button class="calories-tab" tab="calories">
+			<ion-icon src="../../assets/icon/bxs-hot.svg"></ion-icon>
+			<ion-label>Calories</ion-label>
 		</ion-tab-button>
 		
-		<ion-tab-button tab="time">
-			<ion-icon name="time"></ion-icon>
+		<ion-tab-button class="time-tab" tab="time">
+			<ion-icon src="../../assets/icon/bxs-time-five.svg"></ion-icon>
+			<ion-label>Time</ion-label>
 		</ion-tab-button>
 		
-		<ion-tab-button tab="music">
-			<ion-icon name="musical-notes"></ion-icon>
+		<ion-tab-button class="music-tab" tab="music">
+			<ion-icon src="../../assets/icon/bxs-music.svg"></ion-icon>
+			<ion-label>Music</ion-label>
 		</ion-tab-button>
 		
   </ion-tab-bar>
 </ion-tabs>
--->
