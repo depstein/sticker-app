@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Rendering</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button text=""></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button> 
+        <ion-icon name="download" (click)="shareButton()"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-img [src]="global.stickerInfo.image"></ion-img>
+</ion-content>
+
+<ion-toolbar color={{global.stickerInfo.domain}}>
+	<!-- Share to Snapchat banner --> 
+	<ion-item class="share-banner" lines="none" color={{global.stickerInfo.domain}}>
+		<!--NOTE: sticker must be 1000x1000 pixels or it will not load-->
+		<div class="share-banner-content">
+			<app-send-to-snapchat class="share-button" sticker="testanim_meta" (click)="addToRecentUse()"></app-send-to-snapchat>
+		</div>
+	</ion-item>
+</ion-toolbar>
