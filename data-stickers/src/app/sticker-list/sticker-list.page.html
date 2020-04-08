@@ -1,9 +1,11 @@
 <ion-header class="ion-no-border" >
-	<ion-toolbar>
-	  <ion-title *ngIf="global.recent_use.length == 0">Select stickers</ion-title>
-	  <ion-title *ngIf="global.recent_use.length != 0"> Recently Used </ion-title>
-	  <app-recent-use  [(domain)]="domain"></app-recent-use>
-
+	<ion-toolbar >
+	  <ion-title *ngIf="global.recent_use.length == 0"  color={{domain}}>Select stickers</ion-title>
+	  <ion-label *ngIf="global.recent_use.length > 0" color={{domain}}> Recently Used </ion-label>
+	  <ion-item *ngIf="global.recent_use.length > 0" lines= none>
+		<app-recent-use  [(domain)]="domain"></app-recent-use>
+	  </ion-item>
+	  
 	</ion-toolbar>
   </ion-header>
 
