@@ -13,6 +13,7 @@ export class InputComponent implements OnInit {
 	unit_copy: any[] = [];	// Used for slider's *ngIf to check for custom unit
 	selected_unit: string;
 	custom: string;
+	can_add_goal: boolean;
   	goal: string;
 	goal_str: string;
 	saved_value: number;
@@ -27,6 +28,7 @@ export class InputComponent implements OnInit {
 		this.goal_str = '';
 		this.goal = "ADD GOAL";
 		this.custom = "custom";
+		this.can_add_goal = this.global.image_dict[this.global.stickerInfo.domain][this.global.stickerInfo.image];
 	}
 
 	ngOnInit() {
