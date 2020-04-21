@@ -13,16 +13,19 @@
 </ion-header>
 
 <ion-content>
-  <ion-spinner *ngIf="!imageLoaded"></ion-spinner>
-  <ion-img [src]="imageFromServer" *ngIf="imageLoaded"></ion-img>
-  <div padding>{{url}}</div>
+  <ion-spinner *ngIf="imageLoading"></ion-spinner>
+  <ion-img class="renderedImage" [src]="imageFromServer" *ngIf="imageLoadedSuccess"></ion-img>
+  <div class="errorMessage" *ngIf="imageLoadedError">
+    <ion-icon class="errorMessageIcon" name="sad" size="large"></ion-icon>
+    <div>Error loading image from server</div>
+  </div>
 </ion-content>
 
 <ion-toolbar color={{global.stickerInfo.domain}}>
 	<!-- Share to Snapchat banner --> 
 	<ion-item class="share-banner" lines="none" color={{global.stickerInfo.domain}}>
 		<!--NOTE: sticker must be 1000x1000 pixels or it will not load-->
-		<div class="share-banner-content">
+		<div class="share-banner-content" *ngIf="imageLoadedSuccess">
 			<app-send-to-snapchat class="share-button" sticker="testanim_meta" (click)="addToRecentUse()"></app-send-to-snapchat>
 		</div>
 	</ion-item>

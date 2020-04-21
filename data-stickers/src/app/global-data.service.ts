@@ -24,7 +24,7 @@ export class GlobalDataService {
 				},
 				"slider_image_url": "../../assets/icon/footprint.svg"
 			}, 
-			"heartrate": {
+			"heartbeat": {
 				"units": {
 					"bpm": {
 						"maxAmount": 100
@@ -72,7 +72,8 @@ export class GlobalDataService {
 
 		this.image_dict = {
 			"steps": {
-				"../../../assets/stickers/steps/2-02.png": true,
+				"../../../assets/stickers/steps/plain-domain-relevant-1.png": true,
+				"../../../assets/stickers/steps/plain-domain-relevant-2.png": true,
 				"../../../assets/stickers/steps/plain-01.png": false,
 				"../../../assets/stickers/steps/track-11.png": false,
 				"../../../assets/stickers/steps/plain-18.png": false,
@@ -81,23 +82,22 @@ export class GlobalDataService {
 				"../../../assets/stickers/steps/2-12.png": false,
 				"../../../assets/stickers/steps/2-14.png": true,
 				"../../../assets/stickers/steps/plain-07.png": false,
-				"../../../assets/stickers/steps/foot.png": true,
 				"../../../assets/stickers/steps/embellished-13.png": true,
 				"../../../assets/stickers/steps/giraffe-08.png": false
 			},
-			"heartrate": {
+			"heartbeat": {
+				"../../../assets/stickers/heart rate/plain-domain-relevant-1.png": true,
+				"../../../assets/stickers/heart rate/plain-domain-relevant-2.png": true,
+				"../../../assets/stickers/heart rate/plain-domain-relevant-3.png": true,
 				"../../../assets/stickers/heart rate/embellished-05.png": true,
 				"../../../assets/stickers/heart rate/7-09.png": false,
 				"../../../assets/stickers/heart rate/7-07.png": false,
-				"../../../assets/stickers/heart rate/7-04.png": true,
-				"../../../assets/stickers/heart rate/7-01.png": true,
 				"../../../assets/stickers/heart rate/7-03.png": true,
 				"../../../assets/stickers/heart rate/embellished-15.png": true,
 				"../../../assets/stickers/heart rate/7-12.png": false,
 				"../../../assets/stickers/heart rate/plain-15.png": false,
 				"../../../assets/stickers/heart rate/7-08.png": false,
-				"../../../assets/stickers/heart rate/bpm.png": false,
-				"../../../assets/stickers/heart rate/05.png": true
+				"../../../assets/stickers/heart rate/bpm.png": false
 			}, 
 			"calories": {
 				"../../../assets/stickers/calories/4-06.png": false,

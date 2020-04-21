@@ -140,6 +140,7 @@ export class InputComponent implements OnInit {
 			} else {
 				this.goal_str = String(this.global.stickerInfo.value);
 			}
+			this.global.stickerInfo.goal = this.global.stickerInfo.value;
 		}
 	}
 	
@@ -147,8 +148,8 @@ export class InputComponent implements OnInit {
 	updateMusicInputValue() {}
 	
 	// Bound to onChange event for the unit selector 
-  	unitChanged(unit_selector) {
-		if (unit_selector == "custom"){
+  	unitChanged() {
+		if (this.global.stickerInfo.unit == "custom"){
 			this.presentCustomUnitPrompt();
 		}
 		if (this.selected_unit != undefined) {
@@ -180,6 +181,9 @@ export class InputComponent implements OnInit {
 		if (this.slider_input_value >= 0 && this.slider_input_value <= this.max_slider_value) {
 			this.global.stickerInfo.value = this.slider_input_value; 
 		}
+		if (this.global.stickerInfo.hasGoal) {
+			this.global.stickerInfo.goal = this.slider_input_value; 
+		}
 	}
 
 	// Bound to click event for add/remove goal button
@@ -187,6 +191,7 @@ export class InputComponent implements OnInit {
 		if (this.goal == "REMOVE") {
 			this.goal = "ADD GOAL";
 			this.global.stickerInfo.hasGoal = false;
+			this.global.stickerInfo.goal = 0;
 		}
 		else {
 			// Error prevention 
@@ -200,6 +205,7 @@ export class InputComponent implements OnInit {
 
 			this.goal = "REMOVE";
 			this.global.stickerInfo.hasGoal = true;
+			this.global.stickerInfo.goal = this.global.stickerInfo.value;
 			if (this.global.stickerInfo.domain == "music") {
 				this.goal_str = String(this.global.stickerInfo.value);
 				this.music_str = this.selected_unit + ' of ' + String(this.global.stickerInfo.music_value);

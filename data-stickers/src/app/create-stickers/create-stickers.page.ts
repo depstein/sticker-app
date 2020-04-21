@@ -15,8 +15,7 @@ export class CreateStickersPage implements OnInit {
 		this.global.stickerInfo.image = this.route.snapshot.paramMap.get("img");
 		this.global.stickerInfo.domain = this.route.snapshot.paramMap.get("domain");
 		this.global.stickerInfo.value = 0;
-		//this.global.stickerInfo.music_value = "The Beatles";
-		this.global.stickerInfo.music_value = '';
+		this.global.stickerInfo.music_value = ''; 	// = "The Beatles";
 		this.global.stickerInfo.animation = "none";
 		this.global.stickerInfo.hasGoal = false;
 		this.global.stickerInfo.unit = Object.keys(this.global.domain_info[this.global.stickerInfo.domain].units)[0].trim();

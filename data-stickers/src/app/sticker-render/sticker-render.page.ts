@@ -12,25 +12,45 @@ import { StickerInfo } from '../sticker-info-class';
 })
 export class StickerRenderPage implements OnInit {
   imageFromServer: any;
-  imageLoaded: boolean;
+  imageLoading: boolean;
+  imageLoadedSuccess: boolean;
+  imageLoadedError: boolean;
   url: string;
 
   constructor(private route: ActivatedRoute, private http: HttpClient, public global: GlobalDataService) {
-    this.imageLoaded = false;
-    var image_arr = this.global.stickerInfo.image.split('/');
-    image_arr = image_arr[image_arr.length-1].split('.');
+    this.imageLoading = true;
+    this.imageLoadedSuccess = false;
+    this.imageLoadedError = false;
 
-    this.url = 'https://sheltered-waters-08469.herokuapp.com/' + String(this.global.stickerInfo.domain) + '/?value=' + String(this.global.stickerInfo.value) + '&type=' + String(image_arr[0]) + '&option=' + String(this.global.stickerInfo.animation);
+    this.constructUrl();
+
   }
 
   ngOnInit() {
-    this.http.get('https://sheltered-waters-08469.herokuapp.com/heartbeat/?value=100&type=plain-domain-relevant-2&option=shake&goal=0', {responseType: 'blob'})
+    var url = this.url;
+    //this.http.get('https://sheltered-waters-08469.herokuapp.com/heartbeat/?value=100&type=plain-domain-relevant-2&option=shake&goal=0', {responseType: 'blob'})
+    this.http.get(url, {responseType: 'blob'})
       .subscribe(data => { 
         this.createImageFromBlob(data);
-        this.imageLoaded = true;
+        this.imageLoading = false;
+        this.imageLoadedSuccess = true;
       }, error => {
-        alert("error");
+        console.log('error:'+url);
+        this.imageLoading = false;
+        this.imageLoadedError = true;
       });
+  }
+
+  constructUrl() {
+    var image_arr = this.global.stickerInfo.image.split('/');
+    image_arr = image_arr[image_arr.length-1].split('.');
+    
+    this.url = 'https://sheltered-waters-08469.herokuapp.com/';           // base url
+    this.url += String(this.global.stickerInfo.domain);                   // domain (ex. steps)
+    this.url += '/?value=' + String(this.global.stickerInfo.value);       // value (ex. 1000)
+    this.url += '&type=' + String(image_arr[0]);                          // image type (ex. plain-domain-relevant-1)
+    this.url += '&option=' + String(this.global.stickerInfo.animation);   // animation (ex. shake) 
+    this.url += '&goal=' + (this.global.stickerInfo.hasGoal ? String(this.global.stickerInfo.goal) : '0');  // goal (ex. 1000)
   }
 
   createImageFromBlob(image: Blob) {
