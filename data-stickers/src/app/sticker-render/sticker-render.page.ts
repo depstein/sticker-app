@@ -64,7 +64,7 @@ export class StickerRenderPage implements OnInit {
   }
 
 	// Binding to onClick event of sharesheet button 
-	shareButton() {}  
+
 
   addToRecentUse(){
 		this.global.recent_use.push(this.global.stickerInfo.image);

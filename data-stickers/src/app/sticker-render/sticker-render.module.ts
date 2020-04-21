@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
-
+import { ShareButtonComponent } from "./../share-button/share-button.component";
 import { StickerRenderPageRoutingModule } from './sticker-render-routing.module';
 
 import { StickerRenderPage } from './sticker-render.page';
@@ -16,6 +16,6 @@ import { SendToSnapchatComponent } from '../send-to-snapchat/send-to-snapchat.co
     IonicModule,
     StickerRenderPageRoutingModule
   ],
-  declarations: [StickerRenderPage, SendToSnapchatComponent]
+  declarations: [StickerRenderPage, SendToSnapchatComponent,ShareButtonComponent]
 })
 export class StickerRenderPageModule {}
