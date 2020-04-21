@@ -8,7 +8,6 @@
   height: 150px;
   width: 150px;
   margin: auto;
-  margin-top: 15%;
 }
 
 .errorMessage {
@@ -28,6 +27,12 @@ ion-spinner {
   margin-top: 20%;
   margin-bottom: 10%;
 }
+
+ion-card-content{
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
 ion-card-subtitle{
   text-align: center;
   padding: 10px;
