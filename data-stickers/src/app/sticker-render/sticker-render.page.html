@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Rendering</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button text=""></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-spinner *ngIf="!imageLoaded"></ion-spinner>
+  <ion-img [src]="imageFromServer" *ngIf="imageLoaded"></ion-img>
+  <div padding>{{url}}</div>
+  <ion-card>
+    <ion-card-subtitle
+      >Share this sticker with your social community</ion-card-subtitle
+    >
+
+    <ion-card-content>
+      <app-share-button></app-share-button>
+      <!-- Share to Snapchat banner -->
+      <ion-item
+        class="share-banner"
+        lines="none"
+      >
+        <!--NOTE: sticker must be 1000x1000 pixels or it will not load-->
+        <div class="share-banner-content">
+          
+          <app-send-to-snapchat
+            class="share-button"
+            sticker="testanim_meta"
+            (click)="addToRecentUse()"
+          ></app-send-to-snapchat>
+        </div>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+

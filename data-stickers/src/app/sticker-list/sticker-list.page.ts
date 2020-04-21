@@ -5,7 +5,7 @@ import { GlobalDataService } from "./../global-data.service";
 @Component({
   selector: "app-sticker-list",
   templateUrl: "./sticker-list.page.html",
-  styleUrls: ["./sticker-list.page.scss"]
+  styleUrls: ["./sticker-list.page.scss"],
 })
 export class StickerListPage implements OnInit {
   domain: string;
@@ -15,7 +15,7 @@ export class StickerListPage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    public global: GlobalDataService
+    private global: GlobalDataService
   ) {
     this.domain = this.router.url;
     this.domain = this.domain.substring(6);
@@ -40,10 +40,11 @@ export class StickerListPage implements OnInit {
 
   ngOnInit() {}
 
+
   goToCreateStickerPage(this_img) {
     this.router.navigate([
       "create-sticker",
-      { img: this_img, domain: this.domain }
+      { img: this_img, domain: this.domain },
     ]);
   }
 }

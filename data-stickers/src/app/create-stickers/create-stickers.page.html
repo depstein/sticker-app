@@ -4,32 +4,29 @@
     <ion-buttons slot="start">
       <ion-back-button text=""></ion-back-button>
     </ion-buttons>
-    <ion-buttons slot="end">
-      <app-share-button></app-share-button>
-    </ion-buttons>
+
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="hide-scrollbar">
+	<!-- Sticker image component--> 
+	<app-sticker [(image)]="global.stickerInfo.image"></app-sticker>
 
-	
-	<!-- Sticker image --> 
-	<app-sticker [(image)]="image"></app-sticker>
-	
 	<!-- Animation buttons component --> 
-	<app-animation-buttons [(animation)]="animation" (animation_changed)="onAnimationChange($event)"></app-animation-buttons>
-	
-	<!-- Input component (includes input and unit selector) --> 
-	<app-input [(unit_selector)]="unit_selector" [(input_value)]="input_value" [(music_input_value)]="music_input_value" [(domain)]="domain" [(hasGoal)]="hasGoal" (input_changed)="onInputChange($event)" (music_input_changed)="onMusicInputChange($event)" (unit_changed)="onUnitChange($event)" (goal_changed)="onGoalChange($event)"></app-input>
-		
+	<app-animation-buttons></app-animation-buttons>
+
+	<!-- Input component (includes input, unit selector, goal) --> 
+	<app-input></app-input>	
+
 </ion-content>
 
-<ion-toolbar  color={{domain}}>
-		<!-- Share to Snapchat banner --> 
-		<ion-item class="share-banner" lines="none"  color={{domain}} >
-				<!--NOTE: sticker must be 1000x1000 pixels or it will not load-->
-				<ion-label class="share-label">Share to Snapchat</ion-label>
-				<ion-icon class="share-icon" name="arrow-forward"></ion-icon>
-				<app-send-to-snapchat (click) = "addToRecentUse()" class="share-button" sticker="testanim_meta"></app-send-to-snapchat>
-		</ion-item>
+<ion-toolbar color={{global.stickerInfo.domain}}>
+	<!-- Share to Snapchat banner --> 
+	<ion-item class="share-banner" lines="none" color={{global.stickerInfo.domain}} (click)="goToStickerRenderPage()">
+		<!--NOTE: sticker must be 1000x1000 pixels or it will not load-->
+		<div class="share-banner-content">
+			Share to Snapchat &nbsp;
+			<ion-icon name="md-share"></ion-icon>
+		</div>
+	</ion-item>
 </ion-toolbar>
