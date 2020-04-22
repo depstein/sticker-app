@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { GlobalDataService } from './../global-data.service';
 import { StickerInfo } from '../sticker-info-class';
-import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-sticker-render',
@@ -18,7 +17,7 @@ export class StickerRenderPage implements OnInit {
   errorStatus: string;
   url: string;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient, public global: GlobalDataService, private storage: Storage) {
+  constructor(private route: ActivatedRoute, private http: HttpClient, public global: GlobalDataService) {
     this.imageLoading = true;
     this.imageLoadedSuccess = false;
     this.imageLoadedError = false;
@@ -64,9 +63,6 @@ export class StickerRenderPage implements OnInit {
     }
   }
 
-	// Binding to onClick event of sharesheet button 
-
-
   addToRecentUse(){
     this.global.recent_use.push(this.global.stickerInfo.image);
     console.log("added");
@@ -74,10 +70,6 @@ export class StickerRenderPage implements OnInit {
       this.global.recent_use = this.global.recent_use.slice(1,4);
       console.log("out of 3");
     }
-    
-    
   }
   
-
-
 }

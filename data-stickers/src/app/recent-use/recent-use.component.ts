@@ -1,7 +1,6 @@
 import { Router } from '@angular/router';
 import { Component, OnInit, Input } from '@angular/core';
 import { GlobalDataService } from './../global-data.service';
-import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-recent-use',
@@ -11,7 +10,7 @@ import { Storage } from '@ionic/storage';
 export class RecentUseComponent implements OnInit {
   @Input() domain;
   
-  constructor(public global: GlobalDataService, public router:Router,private storage: Storage) { }
+  constructor(public global: GlobalDataService, public router:Router) { }
 
   ngOnInit() {}
   goToCreateStickerPage(this_img) {

@@ -2,8 +2,6 @@ import { Component, OnInit } from "@angular/core";
 import { AlertController } from "@ionic/angular";
 import { ActivatedRoute, Router } from "@angular/router";
 import { GlobalDataService } from "./../global-data.service";
-import { Storage } from '@ionic/storage';
-
 
 @Component({
   selector: "app-create-stickers",
@@ -16,8 +14,7 @@ export class CreateStickersPage implements OnInit {
     public alertController: AlertController,
     private router: Router,
     public route: ActivatedRoute,
-    public global: GlobalDataService,
-    private storage: Storage
+    public global: GlobalDataService
   ) {
     this.global.stickerInfo.image = this.route.snapshot.paramMap.get("img");
     this.global.stickerInfo.domain = this.route.snapshot.paramMap.get("domain");
@@ -39,8 +36,6 @@ export class CreateStickersPage implements OnInit {
     this.global.stickerInfo.animation = newAnimation;
   }
 
-  // Binding to onClick event of sharesheet button
-
   addToRecentUse() {
    // if (!this.global.recent_use.includes(this.global.stickerInfo.image)) {
    //   this.global.recent_use.push(this.global.stickerInfo.image);
@@ -56,7 +51,6 @@ export class CreateStickersPage implements OnInit {
       this.global.recent_use = this.global.recent_use.slice(1,4);
     }
     this.img_list = this.global.recent_use;
-    this.storage.set("images", this.img_list);
   }
 
   goToStickerRenderPage() {

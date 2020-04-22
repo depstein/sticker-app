@@ -6,12 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  id:number;
   constructor() {}
-  signIn(){
-
-  }
-  signUp(){
-
-  }
 }
