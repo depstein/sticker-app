@@ -15,6 +15,7 @@ export class StickerRenderPage implements OnInit {
   imageLoading: boolean;
   imageLoadedSuccess: boolean;
   imageLoadedError: boolean;
+  errorStatus: string;
   url: string;
 
   constructor(private route: ActivatedRoute, private http: HttpClient, public global: GlobalDataService) {
@@ -28,14 +29,14 @@ export class StickerRenderPage implements OnInit {
 
   ngOnInit() {
     var url = this.url;
-    //this.http.get('https://sheltered-waters-08469.herokuapp.com/heartbeat/?value=100&type=plain-domain-relevant-2&option=shake&goal=0', {responseType: 'blob'})
     this.http.get(url, {responseType: 'blob'})
       .subscribe(data => { 
         this.createImageFromBlob(data);
         this.imageLoading = false;
         this.imageLoadedSuccess = true;
       }, error => {
-        console.log('error:'+url);
+        console.log(error);
+        this.errorStatus = "Status: " + String(error.status) + ", " + error.statusText;
         this.imageLoading = false;
         this.imageLoadedError = true;
       });

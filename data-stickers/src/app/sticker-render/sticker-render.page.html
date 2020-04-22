@@ -9,10 +9,13 @@
 
 <ion-content>
   <ion-spinner *ngIf="imageLoading"></ion-spinner>
+
   <ion-img class="renderedImage" [src]="imageFromServer" *ngIf="imageLoadedSuccess"></ion-img>
+  
   <div class="errorMessage" *ngIf="imageLoadedError">
     <ion-icon class="errorMessageIcon" name="sad" size="large"></ion-icon>
-    <div>Error loading image from server</div>
+    <div class="errorMessageText">Error loading sticker from server</div> 
+    <div class="errorStatus">{{errorStatus}}</div>
   </div>
 
   <ion-card *ngIf="imageLoadedSuccess">
