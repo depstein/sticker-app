@@ -1,6 +1,24 @@
 <ion-content class="ion-padding" color="primary">
 	<br>
 	<ion-text>Here are some directions for getting started</ion-text>
+	<ion-card color="light">
+		<p id="login">Login</p>
+	
+		<ion-item>
+		  <ion-label >UserID</ion-label>
+		  <ion-input [(ngModel)]="id"></ion-input>
+		</ion-item>
+	
+		<div text-center >
+		  <ion-button  (click)="signUp()">
+			SIGN UP
+		  </ion-button>
+	
+		  <ion-button  (click)="signIn()">
+			SIGN IN
+		  </ion-button>
+		</div>
+	  </ion-card>
 </ion-content>
 
 <ion-tabs>
