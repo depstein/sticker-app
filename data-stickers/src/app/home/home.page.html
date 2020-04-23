@@ -1,53 +1,35 @@
 <ion-content class="ion-padding" color="primary">
 	<br>
 	<ion-text>Here are some directions for getting started</ion-text>
-	<ion-card color="light">
-		<p id="login">Login</p>
-	
-		<ion-item>
-		  <ion-label >UserID</ion-label>
-		  <ion-input [(ngModel)]="id"></ion-input>
-		</ion-item>
-	
-		<div text-center >
-		  <ion-button  (click)="signUp()">
-			SIGN UP
-		  </ion-button>
-	
-		  <ion-button  (click)="signIn()">
-			SIGN IN
-		  </ion-button>
-		</div>
-	  </ion-card>
+	  <ion-tabs>
+		  <ion-tab-bar slot="bottom">
+			
+				<ion-tab-button class="steps-tab" tab="steps">
+					<ion-icon src="../../assets/icon/footprint.svg"></ion-icon>
+					<ion-label>Steps</ion-label>
+				</ion-tab-button>
+				
+				<ion-tab-button class="heartbeat-tab" tab="heartbeat">
+					<ion-icon src="../../assets/icon/bxs-heart.svg"></ion-icon>
+					<ion-label>Heartbeat</ion-label>
+				</ion-tab-button>
+				
+				<ion-tab-button class="calories-tab" tab="calories">
+					<ion-icon src="../../assets/icon/bxs-hot.svg"></ion-icon>
+					<ion-label>Calories</ion-label>
+				</ion-tab-button>
+				
+				<ion-tab-button class="time-tab" tab="time">
+					<ion-icon src="../../assets/icon/bxs-time-five.svg"></ion-icon>
+					<ion-label>Time</ion-label>
+				</ion-tab-button>
+				
+				<ion-tab-button class="music-tab" tab="music">
+					<ion-icon src="../../assets/icon/bxs-music.svg"></ion-icon>
+					<ion-label>Music</ion-label>
+				</ion-tab-button>
+				
+		  </ion-tab-bar>
+		</ion-tabs>
 </ion-content>
 
-<ion-tabs>
-  <ion-tab-bar slot="bottom">
-	
-		<ion-tab-button class="steps-tab" tab="steps">
-			<ion-icon src="../../assets/icon/footprint.svg"></ion-icon>
-			<ion-label>Steps</ion-label>
-		</ion-tab-button>
-		
-		<ion-tab-button class="heartbeat-tab" tab="heartbeat">
-			<ion-icon src="../../assets/icon/bxs-heart.svg"></ion-icon>
-			<ion-label>Heartbeat</ion-label>
-		</ion-tab-button>
-		
-		<ion-tab-button class="calories-tab" tab="calories">
-			<ion-icon src="../../assets/icon/bxs-hot.svg"></ion-icon>
-			<ion-label>Calories</ion-label>
-		</ion-tab-button>
-		
-		<ion-tab-button class="time-tab" tab="time">
-			<ion-icon src="../../assets/icon/bxs-time-five.svg"></ion-icon>
-			<ion-label>Time</ion-label>
-		</ion-tab-button>
-		
-		<ion-tab-button class="music-tab" tab="music">
-			<ion-icon src="../../assets/icon/bxs-music.svg"></ion-icon>
-			<ion-label>Music</ion-label>
-		</ion-tab-button>
-		
-  </ion-tab-bar>
-</ion-tabs>
