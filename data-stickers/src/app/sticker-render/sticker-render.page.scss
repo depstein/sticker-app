@@ -1,0 +1,52 @@
+
+
+.share-banner-content {
+	margin: 0 auto;
+}
+
+.renderedImage {
+  height: 150px;
+  width: 150px;
+  margin: auto;
+}
+
+.errorMessage {
+  width: 100%;
+  text-align: center;
+  margin-top: 15%;
+}
+
+.errorMessageIcon {
+  margin: auto;
+  margin-top: 15%;
+}
+
+.errorStatus {
+  margin-top: 5%;
+}
+
+ion-spinner {
+  stroke: white;
+  display: block;
+  margin: auto;
+  margin-top: 20%;
+  margin-bottom: 10%;
+}
+
+ion-card{
+  background-color: white;
+}
+ion-card-content{
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+ion-card-subtitle{
+  text-align: center;
+  padding: 20px;
+}
+.share-button{
+  width: 150px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}

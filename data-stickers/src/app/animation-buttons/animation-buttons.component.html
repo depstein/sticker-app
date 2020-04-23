@@ -2,35 +2,35 @@
 	<ion-row>
 		<!-- No Animation -->
 		<ion-col>
-			<ion-button id="noAnimation" (click)="noAnimation()" fill="clear" [ngClass]="{'selected': animation == 'none'}">
+			<ion-button id="noAnimation" (click)="noAnimation()" fill="clear" [ngClass]="{'selected': global.stickerInfo.animation == 'none'}">
 				<ion-icon name="radio-button-off" routerLinkActive="active" ></ion-icon>
 			</ion-button>
 		</ion-col>
 		
 		<!-- Pulse animation --> 
 		<ion-col>
-			<ion-button id="pulseAnimation" (click)="pulseAnimation()"fill="clear" [ngClass]="{'selected': animation == 'pulse'}">
+			<ion-button id="pulseAnimation" (click)="pulseAnimation()"fill="clear" [ngClass]="{'selected': global.stickerInfo.animation == 'pulse'}">
 				<ion-icon name="pulse" routerLinkActive="active" ></ion-icon>
 		  </ion-button>
 		</ion-col>
 		
 		<!-- Shake animation --> 
 		<ion-col>
-			<ion-button id="shakeAnimation" (click)="shakeAnimation()" fill="clear" [ngClass]="{'selected': animation == 'shake'}">
+			<ion-button id="shakeAnimation" (click)="shakeAnimation()" fill="clear" [ngClass]="{'selected': global.stickerInfo.animation == 'shake'}">
 				<ion-icon name="radio" routerLinkActive="active" ></ion-icon>
 		  </ion-button>
 		</ion-col>
 		
 		<!-- Fill animation (goal only) --> 
 		<ion-col>
-			<ion-button id="fillAnimation" (click)="fillAnimation()"fill="clear" [ngClass]="{'selected': animation == 'fill'}">
+			<ion-button id="fillAnimation" (click)="fillAnimation()"fill="clear" [ngClass]="{'selected': global.stickerInfo.animation == 'fill'}">
 				<ion-icon name="color-fill" routerLinkActive="active" ></ion-icon>		 
 			 </ion-button>
 			
 		</ion-col>
 		<!-- Count up animation (analogy/no goal) --> 
 		<ion-col>
-			<ion-button id="countAnimation" (click)="countAnimation()" fill="clear" [ngClass]="{'selected': animation == 'count'}">
+			<ion-button id="countAnimation" (click)="countAnimation()" fill="clear" [ngClass]="{'selected': global.stickerInfo.animation == 'count'}">
 				<ion-icon name="arrow-up" routerLinkActive="active"></ion-icon>
 			</ion-button>
 		</ion-col>

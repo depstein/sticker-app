@@ -1,3 +1,18 @@
-<ion-button (click)="shareButton()"> 
-  <ion-icon name="download" ></ion-icon>
-</ion-button>
+<ion-row>
+  <ion-col (click)="shareFacebook()" color = "light" > 
+    <ion-icon class= "facebook"ios="logo-facebook" md="logo-facebook" large></ion-icon>
+  </ion-col>
+  
+  <ion-col (click)="shareIns()" color = "light"> 
+    <ion-icon class = "ins" ios="logo-instagram" md="logo-instagram"></ion-icon>
+  </ion-col>
+  
+  <ion-col (click)="shareSMS()" color = "light"> 
+    <ion-icon class = "sms" ios="ios-text" md="md-text"></ion-icon>
+  </ion-col>
+  
+  <ion-col (click)="shareTwitter()" color = "light"> 
+    <ion-icon class = "twitter" ios="logo-twitter" md="logo-twitter"></ion-icon>
+  </ion-col>
+</ion-row>
+

@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title *ngIf="imageLoading">Rendering</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button text=""></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color = {{global.stickerInfo.domain}}>
+  
+  <div class="renderingMessage" *ngIf="imageLoading">
+    <ion-spinner></ion-spinner>
+  </div>
+
+  <div class="errorMessage" *ngIf="imageLoadedError">
+    <ion-icon class="errorMessageIcon" name="sad" size="large"></ion-icon>
+    <div class="errorMessageText">Error loading sticker from server</div> 
+    <div class="errorStatus">{{errorStatus}}</div>
+  </div>
+
+  <div class="renderSuccess" *ngIf="imageLoadedSuccess">
+    <ion-img class="renderedImage" [src]="imageFromServer" *ngIf="imageLoadedSuccess"></ion-img>
+    <ion-card *ngIf="imageLoadedSuccess">
+      <ion-card-subtitle>Share this sticker with your social community</ion-card-subtitle>
+      <ion-card-content>
+        <app-share-button></app-share-button>
+        <!-- Share to Snapchat banner -->
+        <ion-item class="share-banner" lines="none">
+          <!--NOTE: sticker must be 1000x1000 pixels or it will not load-->
+          <div class="share-banner-content">
+            <app-send-to-snapchat class="share-button" sticker="testanim_meta" (click)="addToRecentUse()"></app-send-to-snapchat>
+          </div>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+</ion-content>

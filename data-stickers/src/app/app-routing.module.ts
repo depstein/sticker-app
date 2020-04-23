@@ -10,9 +10,14 @@ const routes: Routes = [
     {
         path: 'create-sticker',
         loadChildren: () => import('./create-stickers/create-stickers.module').then(m => m.CreateStickersPageModule)
-    },  {
+    },
+  {
     path: 'sticker-list',
     loadChildren: () => import('./sticker-list/sticker-list.module').then( m => m.StickerListPageModule)
+  },
+  {
+    path: 'sticker-render',
+    loadChildren: () => import('./sticker-render/sticker-render.module').then( m => m.StickerRenderPageModule)
   }
 
 ];

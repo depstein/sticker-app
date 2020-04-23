@@ -8,8 +8,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./share-button.component.scss'],
 })
 export class ShareButtonComponent implements OnInit {
-  text = "Share to Facebook";
+  text = "Share to Social Media";
   url = "https://docs.snapchat.com/docs/tutorials/creative-kit/web"
+  phone = "9497716451";
+  img = "../../assets/stickers/foot.png";
   constructor(private socialSharing: SocialSharing , private file: File) { }
 
   ngOnInit() {}
@@ -22,7 +24,7 @@ export class ShareButtonComponent implements OnInit {
     this.file.removeFile(this.file.cacheDirectory,name);
   }
 
-  async shareButton() {
+  async shareFacebook() {
     
     //let file = await this.sendLocalFile();
     //console.log('File',file);
@@ -33,4 +35,29 @@ export class ShareButtonComponent implements OnInit {
      // this.removeTempFile(file.name);
     })
   }  
+  async shareTwitter(){
+    this.socialSharing.shareViaTwitter(this.text).then( ()=>{
+
+    }).catch(e => {
+      // this.removeTempFile(file.name);
+     })
+  }
+
+  async shareSMS(){
+    this.socialSharing.shareViaSMS(this.text, this.phone).then( ()=>{
+
+    }).catch(e => {
+      // this.removeTempFile(file.name);
+     })
+  }
+  
+  async shareIns(){
+    this.socialSharing.shareViaInstagram(this.text,this.img).then( ()=>{
+
+    }).catch(e => {
+      // this.removeTempFile(file.name);
+     })
+  }
+  
+  
 }

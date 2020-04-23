@@ -15,7 +15,7 @@ const routes: Routes = [
 								}],
 						},
 						{
-								path: 'heartrate',
+								path: 'heartbeat',
 								children: [{
 										path: '',
 										loadChildren: () => import('../sticker-list/sticker-list.module').then(m => m.StickerListPageModule)

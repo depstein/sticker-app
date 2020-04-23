@@ -22,7 +22,7 @@ ion-tab-button {
 	--background: var(--ion-color-steps-tint) !important; 
 }
 
-.heartrate-tab.tab-selected {
+.heartbeat-tab.tab-selected {
 	--background: var(--ion-color-heartrate-tint) !important;
 }
 
@@ -41,3 +41,19 @@ ion-tab-button {
 ion-content {
 	text-align: center;
 }
+
+#login{
+	font-size: 20px;
+	padding:10px;
+	
+}
+
+ion-button{
+	margin-top: 30px;
+	margin-bottom: 10px;
+}
+ion-card{
+	min-height: 200px;
+}
+
+

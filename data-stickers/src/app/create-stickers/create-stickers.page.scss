@@ -9,7 +9,7 @@ ion-item {
 	--inner-padding-end: 0px;
 }
 
-ion-input{
+ion-input {
 	border-bottom: 2px solid black;
 }
 
@@ -29,12 +29,16 @@ ion-col {
 	margin-left: 10px;
 }
 
-ion-button{
+ion-button {
 	margin:auto;
 }
 
+ion-icon {
+	font-size: 18px;
+}
+
 .unit {
-	margin:auto;
+	margin: auto;
 }
 
 .select {
@@ -59,19 +63,10 @@ ion-button{
 
 .share-banner {
 	text-align: center; 
-	margin-top: 5%;
 }
 
-.share-label {
-	margin-right: 0;
-}
-
-.share-icon {
-	margin-right: 7%;
-}
-
-.share-button {
-	margin-right: 5%;
+.share-banner-content {
+	margin: 0 auto;
 }
 
 .input-wrapper {
