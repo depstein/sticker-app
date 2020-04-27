@@ -13,6 +13,7 @@ import { GlobalDataService } from "./global-data.service";
 
 import { File } from "@ionic-native/file/ngx";
 import { SocialSharing } from "@ionic-native/social-sharing/ngx";
+import { IonicStorageModule } from "@ionic/storage";
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,6 +21,7 @@ import { SocialSharing } from "@ionic-native/social-sharing/ngx";
   imports: [
     BrowserModule,
     IonicModule.forRoot({ animated: false }),
+    IonicStorageModule.forRoot(),
     AppRoutingModule,
     HttpClientModule
   ],
