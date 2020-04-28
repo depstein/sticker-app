@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { GlobalDataService } from './../global-data.service';
 import { StickerInfo } from '../sticker-info-class';
+import { ServerCallService } from './../server-call.service';
 
 @Component({
   selector: 'app-sticker-render',
@@ -17,50 +18,25 @@ export class StickerRenderPage implements OnInit {
   errorStatus: string;
   url: string;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient, public global: GlobalDataService) {
+  constructor(private route: ActivatedRoute, private http: HttpClient, public global: GlobalDataService, private serverCall: ServerCallService) {
     this.imageLoading = true;
     this.imageLoadedSuccess = false;
     this.imageLoadedError = false;
-
-    this.constructUrl();
-
+    this.imageFromServer = undefined; 
   }
 
   ngOnInit() {
-    var url = this.url;
-    this.http.get(url, {responseType: 'blob'})
-      .subscribe(data => { 
-        this.createImageFromBlob(data);
+    this.serverCall.requestSticker().then(
+      result => {
+        this.imageFromServer = result;
         this.imageLoading = false;
-        this.imageLoadedSuccess = true;
+        this.imageLoadedSuccess = true; 
       }, error => {
-        console.log(error);
-        this.errorStatus = "Status: " + String(error.status) + ", " + error.statusText;
+        this.errorStatus = "Status: " + String(error.status) + ", " + error.statusText; 
         this.imageLoading = false;
-        this.imageLoadedError = true;
-      });
-  }
-
-  constructUrl() {
-    var image_arr = this.global.stickerInfo.image.split('/');
-    image_arr = image_arr[image_arr.length-1].split('.');
-    
-    this.url = 'https://sheltered-waters-08469.herokuapp.com/';           // base url
-    this.url += String(this.global.stickerInfo.domain);                   // domain (ex. steps)
-    this.url += '/?value=' + String(this.global.stickerInfo.value);       // value (ex. 1000)
-    this.url += '&type=' + String(image_arr[0]);                          // image type (ex. plain-domain-relevant-1)
-    this.url += '&option=' + String(this.global.stickerInfo.animation);   // animation (ex. shake) 
-    this.url += '&goal=' + (this.global.stickerInfo.hasGoal ? String(this.global.stickerInfo.goal) : '0');  // goal (ex. 1000)
-  }
-
-  createImageFromBlob(image: Blob) {
-    var reader = new FileReader();
-    reader.addEventListener("load", () => {
-      this.imageFromServer = reader.result;
-    }, false)
-    if (image) {
-      reader.readAsDataURL(image);
-    }
+        this.imageLoadedError = true; 
+      }
+    )
   }
 
   addToRecentUse(){

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Storage } from '@ionic/storage';
+import { StylesCompileDependency } from '@angular/compiler';
 
 @Component({
   selector: 'app-home',

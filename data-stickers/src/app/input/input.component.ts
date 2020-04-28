@@ -13,7 +13,7 @@ export class InputComponent implements OnInit {
 	unit_copy: any[] = [];	// Used for slider's *ngIf to check for custom unit
 	selected_unit: string;
 	custom: string;
-	can_add_goal: boolean;
+	canAddGoal: boolean;
   	goal: string;
 	goal_str: string;
 	saved_value: number;
@@ -28,7 +28,7 @@ export class InputComponent implements OnInit {
 		this.goal_str = '';
 		this.goal = "ADD GOAL";
 		this.custom = "custom";
-		this.can_add_goal = this.global.image_dict[this.global.stickerInfo.domain][this.global.stickerInfo.image];
+		this.canAddGoal = this.global.image_dict[this.global.stickerInfo.domain][this.global.stickerInfo.image];
 	}
 
 	ngOnInit() {
@@ -51,26 +51,20 @@ export class InputComponent implements OnInit {
 			if (currentUnit == 'miles') {
 				if (newUnit == 'km') {
 					result = this.global.stickerInfo.value * 1.60934;
-					return result.toFixed(2);
 				} else if (newUnit == 'steps') {
 					result = this.global.stickerInfo.value * 5280 / 2.5;
-					return result.toFixed(2);
 				}
 			} else if (currentUnit == 'km') {
 				if (newUnit == 'miles') {
 					result = this.global.stickerInfo.value / 1.60934;
-					return result.toFixed(2);
 				} else if (newUnit == 'steps') {
 					result = this.global.stickerInfo.value * 3280.8 / 2.5;
-					return result.toFixed(2);
 				}
 			} else {  // currentUnit = 'steps'
 				if (newUnit == 'miles') {
 					result = this.global.stickerInfo.value * 2.5 / 5280;
-					return result.toFixed(2);
 				} else if (newUnit == 'km') {
 					result = this.global.stickerInfo.value * 2.5 / 3280.8; 
-					return result.toFixed(2);
 				}
 			}
 			
@@ -78,27 +72,21 @@ export class InputComponent implements OnInit {
 			if (currentUnit == 'minutes') {
 				if (newUnit == 'hours') {
 					result = this.global.stickerInfo.value / 60;
-					return result.toFixed(2);
 				} else if (newUnit == 'times') {
 					result = this.global.stickerInfo.value / 3.5;
-					return result.toFixed(2);
 				}
 			} else if (currentUnit == 'hours') {
 				if (newUnit == 'minutes') {
 					result = this.global.stickerInfo.value * 60;
-					return result.toFixed(2);
 				} else if (newUnit == 'times') {
 					result = this.global.stickerInfo.value * 60 / 3.5;
-					return result.toFixed(2);
 				}
 				
 			} else if (currentUnit == 'times') {
 				if (newUnit == 'minutes') {
 					result = this.global.stickerInfo.value * 3.5;
-					return result.toFixed(2);
 				} else if (newUnit == 'hours') {
 					result = this.global.stickerInfo.value * 3.5 / 60;
-					return result.toFixed(2);
 				}
 			}
 			
@@ -106,35 +94,30 @@ export class InputComponent implements OnInit {
 			if (currentUnit == 'hours') {
 				if (newUnit == 'minutes') {
 					result = this.global.stickerInfo.value * 60;
-					return result.toFixed(2);
 				} else if (newUnit == 'days') {
 					result = this.global.stickerInfo.value / 24; 
-					return result.toFixed(2);
 				}
 			} else if (currentUnit == 'minutes') {
 				if (newUnit == 'hours') {
 					result = this.global.stickerInfo.value / 60;
-					return result.toFixed(2);
 				} else if (newUnit == 'days') {
 					result = this.global.stickerInfo.value / 60 / 24;
-					return result.toFixed(2);
 				}
 			} else if (currentUnit == 'days') {
 				if (newUnit == 'minutes') {
 					result = this.global.stickerInfo.value * 24 * 60;
-					return result.toFixed(2);
 				} else if (newUnit == 'hours') {
 				result = this.global.stickerInfo.value * 24;
-					return result.toFixed(2);
 				}
 			}
 		}
+		return result.toFixed(2);
 	}
 
 	// Bound to onChange event for input box 
 	updateInputValue() {
 		this.slider_input_value = this.global.stickerInfo.value;
-		if (this.goal == "REMOVE") {	// If a goal has been created it must be updated
+		if (this.global.stickerInfo.hasGoal) {	// If a goal has been created it must be updated
 			if (this.global.stickerInfo.domain == "music") {
 				this.goal_str = String(this.global.stickerInfo.value) + ' ' + this.selected_unit + ' of ' + String(this.global.stickerInfo.music_value);
 			} else {
@@ -191,6 +174,7 @@ export class InputComponent implements OnInit {
 		if (this.goal == "REMOVE") {
 			this.goal = "ADD GOAL";
 			this.global.stickerInfo.hasGoal = false;
+			console.log("stickerInfo.hasGoal: ", this.global.stickerInfo.hasGoal);
 			this.global.stickerInfo.goal = 0;
 		}
 		else {
@@ -205,6 +189,7 @@ export class InputComponent implements OnInit {
 
 			this.goal = "REMOVE";
 			this.global.stickerInfo.hasGoal = true;
+			console.log("stickerInfo.hasGoal: ", this.global.stickerInfo.hasGoal);
 			this.global.stickerInfo.goal = this.global.stickerInfo.value;
 			if (this.global.stickerInfo.domain == "music") {
 				this.goal_str = String(this.global.stickerInfo.value);
