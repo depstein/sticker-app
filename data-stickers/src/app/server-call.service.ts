@@ -25,12 +25,15 @@ export class ServerCallService {
     let that = this; 
     return new Promise(function(resolve, reject) {
       that.http.get(that.url, {responseType: 'blob'})
-      .subscribe(data => { 
-        console.log("got data from server, creating image from blob");
-        let objUrl = URL.createObjectURL(data);
-        console.log(objUrl);
-        resolve(objUrl);
-      })
+      .subscribe(
+        data => { 
+          let objUrl = URL.createObjectURL(data);
+          resolve(objUrl);
+        },
+        error => {
+          reject(error)
+        }
+      )
     })
   }
 

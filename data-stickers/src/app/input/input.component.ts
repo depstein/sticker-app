@@ -174,7 +174,6 @@ export class InputComponent implements OnInit {
 		if (this.goal == "REMOVE") {
 			this.goal = "ADD GOAL";
 			this.global.stickerInfo.hasGoal = false;
-			console.log("stickerInfo.hasGoal: ", this.global.stickerInfo.hasGoal);
 			this.global.stickerInfo.goal = 0;
 		}
 		else {
@@ -189,7 +188,6 @@ export class InputComponent implements OnInit {
 
 			this.goal = "REMOVE";
 			this.global.stickerInfo.hasGoal = true;
-			console.log("stickerInfo.hasGoal: ", this.global.stickerInfo.hasGoal);
 			this.global.stickerInfo.goal = this.global.stickerInfo.value;
 			if (this.global.stickerInfo.domain == "music") {
 				this.goal_str = String(this.global.stickerInfo.value);

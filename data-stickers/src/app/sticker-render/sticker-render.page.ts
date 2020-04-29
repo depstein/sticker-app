@@ -18,14 +18,14 @@ export class StickerRenderPage implements OnInit {
   errorStatus: string;
   url: string;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient, public global: GlobalDataService, private serverCall: ServerCallService) {
+  constructor(private route: ActivatedRoute, private http: HttpClient, public global: GlobalDataService, private serverCall: ServerCallService) {}
+
+  ngOnInit() {
     this.imageLoading = true;
     this.imageLoadedSuccess = false;
     this.imageLoadedError = false;
     this.imageFromServer = undefined; 
-  }
-
-  ngOnInit() {
+    
     this.serverCall.requestSticker().then(
       result => {
         this.imageFromServer = result;
@@ -46,6 +46,10 @@ export class StickerRenderPage implements OnInit {
       this.global.recent_use = this.global.recent_use.slice(1,4);
       console.log("out of 3");
     }
+  }
+
+  refreshPage() {
+    this.ngOnInit()
   }
   
 }
