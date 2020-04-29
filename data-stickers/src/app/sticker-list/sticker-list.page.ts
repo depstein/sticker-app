@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { GlobalDataService } from "./../global-data.service";
-import { Storage } from '@ionic/storage';
+import { RecentUseService } from './../recent-use.service';
 
 @Component({
   selector: "app-sticker-list",
@@ -18,7 +18,7 @@ export class StickerListPage implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private global: GlobalDataService,
-    private storage: Storage
+    private recentUse: RecentUseService
   ) {
     this.domain = this.router.url;
     this.domain = this.domain.substring(6);
@@ -43,23 +43,6 @@ export class StickerListPage implements OnInit {
   }
 
   ngOnInit() {
-    /*
-    this.router.events.subscribe(
-      (event: Event) => {
-        if (event){
-          this.getRecentUse();
-        }
-      }
-    )
-    */
-  }
-
-  getRecentUse(){
-    console.log("Calling getRecentUsed()")
-    this.storage.get('recentUse').then((value) => {
-      this.stickerArray = JSON.parse(value);
-      console.log(this.stickerArray);
-    })
   }
 
   goToCreateStickerPage(this_img) {

@@ -9,7 +9,7 @@ import { Storage } from "@ionic/storage";
   styleUrls: ["./recent-use.component.scss"],
 })
 export class RecentUseComponent implements OnInit {
-  stickerArray = [];
+  @Input() stickerArray = [];
   @Input() domain;
 
   constructor(
@@ -17,12 +17,6 @@ export class RecentUseComponent implements OnInit {
     public router: Router,
     private storage: Storage
   ) {
-    this.getRecentUse();
-  }
-
-  ngAfterContentInit() {
-    console.log("Recent Use ngDoCheck");
-    this.getRecentUse();
   }
 
   ngOnInit() {}
@@ -32,20 +26,5 @@ export class RecentUseComponent implements OnInit {
       "create-sticker",
       { img: this_img, domain: this.domain },
     ]);
-  }
-
-  getRecentUse() {
-    console.log("Calling getRecentUsed()");
-    this.storage.get("recentUse").then((value) => {
-      this.stickerArray = JSON.parse(value);
-      console.log(this.stickerArray);
-    });
-
-    /*
-    .then((value) => {
-      console.log(JSON.parse(value));
-      this.stickerArray = JSON.parse(value); 
-    })
-    */
   }
 }
