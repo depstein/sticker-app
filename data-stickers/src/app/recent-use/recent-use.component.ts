@@ -1,7 +1,6 @@
 import { Router } from "@angular/router";
 import { Component, OnInit, Input } from "@angular/core";
 import { GlobalDataService } from "./../global-data.service";
-import { Storage } from "@ionic/storage";
 
 @Component({
   selector: "app-recent-use",
@@ -14,8 +13,7 @@ export class RecentUseComponent implements OnInit {
 
   constructor(
     public global: GlobalDataService,
-    public router: Router,
-    private storage: Storage
+    public router: Router
   ) {
   }
 
