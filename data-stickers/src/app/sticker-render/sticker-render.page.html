@@ -10,18 +10,23 @@
 <ion-content color = {{global.stickerInfo.domain}}>
   
   <div class="renderingMessage" *ngIf="imageLoading">
-    <ion-spinner></ion-spinner>
+    <!--<ion-spinner></ion-spinner>-->
+    <h2 class="renderingAnimation">Rendering Sticker<span>.</span><span>.</span><span>.</span></h2>
+    <div class="subtext">(Please be patient, may take 10+ seconds)</div>
   </div>
 
   <div class="errorMessage" *ngIf="imageLoadedError">
     <ion-icon class="errorMessageIcon" name="sad" size="large"></ion-icon>
     <div class="errorMessageText">Error loading sticker from server</div> 
     <div class="errorStatus">{{errorStatus}}</div>
+    <ion-button (click)="refreshPage()">
+      <ion-icon name="refresh"></ion-icon>&nbsp;Reload
+    </ion-button>
   </div>
 
-  <div class="renderSuccess" *ngIf="imageLoadedSuccess">
+  <div class="renderSuccess" >
     <ion-img class="renderedImage" [src]="imageFromServer" *ngIf="imageLoadedSuccess"></ion-img>
-    <ion-card *ngIf="imageLoadedSuccess">
+    <ion-card >
       <h5>Share this sticker with Snapchat</h5>
       <ion-card-content>
         <ion-item class="share-banner" lines="none">

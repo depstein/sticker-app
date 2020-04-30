@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { GlobalDataService } from './../global-data.service';
 import { StickerInfo } from '../sticker-info-class';
 import { Storage } from '@ionic/storage';
+import { ServerCallService } from './../server-call.service';
 
 @Component({
   selector: 'app-sticker-render',
@@ -17,30 +18,27 @@ export class StickerRenderPage implements OnInit {
   imageLoadedError: boolean;
   errorStatus: string;
   url: string;
-  
-  constructor(private route: ActivatedRoute, private http: HttpClient, public global: GlobalDataService, private storage: Storage) {
+
+  constructor(private route: ActivatedRoute, private http: HttpClient, public global: GlobalDataService, private serverCall: ServerCallService,private storage:Storage) {}
+
+  ngOnInit() {
+    this.addToRecentUse();
     this.imageLoading = true;
     this.imageLoadedSuccess = false;
     this.imageLoadedError = false;
-
-    this.constructUrl();
-
-  }
-
-  ngOnInit() {
-    var url = this.url;
-    this.http.get(url, {responseType: 'blob'})
-      .subscribe(data => { 
-        this.createImageFromBlob(data);
+    this.imageFromServer = undefined; 
+    
+    this.serverCall.requestSticker().then(
+      result => {
+        this.imageFromServer = result;
         this.imageLoading = false;
-        this.imageLoadedSuccess = true;
+        this.imageLoadedSuccess = true; 
       }, error => {
-        console.log(error);
-        this.errorStatus = "Status: " + String(error.status) + ", " + error.statusText;
+        this.errorStatus = "Status: " + String(error.status) + ", " + error.statusText; 
         this.imageLoading = false;
         this.imageLoadedError = true;
       });
-    this.addToRecentUse();
+    
   }
 
   constructUrl() {
@@ -63,6 +61,9 @@ export class StickerRenderPage implements OnInit {
     if (image) {
       reader.readAsDataURL(image);
     }
+      //this.imageLoadedError = true; 
+      
+  
   }
 
     /*
@@ -96,5 +97,8 @@ export class StickerRenderPage implements OnInit {
     });
   }
 
+  refreshPage() {
+    this.ngOnInit();
+  }
   
 }

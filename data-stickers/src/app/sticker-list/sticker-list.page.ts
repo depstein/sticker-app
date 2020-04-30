@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit,SimpleChanges } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { GlobalDataService } from "./../global-data.service";
 import { Storage } from '@ionic/storage';
@@ -41,7 +41,13 @@ export class StickerListPage implements OnInit {
       this.imageArray[2]
     );
   }
-
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(666);
+    console.log(changes);
+    //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
+    //Add '${implements OnChanges}' to the class.
+    
+  }
   ngOnInit() {
     /*
     this.router.events.subscribe(
@@ -52,6 +58,7 @@ export class StickerListPage implements OnInit {
       }
     )
     */
+   this.getRecentUse();
   }
 
   getRecentUse(){

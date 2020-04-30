@@ -33,16 +33,16 @@
 </ion-item>
 
 <!-- Add/Remove Goal -->
-<ion-item *ngIf="can_add_goal" lines="none">
+<ion-item *ngIf="canAddGoal" lines="none">
 	<ion-row>
-		<ion-col col-6 *ngIf="goal == 'REMOVE'">
+		<ion-col col-6 *ngIf="global.stickerInfo.hasGoal">
 			<ion-input class="goal" value={{goal_str}}></ion-input>
 			{{music_str}}
 		</ion-col>
 		<ion-col col-6>
 			<ion-button class="addGoalButton" color={{global.stickerInfo.domain}} (click)="toggleGoal()">
-				<ion-icon *ngIf="goal == 'ADD GOAL'" name="add"></ion-icon>
-				<ion-icon *ngIf="goal == 'REMOVE'" name="trash"></ion-icon>
+				<ion-icon *ngIf="!global.stickerInfo.hasGoal" name="add"></ion-icon>
+				<ion-icon *ngIf="global.stickerInfo.hasGoal" name="trash"></ion-icon>
 				{{goal}}
 			</ion-button>
 		</ion-col>

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Storage } from '@ionic/storage';
+import { StylesCompileDependency } from '@angular/compiler';
 
 @Component({
   selector: 'app-home',
@@ -24,7 +25,6 @@ export class HomePage {
     this.storage.get('id')
     .then((value) => {
       if (value != null){
-        console.log(value);
         this.userId = value;
         this.idEntered = true; 
       }
@@ -38,7 +38,6 @@ export class HomePage {
   }
 
   clearUserId(){
-    console.log("Clearing user ID from local storage");
     this.storage.remove('id');
     this.userId = '';
     this.idEntered = false;

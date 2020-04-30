@@ -1,5 +1,5 @@
 import { Router } from "@angular/router";
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input,SimpleChanges } from "@angular/core";
 import { GlobalDataService } from "./../global-data.service";
 import { Storage } from "@ionic/storage";
 
@@ -20,12 +20,16 @@ export class RecentUseComponent implements OnInit {
     this.getRecentUse();
   }
 
-  ngAfterContentInit() {
-    console.log("Recent Use ngDoCheck");
+  ngOnInit() {
     this.getRecentUse();
   }
-
-  ngOnInit() {}
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(666);
+    console.log(changes);
+    //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
+    //Add '${implements OnChanges}' to the class.
+    
+  }
 
   goToCreateStickerPage(this_img) {
     this.router.navigate([
