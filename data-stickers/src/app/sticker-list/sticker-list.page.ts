@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
+import { Storage } from '@ionic/storage';
 import { GlobalDataService } from "./../global-data.service";
 
 @Component({
@@ -15,10 +16,12 @@ export class StickerListPage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
+    private storage: Storage,
     private global: GlobalDataService
   ) {
     this.domain = this.router.url;
     this.domain = this.domain.substring(6);
+    this.saveDomain();  // saves domain to local storage to be loaded by default
     var arr = [];
     var image_list = Object.keys(this.global.image_dict[this.domain]);
 
@@ -40,10 +43,21 @@ export class StickerListPage implements OnInit {
 
   ngOnInit() {}
 
+  saveDomain() {
+    this.storage.set('domain', this.domain);
+  }
+
+  clearUserIdAndDomain(){
+    this.storage.remove('id').then(() => {
+      this.storage.remove('domain').then(() => {
+        this.router.navigateByUrl('/')    // Not working at the moment
+      })
+    })
+  }
 
   goToCreateStickerPage(this_img) {
     this.router.navigate([
-      "create-sticker",
+      'create-sticker',
       { img: this_img, domain: this.domain },
     ]);
   }
