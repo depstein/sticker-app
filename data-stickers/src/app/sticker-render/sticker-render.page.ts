@@ -3,8 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { GlobalDataService } from './../global-data.service';
 import { StickerInfo } from '../sticker-info-class';
-import { Storage } from '@ionic/storage';
-import { ServerCallService } from './../server-call.service';
+import { RecentUseService } from './../recent-use.service'
 
 @Component({
   selector: 'app-sticker-render',
@@ -18,27 +17,30 @@ export class StickerRenderPage implements OnInit {
   imageLoadedError: boolean;
   errorStatus: string;
   url: string;
-
-  constructor(private route: ActivatedRoute, private http: HttpClient, public global: GlobalDataService, private serverCall: ServerCallService,private storage:Storage) {}
-
-  ngOnInit() {
-    this.addToRecentUse();
+  
+  constructor(private route: ActivatedRoute, private http: HttpClient, public global: GlobalDataService, private recentUse:RecentUseService) {
     this.imageLoading = true;
     this.imageLoadedSuccess = false;
     this.imageLoadedError = false;
-    this.imageFromServer = undefined; 
-    
-    this.serverCall.requestSticker().then(
-      result => {
-        this.imageFromServer = result;
+
+    this.constructUrl();
+
+  }
+
+  ngOnInit() {
+    var url = this.url;
+    this.http.get(url, {responseType: 'blob'})
+      .subscribe(data => { 
+        this.createImageFromBlob(data);
         this.imageLoading = false;
-        this.imageLoadedSuccess = true; 
+        this.imageLoadedSuccess = true;
       }, error => {
-        this.errorStatus = "Status: " + String(error.status) + ", " + error.statusText; 
+        console.log(error);
+        this.errorStatus = "Status: " + String(error.status) + ", " + error.statusText;
         this.imageLoading = false;
         this.imageLoadedError = true;
       });
-    
+    this.recentUse.addToRecentUse(this.global.stickerInfo.image);
   }
 
   constructUrl() {
@@ -61,44 +63,7 @@ export class StickerRenderPage implements OnInit {
     if (image) {
       reader.readAsDataURL(image);
     }
-      //this.imageLoadedError = true; 
-      
-  
   }
-
-    /*
-    this.global.recent_use.push(this.global.stickerInfo.image);
-    console.log("added");
-		if(this.global.recent_use.length > 3){
-      this.global.recent_use = this.global.recent_use.slice(1,4);
-      console.log("out of 3");
-    }
-    */
-   addToRecentUse() {
-    console.log(1);
-    // Get the array from local storage
-    let stickerArray = [];
-    this.storage.get('recentUse').then((value) => {
-      stickerArray = JSON.parse(value);
-      // Check to see the sticker is in the array
-      if (!stickerArray.includes(this.global.stickerInfo.image)) {
-        stickerArray.push(this.global.stickerInfo.image);
-        }
-      console.log(stickerArray.length);
-      if (stickerArray.length > 3) {
-        stickerArray = stickerArray.slice(1, 4);
-      }
-      console.log("sticker array (after push)", stickerArray);
-      this.storage.set('recentUse', JSON.stringify(stickerArray)).then(() => {
-        this.storage.get('recentUse').then((value) => {
-            console.log(JSON.parse(value));
-        });
-      });
-    });
-  }
-
-  refreshPage() {
-    this.ngOnInit();
-  }
+  refreshPage(){}
   
 }

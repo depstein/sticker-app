@@ -24,9 +24,9 @@
     </ion-button>
   </div>
 
-  <div class="renderSuccess" >
+  <div class="renderSuccess"  *ngIf="imageLoadedSuccess">
     <ion-img class="renderedImage" [src]="imageFromServer" *ngIf="imageLoadedSuccess"></ion-img>
-    <ion-card >
+    <ion-card *ngIf="imageLoadedSuccess" >
       <h5>Share this sticker with Snapchat</h5>
       <ion-card-content>
         <ion-item class="share-banner" lines="none">

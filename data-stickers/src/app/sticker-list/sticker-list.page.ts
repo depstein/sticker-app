@@ -1,7 +1,7 @@
-import { Component, OnInit,SimpleChanges } from "@angular/core";
+import { Component, OnInit} from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { GlobalDataService } from "./../global-data.service";
-import { Storage } from '@ionic/storage';
+import { RecentUseService } from "./../recent-use.service";
 
 @Component({
   selector: "app-sticker-list",
@@ -18,13 +18,12 @@ export class StickerListPage implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private global: GlobalDataService,
-    private storage: Storage
+    private recentUse: RecentUseService
   ) {
     this.domain = this.router.url;
     this.domain = this.domain.substring(6);
     var arr = [];
     var image_list = Object.keys(this.global.image_dict[this.domain]);
-
 
     // Construct a 2d array from the global array of images
     for (let x = 0; x < image_list.length; x++) {
@@ -41,33 +40,7 @@ export class StickerListPage implements OnInit {
       this.imageArray[2]
     );
   }
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(666);
-    console.log(changes);
-    //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
-    //Add '${implements OnChanges}' to the class.
-    
-  }
-  ngOnInit() {
-    /*
-    this.router.events.subscribe(
-      (event: Event) => {
-        if (event){
-          this.getRecentUse();
-        }
-      }
-    )
-    */
-   this.getRecentUse();
-  }
-
-  getRecentUse(){
-    console.log("Calling getRecentUsed()")
-    this.storage.get('recentUse').then((value) => {
-      this.stickerArray = JSON.parse(value);
-      console.log(this.stickerArray);
-    })
-  }
+  ngOnInit() {}
 
   goToCreateStickerPage(this_img) {
     this.router.navigate([
