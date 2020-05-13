@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
+import { ModalController } from '@ionic/angular';
+import { SettingsPage } from '../modals/settings/settings.page'
 import { Storage } from '@ionic/storage';
 import { GlobalDataService } from "./../global-data.service";
 
@@ -16,6 +18,7 @@ export class StickerListPage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
+    private modalController: ModalController,
     private storage: Storage,
     private global: GlobalDataService
   ) {
@@ -47,12 +50,11 @@ export class StickerListPage implements OnInit {
     this.storage.set('domain', this.domain);
   }
 
-  clearUserIdAndDomain(){
-    this.storage.remove('id').then(() => {
-      this.storage.remove('domain').then(() => {
-        this.router.navigateByUrl('/')    // Not working at the moment
-      })
+  async presentSettingsModal() {
+    const modal = await this.modalController.create({
+      component: SettingsPage,
     })
+    return await modal.present();
   }
 
   goToCreateStickerPage(this_img) {
