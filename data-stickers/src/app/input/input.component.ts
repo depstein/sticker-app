@@ -178,7 +178,7 @@ export class InputComponent implements OnInit {
 		}
 		else {
 			// Error prevention 
-			if (this.global.stickerInfo.value <= 0 || this.global.stickerInfo.value == undefined) {
+			if (this.global.stickerInfo.value <= 0 || this.global.stickerInfo.value == undefined || this.global.stickerInfo.min <= 0 || this.global.stickerInfo.min == undefined || this.global.stickerInfo.hour <= 0 || this.global.stickerInfo.hour == undefined) {
 				this.presentErrorPrompt();
 				return;
 			} else if (isNaN(this.global.stickerInfo.value)) {

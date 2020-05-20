@@ -20,14 +20,11 @@
         [(ngModel)]="global.stickerInfo.value"
         (ngModelChange)="updateInputValue()"
       ></ion-input>
-	</ion-col>
-	
-
-
+    </ion-col>
 
     <ion-col col-6 *ngIf="global.stickerInfo.domain == 'time'">
-		<ion-input
-		*ngIf="global.stickerInfo.unit!= 'minute:hour'"
+      <ion-input
+        *ngIf="global.stickerInfo.unit != 'minute:hour'"
         type="text"
         pattern="[0-9]*"
         decimal="true"
@@ -39,7 +36,7 @@
         [(ngModel)]="global.stickerInfo.value"
         (ngModelChange)="updateInputValue()"
       ></ion-input>
-      <ion-row *ngIf="global.stickerInfo.unit == 'minute:hour'"> 
+      <ion-row *ngIf="global.stickerInfo.unit == 'minute:hour'">
         <ion-col col-3>
           <ion-input
             type="text"
@@ -53,9 +50,9 @@
             [(ngModel)]="global.stickerInfo.min"
             (ngModelChange)="updateInputValue()"
           ></ion-input>
-		</ion-col>
-		<p>:</p>
-        <ion-col col-3 >
+        </ion-col>
+        <p>:</p>
+        <ion-col col-3>
           <ion-input
             type="text"
             pattern="[0-9]*"
