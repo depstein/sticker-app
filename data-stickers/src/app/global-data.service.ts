@@ -42,8 +42,8 @@ export class GlobalDataService {
 			},
 			"time": {
 				"units": {
-					"minute:hour": {
-						"maxAmount": 10000
+					"hour:minute": {
+						"maxAmount": 1499
 					},
 					"days": {
 						"maxAmount": 14

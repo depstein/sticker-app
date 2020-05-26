@@ -9,7 +9,8 @@ export class StickerInfo {
 	goal: number;
 	min:number;
 	hour:number;
-
+	milsec:number; 
+	
 	constructor() {
 		this.image = '';
 		this.domain = '';

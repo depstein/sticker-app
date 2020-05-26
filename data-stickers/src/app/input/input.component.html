@@ -22,9 +22,15 @@
       ></ion-input>
     </ion-col>
 
-    <ion-col col-6 *ngIf="global.stickerInfo.domain == 'time'">
+    <ion-col
+      col-6
+      *ngIf="
+        global.stickerInfo.domain == 'time' &&
+        global.stickerInfo.unit != 'hour:minute'
+      "
+    >
       <ion-input
-        *ngIf="global.stickerInfo.unit != 'minute:hour'"
+        *ngIf="global.stickerInfo.unit != 'hour:minute'"
         type="text"
         pattern="[0-9]*"
         decimal="true"
@@ -36,37 +42,57 @@
         [(ngModel)]="global.stickerInfo.value"
         (ngModelChange)="updateInputValue()"
       ></ion-input>
-      <ion-row *ngIf="global.stickerInfo.unit == 'minute:hour'">
-        <ion-col col-3>
-          <ion-input
-            type="text"
-            pattern="[0-9]*"
-            decimal="true"
-            allow-multiple-decimals="true"
-            minlength="0"
-            maxlength="10"
-            button-char=","
-            decimal-char="."
-            [(ngModel)]="global.stickerInfo.min"
-            (ngModelChange)="updateInputValue()"
-          ></ion-input>
-        </ion-col>
-        <p>:</p>
-        <ion-col col-3>
-          <ion-input
-            type="text"
-            pattern="[0-9]*"
-            decimal="true"
-            allow-multiple-decimals="true"
-            minlength="0"
-            maxlength="10"
-            button-char=","
-            decimal-char="."
-            [(ngModel)]="global.stickerInfo.hour"
-            (ngModelChange)="updateInputValue()"
-          ></ion-input>
-        </ion-col>
-      </ion-row>
+    </ion-col>
+
+    <ion-col
+      col-3
+      id="time-col"
+      *ngIf="
+        global.stickerInfo.domain == 'time' &&
+        global.stickerInfo.unit == 'hour:minute'
+      "
+    >
+      <ion-input
+        type="text"
+        pattern="[0-9]*"
+        decimal="true"
+        allow-multiple-decimals="true"
+        minlength="0"
+        maxlength="2"
+        button-char=","
+        decimal-char="."
+        [(ngModel)]="global.stickerInfo.hour"
+        (ngModelChange)="updateInputValue()"
+      ></ion-input>
+    </ion-col>
+    <p
+      *ngIf="
+        global.stickerInfo.domain == 'time' &&
+        global.stickerInfo.unit == 'hour:minute'
+      "
+    >
+      :
+    </p>
+    <ion-col
+      col-3
+      id="time-col"
+      *ngIf="
+        global.stickerInfo.domain == 'time' &&
+        global.stickerInfo.unit == 'hour:minute'
+      "
+    >
+      <ion-input
+        type="number"
+        pattern="[0-9]*"
+        decimal="true"
+        allow-multiple-decimals="true"
+        minlength="0"
+        maxlength="2"
+        button-char=","
+        decimal-char="."
+        [(ngModel)]="global.stickerInfo.min"
+        (ngModelChange)="updateInputValue()"
+      ></ion-input>
     </ion-col>
 
     <ion-col col-6>
@@ -128,10 +154,25 @@
 <!-- Add/Remove Goal -->
 <ion-item *ngIf="canAddGoal" lines="none">
   <ion-row>
-    <ion-col col-6 *ngIf="global.stickerInfo.hasGoal">
+    <ion-col col-6 *ngIf="global.stickerInfo.hasGoal&&
+    global.stickerInfo.unit != 'hour:minute'">
       <ion-input class="goal" value="{{ goal_str }}"></ion-input>
       {{ music_str }}
     </ion-col>
+    <ion-col col-3 *ngIf="global.stickerInfo.hasGoal&&
+    global.stickerInfo.unit == 'hour:minute'">
+    <ion-input class="goal" value="{{ hour_str }}"></ion-input>
+    </ion-col>
+    <p *ngIf="global.stickerInfo.hasGoal&&
+    global.stickerInfo.unit == 'hour:minute'">:</p>
+    <ion-col col-3 *ngIf="global.stickerInfo.hasGoal&&
+    global.stickerInfo.unit == 'hour:minute'">
+    <ion-input class="goal" value="{{ min_str }}"></ion-input>
+    </ion-col>
+
+   
+     
+  
     <ion-col col-6>
       <ion-button
         class="addGoalButton"

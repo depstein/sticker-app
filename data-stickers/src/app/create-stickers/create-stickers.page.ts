@@ -28,6 +28,10 @@ export class CreateStickersPage implements OnInit {
     this.global.stickerInfo.unit = Object.keys(
       this.global.domain_info[this.global.stickerInfo.domain].units
     )[0].trim();
+    if(this.global.stickerInfo.domain == "music"){
+      this.presentAlertMultipleButtons();
+    }
+    
   }
 
   ngOnInit() {}
@@ -37,9 +41,16 @@ export class CreateStickersPage implements OnInit {
     this.global.stickerInfo.animation = newAnimation;
   }
 
-  
-
   goToStickerRenderPage() {
     this.router.navigate(["sticker-render", {}]);
+  }
+
+  async presentAlertMultipleButtons() {
+    const alert = await this.alertController.create({
+      message: 'Do you want to get your playlist from spolify?',
+      buttons: ['NO', 'YES', ]
+    });
+
+    await alert.present();
   }
 }
