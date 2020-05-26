@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { AlertController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { StylesCompileDependency } from '@angular/compiler';
-//import { Health } from '@ionic-native/health/ngx';
 
 @Component({
   selector: 'app-home',
@@ -18,12 +17,15 @@ export class HomePage {
   onHomeScreen: boolean;
   healthPermission: boolean;
 
-  constructor(private storage: Storage, private router: Router, private alertController: AlertController) {
+  constructor(
+    private storage: Storage, 
+    private router: Router, 
+    private alertController: AlertController
+  ) {
     this.idEntered = false;
     this.onHomeScreen = true;
     this.userId = '';
     this.checkForUserIdAndDomain(); // Checks Ionic local storage for User ID and last-visited domain 
-    //this.testHealth()
   }
 
   checkForUserIdAndDomain(){
@@ -113,25 +115,8 @@ export class HomePage {
   }
 
   setHealthPermission(permission: boolean){
-    this.storage.set('healthPermission', permission)
+    this.storage.set('healthPermission', permission);
     this.healthPermission = permission;
   }
-
-  /*testHealth() {
-    this.health.isAvailable()
-    .then((available:boolean) => {
-      console.log(available);
-      this.health.requestAuthorization([
-        'distance', 'nutrition',  //read and write permissions
-        {
-          read: ['steps'],       //read only permission
-          write: ['height', 'weight']  //write only permission
-        }
-      ])
-      .then(res => console.log(res))
-      .catch(e => console.log(e));
-    })
-    .catch(e => console.log(e));
-  }*/
 
 }

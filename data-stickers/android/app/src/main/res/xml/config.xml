@@ -2,34 +2,35 @@
 <widget version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <access origin="*" />
   
-  <feature name="DecimalKeyboard">
-    <param name="ios-package" value="CDVDecimalKeyboard" onload="true"/>
-  </feature>
-
   <feature name="Device">
-    <param name="ios-package" value="CDVDevice"/>
+    <param name="android-package" value="org.apache.cordova.device.Device"/>
   </feature>
 
   <feature name="File">
-    <param name="ios-package" value="CDVFile"/>
+    <param name="android-package" value="org.apache.cordova.file.FileUtils"/>
     <param name="onload" value="true"/>
   </feature>
 
-  <feature name="HealthKit">
-    <param name="ios-package" value="HealthKit"/>
+  <feature name="health">
+    <param name="android-package" value="org.apache.cordova.health.HealthPlugin"/>
   </feature>
 
-  <feature name="DecimalKeyboard">
-    <param name="ios-package" value="CDVDecimalKeyboard" onload="true"/>
+  <feature name="StatusBar">
+    <param name="android-package" value="org.apache.cordova.statusbar.StatusBar"/>
+    <param name="onload" value="true"/>
+  </feature>
+
+  <feature name="Whitelist">
+    <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin"/>
+    <param name="onload" value="true"/>
   </feature>
 
   <feature name="SocialSharing">
-    <param name="ios-package" value="SocialSharing"/>
-    <param name="onload" value="true"/>
+    <param name="android-package" value="nl.xservices.plugins.SocialSharing"/>
   </feature>
 
   <feature name="SQLitePlugin">
-    <param name="ios-package" value="SQLitePlugin"/>
+    <param name="android-package" value="io.sqlc.SQLitePlugin"/>
   </feature>
 
   

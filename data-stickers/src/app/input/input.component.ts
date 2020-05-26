@@ -191,11 +191,23 @@ export class InputComponent implements OnInit {
 			this.global.stickerInfo.goal = this.global.stickerInfo.value;
 			if (this.global.stickerInfo.domain == "music") {
 				this.goal_str = String(this.global.stickerInfo.value);
-				this.music_str = this.selected_unit + ' of ' + String(this.global.stickerInfo.music_value);
+				this.music_str = this.global.stickerInfo.unit + ' of ' + String(this.global.stickerInfo.music_value);
 			} else {
 				this.goal_str = String(this.global.stickerInfo.value);
 			}
 		}
+	}
+
+	// Validates unit input, returns true if the input is valid 
+	validateUnitInput(unitInput: string): boolean {
+		// length must <= 10 
+		if (unitInput.length == 0 || unitInput.length > 10)
+			return false;
+		// must not contain any non-alphanumeric characters 
+		const regex = /[^A-Za-z0-9]/
+		if (regex.test(unitInput) == true)
+			return false;  
+		return true; 
 	}
 
 	cancelledCustomUnitInput() {
@@ -224,8 +236,15 @@ export class InputComponent implements OnInit {
 				}, {
 					text: 'OK',
 					handler: data => {
+						// Validate the input 
+						let inputIsValid = this.validateUnitInput(data.name);
+						if (inputIsValid == false) {
+							this.presentErrorPrompt3();
+							this.global.stickerInfo.unit = this.unit_list[0];
+							return;
+						}
 						this.unit_list.push(data.name);
-						this.global.stickerInfo.unit = data.name;
+						this.global.stickerInfo.unit = data.name;						
 					}
 				}
       		]
@@ -251,6 +270,18 @@ export class InputComponent implements OnInit {
 			buttons: [
 				{
 					text: 'Got It!',
+				}
+			]
+		});
+		await alert.present();
+	}
+
+	async presentErrorPrompt3() {
+		const alert = await this.alertController.create({
+			header: 'Error: Unit must be alphanumeric and max 10 characters',
+			buttons: [
+				{
+					text: 'Got It!'
 				}
 			]
 		});
