@@ -1,9 +1,10 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit} from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ModalController } from '@ionic/angular';
 import { SettingsPage } from '../modals/settings/settings.page'
 import { Storage } from '@ionic/storage';
 import { GlobalDataService } from "./../global-data.service";
+import { RecentUseService } from "./../recent-use.service";
 
 @Component({
   selector: "app-sticker-list",
@@ -14,13 +15,15 @@ export class StickerListPage implements OnInit {
   domain: string;
   imageDict = {};
   imageArray = [];
+  stickerArray = [];
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private modalController: ModalController,
     private storage: Storage,
-    private global: GlobalDataService
+    private global: GlobalDataService,
+    private recentUse: RecentUseService
   ) {
     this.domain = this.router.url;
     this.domain = this.domain.substring(6);
@@ -43,7 +46,6 @@ export class StickerListPage implements OnInit {
       this.imageArray[2]
     );
   }
-
   ngOnInit() {}
 
   saveDomain() {

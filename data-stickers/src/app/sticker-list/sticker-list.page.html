@@ -1,24 +1,34 @@
-<ion-header class="ion-no-border" >
+<ion-header class="ion-no-border">
   <ion-toolbar>
-	<ion-title *ngIf="global.recent_use.length == 0"  color={{domain}}>Select stickers</ion-title>
-	<ion-label *ngIf="global.recent_use.length > 0" color={{domain}}> Recently Used </ion-label>
-	<ion-item *ngIf="global.recent_use.length > 0" lines= none>
-	  <app-recent-use  [(domain)]="domain"></app-recent-use>
-	</ion-item>
-	<ion-buttons slot="end">
-	  <ion-button color={{domain}} (click)="presentSettingsModal()">
-		<ion-icon name="settings"></ion-icon>
-	  </ion-button>
-	</ion-buttons>
+    <ion-title
+      *ngIf="!recentUse.stickerArray || recentUse.stickerArray != null"
+      color="{{domain}}"
+      >Select stickers</ion-title
+    >
+    <ion-label
+      *ngIf="recentUse.stickerArray && recentUse.stickerArray.length > 0"
+      color="{{domain}}"
+    >
+      Recently Used
+    </ion-label>
+    <ion-item
+      *ngIf="recentUse.stickerArray && recentUse.stickerArray.length > 0"
+      lines="none"
+    >
+      <app-recent-use
+        [(domain)]="domain"
+        [(stickerArray)]="recentUse.stickerArray"
+      ></app-recent-use>
+    </ion-item>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="hide-scrollbar" color={{domain}}>
-  <ion-grid>	
-	<ion-row *ngFor="let row of imageArray">
-	  <ion-col *ngFor="let image of row">
-		<img [src]="image" (click)="goToCreateStickerPage(image)" >
-	  </ion-col>
-	</ion-row>
+<ion-content class="hide-scrollbar" color="{{domain}}">
+  <ion-grid>
+    <ion-row *ngFor="let row of imageArray">
+      <ion-col *ngFor="let image of row">
+        <img [src]="image" (click)="goToCreateStickerPage(image)" />
+      </ion-col>
+    </ion-row>
   </ion-grid>
 </ion-content>

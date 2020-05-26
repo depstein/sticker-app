@@ -8,6 +8,7 @@ import { StickerRenderPageRoutingModule } from './sticker-render-routing.module'
 
 import { StickerRenderPage } from './sticker-render.page';
 import { SendToSnapchatComponent } from '../send-to-snapchat/send-to-snapchat.component';
+import { Storage } from '@ionic/storage';
 
 @NgModule({
   imports: [
