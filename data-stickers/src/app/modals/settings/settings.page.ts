@@ -13,6 +13,7 @@ import { Storage } from '@ionic/storage';
 export class SettingsPage implements OnInit {
   idInput: string;
   healthPermission: boolean;
+  spotifyPermission: boolean;
 
   constructor(
     private modalController: ModalController,
@@ -20,12 +21,12 @@ export class SettingsPage implements OnInit {
     private navCtrl: NavController,
     private storage: Storage
   ) { 
-    this.getIdandPermissionFromStorage();
+    this.getIdandPermissionsFromStorage();
   }
 
   ngOnInit() {}
 
-  getIdandPermissionFromStorage(){
+  getIdandPermissionsFromStorage(){
     this.storage.get('id')
     .then((value) => {
       this.idInput = value;
@@ -33,28 +34,30 @@ export class SettingsPage implements OnInit {
     this.storage.get('healthPermission')
     .then((value) => {
       this.healthPermission = value;
-    })  
+    })
+    this.storage.get('spotifyPermission')
+    .then((value) => {
+      this.spotifyPermission = value;
+    })
   }
 
   async closeModal() {
     if (this.idInput != null)
       this.storage.set('id', this.idInput);
     this.storage.set('healthPermission', this.healthPermission);
+    this.storage.set('spotifyPermission', this.spotifyPermission);
     await this.modalController.dismiss();
   }
 
   clearAllSettings() {
     this.storage.remove('id')
+    this.storage.remove('domain')
+    this.storage.remove('healthPermission')
+    this.storage.remove('spotifyPermission')
     .then(() => {
-      this.storage.remove('domain')
-      .then(() => {
-        this.storage.remove('healthPermission')
-        .then(() => {
-          this.idInput = null;
-          this.healthPermission = false; 
-          this.presentToast()
-        })
-      })
+      this.idInput = null;
+      this.healthPermission = false; 
+      this.presentToast()
     })
   }
 
@@ -64,7 +67,7 @@ export class SettingsPage implements OnInit {
       duration: 2000
     });
     toast.present().then(() => {
-      this.navCtrl.navigateRoot('/home');
+      this.navCtrl.navigateRoot('/home'); // Navigation currently doesn't work
     })
   }
 

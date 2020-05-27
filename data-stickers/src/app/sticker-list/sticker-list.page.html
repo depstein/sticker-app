@@ -20,6 +20,11 @@
         [(stickerArray)]="recentUse.stickerArray"
       ></app-recent-use>
     </ion-item>
+    <ion-buttons slot="end">
+      <ion-button color={{domain}} (click)="presentSettingsModal()">
+      <ion-icon name="settings"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 

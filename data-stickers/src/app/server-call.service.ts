@@ -13,7 +13,8 @@ export class ServerCallService {
     var image_arr = this.global.stickerInfo.image.split('/');
     image_arr = image_arr[image_arr.length-1].split('.');
     this.url = 'https://sheltered-waters-08469.herokuapp.com/';           // base url
-    this.url += (this.global.stickerInfo.domain === 'calories' ? 'food' : this.global.stickerInfo.domain);  // domain (ex. steps)
+    //this.url += (this.global.stickerInfo.domain === 'calories' ? 'food' : this.global.stickerInfo.domain);  // domain (ex. steps)
+    this.url += this.global.stickerInfo.domain;
     this.url += '/?value=' + String(this.global.stickerInfo.value);       // value (ex. 1000)
     this.url += '&type=' + String(image_arr[0]);                          // image type (ex. plain-domain-relevant-1)
     this.url += '&option=' + String(this.global.stickerInfo.animation);   // animation (ex. shake) 

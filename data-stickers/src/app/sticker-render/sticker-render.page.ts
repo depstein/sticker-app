@@ -41,7 +41,6 @@ export class StickerRenderPage implements OnInit {
         this.imageLoadedError = true;
       });
     this.recentUse.addToRecentUse(this.global.stickerInfo.image);
-    //console.log(this.recentUse.stickerArray.length);
   }
 
   constructUrl() {

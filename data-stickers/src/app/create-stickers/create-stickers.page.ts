@@ -23,7 +23,6 @@ export class CreateStickersPage implements OnInit {
     this.global.stickerInfo.image = this.route.snapshot.paramMap.get("img");
     this.global.stickerInfo.domain = this.route.snapshot.paramMap.get("domain");
     this.global.stickerInfo.value = 0;
-    //this.global.stickerInfo.music_value = "The Beatles";
     this.global.stickerInfo.music_value = "";
     this.global.stickerInfo.animation = "none";
     this.global.stickerInfo.hasGoal = false;
@@ -63,25 +62,7 @@ export class CreateStickersPage implements OnInit {
     .catch(e => console.log(e));
   }*/
 
-  addToRecentUse() {
-   // if (!this.global.recent_use.includes(this.global.stickerInfo.image)) {
-   //   this.global.recent_use.push(this.global.stickerInfo.image);
-   // }
-   // if(this.global.recent_use.length > 3){
-   //   this.global.recent_use = this.global.recent_use.slice(1,4);
-   // }
-
-    //if (!this.global.recent_use.includes(this.global.stickerInfo.image)) {
-    //  this.global.recent_use.push(this.global.stickerInfo.image);
-    //}
-    //if(this.global.recent_use.length > 3){
-    //  this.global.recent_use = this.global.recent_use.slice(1,4);
-    //}
-    //this.img_list = this.global.recent_use;
-  }
-
   goToStickerRenderPage() {
-	  //this.addToRecentUse();
     this.router.navigate(["sticker-render", {}]);
   }
 
@@ -89,8 +70,7 @@ export class CreateStickersPage implements OnInit {
     const alert = await this.alertController.create({
       message: 'Do you want to get your playlist from spolify?',
       buttons: ['NO', 'YES', ]
-    });
-
+    })
     await alert.present();
   }
 }

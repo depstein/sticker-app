@@ -46,6 +46,7 @@ export class StickerListPage implements OnInit {
       this.imageArray[2]
     );
   }
+
   ngOnInit() {}
 
   saveDomain() {
