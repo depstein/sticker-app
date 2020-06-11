@@ -1,9 +1,41 @@
+ion-content {
+	text-align: center;
+}
+
 ion-tab-bar {
 	padding: 0.3em;
 }
 
 ion-tab-button {
 	border-radius: 10px;
+}
+
+ion-card{
+	background-color: white;
+}
+
+ion-card-content{
+	padding-bottom: 20px;
+}
+  
+ion-card-subtitle{
+	text-align: center;
+	padding: 20px;
+}
+
+ion-input{
+	border-bottom: 2px solid black;
+}
+
+ion-button {
+	position: relative;
+	z-index: 100;
+	--background: white;
+	--color: black;
+}
+
+.idDisplay {
+	padding-top: 20px;
 }
 
 .md ion-tab-button {
@@ -23,7 +55,7 @@ ion-tab-button {
 }
 
 .heartbeat-tab.tab-selected {
-	--background: var(--ion-color-heartrate-tint) !important;
+	--background: var(--ion-color-heartbeat-tint) !important;
 }
 
 .calories-tab.tab-selected {
@@ -38,22 +70,8 @@ ion-tab-button {
 	--background: var(--ion-color-music-tint) !important;
 }
 
-ion-content {
-	text-align: center;
-}
-
 #login{
 	font-size: 20px;
 	padding:10px;
 	
 }
-
-ion-button{
-	margin-top: 30px;
-	margin-bottom: 10px;
-}
-ion-card{
-	min-height: 200px;
-}
-
-

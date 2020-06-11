@@ -1,50 +1,188 @@
 <!-- Input box and unit selector -->
 <ion-item lines="none">
-	<ion-label class="input_label" position="floating" color={{domain}}>Enter your amount of {{selected_unit}}</ion-label>
-	<ion-row class="unit">
-		<ion-col col-6>
-			<ion-input type="text" pattern="[0-9]*" decimal="true" allow-multiple-decimals="true" minlength="0" maxlength="10" button-char="," decimal-char="." [(ngModel)]="global.stickerInfo.value" (ngModelChange)="updateInputValue()"></ion-input>
-		</ion-col>
-		<ion-col col-6>
-			<ion-select class="select" [(ngModel)]="global.stickerInfo.unit" [interfaceOptions]="customPopoverOptions" interface="popover" (ngModelChange)="unitChanged()">
-				<ion-select-option *ngFor="let op1 of unit_list" value={{op1}}> {{op1}}</ion-select-option>
-				<ion-select-option value="custom"> {{custom}}</ion-select-option>
-			</ion-select>
-		</ion-col>
-	</ion-row>
+  <ion-label
+    class="input_label"
+    position="floating"
+    color="{{ global.stickerInfo.domain }}"
+    >Enter your amount of {{ selected_unit }}</ion-label
+  >
+  <ion-row class="unit">
+    <ion-col col-6 *ngIf="global.stickerInfo.domain != 'time'">
+      <ion-input
+        type="text"
+        pattern="[0-9]*"
+        decimal="true"
+        allow-multiple-decimals="true"
+        minlength="0"
+        maxlength="10"
+        button-char=","
+        decimal-char="."
+        [(ngModel)]="global.stickerInfo.value"
+        (ngModelChange)="updateInputValue()"
+      ></ion-input>
+    </ion-col>
+
+    <ion-col
+      col-6
+      *ngIf="
+        global.stickerInfo.domain == 'time' &&
+        global.stickerInfo.unit != 'hour:minute'
+      "
+    >
+      <ion-input
+        *ngIf="global.stickerInfo.unit != 'hour:minute'"
+        type="text"
+        pattern="[0-9]*"
+        decimal="true"
+        allow-multiple-decimals="true"
+        minlength="0"
+        maxlength="10"
+        button-char=","
+        decimal-char="."
+        [(ngModel)]="global.stickerInfo.value"
+        (ngModelChange)="updateInputValue()"
+      ></ion-input>
+    </ion-col>
+
+    <ion-col
+      col-3
+      id="time-col"
+      *ngIf="
+        global.stickerInfo.domain == 'time' &&
+        global.stickerInfo.unit == 'hour:minute'
+      "
+    >
+      <ion-input
+        type="text"
+        pattern="[0-9]*"
+        decimal="true"
+        allow-multiple-decimals="true"
+        minlength="0"
+        maxlength="2"
+        button-char=","
+        decimal-char="."
+        [(ngModel)]="global.stickerInfo.hour"
+        (ngModelChange)="updateInputValue()"
+      ></ion-input>
+    </ion-col>
+    <p
+      *ngIf="
+        global.stickerInfo.domain == 'time' &&
+        global.stickerInfo.unit == 'hour:minute'
+      "
+    >
+      :
+    </p>
+    <ion-col
+      col-3
+      id="time-col"
+      *ngIf="
+        global.stickerInfo.domain == 'time' &&
+        global.stickerInfo.unit == 'hour:minute'
+      "
+    >
+      <ion-input
+        type="number"
+        pattern="[0-9]*"
+        decimal="true"
+        allow-multiple-decimals="true"
+        minlength="0"
+        maxlength="2"
+        button-char=","
+        decimal-char="."
+        [(ngModel)]="global.stickerInfo.min"
+        (ngModelChange)="updateInputValue()"
+      ></ion-input>
+    </ion-col>
+
+    <ion-col col-6>
+      <ion-select
+        class="select"
+        [(ngModel)]="global.stickerInfo.unit"
+        [interfaceOptions]="customPopoverOptions"
+        interface="popover"
+        (ngModelChange)="unitChanged()"
+      >
+        <ion-select-option *ngFor="let op1 of unit_list" value="{{ op1 }}">
+          {{ op1 }}</ion-select-option
+        >
+        <ion-select-option value="custom"> {{ custom }}</ion-select-option>
+      </ion-select>
+    </ion-col>
+  </ion-row>
 </ion-item>
 
 <!-- Input slider -->
-<ion-range *ngIf="unit_copy.includes(global.stickerInfo.unit)" color={{global.stickerInfo.domain}} min="0" max={{max_slider_value}} step="1" [(ngModel)]="slider_input_value" (ngModelChange)="updateInputValueFromSlider()">
-	<ion-icon class="slider-icon-left" size="small" slot="start" src={{slider_image_url}}></ion-icon>
-	<ion-icon class="slider-icon-right" slot="end" src={{slider_image_url}}></ion-icon>
+<ion-range
+  *ngIf="unit_copy.includes(global.stickerInfo.unit)"
+  color="{{ global.stickerInfo.domain }}"
+  min="0"
+  max="{{ max_slider_value }}"
+  step="1"
+  [(ngModel)]="slider_input_value"
+  (ngModelChange)="updateInputValueFromSlider()"
+>
+  <ion-icon
+    class="slider-icon-left"
+    size="small"
+    slot="start"
+    src="{{ slider_image_url }}"
+  ></ion-icon>
+  <ion-icon
+    class="slider-icon-right"
+    slot="end"
+    src="{{ slider_image_url }}"
+  ></ion-icon>
 </ion-range>
 
 <!-- Additional input for music domain -->
 <ion-item *ngIf="global.stickerInfo.domain == 'music'" lines="none">
-	<ion-row class="unit">
-		<ion-col size="3">
-			<ion-text>of</ion-text>
-		</ion-col>
-		<ion-col>
-			<ion-input [(ngModel)]="global.stickerInfo.music_value" (ngModelChange)="updateMusicInputValue()"> </ion-input>
-		</ion-col>
-	</ion-row>
+  <ion-row class="unit">
+    <ion-col size="3">
+      <ion-text>of</ion-text>
+    </ion-col>
+    <ion-col>
+      <ion-input
+        [(ngModel)]="global.stickerInfo.music_value"
+        (ngModelChange)="updateMusicInputValue()"
+      >
+      </ion-input>
+    </ion-col>
+  </ion-row>
 </ion-item>
 
 <!-- Add/Remove Goal -->
-<ion-item *ngIf="can_add_goal" lines="none">
-	<ion-row>
-		<ion-col col-6 *ngIf="goal == 'REMOVE'">
-			<ion-input class="goal" value={{goal_str}}></ion-input>
-			{{music_str}}
-		</ion-col>
-		<ion-col col-6>
-			<ion-button class="addGoalButton" color={{global.stickerInfo.domain}} (click)="toggleGoal()">
-				<ion-icon *ngIf="goal == 'ADD GOAL'" name="add"></ion-icon>
-				<ion-icon *ngIf="goal == 'REMOVE'" name="trash"></ion-icon>
-				{{goal}}
-			</ion-button>
-		</ion-col>
-	</ion-row>
+<ion-item *ngIf="canAddGoal" lines="none">
+  <ion-row>
+    <ion-col col-6 *ngIf="global.stickerInfo.hasGoal&&
+    global.stickerInfo.unit != 'hour:minute'">
+      <ion-input class="goal" value="{{ goal_str }}"></ion-input>
+      {{ music_str }}
+    </ion-col>
+    <ion-col col-3 *ngIf="global.stickerInfo.hasGoal&&
+    global.stickerInfo.unit == 'hour:minute'">
+    <ion-input class="goal" value="{{ hour_str }}"></ion-input>
+    </ion-col>
+    <p *ngIf="global.stickerInfo.hasGoal&&
+    global.stickerInfo.unit == 'hour:minute'">:</p>
+    <ion-col col-3 *ngIf="global.stickerInfo.hasGoal&&
+    global.stickerInfo.unit == 'hour:minute'">
+    <ion-input class="goal" value="{{ min_str }}"></ion-input>
+    </ion-col>
+
+   
+     
+  
+    <ion-col col-6>
+      <ion-button
+        class="addGoalButton"
+        color="{{ global.stickerInfo.domain }}"
+        (click)="toggleGoal()"
+      >
+        <ion-icon *ngIf="!global.stickerInfo.hasGoal" name="add"></ion-icon>
+        <ion-icon *ngIf="global.stickerInfo.hasGoal" name="trash"></ion-icon>
+        {{ goal }}
+      </ion-button>
+    </ion-col>
+  </ion-row>
 </ion-item>

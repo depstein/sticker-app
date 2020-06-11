@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { StickerListPageRoutingModule } from './sticker-list-routing.module';
 import { StickerListPage } from './sticker-list.page';
+import { SettingsPage } from '../modals/settings/settings.page'
 
 
 @NgModule({
@@ -14,6 +15,7 @@ import { StickerListPage } from './sticker-list.page';
     IonicModule,
     StickerListPageRoutingModule
   ],
-  declarations: [StickerListPage, RecentUseComponent]
+  declarations: [StickerListPage, RecentUseComponent, SettingsPage],
+  entryComponents: [SettingsPage]
 })
 export class StickerListPageModule {}

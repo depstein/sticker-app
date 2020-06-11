@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
 import { StickerListPage } from './sticker-list.page';
 
 const routes: Routes = [

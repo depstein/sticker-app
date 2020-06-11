@@ -18,7 +18,11 @@ const routes: Routes = [
   {
     path: 'sticker-render',
     loadChildren: () => import('./sticker-render/sticker-render.module').then( m => m.StickerRenderPageModule)
+  },  {
+    path: 'settings',
+    loadChildren: () => import('./modals/settings/settings.module').then( m => m.SettingsPageModule)
   }
+
 
 ];
 

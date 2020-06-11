@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Settings</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label>User ID</ion-label>
+    <ion-input type="text" class="ion-text-right" [(ngModel)]="idInput" ></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Health Permission</ion-label>
+    <ion-toggle [(ngModel)]="healthPermission"></ion-toggle>
+  </ion-item><ion-item>
+    <ion-label>Spotify Permission</ion-label>
+    <ion-toggle [(ngModel)]="spotifyPermission"></ion-toggle>
+  </ion-item>
+  <div class="buttonContainer">
+    <ion-button (click)="clearAllSettings()">Clear All</ion-button>
+    <ion-button (click)="closeModal()">Close</ion-button>
+  </div>
+</ion-content>

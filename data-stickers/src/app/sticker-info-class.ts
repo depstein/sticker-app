@@ -7,7 +7,10 @@ export class StickerInfo {
 	animation: string;
 	hasGoal: boolean;
 	goal: number;
-
+	min:number;
+	hour:number;
+	milsec:number; 
+	
 	constructor() {
 		this.image = '';
 		this.domain = '';
@@ -17,5 +20,8 @@ export class StickerInfo {
 		this.animation = 'none';
 		this.hasGoal = false;
 		this.goal = 0;
+		this.min = 0;
+		this.hour = 0
+
 	}
 }

@@ -7,7 +7,9 @@ ion-item {
 ion-input{
 	border-bottom: 2px solid black;
 }
-
+#time-col{
+	
+}
 ion-range {
 	padding-top: 5px;
 	--knob-size: 20px;
@@ -25,11 +27,11 @@ ion-col {
 }
 
 ion-button{
-	margin:auto;
+	margin: auto;
 }
 
 .unit {
-	margin:auto;
+	margin: auto;
 }
 
 .select {
@@ -45,7 +47,7 @@ ion-button{
 }
 
 .goal {
-		color: black;
+	color: black;
 }
 
 .ios .slider-icon-left {

@@ -4,34 +4,46 @@
     <ion-buttons slot="start">
       <ion-back-button text=""></ion-back-button>
     </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button *ngIf="imageLoadedSuccess" (click)="shareToSocialMedia()">
+        <ion-icon name="download"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content color = {{global.stickerInfo.domain}}>
   
   <div class="renderingMessage" *ngIf="imageLoading">
-    <ion-spinner></ion-spinner>
+    <!--<ion-spinner></ion-spinner>-->
+    <h2 class="renderingAnimation">Rendering Sticker<span>.</span><span>.</span><span>.</span></h2>
+    <div class="subtext">(Please be patient, may take 10+ seconds)</div>
   </div>
 
   <div class="errorMessage" *ngIf="imageLoadedError">
     <ion-icon class="errorMessageIcon" name="sad" size="large"></ion-icon>
     <div class="errorMessageText">Error loading sticker from server</div> 
     <div class="errorStatus">{{errorStatus}}</div>
+    <ion-button (click)="refreshPage()">
+      <ion-icon name="refresh"></ion-icon>&nbsp;Reload
+    </ion-button>
   </div>
 
-  <div class="renderSuccess" *ngIf="imageLoadedSuccess">
+  <div class="renderSuccess"  *ngIf="imageLoadedSuccess">
     <ion-img class="renderedImage" [src]="imageFromServer" *ngIf="imageLoadedSuccess"></ion-img>
-    <ion-card *ngIf="imageLoadedSuccess">
-      <ion-card-subtitle>Share this sticker with your social community</ion-card-subtitle>
+    <ion-card *ngIf="imageLoadedSuccess" >
+      <h5>Share this sticker with Snapchat</h5>
       <ion-card-content>
-        <app-share-button></app-share-button>
-        <!-- Share to Snapchat banner -->
         <ion-item class="share-banner" lines="none">
           <!--NOTE: sticker must be 1000x1000 pixels or it will not load-->
           <div class="share-banner-content">
-            <app-send-to-snapchat class="share-button" sticker="testanim_meta" (click)="addToRecentUse()"></app-send-to-snapchat>
+            <app-send-to-snapchat class="share-button" sticker="testanim_meta" ></app-send-to-snapchat>
           </div>
         </ion-item>
+        <p>Or other social communities<p>
+        <app-share-button></app-share-button>
+        <!-- Share to Snapchat banner -->
+        
       </ion-card-content>
     </ion-card>
   </div>
