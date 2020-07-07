@@ -36,6 +36,7 @@
     "cordova-browser": "^6.0.0",
     "cordova-ios": "4.5.5",
     "cordova-plugin-decimal-key": "^1.1.2",
+    "cordova-plugin-decimal-keyboard": "^1.0.0",
     "cordova-plugin-device": "^2.0.2",
     "cordova-plugin-file": "^6.0.2",
     "cordova-plugin-health": "^1.1.4",
@@ -98,12 +99,16 @@
       "cordova-plugin-decimal-keyboard": {},
       "cordova-plugin-ios-decimal-keyboard": {},
       "cordova-plugin-x-socialsharing": {
-        "ANDROID_SUPPORT_V4_VERSION": "24.1.1+"
+        "ANDROID_SUPPORT_V4_VERSION": "24.1.1+",
+        "PHOTO_LIBRARY_ADD_USAGE_DESCRIPTION": "This app requires photo library access to function properly.",
+        "PHOTO_LIBRARY_USAGE_DESCRIPTION": "This app requires photo library access to function properly."
       },
       "cordova-plugin-file": {},
       "cordova-sqlite-storage": {},
       "cordova-plugin-health": {
-        "GMS_VERSION": "16.0.1"
+        "GMS_VERSION": "16.0.1",
+        "HEALTH_READ_PERMISSION": " ",
+        "HEALTH_WRITE_PERMISSION": " "
       }
     },
     "platforms": [
