@@ -65,5 +65,10 @@ export class StickerRenderPage implements OnInit {
     }
   }
   refreshPage(){}
+
+  shareToSocialMedia() {
+    console.log("Share!");
+    //Does nothing right now; is there something which needs to be merged in?
+  }
   
 }
