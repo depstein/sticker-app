@@ -5,15 +5,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class SpotifyService {
-  BASE_URL = "https://accounts.spotify.com";
-  AUTHORIZE_ENDPOINT = "/authorize";
+	expressBaseUrl:string = 'http://localhost:8888';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http:HttpClient) { }
 
-  public get_authorize() {
-    return this.http.get(this.BASE_URL + this.AUTHORIZE_ENDPOINT);
+  public sendRequestToExpress(endpoint:string):Promise<any> {
+    var data = this.http.get(this.expressBaseUrl + endpoint).toPromise();
+    console.log(data);
+    return data;
   }
-
-
-
 }

@@ -29,7 +29,10 @@ export class StickerListPage implements OnInit {
     this.domain = this.domain.substring(6);
     this.saveDomain();  // saves domain to local storage to be loaded by default
     var arr = [];
-    var image_list = Object.keys(this.global.image_dict[this.domain]);
+    var image_list = [];
+    for(var s of this.global.image_dict[this.domain]){
+      image_list.push(s["sticker"]); 
+    }
 
     // Construct a 2d array from the global array of images
     for (let x = 0; x < image_list.length; x++) {

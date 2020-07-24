@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { AlertController } from "@ionic/angular";
 import { GlobalDataService } from "./../global-data.service";
+import { SpotifyService } from '../spotify.service';
 
 @Component({
   selector: "app-input",
@@ -27,15 +28,23 @@ export class InputComponent implements OnInit {
 
   constructor(
     public alertController: AlertController,
-    public global: GlobalDataService
+    public global: GlobalDataService,
+    private spotifyService: SpotifyService
   ) {
     this.slider_input_value = 0;
     this.goal_str = "";
     this.goal = "ADD GOAL";
     this.custom = "custom";
-    this.canAddGoal = this.global.image_dict[this.global.stickerInfo.domain][
-      this.global.stickerInfo.image
-    ];
+    for(var type of this.global.image_dict[this.global.stickerInfo.domain]){
+      if(this.global.stickerInfo.image == type.sticker){
+        if (type.stickerType == "chartjunk"){
+              this.canAddGoal = true;
+            }
+            else{
+              this.canAddGoal = false;
+            }
+      }
+    }
   }
 
   ngOnInit() {
@@ -352,5 +361,14 @@ export class InputComponent implements OnInit {
 			]
 		});
 		await alert.present();
-	}
+  }
+  
+  getplaylist(){
+    this.spotifyService.sendRequestToExpress('/recently-played').then(
+      (data) => {
+        console.log("Got playlist");
+        console.log(data);
+      }
+    );
+  }
 }
