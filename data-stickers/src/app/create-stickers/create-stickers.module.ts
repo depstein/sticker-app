@@ -28,6 +28,7 @@ import { ChartComponent } from "../chart/chart.component";
     StickerComponent,
     AnimationButtonsComponent,
     ColorButtonsComponent,
+    ChartComponent,
   ],
 })
 export class CreateStickersPageModule {}
