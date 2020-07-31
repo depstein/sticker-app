@@ -15,6 +15,8 @@ import { File } from "@ionic-native/file/ngx";
 import { SocialSharing } from "@ionic-native/social-sharing/ngx";
 import { IonicStorageModule } from "@ionic/storage";
 
+import { Health } from '@ionic-native/health/ngx';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -32,6 +34,7 @@ import { IonicStorageModule } from "@ionic/storage";
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     File,
     SocialSharing,
+    Health,
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
