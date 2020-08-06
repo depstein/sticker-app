@@ -55,12 +55,7 @@ export class ChartComponent implements OnInit {
         data: {
           datasets: [{
             label: 'Steps taken',
-            data: res.map(function(value) {
-              return {
-                t: value.startDate,
-                y: Number(value.value)
-              };
-            })
+            data: this.createTimeObjectArray(res)
           }],
         },
         options: {
@@ -91,22 +86,22 @@ export class ChartComponent implements OnInit {
       bucket: this.buckets[this.timeRange],
     })
     .then((res) => {
-      let label: string = "Steps taken";
-      let data: object[] = res.map(function(value) {
-        return {
-          t: value.startDate,
-          y: Number(value.value)
-        };
-      });
-
-      this.timeChart.data.datasets[0].data = data;
+      this.timeChart.data.datasets[0].data = this.createTimeObjectArray(res);
       this.timeChart.update();
-
     })
     .catch((e) => {
       console.log(e)
     });
 
+  }
+
+  createTimeObjectArray(res) {
+    return res.map(function(value) {
+      return {
+        t: value.startDate,
+        y: Number(value.value)
+      };
+    });
   }
 
 }
