@@ -6,13 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./time-segment.component.scss'],
 })
 export class TimeSegmentComponent implements OnInit {
-
-  segmentChanged(ev: any) {
-    console.log('Segment changed', ev);
-  }
+  value: string;
 
   constructor() { }
 
   ngOnInit() {}
+
+  segmentChanged(ev: any) {
+    console.log('Segment changed', ev);
+  }
 
 }
