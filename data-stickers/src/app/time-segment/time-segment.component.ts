@@ -7,6 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TimeSegmentComponent implements OnInit {
 
+  segmentChanged(ev: any) {
+    console.log('Segment changed', ev);
+  }
+
   constructor() { }
 
   ngOnInit() {}
