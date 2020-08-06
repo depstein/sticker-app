@@ -8,6 +8,7 @@ import { Health } from '@ionic-native/health/ngx';
   styleUrls: ['./chart.component.scss'],
 })
 export class ChartComponent implements OnInit {
+  timeChart: any;
   numberOfDays: object;
   buckets: object;
   timeRange: string;
@@ -49,7 +50,7 @@ export class ChartComponent implements OnInit {
       bucket: this.buckets[this.timeRange],
     })
     .then((res) => {
-      var myChart = new Chart("myChart", {
+      this.timeChart = new Chart("myChart", {
         type: 'bar',
         data: {
           datasets: [{
@@ -76,11 +77,36 @@ export class ChartComponent implements OnInit {
     });
   }
 
-
   segmentChanged(ev: any) {
     console.log('Segment changed', ev);
     this.timeRange = ev.detail.value;
-    this.generateChart();
+    this.updateChart();
+  }
+
+  updateChart() {
+    this.health.queryAggregated({
+      startDate: new Date(new Date().getTime() - this.numberOfDays[this.timeRange] * 24 * 60 * 60 * 1000), // one month ago
+      endDate: new Date(), // now
+      dataType: 'steps',
+      bucket: this.buckets[this.timeRange],
+    })
+    .then((res) => {
+      let label: string = "Steps taken";
+      let data: object[] = res.map(function(value) {
+        return {
+          t: value.startDate,
+          y: Number(value.value)
+        };
+      });
+
+      this.timeChart.data.datasets[0].data = data;
+      this.timeChart.update();
+
+    })
+    .catch((e) => {
+      console.log(e)
+    });
+
   }
 
 }
