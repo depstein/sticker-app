@@ -1,41 +1,41 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Edit Sticker </ion-title>
-    <ion-buttons slot="start">
-      <ion-back-button text=""></ion-back-button>
-    </ion-buttons>
+    <ion-toolbar>
+        <ion-title>Edit Sticker </ion-title>
+        <ion-buttons slot="start">
+            <ion-back-button text=""></ion-back-button>
+        </ion-buttons>
 
-  </ion-toolbar>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content class="hide-scrollbar">
-	<!-- Sticker image component-->
-	<app-sticker [(image)]="global.stickerInfo.image"></app-sticker>
+    <!-- Sticker image component-->
+    <app-sticker [(image)]="global.stickerInfo.image"></app-sticker>
 
-	<!-- Animation buttons component -->
-	<app-animation-buttons></app-animation-buttons>
+    <!-- Animation buttons component -->
+    <app-animation-buttons></app-animation-buttons>
+    
+    <!-- Color buttons component -->
+    <app-color-buttons></app-color-buttons>
 
-  <!-- Color buttons component -->
-  <app-color-buttons></app-color-buttons>
+    <!-- Chart component -->
+    <app-chart></app-chart>
 
-  <!-- Chart component -->
-  <app-chart></app-chart>
+    <!-- Input component (includes input, unit selector, goal) -->
+    <app-input></app-input>
 
-	<!-- Input component (includes input, unit selector, goal) -->
-	<app-input></app-input>
-
-	<!-- Test Health plugin -->
-	{{health_test}}
+    <!-- Test Health plugin -->
+    {{health_test}}
 
 </ion-content>
 
 <ion-toolbar color={{global.stickerInfo.domain}}>
-	<!-- Share to Snapchat banner -->
-	<ion-item class="share-banner" lines="none" color={{global.stickerInfo.domain}} (click)="goToStickerRenderPage()">
-		<!--NOTE: sticker must be 1000x1000 pixels or it will not load-->
-		<div class="share-banner-content">
-			Share to Snapchat &nbsp;
-			<ion-icon name="md-share"></ion-icon>
-		</div>
-	</ion-item>
+    <!-- Share to Snapchat banner -->
+    <ion-item class="share-banner" lines="none" color={{global.stickerInfo.domain}} (click)="goToStickerRenderPage()">
+        <!--NOTE: sticker must be 1000x1000 pixels or it will not load-->
+        <div class="share-banner-content">
+            Share to Snapchat &nbsp;
+            <ion-icon name="md-share"></ion-icon>
+        </div>
+    </ion-item>
 </ion-toolbar>
