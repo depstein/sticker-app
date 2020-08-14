@@ -12,16 +12,18 @@ export class ChartComponent implements OnInit {
   numberOfDays: object;
   buckets: object;
   timeRange: string;
+  sampleData: object[];
 
   constructor(private health: Health) {
     this.numberOfDays = {day: 1, week: 7, month: 30};
     this.buckets = {day: "hour", week: "day", month: "day"};
     this.timeRange = "day";
+    this.sampleData = [{"t":"2020-08-07T07:00:00.000Z","y":15226.91504233753},{"t":"2020-08-08T07:00:00.000Z","y":155},{"t":"2020-08-09T07:00:00.000Z","y":2619.118505172607},{"t":"2020-08-10T07:00:00.000Z","y":16616},{"t":"2020-08-11T07:00:00.000Z","y":1021},{"t":"2020-08-12T07:00:00.000Z","y":12206},{"t":"2020-08-13T07:00:00.000Z","y":15281},{"t":"2020-08-14T07:00:00.000Z","y":10262.263678286228}];
   }
 
   ngOnInit() {
     this.testHealth();
-    this.generateChart();
+    this.generateSampleChart();
   }
 
 
@@ -41,6 +43,24 @@ export class ChartComponent implements OnInit {
     .catch(e => console.log(e));
   }
 
+  generateSampleChart() {
+    this.timeChart = new Chart("myChart", {
+      type: 'bar',
+      data: {
+        datasets: [{
+          label: 'Steps taken',
+          data: this.sampleData
+        }],
+      },
+      options: {
+        scales: {
+          xAxes: [{
+            type: 'time',
+          }],
+        }
+      }
+    });
+  }
 
   generateChart() {
     this.health.queryAggregated({
@@ -75,7 +95,12 @@ export class ChartComponent implements OnInit {
   segmentChanged(ev: any) {
     console.log('Segment changed', ev);
     this.timeRange = ev.detail.value;
-    this.updateChart();
+    this.updateSampleChart();
+  }
+
+  updateSampleChart() {
+    this.timeChart.data.datasets[0].data = this.sampleData;
+    this.timeChart.update();
   }
 
   updateChart() {
