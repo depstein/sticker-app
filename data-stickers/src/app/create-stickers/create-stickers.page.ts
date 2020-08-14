@@ -1,12 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { AlertController } from "@ionic/angular";
-// import { ModalController } from '@ionic/angular';
 import { ActivatedRoute, Router } from "@angular/router";
 import { GlobalDataService } from "./../global-data.service";
 import { Health } from '@ionic-native/health/ngx';
 import { Storage } from "@ionic/storage";
-
-// import { ChartModalPage } from '../chart-modal/chart-modal.page';
 
 @Component({
   selector: "app-create-stickers",
@@ -18,7 +15,6 @@ export class CreateStickersPage implements OnInit {
   health_test = '';
   constructor(
     public alertController: AlertController,
-    // public modalController: ModalController,
     private router: Router,
     public route: ActivatedRoute,
     public global: GlobalDataService,
@@ -80,13 +76,4 @@ export class CreateStickersPage implements OnInit {
     await alert.present();
   }
 
-  // async openModal() {
-  //   const modal = await this.modalController.create({
-  //     component: ChartModalPage
-  //   });
-  //   modal.onDidDismiss().then(data=>{
-  //     console.log(data)
-  //   })
-  //   return await modal.present();
-  // }
 }
