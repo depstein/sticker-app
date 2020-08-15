@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 import { Chart } from "node_modules/chart.js";
 import { Health } from '@ionic-native/health/ngx';
 
@@ -13,6 +13,9 @@ export class ChartComponent implements OnInit {
   buckets: object;
   timeRange: string;
   sampleData: object[];
+
+  @Input() chartData: object[];
+  @Output() chartDataChanged = new EventEmitter<object[]>();
 
   constructor(private health: Health) {
     this.numberOfDays = {day: 1, week: 7, month: 30};
@@ -121,12 +124,14 @@ export class ChartComponent implements OnInit {
   }
 
   createTimeObjectArray(res) {
-    return res.map(function(value) {
+    let timeObjectArray = res.map(function(value) {
       return {
         t: value.startDate,
         y: Number(value.value)
       };
     });
+    this.chartDataChanged.emit(timeObjectArray);
+    return timeObjectArray;
   }
 
 }
