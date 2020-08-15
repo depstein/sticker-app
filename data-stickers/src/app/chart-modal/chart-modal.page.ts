@@ -25,7 +25,9 @@ export class ChartModalPage implements OnInit {
   }
 
   dismiss() {
-    this.viewCtrl.dismiss({steps:10000});
+    this.viewCtrl.dismiss({
+      sum: this.dataSum
+    });
   }
 
   onChartDataChanged(chartData: object[]) {

@@ -363,7 +363,8 @@ export class InputComponent implements OnInit {
       component: ChartModalPage
     });
     modal.onDidDismiss().then(data=>{
-      console.log(data)
+      this.global.stickerInfo.value = data.data.sum;
+      this.updateInputValue();
     })
     return await modal.present();
   }
