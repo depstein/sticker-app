@@ -29,7 +29,6 @@ export class ChartComponent implements OnInit {
     this.generateSampleChart();
   }
 
-
   testHealth() {
     this.health.isAvailable()
     .then((available:boolean) => {
@@ -47,12 +46,33 @@ export class ChartComponent implements OnInit {
   }
 
   generateSampleChart() {
+    let data = this.sampleData;
+    this.generateChart(data);
+  }
+
+  generateChartFromHealthData() {
+    this.health.queryAggregated({
+      startDate: new Date(new Date().getTime() - this.numberOfDays[this.timeRange] * 24 * 60 * 60 * 1000),
+      endDate: new Date(), // now
+      dataType: 'steps',
+      bucket: this.buckets[this.timeRange],
+    })
+    .then((res) => {
+      let data = this.createTimeObjectArray(res);
+      this.generateChart(data);
+    })
+    .catch((e) => {
+      console.log(e)
+    });
+  }
+
+  generateChart(data: any[]) {
     this.timeChart = new Chart("myChart", {
       type: 'bar',
       data: {
         datasets: [{
           label: 'Steps taken',
-          data: this.sampleData
+          data: data
         }],
       },
       options: {
@@ -63,36 +83,7 @@ export class ChartComponent implements OnInit {
         }
       }
     });
-  }
-
-  generateChart() {
-    this.health.queryAggregated({
-      startDate: new Date(new Date().getTime() - this.numberOfDays[this.timeRange] * 24 * 60 * 60 * 1000), // one month ago
-      endDate: new Date(), // now
-      dataType: 'steps',
-      bucket: this.buckets[this.timeRange],
-    })
-    .then((res) => {
-      this.timeChart = new Chart("myChart", {
-        type: 'bar',
-        data: {
-          datasets: [{
-            label: 'Steps taken',
-            data: this.createTimeObjectArray(res)
-          }],
-        },
-        options: {
-          scales: {
-            xAxes: [{
-              type: 'time',
-            }],
-          }
-        }
-      });
-    })
-    .catch((e) => {
-      console.log(e)
-    });
+    this.chartDataChanged.emit(data);
   }
 
   segmentChanged(ev: any) {
@@ -102,11 +93,11 @@ export class ChartComponent implements OnInit {
   }
 
   updateSampleChart() {
-    this.timeChart.data.datasets[0].data = this.sampleData;
-    this.timeChart.update();
+    let data = this.sampleData;
+    this.updateChart(data);
   }
 
-  updateChart() {
+  updateChartFromHealthData() {
     this.health.queryAggregated({
       startDate: new Date(new Date().getTime() - this.numberOfDays[this.timeRange] * 24 * 60 * 60 * 1000), // one month ago
       endDate: new Date(), // now
@@ -114,24 +105,27 @@ export class ChartComponent implements OnInit {
       bucket: this.buckets[this.timeRange],
     })
     .then((res) => {
-      this.timeChart.data.datasets[0].data = this.createTimeObjectArray(res);
-      this.timeChart.update();
+      let data = this.createTimeObjectArray(res);
+      this.updateChart(data);
     })
     .catch((e) => {
       console.log(e)
     });
+  }
 
+  updateChart(data: any[]) {
+    this.timeChart.data.datasets[0].data = data;
+    this.timeChart.update();
+    this.chartDataChanged.emit(data);
   }
 
   createTimeObjectArray(res) {
-    let timeObjectArray = res.map(function(value) {
+    return res.map(function(value) {
       return {
         t: value.startDate,
         y: Number(value.value)
       };
     });
-    this.chartDataChanged.emit(timeObjectArray);
-    return timeObjectArray;
   }
 
 }
