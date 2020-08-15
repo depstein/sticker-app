@@ -7,17 +7,17 @@ import { ModalController } from '@ionic/angular';
   styleUrls: ['./chart-modal.page.scss'],
 })
 export class ChartModalPage implements OnInit {
-  knobValues: any;
   chartData: any[];
+  knobValues: any;
   sampleData: any;
   dataSum: number;
 
   constructor(public viewCtrl: ModalController) {
-    this.knobValues = {
-      lower: 2,
-      upper: 5
-    };
     this.chartData = [];
+    this.knobValues = {
+      lower: 0,
+      upper: 0
+    };
     this.dataSum = 0;
   }
 
@@ -30,8 +30,8 @@ export class ChartModalPage implements OnInit {
 
   onChartDataChanged(chartData: object[]) {
     this.chartData = chartData;
-    console.log(this.chartData);
-
+    this.knobValues.lower = Math.round(this.chartData.length * 0.25);
+    this.knobValues.upper = Math.round(this.chartData.length * 0.75);
   }
 
   getNumberOfTicks() {
