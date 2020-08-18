@@ -2,6 +2,9 @@ import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 import { Chart } from "node_modules/chart.js";
 import { Health } from '@ionic-native/health/ngx';
 
+const numberOfDaysPerUnit: object = {day: 1, week: 7, month: 30};
+const buckets: object = {day: "hour", week: "day", month: "day"};
+
 @Component({
   selector: 'app-chart',
   templateUrl: './chart.component.html',
@@ -9,18 +12,20 @@ import { Health } from '@ionic-native/health/ngx';
 })
 export class ChartComponent implements OnInit {
   timeChart: any;
-  numberOfDays: object;
-  buckets: object;
   timeRange: string;
-  sampleData: any;
+  chartData: object[];
+  knobValues: object;
+  sampleData: object;
 
-  @Input() chartData: object[];
-  @Output() chartDataChanged = new EventEmitter<object[]>();
+  @Output() dataSumChanged = new EventEmitter<number>();
 
   constructor(private health: Health) {
-    this.numberOfDays = {day: 1, week: 7, month: 30};
-    this.buckets = {day: "hour", week: "day", month: "day"};
     this.timeRange = "day";
+    this.chartData = [];
+    this.knobValues = {
+      lower: 0,
+      upper: 0
+    };
     this.sampleData = {
       day: [{"t":"2020-08-14T03:00:00.000Z","y":5887},{"t":"2020-08-14T04:00:00.000Z","y":93},{"t":"2020-08-14T05:00:00.000Z","y":23},{"t":"2020-08-14T06:00:00.000Z","y":18},{"t":"2020-08-14T07:00:00.000Z","y":7},{"t":"2020-08-14T08:00:00.000Z","y":0},{"t":"2020-08-14T09:00:00.000Z","y":0},{"t":"2020-08-14T10:00:00.000Z","y":0},{"t":"2020-08-14T11:00:00.000Z","y":0},{"t":"2020-08-14T12:00:00.000Z","y":0},{"t":"2020-08-14T13:00:00.000Z","y":25},{"t":"2020-08-14T14:00:00.000Z","y":1002},{"t":"2020-08-14T15:00:00.000Z","y":8283},{"t":"2020-08-14T16:00:00.000Z","y":68},{"t":"2020-08-14T17:00:00.000Z","y":235},{"t":"2020-08-14T18:00:00.000Z","y":641},{"t":"2020-08-14T19:00:00.000Z","y":0},{"t":"2020-08-14T20:00:00.000Z","y":98},{"t":"2020-08-14T21:00:00.000Z","y":0},{"t":"2020-08-14T22:00:00.000Z","y":0},{"t":"2020-08-14T23:00:00.000Z","y":0},{"t":"2020-08-15T00:00:00.000Z","y":0},{"t":"2020-08-15T01:00:00.000Z","y":0},{"t":"2020-08-15T02:00:00.000Z","y":0},{"t":"2020-08-15T03:00:00.000Z","y":0}],
       week: [{"t":"2020-08-07T07:00:00.000Z","y":15226},{"t":"2020-08-08T07:00:00.000Z","y":155},{"t":"2020-08-09T07:00:00.000Z","y":2619},{"t":"2020-08-10T07:00:00.000Z","y":16616},{"t":"2020-08-11T07:00:00.000Z","y":1021},{"t":"2020-08-12T07:00:00.000Z","y":12206},{"t":"2020-08-13T07:00:00.000Z","y":15281},{"t":"2020-08-14T07:00:00.000Z","y":10382}],
@@ -51,10 +56,10 @@ export class ChartComponent implements OnInit {
 
   generateChartFromHealthData() {
     this.health.queryAggregated({
-      startDate: new Date(new Date().getTime() - this.numberOfDays[this.timeRange] * 24 * 60 * 60 * 1000),
+      startDate: new Date(new Date().getTime() - numberOfDaysPerUnit[this.timeRange] * 24 * 60 * 60 * 1000),
       endDate: new Date(), // now
       dataType: 'steps',
-      bucket: this.buckets[this.timeRange],
+      bucket: buckets[this.timeRange],
     })
     .then((res) => {
       let data = this.createTimeObjectArray(res);
@@ -82,7 +87,7 @@ export class ChartComponent implements OnInit {
         }
       }
     });
-    this.chartDataChanged.emit(data);
+    this.updateChartData(data);
   }
 
   segmentChanged(ev: any) {
@@ -90,12 +95,31 @@ export class ChartComponent implements OnInit {
     this.updateChart(this.sampleData[this.timeRange]);
   }
 
+  updateChartData(chartData: object[]) {
+    this.chartData = chartData;
+    this.knobValues['lower'] = Math.round(this.chartData.length * 0.25);
+    this.knobValues['upper'] = Math.round(this.chartData.length * 0.75);
+    this.updateDataSum();
+  }
+
+  getNumberOfTicks() {
+    return this.chartData.length - 1;
+  }
+
+  updateDataSum() {
+    let sum = 0;
+    for (var i = this.knobValues['lower']; i <= this.knobValues['upper']; i++) {
+      sum += this.chartData[i]['y'];
+    }
+    this.dataSumChanged.emit(sum);
+  }
+
   updateChartFromHealthData() {
     this.health.queryAggregated({
-      startDate: new Date(new Date().getTime() - this.numberOfDays[this.timeRange] * 24 * 60 * 60 * 1000), // one month ago
+      startDate: new Date(new Date().getTime() - numberOfDaysPerUnit[this.timeRange] * 24 * 60 * 60 * 1000), // one month ago
       endDate: new Date(), // now
       dataType: 'steps',
-      bucket: this.buckets[this.timeRange],
+      bucket: buckets[this.timeRange],
     })
     .then((res) => {
       let data = this.createTimeObjectArray(res);
@@ -109,7 +133,7 @@ export class ChartComponent implements OnInit {
   updateChart(data: any[]) {
     this.timeChart.data.datasets[0].data = data;
     this.timeChart.update();
-    this.chartDataChanged.emit(data);
+    this.updateChartData(data);
   }
 
   createTimeObjectArray(res) {
