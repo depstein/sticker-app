@@ -1,12 +1,13 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>chart-modal</ion-title>
+    <ion-title>Select Data</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button fill="clear" (click)="dismiss()">Done</ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
-  <ion-button (click)="dismiss()">Dismiss</ion-button>
 
   <!-- Chart component -->
   <app-chart
