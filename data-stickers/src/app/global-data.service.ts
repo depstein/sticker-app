@@ -10,8 +10,10 @@ export class GlobalDataService {
 	recent_use = [];
 	stickerInfo: StickerInfo; 
 	music_history =[];
+	asked:boolean;
 	
   	constructor() {
+		this.asked = false;
 		this.domain_info = {
 			"steps": {
 				"units": {

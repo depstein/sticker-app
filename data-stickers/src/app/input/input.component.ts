@@ -2,6 +2,8 @@ import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { AlertController } from "@ionic/angular";
 import { GlobalDataService } from "./../global-data.service";
 import { SpotifyService } from '../spotify.service';
+import { ModalController } from '@ionic/angular';
+import { ModalPage} from '../modals/modal/modal.page';
 
 @Component({
   selector: "app-input",
@@ -25,11 +27,15 @@ export class InputComponent implements OnInit {
   slider_image_url: string;
   music_str: string;
   milsec:number;
+  songName:Object;
+  artists:Object;
+  albums:Object;
 
   constructor(
     public alertController: AlertController,
     public global: GlobalDataService,
-    private spotifyService: SpotifyService
+    private spotifyService: SpotifyService,
+    public modalController: ModalController
   ) {
     this.slider_input_value = 0;
     this.goal_str = "";
@@ -45,6 +51,7 @@ export class InputComponent implements OnInit {
             }
       }
     }
+
   }
 
   ngOnInit() {
@@ -58,6 +65,9 @@ export class InputComponent implements OnInit {
     this.slider_image_url = this.global.domain_info[
       this.global.stickerInfo.domain
     ].slider_image_url;
+    this.songName = {"songName":{'times':1,"minutes":0,"hours":0}};
+    this.artists= {"artistName":{'times':1,"minutes":0,"hours":0}};
+    this.albums = {"albums":{'times':1,"minutes":0,"hours":0}};
   }
 
   // Called to calculate unit conversions when the selected unit is changed
@@ -365,10 +375,69 @@ export class InputComponent implements OnInit {
   
   getplaylist(){
     this.spotifyService.sendRequestToExpress('/recently-played').then(
-      (data) => {
+      (data) => {     
+        if(data['items'] != null){
+          for(var song of data['items'])
+          {
+            if(!Object.keys(this.songName).includes(song['track']['name'])){
+              this.songName[song['track']['name']] = {'times':1,"minutes":0,"hours":0};
+              this.songName[song['track']['name']]['minutes']= (song['track']['duration_ms']/1000/60).toFixed(2);
+              this.songName[song['track']['name']]['hours']= (song['track']['duration_ms']/1000/60/60).toFixed(2);
+            }else{
+              this.songName[song['track']['name']]['times'] += 1;
+              this.songName[song['track']['name']]['minutes'] += (song['track']['duration_ms']/1000/60).toFixed(2);
+              this.songName[song['track']['name']]['hours']+= (song['track']['duration_ms']/1000/60/60).toFixed(2);
+            }
+          
+            for(var a of song['track']['album']['artists']){
+              if(!Object.keys(this.artists).includes(a["name"])){
+                this.artists[a["name"]] = {'times':1,"minutes":0,"hours":0};
+                this.artists[a["name"]]['minutes']= (song['track']['duration_ms']/1000/60).toFixed(2);
+                this.artists[a["name"]]['hours']= (song['track']['duration_ms']/1000/60/60).toFixed(2);
+              }
+              else{
+                this.artists[a["name"]]["times"] +=1;
+                this.artists[a["name"]]['minutes'] += (song['track']['duration_ms']/1000/60).toFixed(2);
+                this.artists[a["name"]]['hours'] += (song['track']['duration_ms']/1000/60/60).toFixed(2);
+              }
+            }
+            if(!Object.keys(this.albums).includes(song['track']['album']['name']))
+            {
+              this.albums[song['track']['album']['name']]= {'times':1,"minutes":0,"hours":0};
+              this.albums[song['track']['album']['name']]['minutes']= (song['track']['duration_ms']/1000/60).toFixed(2);
+              this.albums[song['track']['album']['name']]['hours']= (song['track']['duration_ms']/1000/60/60).toFixed(2);
+            }
+             else{
+              this.albums[song['track']['album']['name']]['times'] += 1;
+              this.albums[song['track']['album']['name']]['minutes'] += (song['track']['duration_ms']/1000/60).toFixed(2);
+              this.albums[song['track']['album']['name']]['hours'] += (song['track']['duration_ms']/1000/60/60).toFixed(2);
+             }
+
+          };
+        }
+        
         console.log("Got playlist");
+        console.log(this.songName);
+        console.log(this.albums);
+        console.log(this.artists);
         console.log(data);
+        this.presentModal();
       }
     );
   }
+
+  async presentModal() {
+    const modal = await this.modalController.create({
+      component: ModalPage,
+      cssClass: 'my-custom-class',
+      componentProps: {
+        'songName':this.songName,
+        'artists':this.artists,
+        'albums':this.albums
+      }
+    });
+    return await modal.present();
+  }
+  
+
 }

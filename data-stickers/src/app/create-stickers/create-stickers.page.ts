@@ -18,6 +18,7 @@ export class CreateStickersPage implements OnInit {
   health_test = '';
   expressBaseUrl:string = 'http://localhost:8888';
   spotifybutton:boolean;
+  healthbutton:boolean;
 
   constructor(
     public alertController: AlertController,
@@ -40,8 +41,15 @@ export class CreateStickersPage implements OnInit {
     this.storage.get('spotifyPermission')
     .then((value) => {
       this.spotifybutton = value;
-      if(this.global.stickerInfo.domain == "music" && (this.spotifybutton == false || this.spotifybutton == null)){
-        this.presentAlertMultipleButtons();
+      if(this.global.stickerInfo.domain == "music" && (this.spotifybutton == false || this.spotifybutton == null) && this.global.asked == false){
+        this.presentAlertspotifyButtons();
+      }
+    })
+    this.storage.get('healthPermission')
+    .then((value) => {
+      this.healthbutton = value;
+      if(this.global.stickerInfo.domain == "steps" || this.global.stickerInfo.domain == "calories" || this.global.stickerInfo.domain == "heartbeat"){
+        this.presentAlerthealthButtons();
       }
     })
     
@@ -81,7 +89,7 @@ export class CreateStickersPage implements OnInit {
     this.router.navigate(["sticker-render", {}]);
   }
 
-  async presentAlertMultipleButtons() {
+  async presentAlertspotifyButtons() {
     const alert = await this.alertController.create({
       message: 'Do you want to get your playlist from spolify?',
       buttons: [
@@ -89,9 +97,27 @@ export class CreateStickersPage implements OnInit {
           text: 'YES',
           handler: () => {
             console.log("open webpage");
-            window.open("http://localhost:8888/login");
+            window.open("http://localhost:8888/login", "_self");
             this.storage.set('spotifyPermission', true);
           }
+        },
+        {
+          text: 'NO',
+          handler:() =>{
+            this.global.asked = true;
+            console.log(this.global.asked);
+          }
+
+        }],
+    })
+    await alert.present();
+  }
+  async presentAlerthealthButtons(){
+    const alert = await this.alertController.create({
+      message: 'Do you want to get your data from Healthkit?',
+      buttons: [
+        {
+          text: 'YES' 
         },
         {
           text: 'NO'
@@ -99,6 +125,7 @@ export class CreateStickersPage implements OnInit {
     })
     await alert.present();
   }
+  
 
 }
 

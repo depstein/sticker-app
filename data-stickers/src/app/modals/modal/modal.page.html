@@ -1,0 +1,30 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Recently plays</ion-title>
+        <ion-buttons slot="start">
+            <ion-button (click)="dismiss()">
+                <ion-icon name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <!-- <ion-label>Plays</ion-label> -->
+    </ion-toolbar>
+
+
+</ion-header>
+
+<ion-content>
+    <ion-item>
+        <ion-label class="selection">Select Category</ion-label>
+        <ion-select class="selection" [interfaceOptions]="customPopoverOptions" interface="popover" [(ngModel)]="option" (ionChange)="typeChanged($event)">
+            <ion-select-option value="songs">Songs</ion-select-option>
+            <ion-select-option value="artists">Artists</ion-select-option>
+            <ion-select-option value="albums">Albums</ion-select-option>
+        </ion-select>
+    </ion-item>
+
+
+    <ion-item class="list" *ngFor="let item of type" (click)="presentModal(item)">
+        {{item}}
+    </ion-item>
+
+</ion-content>

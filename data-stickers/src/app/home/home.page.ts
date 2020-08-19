@@ -76,7 +76,7 @@ export class HomePage {
           text: 'Submit',
           handler: data => {
             this.setUserId(data.id);
-            this.presentHealthPrompt();
+            //this.presentHealthPrompt();
           }
         }
       ],
