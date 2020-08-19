@@ -77,29 +77,21 @@ export class ChartComponent implements OnInit {
 
   generateChart(data: any[]) {
     this.updateChartData(data);
-    const lowerKnobValue = this.knobValues['lower'];
-    const upperKnobValue = this.knobValues['upper'];
-    console.log(`lowerKnobValue: ${lowerKnobValue}`);
-    console.log(`upperKnobValue: ${upperKnobValue}`);
-
     this.timeChart = new Chart("myChart", {
       type: 'bar',
       data: {
         datasets: [{
           label: 'Steps taken',
           data: data,
-          backgroundColor: function(context) {
-            var index = context.dataIndex;
-            var green = index >= lowerKnobValue && index <= upperKnobValue ? 'green' : 'blue';
-            console.log(`index: ${index}`);
-            console.log(`green?: ${green}`);
-            return green;
-          }
+          backgroundColor: this.createColorArray()
           // backgroundColor: `${this.global.stickerInfo.domain}`,
           // backgroundColor: 'red'
         }],
       },
       options: {
+        animation: {
+          duration: 0
+        },
         scales: {
           xAxes: [{
             type: 'time',
@@ -107,6 +99,20 @@ export class ChartComponent implements OnInit {
         }
       }
     });
+  }
+
+  createColorArray() {
+    let colorArray = [];
+    for(let i = 0; i < this.knobValues['lower']; i++) {
+      colorArray.push('blue');
+    }
+    for (let i = this.knobValues['lower']; i <= this.knobValues['upper']; i++) {
+      colorArray.push('green');
+    }
+    for (let i = this.knobValues['upper'] + 1; i < this.chartData.length; i++) {
+      colorArray.push('blue');
+    }
+    return colorArray;
   }
 
   segmentChanged(ev: any) {
@@ -123,6 +129,12 @@ export class ChartComponent implements OnInit {
 
   getNumberOfTicks() {
     return this.chartData.length - 1;
+  }
+
+  rangeSliderChanged() {
+    this.updateDataSum();
+    this.timeChart.data.datasets[0].backgroundColor = this.createColorArray();
+    this.timeChart.update();
   }
 
   updateDataSum() {
@@ -152,6 +164,7 @@ export class ChartComponent implements OnInit {
   updateChart(data: any[]) {
     this.updateChartData(data);
     this.timeChart.data.datasets[0].data = data;
+    this.timeChart.data.datasets[0].backgroundColor = this.createColorArray();
     this.timeChart.update();
   }
 
