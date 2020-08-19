@@ -1,4 +1,5 @@
 import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
+import { GlobalDataService } from "./../global-data.service";
 import { Chart } from "node_modules/chart.js";
 import { Health } from '@ionic-native/health/ngx';
 
@@ -19,7 +20,10 @@ export class ChartComponent implements OnInit {
 
   @Output() dataSumChanged = new EventEmitter<number>();
 
-  constructor(private health: Health) {
+  constructor(
+    private health: Health,
+    public global: GlobalDataService
+  ) {
     this.timeRange = "day";
     this.chartData = [];
     this.knobValues = {
@@ -34,6 +38,7 @@ export class ChartComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(`${this.global.stickerInfo.domain}`);
     this.testHealth();
     this.generateChart(this.sampleData[this.timeRange]);
   }
@@ -71,12 +76,27 @@ export class ChartComponent implements OnInit {
   }
 
   generateChart(data: any[]) {
+    this.updateChartData(data);
+    const lowerKnobValue = this.knobValues['lower'];
+    const upperKnobValue = this.knobValues['upper'];
+    console.log(`lowerKnobValue: ${lowerKnobValue}`);
+    console.log(`upperKnobValue: ${upperKnobValue}`);
+
     this.timeChart = new Chart("myChart", {
       type: 'bar',
       data: {
         datasets: [{
           label: 'Steps taken',
-          data: data
+          data: data,
+          backgroundColor: function(context) {
+            var index = context.dataIndex;
+            var green = index >= lowerKnobValue && index <= upperKnobValue ? 'green' : 'blue';
+            console.log(`index: ${index}`);
+            console.log(`green?: ${green}`);
+            return green;
+          }
+          // backgroundColor: `${this.global.stickerInfo.domain}`,
+          // backgroundColor: 'red'
         }],
       },
       options: {
@@ -87,7 +107,6 @@ export class ChartComponent implements OnInit {
         }
       }
     });
-    this.updateChartData(data);
   }
 
   segmentChanged(ev: any) {
@@ -131,9 +150,9 @@ export class ChartComponent implements OnInit {
   }
 
   updateChart(data: any[]) {
+    this.updateChartData(data);
     this.timeChart.data.datasets[0].data = data;
     this.timeChart.update();
-    this.updateChartData(data);
   }
 
   createTimeObjectArray(res) {
