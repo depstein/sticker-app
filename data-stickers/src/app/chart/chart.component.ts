@@ -1,7 +1,9 @@
-import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Output, ViewChild, ElementRef } from '@angular/core';
 import { GlobalDataService } from "./../global-data.service";
 import { Chart } from "node_modules/chart.js";
 import { Health } from '@ionic-native/health/ngx';
+
+const USING_HEALTH_DATA: boolean = true;
 
 const numberOfDaysPerUnit: object = {day: 1, week: 7, month: 30};
 const buckets: object = {day: "hour", week: "day", month: "day"};
@@ -12,13 +14,15 @@ const buckets: object = {day: "hour", week: "day", month: "day"};
   styleUrls: ['./chart.component.scss'],
 })
 export class ChartComponent implements OnInit {
+  @ViewChild('myChart', { static: true }) canvas: ElementRef<HTMLCanvasElement>;
   timeChart: any;
   timeRange: string;
   chartData: object[];
   knobValues: object;
   sampleData: object;
 
-  @Output() dataSumChanged = new EventEmitter<number>();
+  @Input() dataSum: number;
+  @Output() dataSumChanged = new EventEmitter<number>(true);
 
   constructor(
     private health: Health,
@@ -38,9 +42,20 @@ export class ChartComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(`${this.global.stickerInfo.domain}`);
+    this.initializeCanvas();
     this.testHealth();
-    this.generateChart(this.sampleData[this.timeRange]);
+    if (USING_HEALTH_DATA) {
+      this.generateChartFromHealthData();
+    }
+    else { this.generateChart(this.sampleData[this.timeRange]); }
+
+  }
+
+  initializeCanvas() {
+    var ctx: CanvasRenderingContext2D = this.canvas.nativeElement.getContext('2d');
+    ctx.font = '24px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('Loading health data...', ctx.canvas.width/2, ctx.canvas.height/2);
   }
 
   testHealth() {
@@ -117,7 +132,10 @@ export class ChartComponent implements OnInit {
 
   segmentChanged(ev: any) {
     this.timeRange = ev.detail.value;
-    this.updateChart(this.sampleData[this.timeRange]);
+    if (USING_HEALTH_DATA) {
+      this.updateChartFromHealthData();
+    }
+    else { this.updateChart(this.sampleData[this.timeRange]); }
   }
 
   updateChartData(chartData: object[]) {

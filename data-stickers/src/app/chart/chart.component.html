@@ -13,7 +13,7 @@
 
 <!-- Chart -->
 <div id="divChart">
-  <canvas id="myChart" width="375" height="300"></canvas>
+  <canvas #myChart id="myChart" width="375" height="300"></canvas>
 </div>
 
 <!-- Range slider -->
@@ -27,3 +27,7 @@
   [(ngModel)]="knobValues"
   (ionChange)="rangeSliderChanged()">
 </ion-range>
+
+<div class="dataSum">
+  <p>Number of steps: {{ dataSum }}</p>
+</div>
