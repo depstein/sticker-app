@@ -18,11 +18,11 @@ export class GlobalDataService {
 			"steps": {
 				"units": {
 					"steps": {
-						"maxAmount": 10000
+						"maxAmount": 99999 //10000
 					}, "miles": {
-						"maxAmount": 100
+						"maxAmount": 99999 //100
 					}, "km": {
-						"maxAmount": 100
+						"maxAmount": 99999//100
 					}
 				},
 				"slider_image_url": "../../assets/icon/footprint.svg"
@@ -30,7 +30,7 @@ export class GlobalDataService {
 			"heartbeat": {
 				"units": {
 					"bpm": {
-						"maxAmount": 100
+						"maxAmount": 99999//100
 					}
 				},
 				"slider_image_url": "../../assets/icon/bxs-heart.svg"
@@ -38,7 +38,7 @@ export class GlobalDataService {
 			"calories": {
 				"units": {
 					"calories": {
-						"maxAmount": 10000
+						"maxAmount": 99999//10000
 					}
 				},
 				"slider_image_url": "../../assets/icon/bxs-hot.svg"
@@ -46,10 +46,10 @@ export class GlobalDataService {
 			"time": {
 				"units": {
 					"hour:minute": {
-						"maxAmount": 1439
+						"maxAmount": 99999//1439
 					},
 					"days": {
-						"maxAmount": 14
+						"maxAmount": 99999//14
 					}
 				},
 				"slider_image_url": "../../assets/icon/bxs-time-five.svg"
@@ -57,13 +57,13 @@ export class GlobalDataService {
 			"music": {
 				"units": {
 					"minutes": {
-						"maxAmount": 60
+						"maxAmount": 99999//60
 					},
 					"hours": {
-						"maxAmount": 24
+						"maxAmount": 99999//24
 					},
 					"plays": {
-						"maxAmount": 50
+						"maxAmount":99999// 50
 					}
 				},
 				"slider_image_url": "../../assets/icon/bxs-music.svg"

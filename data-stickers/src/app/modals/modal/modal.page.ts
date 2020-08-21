@@ -10,8 +10,14 @@ export class ModalPage implements OnInit {
   @Input() songName:any[];
   @Input() artists:any[];
   @Input() albums:any[];
+  @Input() hour:any[];
+  @Input() day:any[];
+  @Input() week:any[];
+  @Input() month:any[];
   option:any;
   type:any[] =[];
+  selectUnit:any;
+  currentCategory:any;
 
   constructor(public modalController: ModalController) { 
 
@@ -28,9 +34,11 @@ export class ModalPage implements OnInit {
       'dismissed': true
     });
   }
-  
+
+  //selected type changed
   typeChanged(selected:any){
-    if(selected["detail"]["value"] == "songs"){
+    this.currentCategory = selected["detail"]["value"] ;
+    if(this.currentCategory == "songs"){
       let arr1 = [];
       if(this.songName != null){
         for(var songname of Object.keys(this.songName) ){
@@ -42,7 +50,7 @@ export class ModalPage implements OnInit {
       }
       this.type = arr1;
     }
-    else if (selected["detail"]["value"] == "albums"){
+    else if (this.currentCategory == "albums"){
       let arr2 = []
       if(this.albums != null){
         for(var al of Object.keys(this.albums) ){
@@ -53,7 +61,7 @@ export class ModalPage implements OnInit {
       }
       this.type = arr2;
     }
-    else if (selected["detail"]["value"]== "artists"){
+    else if (this.currentCategory== "artists"){
       let arr3 = [];
       if(this.artists != null){
         for(var at of Object.keys(this.artists) ){
@@ -93,5 +101,69 @@ export class ModalPage implements OnInit {
       }
     });
     return await modal.present();
+  }
+  // e.g. day[0] = songName for lastDay, day[1] = artists for lastDay, day[2] = albums for last Month
+  unitChanged(selected:any){
+    let songName = {"songName":{'times':1,"minutes":0,"hours":0}};
+    let artists= {"artistName":{'times':1,"minutes":0,"hours":0}};
+    let albums = {"albums":{'times':1,"minutes":0,"hours":0}};
+    if(selected["detail"]["value"] == "hour"){
+      console.log(this.hour[0]);
+      songName = this.hour[0];
+      artists = this.hour[1];
+      albums = this.hour[2];
+    }else if(selected["detail"]["value"] == "day"){
+      console.log(this.day[0]);
+      songName = this.day[0];
+      artists = this.day[1];
+      albums = this.day[2];
+    }else if(selected["detail"]["value"] == "week"){
+      console.log(this.week[0]);
+      songName = this.week[0];
+      artists = this.week[1];
+      albums = this.week[2];
+    }else if(selected["detail"]["value"] == "month"){
+      console.log(this.month[0]);
+      songName = this.month[0];
+      artists = this.month[1];
+      albums = this.month[2];
+    }
+
+    //change what will show in HTML according the current category based on the selected time range above.
+    if(this.currentCategory == "songs"){
+      let arr1 = [];
+      if(songName != null){
+        for(var songname of Object.keys(songName) ){
+          if(songname != undefined && songname != null && songname != "songName"){
+            arr1.push(songname);
+          }
+            
+        }
+      }
+      this.type = arr1;
+    }
+    else if (this.currentCategory == "albums"){
+      let arr2 = []
+      if(albums != null){
+        for(var al of Object.keys(albums) ){
+          if(al != undefined && al != null && al != "albums"){
+            arr2.push(al);
+          }
+        }
+      }
+      this.type = arr2;
+    }
+    else if (this.currentCategory== "artists"){
+      let arr3 = [];
+      if(artists != null){
+        for(var at of Object.keys(artists) ){
+          if(at != undefined && at != null && at != "artistName"){
+            arr3.push(at);
+          }
+        }
+      }
+      this.type = arr3;
+    }
+
   }
 }
