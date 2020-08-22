@@ -3,7 +3,7 @@ import { GlobalDataService } from "./../global-data.service";
 import { Chart } from "node_modules/chart.js";
 import { Health } from '@ionic-native/health/ngx';
 
-const USING_HEALTH_DATA: boolean = true;
+const USING_HEALTH_DATA: boolean = false;
 
 const numberOfDaysPerUnit: object = {day: 1, week: 7, month: 30};
 const buckets: object = {day: "hour", week: "day", month: "day"};
@@ -122,7 +122,7 @@ export class ChartComponent implements OnInit {
       colorArray.push('blue');
     }
     for (let i = this.knobValues['lower']; i <= this.knobValues['upper']; i++) {
-      colorArray.push('green');
+      colorArray.push(this.global.domain_info[this.global.stickerInfo.domain]['color']);
     }
     for (let i = this.knobValues['upper'] + 1; i < this.chartData.length; i++) {
       colorArray.push('blue');
