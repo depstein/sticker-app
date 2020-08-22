@@ -99,13 +99,14 @@ export class ChartComponent implements OnInit {
           label: 'Steps taken',
           data: data,
           backgroundColor: this.createColorArray()
-          // backgroundColor: `${this.global.stickerInfo.domain}`,
-          // backgroundColor: 'red'
         }],
       },
       options: {
         animation: {
           duration: 0
+        },
+        legend: {
+          display: false
         },
         scales: {
           xAxes: [{
