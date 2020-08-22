@@ -96,7 +96,6 @@ export class ChartComponent implements OnInit {
       type: 'bar',
       data: {
         datasets: [{
-          label: 'Steps taken',
           data: data,
           backgroundColor: this.createColorArray()
         }],
@@ -105,12 +104,21 @@ export class ChartComponent implements OnInit {
         animation: {
           duration: 0
         },
+        layout: {
+          padding: {
+            right: 20
+          }
+        },
         legend: {
           display: false
         },
         scales: {
           xAxes: [{
             type: 'time',
+            offset: true,
+            gridLines: {
+              offsetGridLines: true
+            }
           }],
           yAxes: [{
             afterFit: function(scaleInstance) {
@@ -124,16 +132,25 @@ export class ChartComponent implements OnInit {
 
   createColorArray() {
     let colorArray = [];
+    let baseColor = this.global.domain_info[this.global.stickerInfo.domain]['color'];
+    let fadedColor = this.createFadedColor(baseColor, 0.3);
     for(let i = 0; i < this.knobValues['lower']; i++) {
-      colorArray.push('blue');
+      colorArray.push(fadedColor);
     }
-    for (let i = this.knobValues['lower']; i <= this.knobValues['upper']; i++) {
-      colorArray.push(this.global.domain_info[this.global.stickerInfo.domain]['color']);
+    for (let i = this.knobValues['lower']; i < this.knobValues['upper']; i++) {
+      colorArray.push(baseColor);
     }
-    for (let i = this.knobValues['upper'] + 1; i < this.chartData.length; i++) {
-      colorArray.push('blue');
+    for (let i = this.knobValues['upper']; i < this.chartData.length; i++) {
+      colorArray.push(fadedColor);
     }
     return colorArray;
+  }
+
+  createFadedColor(baseColor, a) {
+    let r = "0x" + baseColor[1] + baseColor[2];
+    let g = "0x" + baseColor[3] + baseColor[4];
+    let b = "0x" + baseColor[5] + baseColor[6];
+    return "rgba("+ +r + "," + +g + "," + +b + "," + +a + ")";
   }
 
   segmentChanged(ev: any) {
@@ -152,7 +169,7 @@ export class ChartComponent implements OnInit {
   }
 
   getNumberOfTicks() {
-    return this.chartData.length - 1;
+    return this.chartData.length;
   }
 
   rangeSliderChanged() {
@@ -163,7 +180,7 @@ export class ChartComponent implements OnInit {
 
   updateDataSum() {
     let sum = 0;
-    for (var i = this.knobValues['lower']; i <= this.knobValues['upper']; i++) {
+    for (var i = this.knobValues['lower']; i < this.knobValues['upper']; i++) {
       sum += this.chartData[i]['y'];
     }
     this.dataSumChanged.emit(sum);

@@ -17,16 +17,18 @@
 </div>
 
 <!-- Range slider -->
-<ion-range #rangeSlider
-  color="{{ global.stickerInfo.domain }}"
-  dualKnobs="true"
-  min="0"
-  [max]="getNumberOfTicks()"
-  step="1"
-  snaps="true"
-  [(ngModel)]="knobValues"
-  (ionChange)="rangeSliderChanged()">
-</ion-range>
+<div class="range-slider-container">
+  <ion-range #rangeSlider id="rangeSlider"
+    color="{{ global.stickerInfo.domain }}"
+    dualKnobs="true"
+    min="0"
+    [max]="getNumberOfTicks()"
+    step="1"
+    snaps="true"
+    [(ngModel)]="knobValues"
+    (ionChange)="rangeSliderChanged()">
+  </ion-range>
+</div>
 
 <div class="dataSum">
   <p>Number of steps: {{ dataSum }}</p>
