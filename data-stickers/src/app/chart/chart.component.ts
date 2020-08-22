@@ -112,6 +112,11 @@ export class ChartComponent implements OnInit {
           xAxes: [{
             type: 'time',
           }],
+          yAxes: [{
+            afterFit: function(scaleInstance) {
+              scaleInstance.width = 50;
+            }
+          }]
         }
       }
     });
