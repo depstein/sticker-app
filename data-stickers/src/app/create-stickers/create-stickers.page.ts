@@ -75,4 +75,5 @@ export class CreateStickersPage implements OnInit {
     })
     await alert.present();
   }
+
 }

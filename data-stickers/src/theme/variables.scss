@@ -84,7 +84,7 @@
   --ion-color-light-contrast-rgb: 0,0,0;
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
-	
+
 	/* NOTE: for all cutstom colors, share button color is -shade, tab bar highlight color is -tint */
 	/** custom color for steps page **/
 	--ion-color-steps: #35a8a1;
@@ -93,23 +93,23 @@
   --ion-color-steps-contrast-rgb: 255,255,255;
   --ion-color-steps-shade: #77cdc8;
   --ion-color-steps-tint: #D5efee;
-	
-	/* custom color for music page */
-	--ion-color-music: #5a819e;
-  --ion-color-music-rgb: 90,129,158;
-  --ion-color-music-contrast: #ffffff;
-  --ion-color-music-contrast-rgb: 255,255,255;
-  --ion-color-music-shade: #78a9ce;
-  --ion-color-music-tint: #dee6ee;
-	
-	/* custom color for calories page */ 
+
+	/* custom color for heart rate page */
+	--ion-color-heartbeat: #f27c4c;
+	--ion-color-heartbeat-rgb: 242,124,76;
+	--ion-color-heartbeat-contrast: #ffffff;
+	--ion-color-heartbeat-contrast-rgb: 255,255,255;
+	--ion-color-heartbeat-shade: #f4a482;
+	--ion-color-heartbeat-tint: #ffe5db;
+
+	/* custom color for calories page */
 	--ion-color-calories: #7d7aa2;
   --ion-color-calories-rgb: 125,122,162;
   --ion-color-calories-contrast: #ffffff;
   --ion-color-calories-contrast-rgb: 255,255,255;
   --ion-color-calories-shade: #6a29fd4;
   --ion-color-calories-tint: #e5e4ee;
-	
+
 	/* custom color for time page */
 	--ion-color-time: #d85372;
   --ion-color-time-rgb: 216,83,114;
@@ -117,16 +117,16 @@
   --ion-color-time-contrast-rgb: 255,255,255;
   --ion-color-time-shade: #e8899f;
   --ion-color-time-tint: #f9dce3;
-	
-	/* custom color for heart rate page */ 
-	--ion-color-heartbeat: #f27c4c;
-  --ion-color-heartbeat-rgb: 242,124,76;
-  --ion-color-heartbeat-contrast: #ffffff;
-  --ion-color-heartbeat-contrast-rgb: 255,255,255;
-  --ion-color-heartbeat-shade: #f4a482;
-  --ion-color-heartbeat-tint: #ffe5db;
-	
-		/* button */ 
+
+	/* custom color for music page */
+	--ion-color-music: #5a819e;
+	--ion-color-music-rgb: 90,129,158;
+	--ion-color-music-contrast: #ffffff;
+	--ion-color-music-contrast-rgb: 255,255,255;
+	--ion-color-music-shade: #78a9ce;
+	--ion-color-music-tint: #dee6ee;
+
+		/* button */
 	--ion-color-button: #4C8985;
   --ion-color-button-rgb: 76, 137, 133;
   --ion-color-button-contrast: #ffffff;
