@@ -1,25 +1,33 @@
-#timeSegment {
+.time-segment {
   padding-top: 32px;
   padding-bottom: 16px;
   width: 90vw;
   margin: auto;
 }
 
-#divChart {
+.div-chart {
   display: block;
-  padding-bottom: 32px;
-  margin: auto;
+  position: relative;
+  margin-bottom: 32px;
 }
 
 .range-slider-container {
   position: absolute;
-  top: 150px;
+  top: 40%;
+  transform: translate(0, -50%);
   width: 100vw;
 }
 
 ion-range {
   padding-left: 50px;
   padding-right: 20px;
+  --ion-text-color-rgb: none; // removes tick marks
+  --bar-background: none;
+  --bar-background-active: none;
+}
+
+ion-range::part(tick) {
+  background: none;
 }
 
 .dataSum {
