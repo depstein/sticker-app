@@ -116,6 +116,9 @@ export class ChartComponent implements OnInit {
         },
         scales: {
           xAxes: [{
+            afterFit: function(scaleInstance) {
+              scaleInstance.height = 38;
+            },
             type: 'time',
             offset: true,
             gridLines: {
@@ -157,13 +160,10 @@ export class ChartComponent implements OnInit {
 
   redrawOverlay() {
     let width = 230;
-    let height = 240;
+    let height = 195;
     var ctx: CanvasRenderingContext2D = this.overlay.nativeElement.getContext('2d');
     ctx.clearRect(0, 0, width, height);
-    ctx.fillStyle = "#FF0000";
-    console.log(`lower pixel: ${width * (this.knobValues['lower'] / this.chartData.length)}`);
-    console.log(`upper pixel: ${width * (this.knobValues['upper'] / this.chartData.length)}`);
-
+    ctx.fillStyle = "rgba(128, 128, 128, 0.1)";
     ctx.fillRect(0, 0, width * (this.knobValues['lower'] / this.chartData.length), height);
     ctx.fillRect(width * (this.knobValues['upper'] / this.chartData.length), 0, width, height);
   }

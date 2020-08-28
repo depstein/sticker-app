@@ -18,6 +18,11 @@
   width: 100vw;
 }
 
+#overlay {
+  position: absolute;
+  top: 7px;
+}
+
 #overlay, ion-range {
   padding-left: 50px;
   padding-right: 20px;
