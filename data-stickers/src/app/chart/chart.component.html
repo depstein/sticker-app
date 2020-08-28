@@ -16,11 +16,12 @@
 
   <!-- Chart -->
   <canvas #myChart id="myChart" width="375" height="300"></canvas>
+  <canvas #overlay id="overlay" width="230" height="240"></canvas>
 
   <!-- Range slider -->
   <div class="range-slider-container">
     <ion-range
-      color="none"
+      color="{{ global.stickerInfo.domain }}"
       dualKnobs="true"
       min="0"
       [max]="getNumberOfTicks()"
@@ -28,7 +29,6 @@
       snaps="true"
       [(ngModel)]="knobValues"
       (ionChange)="rangeSliderChanged()">
-      <div part="tick" class="range-tick"></div>
     </ion-range>
   </div>
 

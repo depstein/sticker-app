@@ -18,16 +18,9 @@
   width: 100vw;
 }
 
-ion-range {
+#overlay, ion-range {
   padding-left: 50px;
   padding-right: 20px;
-  --ion-text-color-rgb: none; // removes tick marks
-  --bar-background: none;
-  --bar-background-active: none;
-}
-
-ion-range::part(tick) {
-  background: none;
 }
 
 .dataSum {
