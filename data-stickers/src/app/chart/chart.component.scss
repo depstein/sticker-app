@@ -18,14 +18,19 @@
   width: 100vw;
 }
 
+#overlay, ion-range {
+  padding-left: 50px;
+  padding-right: 20px;
+}
+
 #overlay {
   position: absolute;
   top: 7px;
 }
 
-#overlay, ion-range {
-  padding-left: 50px;
-  padding-right: 20px;
+ion-range {
+  --bar-height: 0;
+  --tick-background: rgba(0, 0, 0, 0);
 }
 
 .dataSum {
