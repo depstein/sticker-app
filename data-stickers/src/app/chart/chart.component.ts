@@ -55,7 +55,6 @@ export class ChartComponent implements OnInit {
       this.generateChartFromHealthData();
     }
     else { this.generateChart(this.sampleData[this.timeRange]); }
-
   }
 
   initializeCanvas() {
@@ -91,6 +90,7 @@ export class ChartComponent implements OnInit {
     .then((res) => {
       let data = this.createTimeObjectArray(res);
       this.generateChart(data);
+      this.redrawOverlay();
     })
     .catch((e) => {
       console.log(e)
