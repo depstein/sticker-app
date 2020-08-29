@@ -1,4 +1,5 @@
 import { Component, OnInit, EventEmitter, Input, Output, ViewChild, ElementRef } from '@angular/core';
+import { Platform } from '@ionic/angular';
 import { GlobalDataService } from "./../global-data.service";
 import { Chart } from "node_modules/chart.js";
 import { Health } from '@ionic-native/health/ngx';
@@ -16,6 +17,8 @@ const buckets: object = {day: "hour", week: "day", month: "day"};
 export class ChartComponent implements OnInit {
   @ViewChild('myChart', { static: true }) canvas: ElementRef<HTMLCanvasElement>;
   @ViewChild('overlay', { static: true }) overlay: ElementRef<HTMLCanvasElement>;
+  overlayWidth: number;
+  overlayHeight: number;
   timeChart: any;
   timeRange: string;
   chartData: object[];
@@ -26,9 +29,12 @@ export class ChartComponent implements OnInit {
   @Output() dataSumChanged = new EventEmitter<number>(true);
 
   constructor(
+    private platform: Platform,
     private health: Health,
     public global: GlobalDataService
   ) {
+    this.overlayWidth = platform.width() - 50 - 20;
+    this.overlayHeight = (platform.width() / 1.25) - 7 - 38;
     this.timeRange = "day";
     this.chartData = [];
     this.knobValues = {
@@ -44,7 +50,6 @@ export class ChartComponent implements OnInit {
 
   ngOnInit() {
     this.initializeCanvas();
-    // this.redrawOverlay();
     this.testHealth();
     if (USING_HEALTH_DATA) {
       this.generateChartFromHealthData();
@@ -159,13 +164,13 @@ export class ChartComponent implements OnInit {
   }
 
   redrawOverlay() {
-    let width = 230;
-    let height = 195;
     var ctx: CanvasRenderingContext2D = this.overlay.nativeElement.getContext('2d');
-    ctx.clearRect(0, 0, width, height);
+    ctx.canvas.width  = this.overlayWidth;
+    ctx.canvas.height = this.overlayHeight;
+    ctx.clearRect(0, 0, this.overlayWidth, this.overlayHeight);
     ctx.fillStyle = "rgba(128, 128, 128, 0.1)";
-    ctx.fillRect(0, 0, width * (this.knobValues['lower'] / this.chartData.length), height);
-    ctx.fillRect(width * (this.knobValues['upper'] / this.chartData.length), 0, width, height);
+    ctx.fillRect(0, 0, this.overlayWidth * (this.knobValues['lower'] / this.chartData.length), this.overlayHeight);
+    ctx.fillRect(this.overlayWidth * (this.knobValues['upper'] / this.chartData.length), 0, this.overlayWidth, this.overlayHeight);
   }
 
   segmentChanged(ev: any) {
