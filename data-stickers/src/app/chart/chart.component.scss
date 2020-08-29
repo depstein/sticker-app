@@ -30,7 +30,9 @@
 
 ion-range {
   --bar-height: 0;
-  --tick-background: rgba(0, 0, 0, 0);
+  --bar-background-active: none;
+  --ion-text-color-rgb: none;
+  --knob-background: rgb(196, 196, 196);
 }
 
 .dataSum {
