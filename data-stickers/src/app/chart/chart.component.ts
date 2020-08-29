@@ -15,6 +15,7 @@ const buckets: object = {day: "hour", week: "day", month: "day"};
 })
 export class ChartComponent implements OnInit {
   @ViewChild('myChart', { static: true }) canvas: ElementRef<HTMLCanvasElement>;
+  @ViewChild('overlay', { static: true }) overlay: ElementRef<HTMLCanvasElement>;
   timeChart: any;
   timeRange: string;
   chartData: object[];
@@ -43,6 +44,7 @@ export class ChartComponent implements OnInit {
 
   ngOnInit() {
     this.initializeCanvas();
+    // this.redrawOverlay();
     this.testHealth();
     if (USING_HEALTH_DATA) {
       this.generateChartFromHealthData();
@@ -114,6 +116,9 @@ export class ChartComponent implements OnInit {
         },
         scales: {
           xAxes: [{
+            afterFit: function(scaleInstance) {
+              scaleInstance.height = 38;
+            },
             type: 'time',
             offset: true,
             gridLines: {
@@ -153,6 +158,16 @@ export class ChartComponent implements OnInit {
     return "rgba("+ +r + "," + +g + "," + +b + "," + +a + ")";
   }
 
+  redrawOverlay() {
+    let width = 230;
+    let height = 195;
+    var ctx: CanvasRenderingContext2D = this.overlay.nativeElement.getContext('2d');
+    ctx.clearRect(0, 0, width, height);
+    ctx.fillStyle = "rgba(128, 128, 128, 0.1)";
+    ctx.fillRect(0, 0, width * (this.knobValues['lower'] / this.chartData.length), height);
+    ctx.fillRect(width * (this.knobValues['upper'] / this.chartData.length), 0, width, height);
+  }
+
   segmentChanged(ev: any) {
     this.timeRange = ev.detail.value;
     if (USING_HEALTH_DATA) {
@@ -175,6 +190,7 @@ export class ChartComponent implements OnInit {
   rangeSliderChanged() {
     this.updateDataSum();
     this.timeChart.data.datasets[0].backgroundColor = this.createColorArray();
+    this.redrawOverlay();
     this.timeChart.update();
   }
 
@@ -206,6 +222,7 @@ export class ChartComponent implements OnInit {
     this.updateChartData(data);
     this.timeChart.data.datasets[0].data = data;
     this.timeChart.data.datasets[0].backgroundColor = this.createColorArray();
+    this.redrawOverlay();
     this.timeChart.update();
   }
 

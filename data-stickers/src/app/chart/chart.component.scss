@@ -1,25 +1,38 @@
-#timeSegment {
+.time-segment {
   padding-top: 32px;
   padding-bottom: 16px;
   width: 90vw;
   margin: auto;
 }
 
-#divChart {
+.div-chart {
   display: block;
-  padding-bottom: 32px;
-  margin: auto;
+  position: relative;
+  margin-bottom: 32px;
 }
 
 .range-slider-container {
   position: absolute;
-  top: 150px;
+  top: 40%;
+  transform: translate(0, -50%);
   width: 100vw;
 }
 
-#rangeSlider {
+#overlay, ion-range {
   padding-left: 50px;
   padding-right: 20px;
+}
+
+#overlay {
+  position: absolute;
+  top: 7px;
+}
+
+ion-range {
+  --bar-height: 0;
+  --bar-background-active: none;
+  --ion-text-color-rgb: none;
+  --knob-background: rgb(196, 196, 196);
 }
 
 .dataSum {
