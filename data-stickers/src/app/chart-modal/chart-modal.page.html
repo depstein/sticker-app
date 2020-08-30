@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Select Data</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button fill="clear" (click)="dismiss()">Done</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <!-- Chart component -->
+  <app-chart
+    [dataSum]="dataSum"
+    (dataSumChanged)="onDataSumChanged($event)">
+  </app-chart>
+
+</ion-content>

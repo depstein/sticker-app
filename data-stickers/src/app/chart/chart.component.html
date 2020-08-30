@@ -1,0 +1,52 @@
+<div class="loading-screen" [ngStyle]="{'display': loaded ? 'none' : 'initial'}">
+  <p>Loading data...</p>
+</div>
+
+<!-- Day/Week/Month segmented control -->
+<ion-segment class="time-segment" (ionChange)="segmentChanged($event)" value="day">
+  <ion-segment-button value="day">
+    <ion-label>Day</ion-label>
+  </ion-segment-button>
+  <ion-segment-button value="week">
+    <ion-label>Week</ion-label>
+  </ion-segment-button>
+  <ion-segment-button value="month">
+    <ion-label>Month</ion-label>
+  </ion-segment-button>
+</ion-segment>
+
+
+<div class="div-chart">
+
+  <!-- Chart -->
+  <canvas #myChart id="myChart" width="375" height="300"></canvas>
+  <canvas #overlay id="overlay"></canvas>
+
+  <!-- Range slider -->
+  <div class="range-slider-container">
+    <ion-range
+      dualKnobs="true"
+      min="0"
+      [max]="getNumberOfTicks()"
+      step="1"
+      snaps="true"
+      [(ngModel)]="knobValues"
+      (ionChange)="rangeSliderChanged()">
+    </ion-range>
+  </div>
+
+</div>
+
+
+<div class="dataInfo">
+  <p>
+    <span *ngIf="knobValues['lower'] == knobValues['upper']; else elseBlock">
+      No data selected
+    </span>
+    <ng-template #elseBlock>
+      {{ selectedTimeRange['start'] }} - {{ selectedTimeRange['end'] }}
+      <br>
+      Number of steps: {{ dataSum }}
+    </ng-template>
+  </p>
+</div>

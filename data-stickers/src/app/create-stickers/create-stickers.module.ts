@@ -8,6 +8,8 @@ import { IonicModule } from "@ionic/angular";
 
 import { CreateStickersPageRoutingModule } from "./create-stickers-routing.module";
 
+import { ChartModalPageModule } from '../chart-modal/chart-modal.module';
+
 import { CreateStickersPage } from "./create-stickers.page";
 import { InputComponent } from "../input/input.component";
 import { StickerComponent } from "../sticker/sticker.component";
@@ -20,6 +22,7 @@ import { ColorButtonsComponent } from "../color-buttons/color-buttons.component"
     FormsModule,
     IonicModule,
     CreateStickersPageRoutingModule,
+    ChartModalPageModule,
   ],
   declarations: [
     CreateStickersPage,

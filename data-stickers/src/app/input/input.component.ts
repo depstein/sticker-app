@@ -1,6 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { AlertController } from "@ionic/angular";
+import { ModalController } from '@ionic/angular';
 import { GlobalDataService } from "./../global-data.service";
+
+import { ChartModalPage } from '../chart-modal/chart-modal.page';
 
 @Component({
   selector: "app-input",
@@ -27,6 +30,7 @@ export class InputComponent implements OnInit {
 
   constructor(
     public alertController: AlertController,
+    public modalController: ModalController,
     public global: GlobalDataService
   ) {
     this.slider_input_value = 0;
@@ -137,7 +141,7 @@ export class InputComponent implements OnInit {
       this.global.stickerInfo.domain == "time" &&
       this.global.stickerInfo.unit == "hour:minute"
     ) {
-     
+
       this.slider_input_value =
         this.global.stickerInfo.hour * 60 +
         this.global.stickerInfo.min;
@@ -276,22 +280,22 @@ export class InputComponent implements OnInit {
     }
   }
 
-	// Validates unit input, returns true if the input is valid 
+	// Validates unit input, returns true if the input is valid
 	validateUnitInput(unitInput: string): boolean {
-		// length must <= 12 
+		// length must <= 12
 		if (unitInput.length == 0 || unitInput.length > 12)
 			return false;
-		// must not contain any non-alphanumeric characters 
+		// must not contain any non-alphanumeric characters
 		const regex = /[^A-Za-z0-9]/
 		if (regex.test(unitInput) == true)
-			return false;  
-		return true; 
+			return false;
+		return true;
 	}
 
 	cancelledCustomUnitInput() {
 		this.global.stickerInfo.unit = this.unit_list[0];
 	}
-	
+
   async presentCustomUnitPrompt() {
     const alert = await this.alertController.create({
     header: 'Customize Unit',
@@ -314,15 +318,15 @@ export class InputComponent implements OnInit {
       }, {
         text: 'OK',
         handler: data => {
-          // Validate the input 
+          // Validate the input
           let inputIsValid = this.validateUnitInput(data.name);
           if (inputIsValid == false) {
             alert.subHeader = 'Error: Unit must be alphanumeric and max 12 characters';
             return false;
           } else {
             this.unit_list.push(data.name);
-            this.global.stickerInfo.unit = data.name;		
-          }				
+            this.global.stickerInfo.unit = data.name;
+          }
         }
       }
         ]
@@ -353,4 +357,15 @@ export class InputComponent implements OnInit {
 		});
 		await alert.present();
 	}
+
+  async openModal() {
+    const modal = await this.modalController.create({
+      component: ChartModalPage
+    });
+    modal.onDidDismiss().then(data=>{
+      this.global.stickerInfo.value = data.data.sum;
+      this.updateInputValue();
+    })
+    return await modal.present();
+  }
 }

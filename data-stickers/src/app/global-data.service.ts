@@ -8,8 +8,8 @@ export class GlobalDataService {
 	domain_info = {};
 	image_dict = {};
 	recent_use = [];
-	stickerInfo: StickerInfo; 
-		
+	stickerInfo: StickerInfo;
+
   	constructor() {
 		this.domain_info = {
 			"steps": {
@@ -22,15 +22,17 @@ export class GlobalDataService {
 						"maxAmount": 100
 					}
 				},
-				"slider_image_url": "../../assets/icon/footprint.svg"
-			}, 
+				"slider_image_url": "../../assets/icon/footprint.svg",
+        "color": "#35a8a1"
+			},
 			"heartbeat": {
 				"units": {
 					"bpm": {
 						"maxAmount": 100
 					}
 				},
-				"slider_image_url": "../../assets/icon/bxs-heart.svg"
+				"slider_image_url": "../../assets/icon/bxs-heart.svg",
+        "color": "#f27c4c"
 			},
 			"calories": {
 				"units": {
@@ -38,7 +40,8 @@ export class GlobalDataService {
 						"maxAmount": 10000
 					}
 				},
-				"slider_image_url": "../../assets/icon/bxs-hot.svg"
+				"slider_image_url": "../../assets/icon/bxs-hot.svg",
+        "color": "#7d7aa2"
 			},
 			"time": {
 				"units": {
@@ -49,7 +52,8 @@ export class GlobalDataService {
 						"maxAmount": 14
 					}
 				},
-				"slider_image_url": "../../assets/icon/bxs-time-five.svg"
+				"slider_image_url": "../../assets/icon/bxs-time-five.svg",
+        "color": "#d85372"
 			},
 			"music": {
 				"units": {
@@ -63,7 +67,8 @@ export class GlobalDataService {
 						"maxAmount": 50
 					}
 				},
-				"slider_image_url": "../../assets/icon/bxs-music.svg"
+				"slider_image_url": "../../assets/icon/bxs-music.svg",
+        "color": "#5a819e"
 			}
 		}
 
@@ -95,9 +100,9 @@ export class GlobalDataService {
 				"../../../assets/stickers/heart rate/embellished-15.png": true,
 				"../../../assets/stickers/heart rate/7-12.png": false,
 				"../../../assets/stickers/heart rate/7-08.png": false,
-			}, 
+			},
 			"calories": {
-				
+
 				"../../../assets/stickers/calories/plain-domain-relevant-1.png": true,
 				"../../../assets/stickers/calories/plain-domain-relevant-2.png": true,
 				"../../../assets/stickers/calories/plain-domain-relevant-3.png": true,
@@ -144,7 +149,7 @@ export class GlobalDataService {
 				"../../../assets/stickers/music/6-03.png": true
 			}
 		}
-			
+
 		this.stickerInfo = new StickerInfo();
 	}
 }
