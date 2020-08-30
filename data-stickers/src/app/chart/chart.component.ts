@@ -53,7 +53,7 @@ export class ChartComponent implements OnInit {
     if (USING_HEALTH_DATA) {
       this.updateChartFromHealthData(false);
     }
-    else { this.generateChart(SAMPLE_DATA[this.segmentedControlValue]); }
+    else { this.updateChart(SAMPLE_DATA[this.segmentedControlValue], false); }
   }
 
   initializeCanvas() {
@@ -80,16 +80,10 @@ export class ChartComponent implements OnInit {
   }
 
   updateChartFromHealthData(chartAlreadyGenerated: boolean) {
-    queryHealthData()
+    this.queryHealthData()
     .then((res) => {
       let data = this.createTimeObjectArray(res);
-      if (chartAlreadyGenerated) {
-        this.updateChart(data);
-      }
-      else {
-        this.generateChart(data);
-      }
-      this.redrawOverlay();
+      this.updateChart(data, chartAlreadyGenerated);
     })
     .catch((e) => {
       console.log(e)
@@ -108,47 +102,55 @@ export class ChartComponent implements OnInit {
     });
   }
 
-  generateChart(data: any[]) {
+  updateChart(data: any[], chartAlreadyGenerated: boolean) {
     this.updateChartData(data);
-    this.timeChart = new Chart("myChart", {
-      type: 'bar',
-      data: {
-        datasets: [{
-          data: data,
-          backgroundColor: this.createColorArray()
-        }],
-      },
-      options: {
-        animation: {
-          duration: 0
-        },
-        layout: {
-          padding: {
-            right: 20
-          }
-        },
-        legend: {
-          display: false
-        },
-        scales: {
-          xAxes: [{
-            afterFit: function(scaleInstance) {
-              scaleInstance.height = 38;
-            },
-            type: 'time',
-            offset: true,
-            gridLines: {
-              offsetGridLines: true
-            }
+    if (chartAlreadyGenerated) {
+      this.timeChart.data.datasets[0].data = data;
+      this.timeChart.data.datasets[0].backgroundColor = this.createColorArray();
+      this.timeChart.update();
+    }
+    else {
+      this.timeChart = new Chart("myChart", {
+        type: 'bar',
+        data: {
+          datasets: [{
+            data: data,
+            backgroundColor: this.createColorArray()
           }],
-          yAxes: [{
-            afterFit: function(scaleInstance) {
-              scaleInstance.width = 50;
+        },
+        options: {
+          animation: {
+            duration: 0
+          },
+          layout: {
+            padding: {
+              right: 20
             }
-          }]
+          },
+          legend: {
+            display: false
+          },
+          scales: {
+            xAxes: [{
+              afterFit: function(scaleInstance) {
+                scaleInstance.height = 38;
+              },
+              type: 'time',
+              offset: true,
+              gridLines: {
+                offsetGridLines: true
+              }
+            }],
+            yAxes: [{
+              afterFit: function(scaleInstance) {
+                scaleInstance.width = 50;
+              }
+            }]
+          }
         }
-      }
-    });
+      });
+    }
+    this.redrawOverlay();
   }
 
   createColorArray() {
@@ -191,7 +193,7 @@ export class ChartComponent implements OnInit {
     if (USING_HEALTH_DATA) {
       this.updateChartFromHealthData(true);
     }
-    else { this.updateChart(SAMPLE_DATA[this.segmentedControlValue]); }
+    else { this.updateChart(SAMPLE_DATA[this.segmentedControlValue], true); }
   }
 
   updateChartData(chartData: object[]) {
@@ -238,13 +240,6 @@ export class ChartComponent implements OnInit {
       sum += this.chartData[i]['y'];
     }
     this.dataSumChanged.emit(sum);
-  }
-
-  updateChart(data: any[]) {
-    this.updateChartData(data);
-    this.timeChart.data.datasets[0].data = data;
-    this.timeChart.data.datasets[0].backgroundColor = this.createColorArray();
-    this.timeChart.update();
   }
 
   createTimeObjectArray(res) {
