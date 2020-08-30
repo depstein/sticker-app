@@ -9,8 +9,6 @@ const USING_HEALTH_DATA: boolean = false;
 
 const NUM_DAYS_PER_UNIT: object = {day: 1, week: 7, month: 30};
 const BUCKETS: object = {day: "hour", week: "day", month: "day"};
-const MOMENT_BUCKETS: object = {day: "hours", week: "days", month: "days"}
-const MOMENT_FORMAT_STRINGS: object = {hour: "hA", day: "MMM D"}
 const SAMPLE_DATA: object = {
   day: [{"t":"2020-08-14T03:00:00.000Z","y":5887},{"t":"2020-08-14T04:00:00.000Z","y":93},{"t":"2020-08-14T05:00:00.000Z","y":23},{"t":"2020-08-14T06:00:00.000Z","y":18},{"t":"2020-08-14T07:00:00.000Z","y":7},{"t":"2020-08-14T08:00:00.000Z","y":0},{"t":"2020-08-14T09:00:00.000Z","y":0},{"t":"2020-08-14T10:00:00.000Z","y":0},{"t":"2020-08-14T11:00:00.000Z","y":0},{"t":"2020-08-14T12:00:00.000Z","y":0},{"t":"2020-08-14T13:00:00.000Z","y":25},{"t":"2020-08-14T14:00:00.000Z","y":1002},{"t":"2020-08-14T15:00:00.000Z","y":8283},{"t":"2020-08-14T16:00:00.000Z","y":68},{"t":"2020-08-14T17:00:00.000Z","y":235},{"t":"2020-08-14T18:00:00.000Z","y":641},{"t":"2020-08-14T19:00:00.000Z","y":0},{"t":"2020-08-14T20:00:00.000Z","y":98},{"t":"2020-08-14T21:00:00.000Z","y":0},{"t":"2020-08-14T22:00:00.000Z","y":0},{"t":"2020-08-14T23:00:00.000Z","y":0},{"t":"2020-08-15T00:00:00.000Z","y":0},{"t":"2020-08-15T01:00:00.000Z","y":0},{"t":"2020-08-15T02:00:00.000Z","y":0},{"t":"2020-08-15T03:00:00.000Z","y":0}],
   week: [{"t":"2020-08-07T07:00:00.000Z","y":15226},{"t":"2020-08-08T07:00:00.000Z","y":155},{"t":"2020-08-09T07:00:00.000Z","y":2619},{"t":"2020-08-10T07:00:00.000Z","y":16616},{"t":"2020-08-11T07:00:00.000Z","y":1021},{"t":"2020-08-12T07:00:00.000Z","y":12206},{"t":"2020-08-13T07:00:00.000Z","y":15281},{"t":"2020-08-14T07:00:00.000Z","y":10382}],
@@ -46,8 +44,8 @@ export class ChartComponent implements OnInit {
       upper: 0
     };
     this.selectedTimeRange = {
-      start: "Aug 19",
-      end: "Aug 21"
+      start: "",
+      end: ""
     }
   }
 
@@ -205,22 +203,26 @@ export class ChartComponent implements OnInit {
   }
 
   updateDataInfo() {
+    this.updateSelectedTimeRange();
+    this.updateDataSum();
+  }
+
+  updateSelectedTimeRange() {
+    let buckets = {day: "hours", week: "days", month: "days"}
+    let formatStrings: object = {hour: "hA", day: "MMM D"}
+
     let initialMoment = moment(this.chartData[0]['t']);
     let moments = {
-      start: initialMoment.clone().add(this.knobValues['lower'], MOMENT_BUCKETS[this.segmentedControlValue]),
-      end: initialMoment.clone().add(this.knobValues['upper'], MOMENT_BUCKETS[this.segmentedControlValue]),
+      start: initialMoment.clone().add(this.knobValues['lower'], buckets[this.segmentedControlValue]),
+      end: initialMoment.clone().add(this.knobValues['upper'], buckets[this.segmentedControlValue]),
     }
-    //
-    //
-    // let moments = {
-    //   start: moment(this.chartData[Math.min(this.knobValues['lower'], this.chartData.length - 1)]['t']),
-    //   end: moment(this.chartData[Math.max(0, this.knobValues['upper'] - 1)]['t'])
-    // }
 
     for (let moment in moments) {
-      this.selectedTimeRange[moment] = moments[moment].format(MOMENT_FORMAT_STRINGS[BUCKETS[this.segmentedControlValue]]);
+      this.selectedTimeRange[moment] = moments[moment].format(formatStrings[BUCKETS[this.segmentedControlValue]]);
     }
+  }
 
+  updateDataSum() {
     let sum = 0;
     for (var i = this.knobValues['lower']; i < this.knobValues['upper']; i++) {
       sum += this.chartData[i]['y'];
