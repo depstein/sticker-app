@@ -1,3 +1,7 @@
+<div class="loading-screen" [ngStyle]="{'display': loaded ? 'none' : 'initial'}">
+  <p>Loading data...</p>
+</div>
+
 <!-- Day/Week/Month segmented control -->
 <ion-segment class="time-segment" (ionChange)="segmentChanged($event)" value="day">
   <ion-segment-button value="day">

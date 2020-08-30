@@ -19,8 +19,8 @@ const SAMPLE_DATA: object = {
   styleUrls: ['./chart.component.scss'],
 })
 export class ChartComponent implements OnInit {
-  @ViewChild('myChart', { static: true }) canvas: ElementRef<HTMLCanvasElement>;
   @ViewChild('overlay', { static: true }) overlay: ElementRef<HTMLCanvasElement>;
+  loaded: boolean;
   timeChart: any;
   segmentedControlValue: string;
   chartData: object[];
@@ -35,6 +35,7 @@ export class ChartComponent implements OnInit {
     private health: Health,
     public global: GlobalDataService
   ) {
+    this.loaded = false;
     this.segmentedControlValue = "day";
     this.chartData = [];
     this.knobValues = {
@@ -48,19 +49,11 @@ export class ChartComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.initializeCanvas();
     this.testHealth();
     if (USING_HEALTH_DATA) {
       this.updateChartFromHealthData(false);
     }
     else { this.updateChart(SAMPLE_DATA[this.segmentedControlValue], false); }
-  }
-
-  initializeCanvas() {
-    var ctx: CanvasRenderingContext2D = this.canvas.nativeElement.getContext('2d');
-    ctx.font = '24px sans-serif';
-    ctx.textAlign = 'center';
-    ctx.fillText('Loading health data...', ctx.canvas.width/2, ctx.canvas.height/2);
   }
 
   testHealth() {
@@ -112,6 +105,7 @@ export class ChartComponent implements OnInit {
     else {
       this.timeChart = new Chart("myChart", this.chartProperties(data));
     }
+    this.loaded = true;
     this.redrawOverlay();
   }
 
