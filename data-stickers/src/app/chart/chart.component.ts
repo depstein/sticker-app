@@ -133,7 +133,7 @@ export class ChartComponent implements OnInit {
         scales: {
           xAxes: [{
             afterFit: function(scaleInstance) {
-              scaleInstance.height = 38;
+              scaleInstance.height = 50;
             },
             type: 'time',
             offset: true,
@@ -177,7 +177,7 @@ export class ChartComponent implements OnInit {
   redrawOverlay() {
     var ctx: CanvasRenderingContext2D = this.overlay.nativeElement.getContext('2d');
     let width = this.platform.width() - 50 - 20;
-    let height = (this.platform.width() / 1.25) - 7 - 38;
+    let height = (this.platform.width() / 1.25) - 7 - 50;
     ctx.canvas.width  = width;
     ctx.canvas.height = height;
     ctx.clearRect(0, 0, width, height);
