@@ -35,6 +35,14 @@
 
 
 <div class="dataInfo">
-  <p>{{ selectedTimeRange['start'] }} - {{ selectedTimeRange['end'] }}<br>
-  Number of steps: {{ dataSum }}</p>
+  <p>
+    <span *ngIf="knobValues['lower'] == knobValues['upper']; else elseBlock">
+      No data selected
+    </span>
+    <ng-template #elseBlock>
+      {{ selectedTimeRange['start'] }} - {{ selectedTimeRange['end'] }}
+      <br>
+      Number of steps: {{ dataSum }}
+    </ng-template>
+  </p>
 </div>
