@@ -23,9 +23,10 @@ export class ChartComponent implements OnInit {
   @ViewChild('myChart', { static: true }) canvas: ElementRef<HTMLCanvasElement>;
   @ViewChild('overlay', { static: true }) overlay: ElementRef<HTMLCanvasElement>;
   timeChart: any;
-  timeRange: string;
+  segmentedControlValue: string;
   chartData: object[];
   knobValues: object;
+  selectedTimeRange: object;
 
   @Input() dataSum: number;
   @Output() dataSumChanged = new EventEmitter<number>(true);
@@ -35,12 +36,16 @@ export class ChartComponent implements OnInit {
     private health: Health,
     public global: GlobalDataService
   ) {
-    this.timeRange = "day";
+    this.segmentedControlValue = "day";
     this.chartData = [];
     this.knobValues = {
       lower: 0,
       upper: 0
     };
+    this.selectedTimeRange = {
+      start: "Aug 19",
+      end: "Aug 21"
+    }
   }
 
   ngOnInit() {
@@ -49,7 +54,7 @@ export class ChartComponent implements OnInit {
     if (USING_HEALTH_DATA) {
       this.generateChartFromHealthData();
     }
-    else { this.generateChart(SAMPLE_DATA[this.timeRange]); }
+    else { this.generateChart(SAMPLE_DATA[this.segmentedControlValue]); }
   }
 
   initializeCanvas() {
@@ -77,10 +82,10 @@ export class ChartComponent implements OnInit {
 
   generateChartFromHealthData() {
     this.health.queryAggregated({
-      startDate: new Date(new Date().getTime() - NUM_DAYS_PER_UNIT[this.timeRange] * 24 * 60 * 60 * 1000),
+      startDate: new Date(new Date().getTime() - NUM_DAYS_PER_UNIT[this.segmentedControlValue] * 24 * 60 * 60 * 1000),
       endDate: new Date(), // now
       dataType: 'steps',
-      bucket: BUCKETS[this.timeRange],
+      bucket: BUCKETS[this.segmentedControlValue],
     })
     .then((res) => {
       let data = this.createTimeObjectArray(res);
@@ -171,18 +176,18 @@ export class ChartComponent implements OnInit {
   }
 
   segmentChanged(ev: any) {
-    this.timeRange = ev.detail.value;
+    this.segmentedControlValue = ev.detail.value;
     if (USING_HEALTH_DATA) {
       this.updateChartFromHealthData();
     }
-    else { this.updateChart(SAMPLE_DATA[this.timeRange]); }
+    else { this.updateChart(SAMPLE_DATA[this.segmentedControlValue]); }
   }
 
   updateChartData(chartData: object[]) {
     this.chartData = chartData;
     this.knobValues['lower'] = Math.round(this.chartData.length * 0.25);
     this.knobValues['upper'] = Math.round(this.chartData.length * 0.75);
-    this.updateDataSum();
+    this.updateDataInfo();
   }
 
   getNumberOfTicks() {
@@ -190,13 +195,16 @@ export class ChartComponent implements OnInit {
   }
 
   rangeSliderChanged() {
-    this.updateDataSum();
+    this.updateDataInfo();
     this.timeChart.data.datasets[0].backgroundColor = this.createColorArray();
     this.redrawOverlay();
     this.timeChart.update();
   }
 
-  updateDataSum() {
+  updateDataInfo() {
+    this.selectedTimeRange['start'] = this.chartData[Math.min(this.knobValues['lower'], this.chartData.length - 1)]['t'];
+    this.selectedTimeRange['end'] = this.chartData[Math.max(0, this.knobValues['upper'] - 1)]['t'];
+
     let sum = 0;
     for (var i = this.knobValues['lower']; i < this.knobValues['upper']; i++) {
       sum += this.chartData[i]['y'];
@@ -206,10 +214,10 @@ export class ChartComponent implements OnInit {
 
   updateChartFromHealthData() {
     this.health.queryAggregated({
-      startDate: new Date(new Date().getTime() - NUM_DAYS_PER_UNIT[this.timeRange] * 24 * 60 * 60 * 1000), // one month ago
+      startDate: new Date(new Date().getTime() - NUM_DAYS_PER_UNIT[this.segmentedControlValue] * 24 * 60 * 60 * 1000), // one month ago
       endDate: new Date(), // now
       dataType: 'steps',
-      bucket: BUCKETS[this.timeRange],
+      bucket: BUCKETS[this.segmentedControlValue],
     })
     .then((res) => {
       let data = this.createTimeObjectArray(res);
