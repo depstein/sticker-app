@@ -7,8 +7,6 @@ import * as moment from 'moment';
 
 const USING_HEALTH_DATA: boolean = false;
 
-const NUM_DAYS_PER_UNIT: object = {day: 1, week: 7, month: 30};
-const BUCKETS: object = {day: "hour", week: "day", month: "day"};
 const SAMPLE_DATA: object = {
   day: [{"t":"2020-08-14T03:00:00.000Z","y":5887},{"t":"2020-08-14T04:00:00.000Z","y":93},{"t":"2020-08-14T05:00:00.000Z","y":23},{"t":"2020-08-14T06:00:00.000Z","y":18},{"t":"2020-08-14T07:00:00.000Z","y":7},{"t":"2020-08-14T08:00:00.000Z","y":0},{"t":"2020-08-14T09:00:00.000Z","y":0},{"t":"2020-08-14T10:00:00.000Z","y":0},{"t":"2020-08-14T11:00:00.000Z","y":0},{"t":"2020-08-14T12:00:00.000Z","y":0},{"t":"2020-08-14T13:00:00.000Z","y":25},{"t":"2020-08-14T14:00:00.000Z","y":1002},{"t":"2020-08-14T15:00:00.000Z","y":8283},{"t":"2020-08-14T16:00:00.000Z","y":68},{"t":"2020-08-14T17:00:00.000Z","y":235},{"t":"2020-08-14T18:00:00.000Z","y":641},{"t":"2020-08-14T19:00:00.000Z","y":0},{"t":"2020-08-14T20:00:00.000Z","y":98},{"t":"2020-08-14T21:00:00.000Z","y":0},{"t":"2020-08-14T22:00:00.000Z","y":0},{"t":"2020-08-14T23:00:00.000Z","y":0},{"t":"2020-08-15T00:00:00.000Z","y":0},{"t":"2020-08-15T01:00:00.000Z","y":0},{"t":"2020-08-15T02:00:00.000Z","y":0},{"t":"2020-08-15T03:00:00.000Z","y":0}],
   week: [{"t":"2020-08-07T07:00:00.000Z","y":15226},{"t":"2020-08-08T07:00:00.000Z","y":155},{"t":"2020-08-09T07:00:00.000Z","y":2619},{"t":"2020-08-10T07:00:00.000Z","y":16616},{"t":"2020-08-11T07:00:00.000Z","y":1021},{"t":"2020-08-12T07:00:00.000Z","y":12206},{"t":"2020-08-13T07:00:00.000Z","y":15281},{"t":"2020-08-14T07:00:00.000Z","y":10382}],
@@ -82,12 +80,7 @@ export class ChartComponent implements OnInit {
   }
 
   generateChartFromHealthData() {
-    this.health.queryAggregated({
-      startDate: new Date(new Date().getTime() - NUM_DAYS_PER_UNIT[this.segmentedControlValue] * 24 * 60 * 60 * 1000),
-      endDate: new Date(), // now
-      dataType: 'steps',
-      bucket: BUCKETS[this.segmentedControlValue],
-    })
+    queryHealthData()
     .then((res) => {
       let data = this.createTimeObjectArray(res);
       this.generateChart(data);
@@ -95,6 +88,18 @@ export class ChartComponent implements OnInit {
     })
     .catch((e) => {
       console.log(e)
+    });
+  }
+
+  queryHealthData() {
+    let numDaysPerUnit = {day: 1, week: 7, month: 30};
+    let buckets = {day: "hour", week: "day", month: "day"};
+
+    return this.health.queryAggregated({
+      startDate: new Date(new Date().getTime() - numDaysPerUnit[this.segmentedControlValue] * 24 * 60 * 60 * 1000),
+      endDate: new Date(), // now
+      dataType: 'steps',
+      bucket: buckets[this.segmentedControlValue],
     });
   }
 
@@ -209,7 +214,7 @@ export class ChartComponent implements OnInit {
 
   updateSelectedTimeRange() {
     let buckets = {day: "hours", week: "days", month: "days"}
-    let formatStrings: object = {hour: "hA", day: "MMM D"}
+    let formatStrings: object = {hours: "hA", days: "MMM D"}
 
     let initialMoment = moment(this.chartData[0]['t']);
     let moments = {
@@ -218,7 +223,7 @@ export class ChartComponent implements OnInit {
     }
 
     for (let moment in moments) {
-      this.selectedTimeRange[moment] = moments[moment].format(formatStrings[BUCKETS[this.segmentedControlValue]]);
+      this.selectedTimeRange[moment] = moments[moment].format(formatStrings[buckets[this.segmentedControlValue]]);
     }
   }
 
@@ -231,15 +236,11 @@ export class ChartComponent implements OnInit {
   }
 
   updateChartFromHealthData() {
-    this.health.queryAggregated({
-      startDate: new Date(new Date().getTime() - NUM_DAYS_PER_UNIT[this.segmentedControlValue] * 24 * 60 * 60 * 1000), // one month ago
-      endDate: new Date(), // now
-      dataType: 'steps',
-      bucket: BUCKETS[this.segmentedControlValue],
-    })
+    queryHealthData()
     .then((res) => {
       let data = this.createTimeObjectArray(res);
       this.updateChart(data);
+      this.redrawOverlay();
     })
     .catch((e) => {
       console.log(e)
@@ -250,7 +251,6 @@ export class ChartComponent implements OnInit {
     this.updateChartData(data);
     this.timeChart.data.datasets[0].data = data;
     this.timeChart.data.datasets[0].backgroundColor = this.createColorArray();
-    this.redrawOverlay();
     this.timeChart.update();
   }
 
