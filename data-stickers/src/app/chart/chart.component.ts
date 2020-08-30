@@ -51,7 +51,7 @@ export class ChartComponent implements OnInit {
     this.initializeCanvas();
     this.testHealth();
     if (USING_HEALTH_DATA) {
-      this.generateChartFromHealthData();
+      this.updateChartFromHealthData(false);
     }
     else { this.generateChart(SAMPLE_DATA[this.segmentedControlValue]); }
   }
@@ -79,11 +79,16 @@ export class ChartComponent implements OnInit {
     .catch(e => console.log(e));
   }
 
-  generateChartFromHealthData() {
+  updateChartFromHealthData(chartAlreadyGenerated: boolean) {
     queryHealthData()
     .then((res) => {
       let data = this.createTimeObjectArray(res);
-      this.generateChart(data);
+      if (chartAlreadyGenerated) {
+        this.updateChart(data);
+      }
+      else {
+        this.generateChart(data);
+      }
       this.redrawOverlay();
     })
     .catch((e) => {
@@ -184,7 +189,7 @@ export class ChartComponent implements OnInit {
   segmentChanged(ev: any) {
     this.segmentedControlValue = ev.detail.value;
     if (USING_HEALTH_DATA) {
-      this.updateChartFromHealthData();
+      this.updateChartFromHealthData(true);
     }
     else { this.updateChart(SAMPLE_DATA[this.segmentedControlValue]); }
   }
@@ -233,18 +238,6 @@ export class ChartComponent implements OnInit {
       sum += this.chartData[i]['y'];
     }
     this.dataSumChanged.emit(sum);
-  }
-
-  updateChartFromHealthData() {
-    queryHealthData()
-    .then((res) => {
-      let data = this.createTimeObjectArray(res);
-      this.updateChart(data);
-      this.redrawOverlay();
-    })
-    .catch((e) => {
-      console.log(e)
-    });
   }
 
   updateChart(data: any[]) {
