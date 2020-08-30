@@ -110,47 +110,51 @@ export class ChartComponent implements OnInit {
       this.timeChart.update();
     }
     else {
-      this.timeChart = new Chart("myChart", {
-        type: 'bar',
-        data: {
-          datasets: [{
-            data: data,
-            backgroundColor: this.createColorArray()
-          }],
-        },
-        options: {
-          animation: {
-            duration: 0
-          },
-          layout: {
-            padding: {
-              right: 20
-            }
-          },
-          legend: {
-            display: false
-          },
-          scales: {
-            xAxes: [{
-              afterFit: function(scaleInstance) {
-                scaleInstance.height = 38;
-              },
-              type: 'time',
-              offset: true,
-              gridLines: {
-                offsetGridLines: true
-              }
-            }],
-            yAxes: [{
-              afterFit: function(scaleInstance) {
-                scaleInstance.width = 50;
-              }
-            }]
-          }
-        }
-      });
+      this.timeChart = new Chart("myChart", this.chartProperties(data));
     }
     this.redrawOverlay();
+  }
+
+  chartProperties(data: any[]) {
+    return {
+      type: 'bar',
+      data: {
+        datasets: [{
+          data: data,
+          backgroundColor: this.createColorArray()
+        }],
+      },
+      options: {
+        animation: {
+          duration: 0
+        },
+        layout: {
+          padding: {
+            right: 20
+          }
+        },
+        legend: {
+          display: false
+        },
+        scales: {
+          xAxes: [{
+            afterFit: function(scaleInstance) {
+              scaleInstance.height = 38;
+            },
+            type: 'time',
+            offset: true,
+            gridLines: {
+              offsetGridLines: true
+            }
+          }],
+          yAxes: [{
+            afterFit: function(scaleInstance) {
+              scaleInstance.width = 50;
+            }
+          }]
+        }
+      }
+    };
   }
 
   createColorArray() {
