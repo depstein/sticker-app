@@ -60,13 +60,9 @@ export class ChartComponent implements OnInit {
     this.health.isAvailable()
     .then((available:boolean) => {
       console.log(available);
-      this.health.requestAuthorization([
-        'distance', 'nutrition',  //read and write permissions
-        {
-          read: ['steps'],       //read only permission
-          write: ['height', 'weight']  //write only permission
-        }
-      ])
+      this.health.requestAuthorization([{
+          read: ['steps', 'heart_rate', 'calories']
+      }])
       .catch(e => console.log(e));
     })
     .catch(e => console.log(e));
@@ -75,6 +71,7 @@ export class ChartComponent implements OnInit {
   updateChartFromHealthData(chartAlreadyGenerated: boolean) {
     this.queryHealthData()
     .then((res) => {
+      console.log(res);
       let data = this.createTimeObjectArray(res);
       this.updateChart(data, chartAlreadyGenerated);
     })
@@ -84,8 +81,11 @@ export class ChartComponent implements OnInit {
   }
 
   queryHealthData() {
-    let numDaysPerUnit = {day: 1, week: 7, month: 30};
-    let buckets = {day: "hour", week: "day", month: "day"};
+    const numDaysPerUnit = {day: 1, week: 7, month: 30};
+    const buckets = {day: "hour", week: "day", month: "day"};
+    const domainToDataType = {steps: "steps", heartbeat: "heart_rate", calories: "calories"};
+
+    let dataType = domainToDataType[this.global.stickerInfo.domain]
 
     return this.health.queryAggregated({
       startDate: new Date(new Date().getTime() - numDaysPerUnit[this.segmentedControlValue] * 24 * 60 * 60 * 1000),
@@ -152,9 +152,9 @@ export class ChartComponent implements OnInit {
   }
 
   createColorArray() {
+    const baseColor = this.global.domain_info[this.global.stickerInfo.domain]['color'];
+    const fadedColor = this.createFadedColor(baseColor, 0.3);
     let colorArray = [];
-    let baseColor = this.global.domain_info[this.global.stickerInfo.domain]['color'];
-    let fadedColor = this.createFadedColor(baseColor, 0.3);
     for(let i = 0; i < this.knobValues['lower']; i++) {
       colorArray.push(fadedColor);
     }
@@ -168,16 +168,16 @@ export class ChartComponent implements OnInit {
   }
 
   createFadedColor(baseColor, a) {
-    let r = "0x" + baseColor[1] + baseColor[2];
-    let g = "0x" + baseColor[3] + baseColor[4];
-    let b = "0x" + baseColor[5] + baseColor[6];
+    const r = "0x" + baseColor[1] + baseColor[2];
+    const g = "0x" + baseColor[3] + baseColor[4];
+    const b = "0x" + baseColor[5] + baseColor[6];
     return "rgba("+ +r + "," + +g + "," + +b + "," + +a + ")";
   }
 
   redrawOverlay() {
+    const width = this.platform.width() - 50 - 20;
+    const height = (this.platform.width() / 1.25) - 7 - 50;
     var ctx: CanvasRenderingContext2D = this.overlay.nativeElement.getContext('2d');
-    let width = this.platform.width() - 50 - 20;
-    let height = (this.platform.width() / 1.25) - 7 - 50;
     ctx.canvas.width  = width;
     ctx.canvas.height = height;
     ctx.clearRect(0, 0, width, height);
@@ -218,11 +218,11 @@ export class ChartComponent implements OnInit {
   }
 
   updateSelectedTimeRange() {
-    let buckets = {day: "hours", week: "days", month: "days"}
-    let formatStrings: object = {hours: "hA", days: "MMM D"}
+    const buckets = {day: "hours", week: "days", month: "days"}
+    const formatStrings: object = {hours: "hA", days: "MMM D"}
 
-    let initialMoment = moment(this.chartData[0]['t']);
-    let moments = {
+    const initialMoment = moment(this.chartData[0]['t']);
+    const moments = {
       start: initialMoment.clone().add(this.knobValues['lower'], buckets[this.segmentedControlValue]),
       end: initialMoment.clone().add(this.knobValues['upper'], buckets[this.segmentedControlValue]),
     }
