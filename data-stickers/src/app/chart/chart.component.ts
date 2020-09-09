@@ -91,17 +91,11 @@ export class ChartComponent implements OnInit {
       const numBuckets = numBucketsPerUnit[this.segmentedControlValue];
       let data = [];
 
-      for (let i = numBuckets[this.segmentedControlValue]; i > 0; i--) {
-        this.queryAverage({
-          startDate: new Date(new Date().getTime() - numHoursPerBucket[buckets[this.segmentedControlValue]] * i * 60 * 60 * 1000),
-          endDate: new Date(new Date().getTime() - numHoursPerBucket[buckets[this.segmentedControlValue]] * (i - 1) * 60 * 60 * 1000),
-          dataType: dataType
-        })
-      }
       for (let i = 0; i < numBuckets; i++) {
+        debugger;
         this.queryAverage({
-          startDate: new Date(new Date().getTime() - numHoursPerBucket[buckets[this.segmentedControlValue]] * (numBuckets - i) * 60 * 60 * 1000),
-          endDate: new Date(new Date().getTime() - numHoursPerBucket[buckets[this.segmentedControlValue]] * (numBuckets - i + 1) * 60 * 60 * 1000),
+          startDate: new Date(new Date().getTime() - numHoursPerBucket[buckets[this.segmentedControlValue]] * (numBuckets - i + 1) * 60 * 60 * 1000),
+          endDate: new Date(new Date().getTime() - numHoursPerBucket[buckets[this.segmentedControlValue]] * (numBuckets - i) * 60 * 60 * 1000),
           dataType: dataType
         })
       }
@@ -119,6 +113,7 @@ export class ChartComponent implements OnInit {
   }
 
   queryAverage(props: any) {
+    debugger;
     this.health.query({
       startDate: props.startDate,
       endDate: props.endDate,
