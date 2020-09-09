@@ -49,14 +49,18 @@ export class ChartComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.testHealth();
-    if (USING_HEALTH_DATA) {
-      this.updateChartFromHealthData(false);
-    }
-    else { this.updateChart(SAMPLE_DATA[this.segmentedControlValue], false); }
+    this.testHealth()
+    .then(() => {
+      if (USING_HEALTH_DATA) {
+        this.updateChartFromHealthData(false);
+      }
+      else {
+        this.updateChart(SAMPLE_DATA[this.segmentedControlValue], false);
+      }
+    })
   }
 
-  testHealth() {
+  async testHealth() {
     this.health.isAvailable()
     .then((available:boolean) => {
       console.log(available);
@@ -68,7 +72,7 @@ export class ChartComponent implements OnInit {
     .catch(e => console.log(e));
   }
 
-  updateChartFromHealthData(chartAlreadyGenerated: boolean) {
+  async updateChartFromHealthData(chartAlreadyGenerated: boolean) {
     this.queryHealthData()
     .then((res) => {
       console.log(res);
@@ -80,7 +84,7 @@ export class ChartComponent implements OnInit {
     });
   }
 
-  queryHealthData() {
+  async queryHealthData() {
     const domainToDataType = {steps: "steps", heartbeat: "heart_rate", calories: "calories"};
     const dataType = domainToDataType[this.global.stickerInfo.domain];
     const buckets = {day: "hour", week: "day", month: "day"};
@@ -92,13 +96,18 @@ export class ChartComponent implements OnInit {
       let data = [];
 
       for (let i = 0; i < numBuckets; i++) {
-        debugger;
         this.queryAverage({
           startDate: new Date(new Date().getTime() - numHoursPerBucket[buckets[this.segmentedControlValue]] * (numBuckets - i + 1) * 60 * 60 * 1000),
           endDate: new Date(new Date().getTime() - numHoursPerBucket[buckets[this.segmentedControlValue]] * (numBuckets - i) * 60 * 60 * 1000),
           dataType: dataType
         })
+        .then((res) => {
+          data.push(res);
+        })
       }
+
+      console.log(`Data: ${data}`);
+      return data;
     }
     else {
       const numDaysPerUnit = {day: 1, week: 7, month: 30};
@@ -112,8 +121,7 @@ export class ChartComponent implements OnInit {
 
   }
 
-  queryAverage(props: any) {
-    debugger;
+  async queryAverage(props) {
     this.health.query({
       startDate: props.startDate,
       endDate: props.endDate,
@@ -122,7 +130,15 @@ export class ChartComponent implements OnInit {
     })
     .then((res) => {
       debugger;
-      console.log(`Res: ${res}`);
+      let sum = 0;
+      res.forEach(element => {
+        sum += +element.value;
+      });
+      const average = res.length == 0 ? sum / res.length : 0;
+      return {
+        t: props.startDate,
+        y: average
+      }
     });
   }
 
@@ -258,7 +274,7 @@ export class ChartComponent implements OnInit {
       end: initialMoment.clone().add(this.knobValues['upper'], buckets[this.segmentedControlValue]),
     }
 
-    for (let moment in moments) {
+    for (const moment in moments) {
       this.selectedTimeRange[moment] = moments[moment].format(formatStrings[buckets[this.segmentedControlValue]]);
     }
   }
