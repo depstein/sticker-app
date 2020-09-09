@@ -49,30 +49,29 @@ export class ChartComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.testHealth()
-    .then(() => {
-      if (USING_HEALTH_DATA) {
-        this.updateChartFromHealthData(false);
-      }
-      else {
-        this.updateChart(SAMPLE_DATA[this.segmentedControlValue], false);
-      }
-    })
+    if (USING_HEALTH_DATA) {
+      this.setup();
+    }
+    else {
+      this.updateChart(SAMPLE_DATA[this.segmentedControlValue], false);
+    }
   }
 
-  async testHealth() {
+  setup() {
     this.health.isAvailable()
-    .then((available:boolean) => {
-      console.log(available);
+    .then(() => {
       this.health.requestAuthorization([{
           read: ['steps', 'heart_rate', 'calories']
       }])
+      .then(() => {
+        this.updateChartFromHealthData(false);
+      })
       .catch(e => console.log(e));
     })
     .catch(e => console.log(e));
   }
 
-  async updateChartFromHealthData(chartAlreadyGenerated: boolean) {
+  updateChartFromHealthData(chartAlreadyGenerated: boolean) {
     this.queryHealthData()
     .then((res) => {
       console.log(res);
