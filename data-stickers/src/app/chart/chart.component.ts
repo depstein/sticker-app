@@ -84,61 +84,65 @@ export class ChartComponent implements OnInit {
   }
 
   async queryHealthData() {
-    const domainToDataType = {steps: "steps", heartbeat: "heart_rate", calories: "calories"};
-    const dataType = domainToDataType[this.global.stickerInfo.domain];
+    const numDaysPerUnit = {day: 1, week: 7, month: 30};
+    const numDays = numDaysPerUnit[this.segmentedControlValue];
+
     const buckets = {day: "hour", week: "day", month: "day"};
 
+    const domainToDataType = {steps: "steps", heartbeat: "heart_rate", calories: "calories"};
+    const dataType = domainToDataType[this.global.stickerInfo.domain];
+
     if (dataType == "heart_rate") {
-      const numHoursPerBucket = {hour: 1, day: 24};
-      const numBucketsPerUnit = {day: 24, week: 7, month: 30};
-      const numBuckets = numBucketsPerUnit[this.segmentedControlValue];
-      let data = [];
+      const startDate = new Date(new Date().getTime() - numDays * 24 * 60 * 60 * 1000);
 
-      for (let i = 0; i < numBuckets; i++) {
-        this.queryAverage({
-          startDate: new Date(new Date().getTime() - numHoursPerBucket[buckets[this.segmentedControlValue]] * (numBuckets - i + 1) * 60 * 60 * 1000),
-          endDate: new Date(new Date().getTime() - numHoursPerBucket[buckets[this.segmentedControlValue]] * (numBuckets - i) * 60 * 60 * 1000),
-          dataType: dataType
-        })
-        .then((res) => {
-          data.push(res);
-        })
-      }
+      this.health.query({
+        startDate: startDate,
+        endDate: new Date(), // now
+        dataType: dataType,
+        ascending: true
+      })
+      .then((res) => {
+        debugger;
+        const numBucketsPerUnit = {day: 24, week: 7, month: 30};
+        const numBuckets = numBucketsPerUnit[this.segmentedControlValue];
+        let result = new Array(numBuckets);
 
-      console.log(`Data: ${data}`);
-      return data;
+        const numHoursPerBucket = {hour: 1, day: 24};
+        const numHours = numHoursPerBucket[buckets[this.segmentedControlValue]];
+
+        for (var i = 0; i < result.length; i++) {
+          result[i] = {
+            t: startDate.getTime() + i * numHours * 60 * 60 * 1000,
+            y: 0,
+            count: 0
+          };
+        }
+
+        res.forEach(element => {
+          let timeOffset = Math.floor((element.startDate.getTime() - startDate.getTime()) / numHours / 60 / 60 / 1000);
+          result[timeOffset].y += element.value;
+          result[timeOffset].count++;
+        });
+
+        result.forEach(element => {
+          element.y = element.count > 0 ? Math.round(element.y / element.count) : 0;
+        });
+
+        console.log(`RRResult: ${result}`);
+
+
+        return result;
+      });
     }
     else {
-      const numDaysPerUnit = {day: 1, week: 7, month: 30};
       return this.health.queryAggregated({
-        startDate: new Date(new Date().getTime() - numDaysPerUnit[this.segmentedControlValue] * 24 * 60 * 60 * 1000),
+        startDate: new Date(new Date().getTime() - numDays * 24 * 60 * 60 * 1000),
         endDate: new Date(), // now
         dataType: dataType,
         bucket: buckets[this.segmentedControlValue]
       });
     }
 
-  }
-
-  async queryAverage(props) {
-    this.health.query({
-      startDate: props.startDate,
-      endDate: props.endDate,
-      dataType: props.dataType,
-      ascending: true
-    })
-    .then((res) => {
-      debugger;
-      let sum = 0;
-      res.forEach(element => {
-        sum += +element.value;
-      });
-      const average = res.length > 0 ? sum / res.length : 0;
-      return {
-        t: props.startDate,
-        y: average
-      }
-    });
   }
 
   updateChart(data: any[], chartAlreadyGenerated: boolean) {
