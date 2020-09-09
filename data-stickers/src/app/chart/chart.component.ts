@@ -87,12 +87,21 @@ export class ChartComponent implements OnInit {
 
     if (dataType == "heart_rate") {
       const numHoursPerBucket = {hour: 1, day: 24};
-      const numberOfBuckets = {day: 24, week: 7, month: 30};
+      const numBucketsPerUnit = {day: 24, week: 7, month: 30};
+      const numBuckets = numBucketsPerUnit[this.segmentedControlValue];
       let data = [];
-      for (let i = numberOfBuckets[this.segmentedControlValue]; i > 0; i--) {
+
+      for (let i = numBuckets[this.segmentedControlValue]; i > 0; i--) {
         this.queryAverage({
           startDate: new Date(new Date().getTime() - numHoursPerBucket[buckets[this.segmentedControlValue]] * i * 60 * 60 * 1000),
           endDate: new Date(new Date().getTime() - numHoursPerBucket[buckets[this.segmentedControlValue]] * (i - 1) * 60 * 60 * 1000),
+          dataType: dataType
+        })
+      }
+      for (let i = 0; i < numBuckets; i++) {
+        this.queryAverage({
+          startDate: new Date(new Date().getTime() - numHoursPerBucket[buckets[this.segmentedControlValue]] * (numBuckets - i) * 60 * 60 * 1000),
+          endDate: new Date(new Date().getTime() - numHoursPerBucket[buckets[this.segmentedControlValue]] * (numBuckets - i + 1) * 60 * 60 * 1000),
           dataType: dataType
         })
       }
