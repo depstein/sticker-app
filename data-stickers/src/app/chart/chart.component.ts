@@ -133,7 +133,7 @@ export class ChartComponent implements OnInit {
       res.forEach(element => {
         sum += +element.value;
       });
-      const average = res.length == 0 ? sum / res.length : 0;
+      const average = res.length > 0 ? sum / res.length : 0;
       return {
         t: props.startDate,
         y: average
