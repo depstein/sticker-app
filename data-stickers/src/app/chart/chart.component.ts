@@ -27,8 +27,8 @@ export class ChartComponent implements OnInit {
   knobValues: object;
   selectedTimeRange: object;
 
-  @Input() dataSum: number;
-  @Output() dataSumChanged = new EventEmitter<number>(true);
+  @Input() dataValue: number;
+  @Output() dataValueChanged = new EventEmitter<number>(true);
 
   constructor(
     private platform: Platform,
@@ -264,7 +264,7 @@ export class ChartComponent implements OnInit {
 
   updateDataInfo() {
     this.updateSelectedTimeRange();
-    this.updateDataSum();
+    this.updateDataValue();
   }
 
   updateSelectedTimeRange() {
@@ -282,12 +282,12 @@ export class ChartComponent implements OnInit {
     }
   }
 
-  updateDataSum() {
+  updateDataValue() {
     let sum = 0;
     for (var i = this.knobValues['lower']; i < this.knobValues['upper']; i++) {
       sum += this.chartData[i]['y'];
     }
-    this.dataSumChanged.emit(sum);
+    this.dataValueChanged.emit(sum);
   }
 
   createTimeObjectArray(res) {

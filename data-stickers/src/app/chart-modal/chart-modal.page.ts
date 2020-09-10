@@ -7,10 +7,10 @@ import { ModalController } from '@ionic/angular';
   styleUrls: ['./chart-modal.page.scss'],
 })
 export class ChartModalPage implements OnInit {
-  dataSum: number;
+  dataValue: number;
 
   constructor(public viewCtrl: ModalController) {
-    this.dataSum = 0;
+    this.dataValue = 0;
   }
 
   ngOnInit() {
@@ -18,12 +18,12 @@ export class ChartModalPage implements OnInit {
 
   dismiss() {
     this.viewCtrl.dismiss({
-      sum: this.dataSum
+      sum: this.dataValue
     });
   }
 
-  onDataSumChanged(dataSum: number) {
-    this.dataSum = dataSum;
+  onDataValueChanged(dataValue: number) {
+    this.dataValue = dataValue;
   }
 
 }
