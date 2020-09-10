@@ -283,11 +283,18 @@ export class ChartComponent implements OnInit {
   }
 
   updateDataValue() {
-    let sum = 0;
+    let value = 0;
+    let count = 0;
     for (var i = this.knobValues['lower']; i < this.knobValues['upper']; i++) {
-      sum += this.chartData[i]['y'];
+      value += this.chartData[i]['y'];
+      count++;
     }
-    this.dataValueChanged.emit(sum);
+    if (this.global.stickerInfo.domain == 'heartbeat') {
+      this.dataValueChanged.emit(count != 0 ? value / count : 0);
+    }
+    else {
+      this.dataValueChanged.emit(value);
+    }
   }
 
   createTimeObjectArray(res) {
