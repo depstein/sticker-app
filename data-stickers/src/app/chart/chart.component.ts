@@ -74,7 +74,6 @@ export class ChartComponent implements OnInit {
   updateChartFromHealthData(chartAlreadyGenerated: boolean) {
     this.queryHealthData()
     .then((res) => {
-      console.log(res);
       let data = this.createTimeObjectArray(res);
       this.updateChart(data, chartAlreadyGenerated);
     })
@@ -93,45 +92,45 @@ export class ChartComponent implements OnInit {
     const dataType = domainToDataType[this.global.stickerInfo.domain];
 
     if (dataType == "heart_rate") {
-      const startDate = new Date(new Date().getTime() - numDays * 24 * 60 * 60 * 1000);
+      return new Promise((resolve, reject) => {
+        const startDate = new Date(new Date().getTime() - numDays * 24 * 60 * 60 * 1000);
 
-      this.health.query({
-        startDate: startDate,
-        endDate: new Date(), // now
-        dataType: dataType,
-        ascending: true
-      })
-      .then((res) => {
-        debugger;
-        const numBucketsPerUnit = {day: 24, week: 7, month: 30};
-        const numBuckets = numBucketsPerUnit[this.segmentedControlValue];
-        let result = new Array(numBuckets);
+        this.health.query({
+          startDate: startDate,
+          endDate: new Date(), // now
+          dataType: dataType,
+          ascending: true
+        })
+        .then((res) => {
+          debugger;
+          const numBucketsPerUnit = {day: 24, week: 7, month: 30};
+          const numBuckets = numBucketsPerUnit[this.segmentedControlValue];
+          let result = new Array(numBuckets);
 
-        const numHoursPerBucket = {hour: 1, day: 24};
-        const numHours = numHoursPerBucket[buckets[this.segmentedControlValue]];
+          const numHoursPerBucket = {hour: 1, day: 24};
+          const numHours = numHoursPerBucket[buckets[this.segmentedControlValue]];
 
-        for (var i = 0; i < result.length; i++) {
-          result[i] = {
-            t: startDate.getTime() + i * numHours * 60 * 60 * 1000,
-            y: 0,
-            count: 0
-          };
-        }
+          for (var i = 0; i < result.length; i++) {
+            result[i] = {
+              startDate: startDate.getTime() + i * numHours * 60 * 60 * 1000,
+              value: 0,
+              count: 0
+            };
+          }
 
-        res.forEach(element => {
-          let timeOffset = Math.floor((element.startDate.getTime() - startDate.getTime()) / numHours / 60 / 60 / 1000);
-          result[timeOffset].y += element.value;
-          result[timeOffset].count++;
+          res.forEach(element => {
+            let timeOffset = Math.floor((element.startDate.getTime() - startDate.getTime()) / numHours / 60 / 60 / 1000);
+            result[timeOffset].value += element.value;
+            result[timeOffset].count++;
+          });
+
+          result.forEach(element => {
+            element.value = element.count > 0 ? Math.round(element.value / element.count) : 0;
+          });
+
+          console.log(`Result: ${result}`);
+          resolve(result);
         });
-
-        result.forEach(element => {
-          element.y = element.count > 0 ? Math.round(element.y / element.count) : 0;
-        });
-
-        console.log(`RRResult: ${result}`);
-
-
-        return result;
       });
     }
     else {
