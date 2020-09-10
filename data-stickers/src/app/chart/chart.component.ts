@@ -99,6 +99,7 @@ export class ChartComponent implements OnInit {
           startDate: startDate,
           endDate: new Date(), // now
           dataType: dataType,
+          limit: 50000,
           ascending: true
         })
         .then((res) => {
