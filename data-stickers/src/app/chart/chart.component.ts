@@ -156,8 +156,9 @@ export class ChartComponent implements OnInit {
   }
 
   chartProperties(data: any[]) {
+    const chartType = this.global.stickerInfo.domain == 'heartbeat' ? 'line' : 'bar';
     return {
-      type: 'bar',
+      type: chartType,
       data: {
         datasets: [{
           data: data,
