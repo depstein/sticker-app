@@ -288,12 +288,19 @@ export class ChartComponent implements OnInit {
         count++;
       }
     }
-    if (this.global.stickerInfo.domain == 'heartbeat') {
-      this.dataValueChanged.emit(count != 0 ? value / count : 0);
+    if (count != 0) {
+      if (this.global.stickerInfo.domain == 'heartbeat') {
+        const average = Math.round(((value / count) + Number.EPSILON) * 10) / 10;
+        this.dataValueChanged.emit(average);
+      }
+      else {
+        this.dataValueChanged.emit(value);
+      }
     }
     else {
-      this.dataValueChanged.emit(value);
+      this.dataValueChanged.emit(0);
     }
+
   }
 
   createTimeObjectArray(res) {
