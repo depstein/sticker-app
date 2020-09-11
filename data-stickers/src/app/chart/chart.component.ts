@@ -94,9 +94,7 @@ export class ChartComponent implements OnInit {
 
     if (dataType == "heart_rate") {
       return new Promise((resolve, reject) => {
-        // let subtractUnit: moment.unitOfTime.DurationConstructor = `${this.segControlValue}s`;
-        const startDate = moment().subtract({[`${this.segControlValue}s`]: 1}).add({[`${bucket}s`]: 1}).startOf(bucket);
-        // const startDate = new Date(new Date().getTime() - numDays * 24 * 60 * 60 * 1000);
+        const startDate = moment().subtract(numDays, 'days').add({[`${bucket}s`]: 1}).startOf(bucket);
 
         this.health.query({
           startDate: startDate.toDate(),
