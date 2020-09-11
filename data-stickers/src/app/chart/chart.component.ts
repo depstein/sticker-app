@@ -22,7 +22,7 @@ export class ChartComponent implements OnInit {
   @ViewChild('overlay', { static: true }) overlay: ElementRef<HTMLCanvasElement>;
   loaded: boolean;
   timeChart: any;
-  segmentedControlValue: string;
+  segControlValue: string;
   chartData: object[];
   knobValues: object;
   selectedTimeRange: object;
@@ -36,7 +36,7 @@ export class ChartComponent implements OnInit {
     public global: GlobalDataService
   ) {
     this.loaded = false;
-    this.segmentedControlValue = "day";
+    this.segControlValue = "day";
     this.chartData = [];
     this.knobValues = {
       lower: 0,
@@ -53,7 +53,7 @@ export class ChartComponent implements OnInit {
       this.setup();
     }
     else {
-      this.updateChart(SAMPLE_DATA[this.segmentedControlValue], false);
+      this.updateChart(SAMPLE_DATA[this.segControlValue], false);
     }
   }
 
@@ -84,7 +84,7 @@ export class ChartComponent implements OnInit {
 
   async queryHealthData() {
     const numDaysPerUnit = {day: 1, week: 7, month: 30};
-    const numDays = numDaysPerUnit[this.segmentedControlValue];
+    const numDays = numDaysPerUnit[this.segControlValue];
 
     const buckets = {day: "hour", week: "day", month: "day"};
 
@@ -105,11 +105,11 @@ export class ChartComponent implements OnInit {
         .then((res) => {
           debugger;
           const numBucketsPerUnit = {day: 24, week: 7, month: 30};
-          const numBuckets = numBucketsPerUnit[this.segmentedControlValue];
+          const numBuckets = numBucketsPerUnit[this.segControlValue];
           let result = new Array(numBuckets);
 
           const numHoursPerBucket = {hour: 1, day: 24};
-          const numHours = numHoursPerBucket[buckets[this.segmentedControlValue]];
+          const numHours = numHoursPerBucket[buckets[this.segControlValue]];
 
           for (var i = 0; i < result.length; i++) {
             result[i] = {
@@ -139,7 +139,7 @@ export class ChartComponent implements OnInit {
         startDate: new Date(new Date().getTime() - numDays * 24 * 60 * 60 * 1000),
         endDate: new Date(), // now
         dataType: dataType,
-        bucket: buckets[this.segmentedControlValue]
+        bucket: buckets[this.segControlValue]
       });
     }
 
@@ -237,11 +237,11 @@ export class ChartComponent implements OnInit {
   }
 
   segmentChanged(ev: any) {
-    this.segmentedControlValue = ev.detail.value;
+    this.segControlValue = ev.detail.value;
     if (USING_HEALTH_DATA) {
       this.updateChartFromHealthData(true);
     }
-    else { this.updateChart(SAMPLE_DATA[this.segmentedControlValue], true); }
+    else { this.updateChart(SAMPLE_DATA[this.segControlValue], true); }
   }
 
   updateChartData(chartData: object[]) {
@@ -273,12 +273,12 @@ export class ChartComponent implements OnInit {
 
     const initialMoment = moment(this.chartData[0]['t']);
     const moments = {
-      start: initialMoment.clone().add(this.knobValues['lower'], buckets[this.segmentedControlValue]),
-      end: initialMoment.clone().add(this.knobValues['upper'], buckets[this.segmentedControlValue]),
+      start: initialMoment.clone().add(this.knobValues['lower'], buckets[this.segControlValue]),
+      end: initialMoment.clone().add(this.knobValues['upper'], buckets[this.segControlValue]),
     }
 
     for (const moment in moments) {
-      this.selectedTimeRange[moment] = moments[moment].format(formatStrings[buckets[this.segmentedControlValue]]);
+      this.selectedTimeRange[moment] = moments[moment].format(formatStrings[buckets[this.segControlValue]]);
     }
   }
 
