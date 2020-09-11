@@ -83,22 +83,19 @@ export class ChartComponent implements OnInit {
   }
 
   async queryHealthData() {
-    const numDaysPerUnit = {day: 1, week: 7, month: 30};
-    const numDays = numDaysPerUnit[this.segControlValue];
-
     const numBucketsPerUnit = {day: 24, week: 7, month: 30};
     const numBuckets = numBucketsPerUnit[this.segControlValue];
 
     const bucketPerUnit = {day: "hour", week: "day", month: "day"};
     const bucket = bucketPerUnit[this.segControlValue];
 
+    const startDate = moment().subtract({[`${bucket}s`]: numBuckets - 1}).startOf(bucket);
+
     const domainToDataType = {steps: "steps", heartbeat: "heart_rate", calories: "calories"};
     const dataType = domainToDataType[this.global.stickerInfo.domain];
 
     if (dataType == "heart_rate") {
       return new Promise((resolve, reject) => {
-        const startDate = moment().subtract(numDays, 'days').add({[`${bucket}s`]: 1}).startOf(bucket);
-
         this.health.query({
           startDate: startDate.toDate(),
           endDate: new Date(), // now
@@ -110,7 +107,7 @@ export class ChartComponent implements OnInit {
           debugger;
           let result = new Array(numBuckets);
 
-          for (var i = 0; i < result.length; i++) {
+          for (var i = 0; i < numBuckets; i++) {
             result[i] = {
               startDate: startDate.clone().add({[`${bucket}s`]: i}).toDate(),
               value: 0,
@@ -135,7 +132,7 @@ export class ChartComponent implements OnInit {
     }
     else {
       return this.health.queryAggregated({
-        startDate: new Date(new Date().getTime() - numDays * 24 * 60 * 60 * 1000),
+        startDate: startDate.toDate(),
         endDate: new Date(), // now
         dataType: dataType,
         bucket: bucket
