@@ -86,6 +86,9 @@ export class ChartComponent implements OnInit {
     const numDaysPerUnit = {day: 1, week: 7, month: 30};
     const numDays = numDaysPerUnit[this.segControlValue];
 
+    const numBucketsPerUnit = {day: 24, week: 7, month: 30};
+    const numBuckets = numBucketsPerUnit[this.segControlValue];
+
     const bucketPerUnit = {day: "hour", week: "day", month: "day"};
     const bucket = bucketPerUnit[this.segControlValue];
 
@@ -105,26 +108,18 @@ export class ChartComponent implements OnInit {
         })
         .then((res) => {
           debugger;
-          const numBucketsPerUnit = {day: 24, week: 7, month: 30};
-          const numBuckets = numBucketsPerUnit[this.segControlValue];
           let result = new Array(numBuckets);
-
-          const numHoursPerBucket = {hour: 1, day: 24};
-          const numHours = numHoursPerBucket[bucket];
 
           for (var i = 0; i < result.length; i++) {
             result[i] = {
               startDate: startDate.clone().add({[`${bucket}s`]: i}).toDate(),
-              // startDate: startDate.getTime() + i * numHours * 60 * 60 * 1000,
               value: 0,
               count: 0
             };
           }
 
           res.forEach(element => {
-            // let diffUnit: moment.unitOfTime.DurationConstructor = ;
             const timeOffset = moment(element.startDate).diff(startDate, <moment.unitOfTime.DurationConstructor>`${bucket}s`);
-            // let timeOffset = Math.floor((element.startDate.getTime() - startDate.getTime()) / numHours / 60 / 60 / 1000);
             result[timeOffset].value += element.value;
             result[timeOffset].count++;
           });
