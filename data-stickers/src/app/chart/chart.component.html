@@ -46,7 +46,7 @@
     <ng-template #elseBlock>
       {{ selectedTimeRange['start'] }} - {{ selectedTimeRange['end'] }}
       <br>
-      Number of steps: {{ dataValue }}
+      {{ global.stickerInfo.domain == 'heartbeat' ? 'Average' : 'Number of' }} {{ global.stickerInfo.domain }}: {{ dataValue }}
     </ng-template>
   </p>
 </div>
