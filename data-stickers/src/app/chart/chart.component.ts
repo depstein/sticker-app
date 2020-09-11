@@ -283,8 +283,10 @@ export class ChartComponent implements OnInit {
     let value = 0;
     let count = 0;
     for (var i = this.knobValues['lower']; i < this.knobValues['upper']; i++) {
-      value += this.chartData[i]['y'];
-      count++;
+      if (this.chartData[i]['y'] != 0) {
+        value += this.chartData[i]['y'];
+        count++;
+      }
     }
     if (this.global.stickerInfo.domain == 'heartbeat') {
       this.dataValueChanged.emit(count != 0 ? value / count : 0);
