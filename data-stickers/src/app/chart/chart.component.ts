@@ -65,7 +65,8 @@ export class ChartComponent implements OnInit {
       this.setup();
     }
     else {
-      this.updateChart(SAMPLE_DATA[this.global.stickerInfo.domain][this.segControlValue], false);
+      this.updateChartData(SAMPLE_DATA[this.global.stickerInfo.domain][this.segControlValue]);
+      this.updateChart(false);
     }
   }
 
@@ -87,7 +88,8 @@ export class ChartComponent implements OnInit {
     this.queryHealthData()
     .then((res) => {
       let data = this.createTimeObjectArray(res);
-      this.updateChart(data, chartAlreadyGenerated);
+      this.updateChartData(data);
+      this.updateChart(chartAlreadyGenerated);
     })
     .catch((e) => {
       console.log(e)
@@ -153,15 +155,18 @@ export class ChartComponent implements OnInit {
 
   }
 
-  updateChart(data: any[], chartAlreadyGenerated: boolean) {
-    this.updateChartData(data);
+  updateChart(chartAlreadyGenerated: boolean) {
     if (chartAlreadyGenerated) {
-      this.timeChart.data.datasets[0].data = data;
-      this.timeChart.data.datasets[0].backgroundColor = this.createColorArray();
+      this.timeChart.data.datasets[0].data = this.chartData;
+      if (this.global.stickerInfo.domain == 'heartbeat') {
+        this.timeChart.data.datasets[0].borderColor = this.createColorArray();
+      } else {
+        this.timeChart.data.datasets[0].backgroundColor = this.createColorArray();
+      }
       this.timeChart.update();
     }
     else {
-      this.timeChart = new Chart("myChart", this.chartProperties(data));
+      this.timeChart = new Chart("myChart", this.chartProperties(this.chartData));
     }
     this.loaded = true;
     this.redrawOverlay();
@@ -169,12 +174,13 @@ export class ChartComponent implements OnInit {
 
   chartProperties(data: any[]) {
     const chartType = this.global.stickerInfo.domain == 'heartbeat' ? 'line' : 'bar';
+    const colorType = this.global.stickerInfo.domain == 'heartbeat' ? 'borderColor' : 'backgroundColor';
     return {
       type: chartType,
       data: {
         datasets: [{
           data: data,
-          backgroundColor: this.createColorArray()
+          [colorType]: this.createColorArray()
         }],
       },
       options: {
@@ -250,7 +256,10 @@ export class ChartComponent implements OnInit {
     if (USING_HEALTH_DATA) {
       this.updateChartFromHealthData(true);
     }
-    else { this.updateChart(SAMPLE_DATA[this.global.stickerInfo.domain][this.segControlValue], true); }
+    else {
+      this.updateChartData(SAMPLE_DATA[this.global.stickerInfo.domain][this.segControlValue]);
+      this.updateChart(true);
+    }
   }
 
   updateChartData(chartData: object[]) {
@@ -266,9 +275,14 @@ export class ChartComponent implements OnInit {
 
   rangeSliderChanged() {
     this.updateDataInfo();
-    this.timeChart.data.datasets[0].backgroundColor = this.createColorArray();
-    this.redrawOverlay();
-    this.timeChart.update();
+    this.updateChart(true);
+    // if (this.global.stickerInfo.domain == 'heartbeat') {
+    //   this.timeChart.data.datasets[0].borderColor = this.createColorArray();
+    // } else {
+    //   this.timeChart.data.datasets[0].backgroundColor = this.createColorArray();
+    // }
+    // this.redrawOverlay();
+    // this.timeChart.update();
   }
 
   updateDataInfo() {
