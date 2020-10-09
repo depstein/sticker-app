@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { AlertController } from "@ionic/angular";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { GlobalDataService } from "./../global-data.service";
 import { SpotifyService } from "../spotify.service";
 import { ModalController } from "@ionic/angular";
@@ -456,346 +456,323 @@ export class InputComponent implements OnInit {
         console.log(this.albums);
         console.log(this.artists);
         console.log(data);
-        this.getLastWeekplaylist();
-        this.getLastDayplaylist();
-        this.getLastHourplaylist();
-        this.getLastMonthplaylist();
+        this.getPlaylistOfDifferentTime(data);
         this.presentModal();
       });
   }
 
-  getLastHourplaylist() {
+  getPlaylistOfDifferentTime(data){
     var before = new Date().getTime();
-    let after = String(parseInt(String((before - 60 * 60 * 1000)  / 1000)));
-    console.log("last hour after");
-    console.log(after);
-    let songName = { songName: { times: 1, minutes: 0, hours: 0 } };
-    let artists = { artistName: { times: 1, minutes: 0, hours: 0 } };
-    let albums = { albums: { times: 1, minutes: 0, hours: 0 } };
-    this.spotifyService
-      .sendRequestToExpress("/lastday-played/" + encodeURIComponent(after))
-      .then((data) => {
-        if (data["items"] != null) {
-          for (var song of data["items"]) {
-            if (!Object.keys(songName).includes(song["track"]["name"])) {
-              songName[song["track"]["name"]] = {
-                times: 1,
-                minutes: 0,
-                hours: 0,
-              };
-              songName[song["track"]["name"]]["minutes"] = Number(
-                (song["track"]["duration_ms"] / 1000 / 60).toFixed(2)
-              );
-              songName[song["track"]["name"]]["hours"] = Number(
-                (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
-              );
-            } else {
-              songName[song["track"]["name"]]["times"] += 1;
-              songName[song["track"]["name"]]["minutes"] += Number(
-                (song["track"]["duration_ms"] / 1000 / 60).toFixed(2)
-              );
-              songName[song["track"]["name"]]["hours"] += Number(
-                (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
-              );
-            }
+    //*1000 convert timestamp to unix time
+    var lastHourTime = (parseInt(String((before - 60 * 60 * 1000)  / 1000)))*1000;
+    var lastDayTime = (parseInt(String((before - 24 * 60 * 60 * 1000) / 1000)))*1000;
+    var lastWeekTime = (parseInt(String((before - 7 * 24 * 60 * 60 * 1000) / 1000)))*1000;
+    var lastMonthTime =  (parseInt(String((before - 30 * 24 * 60 * 60 * 1000) / 1000)))* 1000;
 
-            for (var a of song["track"]["album"]["artists"]) {
-              if (!Object.keys(artists).includes(a["name"])) {
-                artists[a["name"]] = { times: 1, minutes: 0, hours: 0 };
-                artists[a["name"]]["minutes"] = Number(
-                  (song["track"]["duration_ms"] / 1000 / 60).toFixed(2)
-                );
-                artists[a["name"]]["hours"] = Number(
-                  (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
-                );
-              } else {
-                artists[a["name"]]["times"] += 1;
-                artists[a["name"]]["minutes"] += Number(
-                  (song["track"]["duration_ms"] / 1000 / 60).toFixed(2)
-                );
-                artists[a["name"]]["hours"] += Number(
-                  (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
-                );
-              }
-            }
-            if (!Object.keys(albums).includes(song["track"]["album"]["name"])) {
-              albums[song["track"]["album"]["name"]] = {
-                times: 1,
-                minutes: 0,
-                hours: 0,
-              };
-              albums[song["track"]["album"]["name"]]["minutes"] = Number(
+    let lastHourSongName = { songName: { times: 1, minutes: 0, hours: 0 } };
+    let lastHourArtists = { artistName: { times: 1, minutes: 0, hours: 0 } };
+    let lastHourAlbums = { albums: { times: 1, minutes: 0, hours: 0 } };
+
+    let lastDaySongName = { songName: { times: 1, minutes: 0, hours: 0 } };
+    let lastDayArtists = { artistName: { times: 1, minutes: 0, hours: 0 } };
+    let lastDayAlbums = { albums: { times: 1, minutes: 0, hours: 0 } };
+
+    let lastWeekSongName = { songName: { times: 1, minutes: 0, hours: 0 } };
+    let lastWeekArtists = { artistName: { times: 1, minutes: 0, hours: 0 } };
+    let lastWeekAlbums = { albums: { times: 1, minutes: 0, hours: 0 } };
+
+    let lastMonthSongName = { songName: { times: 1, minutes: 0, hours: 0 } };
+    let lastMonthArtists = { artistName: { times: 1, minutes: 0, hours: 0 } };
+    let lastMonthAlbums = { albums: { times: 1, minutes: 0, hours: 0 } };
+
+    if (data["items"] != null) {
+      
+      for (var song of data["items"]) {
+        var playAt = new Date(song["played_at"]).getTime();
+        // last hour
+        console.log("time check",playAt,lastHourTime)
+        if (playAt >= lastHourTime) {
+          if (!Object.keys(lastHourSongName).includes(song["track"]["name"])) {
+            lastHourSongName[song["track"]["name"]] = {
+              times: 1,
+              minutes: 0,
+              hours: 0,
+            };
+            lastHourSongName[song["track"]["name"]]["minutes"] = Number(
+              (song["track"]["duration_ms"] / 1000 / 60).toFixed(2)
+            );
+            lastHourSongName[song["track"]["name"]]["hours"] = Number(
+              (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
+            );
+          } else {
+            lastHourSongName[song["track"]["name"]]["times"] += 1;
+            lastHourSongName[song["track"]["name"]]["minutes"] += Number(
+              (song["track"]["duration_ms"] / 1000 / 60).toFixed(2)
+            );
+            lastHourSongName[song["track"]["name"]]["hours"] += Number(
+              (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
+            );
+          }
+
+          for (var a of song["track"]["album"]["artists"]) {
+            if (!Object.keys(lastHourArtists).includes(a["name"])) {
+              lastHourArtists[a["name"]] = { times: 1, minutes: 0, hours: 0 };
+              lastHourArtists[a["name"]]["minutes"] = Number(
                 (song["track"]["duration_ms"] / 1000 / 60).toFixed(2)
               );
-              albums[song["track"]["album"]["name"]]["hours"] = Number(
+              lastHourArtists[a["name"]]["hours"] = Number(
                 (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
               );
             } else {
-              albums[song["track"]["album"]["name"]]["times"] += 1;
-              albums[song["track"]["album"]["name"]]["minutes"] += Number(
+              lastHourArtists[a["name"]]["times"] += 1;
+              lastHourArtists[a["name"]]["minutes"] += Number(
                 (song["track"]["duration_ms"] / 1000 / 60).toFixed(2)
               );
-              albums[song["track"]["album"]["name"]]["hours"] += Number(
+              lastHourArtists[a["name"]]["hours"] += Number(
                 (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
               );
             }
           }
+          if (!Object.keys(lastHourAlbums).includes(song["track"]["album"]["name"])) {
+            lastHourAlbums[song["track"]["album"]["name"]] = {
+              times: 1,
+              minutes: 0,
+              hours: 0,
+            };
+            lastHourAlbums[song["track"]["album"]["name"]]["minutes"] = Number(
+              (song["track"]["duration_ms"] / 1000 / 60).toFixed(2)
+            );
+            lastHourAlbums[song["track"]["album"]["name"]]["hours"] = Number(
+              (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
+            );
+          } else {
+            lastHourAlbums[song["track"]["album"]["name"]]["times"] += 1;
+            lastHourAlbums[song["track"]["album"]["name"]]["minutes"] += Number(
+              (song["track"]["duration_ms"] / 1000 / 60).toFixed(2)
+            );
+            lastHourAlbums[song["track"]["album"]["name"]]["hours"] += Number(
+              (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
+            );
+          }
+         
         }
-        console.log(data);
-        this.lastHour.push(songName);
-        this.lastHour.push(artists);
-        this.lastHour.push(albums);
-      });
-  }
+        // last day
+        if(playAt >= lastDayTime){
+          if (!Object.keys(lastDaySongName).includes(song["track"]["name"])) {
+            lastDaySongName[song["track"]["name"]] = {
+              times: 1,
+              minutes: 0,
+              hours: 0,
+            };
+            lastDaySongName[song["track"]["name"]]["minutes"] = Number(
+              (song["track"]["duration_ms"] / 1000 / 60).toFixed(2)
+            );
+            lastDaySongName[song["track"]["name"]]["hours"] = Number(
+              (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
+            );
+          } else {
+            lastDaySongName[song["track"]["name"]]["times"] += 1;
+            lastDaySongName[song["track"]["name"]]["minutes"] += Number(
+              (song["track"]["duration_ms"] / 1000 / 60).toFixed(2)
+            );
+            lastDaySongName[song["track"]["name"]]["hours"] += Number(
+              (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
+            );
+          }
 
-  getLastDayplaylist() {
-    var before = new Date().getTime();
-    var after = String(parseInt(String((before - 24 * 60 * 60 * 1000) / 1000)));
-    console.log(after);
-    let songName = { songName: { times: 1, minutes: 0, hours: 0 } };
-    let artists = { artistName: { times: 1, minutes: 0, hours: 0 } };
-    let albums = { albums: { times: 1, minutes: 0, hours: 0 } };
-    this.spotifyService
-      .sendRequestToExpress("/lastday-played/" + encodeURIComponent(after))
-      .then((data) => {
-        if (data["items"] != null) {
-          for (var song of data["items"]) {
-            if (!Object.keys(songName).includes(song["track"]["name"])) {
-              songName[song["track"]["name"]] = {
-                times: 1,
-                minutes: 0,
-                hours: 0,
-              };
-              songName[song["track"]["name"]]["minutes"] = Number(
+          for (var a of song["track"]["album"]["artists"]) {
+            if (!Object.keys(lastDayArtists).includes(a["name"])) {
+              lastDayArtists[a["name"]] = { times: 1, minutes: 0, hours: 0 };
+              lastDayArtists[a["name"]]["minutes"] = Number(
                 (song["track"]["duration_ms"] / 1000 / 60).toFixed(2)
               );
-              songName[song["track"]["name"]]["hours"] = Number(
+              lastDayArtists[a["name"]]["hours"] = Number(
                 (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
               );
             } else {
-              songName[song["track"]["name"]]["times"] += 1;
-              songName[song["track"]["name"]]["minutes"] += Number(
+              lastDayArtists[a["name"]]["times"] += 1;
+              lastDayArtists[a["name"]]["minutes"] += Number(
                 (song["track"]["duration_ms"] / 1000 / 60).toFixed(2)
               );
-              songName[song["track"]["name"]]["hours"] += Number(
-                (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
-              );
-            }
-
-            for (var a of song["track"]["album"]["artists"]) {
-              if (!Object.keys(artists).includes(a["name"])) {
-                artists[a["name"]] = { times: 1, minutes: 0, hours: 0 };
-                artists[a["name"]]["minutes"] = Number(
-                  (song["track"]["duration_ms"] / 1000 / 60).toFixed(2)
-                );
-                artists[a["name"]]["hours"] = Number(
-                  (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
-                );
-              } else {
-                artists[a["name"]]["times"] += 1;
-                artists[a["name"]]["minutes"] += Number(
-                  (song["track"]["duration_ms"] / 1000 / 60).toFixed(2)
-                );
-                artists[a["name"]]["hours"] += Number(
-                  (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
-                );
-              }
-            }
-            if (!Object.keys(albums).includes(song["track"]["album"]["name"])) {
-              albums[song["track"]["album"]["name"]] = {
-                times: 1,
-                minutes: 0,
-                hours: 0,
-              };
-              albums[song["track"]["album"]["name"]]["minutes"] = Number(
-                (song["track"]["duration_ms"] / 1000 / 60).toFixed(2)
-              );
-              albums[song["track"]["album"]["name"]]["hours"] = Number(
-                (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
-              );
-            } else {
-              albums[song["track"]["album"]["name"]]["times"] += 1;
-              albums[song["track"]["album"]["name"]]["minutes"] += Number(
-                (song["track"]["duration_ms"] / 1000 / 60).toFixed(2)
-              );
-              albums[song["track"]["album"]["name"]]["hours"] += Number(
+              lastDayArtists[a["name"]]["hours"] += Number(
                 (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
               );
             }
           }
+          if (!Object.keys(lastDayAlbums).includes(song["track"]["album"]["name"])) {
+            lastDayAlbums[song["track"]["album"]["name"]] = {
+              times: 1,
+              minutes: 0,
+              hours: 0,
+            };
+            lastDayAlbums[song["track"]["album"]["name"]]["minutes"] = Number(
+              (song["track"]["duration_ms"] / 1000 / 60).toFixed(2)
+            );
+            lastDayAlbums[song["track"]["album"]["name"]]["hours"] = Number(
+              (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
+            );
+          } else {
+            lastDayAlbums[song["track"]["album"]["name"]]["times"] += 1;
+            lastDayAlbums[song["track"]["album"]["name"]]["minutes"] += Number(
+              (song["track"]["duration_ms"] / 1000 / 60).toFixed(2)
+            );
+            lastDayAlbums[song["track"]["album"]["name"]]["hours"] += Number(
+              (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
+            );
+          }
+          
         }
-      });
-    this.lastDay.push(songName);
-    this.lastDay.push(artists);
-    this.lastDay.push(albums);
-  }
+        //lastweek
+        if(playAt >= lastWeekTime){
+          if (!Object.keys(lastWeekSongName).includes(song["track"]["name"])) {
+            lastWeekSongName[song["track"]["name"]] = {
+              times: 1,
+              minutes: 0,
+              hours: 0,
+            };
+            lastWeekSongName[song["track"]["name"]]["minutes"] = Number(
+              (song["track"]["duration_ms"] / 1000 / 60).toFixed(2)
+            );
+            lastWeekSongName[song["track"]["name"]]["hours"] = Number(
+              (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
+            );
+          } else {
+            lastWeekSongName[song["track"]["name"]]["times"] += 1;
+            lastWeekSongName[song["track"]["name"]]["minutes"] += Number(
+              (song["track"]["duration_ms"] / 1000 / 60).toFixed(2)
+            );
+            lastWeekSongName[song["track"]["name"]]["hours"] += Number(
+              (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
+            );
+          }
 
-  getLastWeekplaylist() {
-    var before = new Date().getTime();
-    var after = String(
-      parseInt(String((before - 7 * 24 * 60 * 60 * 1000) / 1000))
-    );
-    console.log(after);
-    let songName = { songName: { times: 1, minutes: 0, hours: 0 } };
-    let artists = { artistName: { times: 1, minutes: 0, hours: 0 } };
-    let albums = { albums: { times: 1, minutes: 0, hours: 0 } };
-    this.spotifyService
-      .sendRequestToExpress("/lastday-played/" + encodeURIComponent(after))
-      .then((data) => {
-        if (data["items"] != null) {
-          for (var song of data["items"]) {
-            if (!Object.keys(songName).includes(song["track"]["name"])) {
-              songName[song["track"]["name"]] = {
-                times: 1,
-                minutes: 0,
-                hours: 0,
-              };
-              songName[song["track"]["name"]]["minutes"] = Number(
+          for (var a of song["track"]["album"]["artists"]) {
+            if (!Object.keys(lastWeekArtists).includes(a["name"])) {
+              lastWeekArtists[a["name"]] = { times: 1, minutes: 0, hours: 0 };
+              lastWeekArtists[a["name"]]["minutes"] = Number(
                 (song["track"]["duration_ms"] / 1000 / 60).toFixed(2)
               );
-              songName[song["track"]["name"]]["hours"] = Number(
+              lastWeekArtists[a["name"]]["hours"] = Number(
                 (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
               );
             } else {
-              songName[song["track"]["name"]]["times"] += 1;
-              songName[song["track"]["name"]]["minutes"] += Number(
+              lastWeekArtists[a["name"]]["times"] += 1;
+              lastWeekArtists[a["name"]]["minutes"] += Number(
                 (song["track"]["duration_ms"] / 1000 / 60).toFixed(2)
               );
-              songName[song["track"]["name"]]["hours"] += Number(
-                (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
-              );
-            }
-
-            for (var a of song["track"]["album"]["artists"]) {
-              if (!Object.keys(artists).includes(a["name"])) {
-                artists[a["name"]] = { times: 1, minutes: 0, hours: 0 };
-                artists[a["name"]]["minutes"] = Number(
-                  (song["track"]["duration_ms"] / 1000 / 60).toFixed(2)
-                );
-                artists[a["name"]]["hours"] = Number(
-                  (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
-                );
-              } else {
-                artists[a["name"]]["times"] += 1;
-                artists[a["name"]]["minutes"] += Number(
-                  (song["track"]["duration_ms"] / 1000 / 60).toFixed(2)
-                );
-                artists[a["name"]]["hours"] += Number(
-                  (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
-                );
-              }
-            }
-            if (!Object.keys(albums).includes(song["track"]["album"]["name"])) {
-              albums[song["track"]["album"]["name"]] = {
-                times: 1,
-                minutes: 0,
-                hours: 0,
-              };
-              albums[song["track"]["album"]["name"]]["minutes"] = Number(
-                (song["track"]["duration_ms"] / 1000 / 60).toFixed(2)
-              );
-              albums[song["track"]["album"]["name"]]["hours"] = Number(
-                (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
-              );
-            } else {
-              albums[song["track"]["album"]["name"]]["times"] += 1;
-              albums[song["track"]["album"]["name"]]["minutes"] += Number(
-                (song["track"]["duration_ms"] / 1000 / 60).toFixed(2)
-              );
-              albums[song["track"]["album"]["name"]]["hours"] += Number(
+              lastWeekArtists[a["name"]]["hours"] += Number(
                 (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
               );
             }
           }
+          if (!Object.keys(lastWeekAlbums).includes(song["track"]["album"]["name"])) {
+            lastWeekAlbums[song["track"]["album"]["name"]] = {
+              times: 1,
+              minutes: 0,
+              hours: 0,
+            };
+            lastWeekAlbums[song["track"]["album"]["name"]]["minutes"] = Number(
+              (song["track"]["duration_ms"] / 1000 / 60).toFixed(2)
+            );
+            lastWeekAlbums[song["track"]["album"]["name"]]["hours"] = Number(
+              (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
+            );
+          } else {
+            lastWeekAlbums[song["track"]["album"]["name"]]["times"] += 1;
+            lastWeekAlbums[song["track"]["album"]["name"]]["minutes"] += Number(
+              (song["track"]["duration_ms"] / 1000 / 60).toFixed(2)
+            );
+            lastWeekAlbums[song["track"]["album"]["name"]]["hours"] += Number(
+              (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
+            );
+          }
+          
         }
-      });
-    this.lastWeek.push(songName);
-    this.lastWeek.push(artists);
-    this.lastWeek.push(albums);
-  }
-  getLastMonthplaylist() {
-    var before = new Date().getTime();
-    var after = String(
-      parseInt(String((before - 30 * 24 * 60 * 60 * 1000) / 1000))
-    );
-    console.log(after);
-    let songName = { songName: { times: 1, minutes: 0, hours: 0 } };
-    let artists = { artistName: { times: 1, minutes: 0, hours: 0 } };
-    let albums = { albums: { times: 1, minutes: 0, hours: 0 } };
-    this.spotifyService
-      .sendRequestToExpress("/lastday-played/" + encodeURIComponent(after))
-      .then((data) => {
-        if (data["items"] != null) {
-          for (var song of data["items"]) {
-            if (!Object.keys(songName).includes(song["track"]["name"])) {
-              songName[song["track"]["name"]] = {
-                times: 1,
-                minutes: 0,
-                hours: 0,
-              };
-              songName[song["track"]["name"]]["minutes"] = Number(
-                (song["track"]["duration_ms"] / 1000 / 60).toFixed(2)
-              );
-              songName[song["track"]["name"]]["hours"] = Number(
-                (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
-              );
-            } else {
-              songName[song["track"]["name"]]["times"] += 1;
-              songName[song["track"]["name"]]["minutes"] += Number(
-                (song["track"]["duration_ms"] / 1000 / 60).toFixed(2)
-              );
-              songName[song["track"]["name"]]["hours"] += Number(
-                (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
-              );
-            }
+        //last month 
+        if(playAt >= lastMonthTime){
+          if (!Object.keys(lastMonthSongName).includes(song["track"]["name"])) {
+            lastMonthSongName[song["track"]["name"]] = {
+              times: 1,
+              minutes: 0,
+              hours: 0,
+            };
+            lastMonthSongName[song["track"]["name"]]["minutes"] = Number(
+              (song["track"]["duration_ms"] / 1000 / 60).toFixed(2)
+            );
+            lastMonthSongName[song["track"]["name"]]["hours"] = Number(
+              (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
+            );
+          } else {
+            lastMonthSongName[song["track"]["name"]]["times"] += 1;
+            lastMonthSongName[song["track"]["name"]]["minutes"] += Number(
+              (song["track"]["duration_ms"] / 1000 / 60).toFixed(2)
+            );
+            lastMonthSongName[song["track"]["name"]]["hours"] += Number(
+              (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
+            );
+          }
 
-            for (var a of song["track"]["album"]["artists"]) {
-              if (!Object.keys(artists).includes(a["name"])) {
-                artists[a["name"]] = { times: 1, minutes: 0, hours: 0 };
-                artists[a["name"]]["minutes"] = Number(
-                  (song["track"]["duration_ms"] / 1000 / 60).toFixed(2)
-                );
-                artists[a["name"]]["hours"] = Number(
-                  (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
-                );
-              } else {
-                artists[a["name"]]["times"] += 1;
-                artists[a["name"]]["minutes"] += Number(
-                  (song["track"]["duration_ms"] / 1000 / 60).toFixed(2)
-                );
-                artists[a["name"]]["hours"] += Number(
-                  (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
-                );
-              }
-            }
-            if (!Object.keys(albums).includes(song["track"]["album"]["name"])) {
-              albums[song["track"]["album"]["name"]] = {
-                times: 1,
-                minutes: 0,
-                hours: 0,
-              };
-              albums[song["track"]["album"]["name"]]["minutes"] = Number(
+          for (var a of song["track"]["album"]["artists"]) {
+            if (!Object.keys(lastMonthArtists).includes(a["name"])) {
+              lastMonthArtists[a["name"]] = { times: 1, minutes: 0, hours: 0 };
+              lastMonthArtists[a["name"]]["minutes"] = Number(
                 (song["track"]["duration_ms"] / 1000 / 60).toFixed(2)
               );
-              albums[song["track"]["album"]["name"]]["hours"] = Number(
+              lastMonthArtists[a["name"]]["hours"] = Number(
                 (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
               );
             } else {
-              albums[song["track"]["album"]["name"]]["times"] += 1;
-              albums[song["track"]["album"]["name"]]["minutes"] += Number(
+              lastMonthArtists[a["name"]]["times"] += 1;
+              lastMonthArtists[a["name"]]["minutes"] += Number(
                 (song["track"]["duration_ms"] / 1000 / 60).toFixed(2)
               );
-              albums[song["track"]["album"]["name"]]["hours"] += Number(
+              lastMonthArtists[a["name"]]["hours"] += Number(
                 (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
               );
             }
           }
+          if (!Object.keys(lastMonthAlbums).includes(song["track"]["album"]["name"])) {
+            lastMonthAlbums[song["track"]["album"]["name"]] = {
+              times: 1,
+              minutes: 0,
+              hours: 0,
+            };
+            lastMonthAlbums[song["track"]["album"]["name"]]["minutes"] = Number(
+              (song["track"]["duration_ms"] / 1000 / 60).toFixed(2)
+            );
+            lastMonthAlbums[song["track"]["album"]["name"]]["hours"] = Number(
+              (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
+            );
+          } else {
+            lastMonthAlbums[song["track"]["album"]["name"]]["times"] += 1;
+            lastMonthAlbums[song["track"]["album"]["name"]]["minutes"] += Number(
+              (song["track"]["duration_ms"] / 1000 / 60).toFixed(2)
+            );
+            lastMonthAlbums[song["track"]["album"]["name"]]["hours"] += Number(
+              (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
+            );
+          }
+
         }
-      });
-    this.lastMonth.push(songName);
-    this.lastMonth.push(artists);
-    this.lastMonth.push(albums);
+        
+      }
+      this.lastHour.push(lastHourSongName);
+      this.lastHour.push(lastHourArtists);
+      this.lastHour.push(lastHourAlbums);
+      this.lastDay.push(lastDaySongName);
+      this.lastDay.push(lastDayArtists);
+      this.lastDay.push(lastDayAlbums);
+      this.lastWeek.push(lastWeekSongName);
+      this.lastWeek.push(lastWeekArtists);
+      this.lastWeek.push(lastWeekAlbums);
+      this.lastMonth.push(lastMonthSongName);
+      this.lastMonth.push(lastMonthArtists);
+      this.lastMonth.push(lastMonthAlbums);
+    }
+          
   }
+
+  
 
   async presentModal() {
     const modal = await this.modalController.create({
@@ -811,6 +788,8 @@ export class InputComponent implements OnInit {
         month: this.lastMonth,
       },
     });
+    console.log("check","day",this.lastDay,"hour",this.lastHour,"week",this.lastWeek,"month",this.lastMonth)
     return await modal.present();
   }
+
 }

@@ -14,13 +14,15 @@ export class ModalPage implements OnInit {
   @Input() day:any[];
   @Input() week:any[];
   @Input() month:any[];
+  
+  
   option:any;
   type:any[] =[];
   selectUnit:any;
   currentCategory:any;
 
   constructor(public modalController: ModalController) { 
-
+    console.log(this.hour, this.day,this.week, this.month);
   }
 
   ngOnInit() {
@@ -44,8 +46,7 @@ export class ModalPage implements OnInit {
         for(var songname of Object.keys(this.songName) ){
           if(songname != undefined && songname != null && songname != "songName"){
             arr1.push(songname);
-          }
-            
+          } 
         }
       }
       this.type = arr1;
@@ -137,7 +138,6 @@ export class ModalPage implements OnInit {
           if(songname != undefined && songname != null && songname != "songName"){
             arr1.push(songname);
           }
-            
         }
       }
       this.type = arr1;
