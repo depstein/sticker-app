@@ -4,6 +4,9 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { GlobalDataService } from "./../global-data.service";
 import { Health } from '@ionic-native/health/ngx';
 import { Storage } from "@ionic/storage";
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { send } from 'process';
+import { SpotifyService } from '../spotify.service';
 
 @Component({
   selector: "app-create-stickers",
@@ -13,12 +16,18 @@ import { Storage } from "@ionic/storage";
 export class CreateStickersPage implements OnInit {
   img_list = [];
   health_test = '';
+  expressBaseUrl:string = 'http://localhost:8888';
+  spotifybutton:boolean;
+  healthbutton:boolean;
+
   constructor(
     public alertController: AlertController,
     private router: Router,
     public route: ActivatedRoute,
     public global: GlobalDataService,
     private storage: Storage,
+    private http: HttpClient,
+    private spotifyService: SpotifyService
   ) {
     this.global.stickerInfo.image = this.route.snapshot.paramMap.get("img");
     this.global.stickerInfo.color = "";
@@ -30,10 +39,24 @@ export class CreateStickersPage implements OnInit {
     this.global.stickerInfo.unit = Object.keys(
       this.global.domain_info[this.global.stickerInfo.domain].units
     )[0].trim();
-    if(this.global.stickerInfo.domain == "music"){
-      this.presentAlertMultipleButtons();
-    }
-
+    this.storage.get('spotifyPermission')
+    .then((value) => {
+      this.spotifybutton = value;
+      if(this.global.stickerInfo.domain == "music" && (this.spotifybutton == false || this.spotifybutton == null) && this.global.asked == false){
+        this.presentAlertspotifyButtons();
+      }
+    })
+    this.storage.get('healthPermission')
+    .then((value) => {
+      this.healthbutton = value;
+      if(this.global.stickerInfo.domain == "steps" || this.global.stickerInfo.domain == "calories" || this.global.stickerInfo.domain == "heartbeat"){
+        this.presentAlerthealthButtons();
+      }
+    })
+    
+    
+    
+    
   }
 
   ngOnInit() {}
@@ -68,12 +91,43 @@ export class CreateStickersPage implements OnInit {
     this.router.navigate(["sticker-render", {}]);
   }
 
-  async presentAlertMultipleButtons() {
+  async presentAlertspotifyButtons() {
     const alert = await this.alertController.create({
       message: 'Do you want to get your playlist from spolify?',
-      buttons: ['NO', 'YES', ]
+      buttons: [
+        {
+          text: 'YES',
+          handler: () => {
+            console.log("open webpage");
+            window.open("http://localhost:8888/login", "_self");
+            this.storage.set('spotifyPermission', true);
+          }
+        },
+        {
+          text: 'NO',
+          handler:() =>{
+            this.global.asked = true;
+            console.log(this.global.asked);
+          }
+
+        }],
     })
     await alert.present();
   }
+  async presentAlerthealthButtons(){
+    const alert = await this.alertController.create({
+      message: 'Do you want to get your data from Healthkit?',
+      buttons: [
+        {
+          text: 'YES' 
+        },
+        {
+          text: 'NO'
+        }],
+    })
+    await alert.present();
+  }
+  
 
 }
+

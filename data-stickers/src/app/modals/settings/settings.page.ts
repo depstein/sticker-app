@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injectable } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
 import { NavController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 
-
+@Injectable({
+  providedIn: 'root'
+})
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.page.html',
@@ -24,9 +26,11 @@ export class SettingsPage implements OnInit {
     this.getIdandPermissionsFromStorage();
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   getIdandPermissionsFromStorage(){
+    console.log("here");
     this.storage.get('id')
     .then((value) => {
       this.idInput = value;
@@ -37,7 +41,10 @@ export class SettingsPage implements OnInit {
     })
     this.storage.get('spotifyPermission')
     .then((value) => {
-      this.spotifyPermission = value;
+      if (value == null)
+        this.spotifyPermission = false;
+      else
+        this.spotifyPermission = value;
     })
   }
 

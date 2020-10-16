@@ -21,6 +21,14 @@ const routes: Routes = [
   },  {
     path: 'settings',
     loadChildren: () => import('./modals/settings/settings.module').then( m => m.SettingsPageModule)
+  },
+  {
+    path: 'modal',
+    loadChildren: () => import('./modals/modal/modal.module').then( m => m.ModalPageModule)
+  },
+  {
+    path: 'selectunit',
+    loadChildren: () => import('./modals/selectunit/selectunit.module').then( m => m.SelectunitPageModule)
   }
 
 

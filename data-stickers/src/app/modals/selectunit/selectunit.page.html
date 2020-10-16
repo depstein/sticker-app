@@ -1,0 +1,33 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Select units</ion-title>
+        <ion-buttons slot="start">
+            <ion-button (click)="dismiss()">
+                <ion-icon name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-card>
+        <ion-card-header>
+            <ion-card-subtitle> Recently played</ion-card-subtitle>
+            <ion-card-title>{{content}}</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+            <h5>Total times</h5>
+            <p>{{record.times}}</p>
+            <h5>Total hours</h5>
+            <p>{{(record.hours).toFixed(2)}}</p>
+            <h5>Total minutes</h5>
+            <p>{{(record.minutes).toFixed(2)}}</p>
+
+        </ion-card-content>
+    </ion-card>
+
+
+
+
+</ion-content>
