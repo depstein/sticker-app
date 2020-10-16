@@ -1,0 +1,56 @@
+.loading-screen {
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  background: white;
+
+  p {
+    position: absolute;
+    margin: auto;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.time-segment {
+  padding-top: 32px;
+  padding-bottom: 16px;
+  width: 90vw;
+  margin: auto;
+}
+
+.div-chart {
+  display: block;
+  position: relative;
+  margin-bottom: 32px;
+}
+
+.range-slider-container {
+  position: absolute;
+  top: 40%;
+  transform: translate(0, -50%);
+  width: 100vw;
+}
+
+#overlay, ion-range {
+  padding-left: 50px;
+  padding-right: 20px;
+}
+
+#overlay {
+  position: absolute;
+  top: 7px;
+}
+
+ion-range {
+  --bar-height: 0;
+  --bar-background-active: none;
+  --ion-text-color-rgb: none;
+  --knob-background: rgb(196, 196, 196);
+}
+
+.dataInfo {
+  text-align: center;
+}

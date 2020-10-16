@@ -30,6 +30,7 @@ export class CreateStickersPage implements OnInit {
     private spotifyService: SpotifyService
   ) {
     this.global.stickerInfo.image = this.route.snapshot.paramMap.get("img");
+    this.global.stickerInfo.color = "";
     this.global.stickerInfo.domain = this.route.snapshot.paramMap.get("domain");
     this.global.stickerInfo.value = 0;
     this.global.stickerInfo.music_value = "";
@@ -65,6 +66,7 @@ export class CreateStickersPage implements OnInit {
     this.global.stickerInfo.animation = newAnimation;
   }
 
+
   /*testHealth() {
     this.health.isAvailable()
     .then((available:boolean) => {
@@ -77,7 +79,7 @@ export class CreateStickersPage implements OnInit {
         }
       ])
       .then((res) => {
-        console.log(res); 
+        console.log(res);
         this.health_test = res;
       })
       .catch(e => console.log(e));

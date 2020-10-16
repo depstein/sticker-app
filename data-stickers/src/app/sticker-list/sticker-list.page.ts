@@ -16,6 +16,7 @@ export class StickerListPage implements OnInit {
   imageDict = {};
   imageArray = [];
   stickerArray = [];
+  recentUse:RecentUseService;
 
   constructor(
     private route: ActivatedRoute,
@@ -23,7 +24,7 @@ export class StickerListPage implements OnInit {
     private modalController: ModalController,
     private storage: Storage,
     private global: GlobalDataService,
-    private recentUse: RecentUseService
+    private recent: RecentUseService
   ) {
     this.domain = this.router.url;
     this.domain = this.domain.substring(6);
@@ -48,6 +49,7 @@ export class StickerListPage implements OnInit {
       this.imageArray[1],
       this.imageArray[2]
     );
+    this.recentUse = recent;
   }
 
   ngOnInit() {}

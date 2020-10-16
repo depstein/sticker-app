@@ -73,6 +73,7 @@ export class ModalPage implements OnInit {
       }
       this.type = arr3;
     }
+   
   }
 
   async presentModal(item) {

@@ -18,6 +18,8 @@ import { ModalController } from '@ionic/angular';
 import { ModalPage } from '../app/modals/modal/modal.page'
 import { SelectunitPage} from '../app/modals/selectunit/selectunit.page';
 
+import { Health } from '@ionic-native/health/ngx';
+
 @NgModule({
   declarations: [AppComponent,ModalPage,SelectunitPage],
   imports: [
@@ -34,6 +36,7 @@ import { SelectunitPage} from '../app/modals/selectunit/selectunit.page';
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     File,
     SocialSharing,
+    Health,
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

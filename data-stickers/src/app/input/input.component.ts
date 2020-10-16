@@ -6,6 +6,8 @@ import { ModalController } from "@ionic/angular";
 import { ModalPage } from "../modals/modal/modal.page";
 import { conditionallyCreateMapObjectLiteral } from '@angular/compiler/src/render3/view/util';
 
+import { ChartModalPage } from '../chart-modal/chart-modal.page';
+
 @Component({
   selector: "app-input",
   templateUrl: "./input.component.html",
@@ -792,4 +794,15 @@ export class InputComponent implements OnInit {
     return await modal.present();
   }
 
+
+  async openModal() {
+    const modal = await this.modalController.create({
+      component: ChartModalPage
+    });
+    modal.onDidDismiss().then(data=>{
+      this.global.stickerInfo.value = data.data.sum;
+      this.updateInputValue();
+    })
+    return await modal.present();
+  }
 }

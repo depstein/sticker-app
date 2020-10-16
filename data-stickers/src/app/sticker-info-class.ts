@@ -1,5 +1,6 @@
 export class StickerInfo {
 	image: string;
+	color: string;
 	domain: string;
 	value: number;
 	unit: string;
@@ -9,10 +10,11 @@ export class StickerInfo {
 	goal: number;
 	min:number;
 	hour:number;
-	milsec:number; 
-	
+	milsec:number;
+
 	constructor() {
 		this.image = '';
+		this.color = '';
 		this.domain = '';
 		this.value = 0;
 		this.unit = '';

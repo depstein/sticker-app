@@ -25,15 +25,17 @@ export class GlobalDataService {
 						"maxAmount": 99999//100
 					}
 				},
-				"slider_image_url": "../../assets/icon/footprint.svg"
-			}, 
+				"slider_image_url": "../../assets/icon/footprint.svg",
+        "color": "#35a8a1"
+			},
 			"heartbeat": {
 				"units": {
 					"bpm": {
 						"maxAmount": 99999//100
 					}
 				},
-				"slider_image_url": "../../assets/icon/bxs-heart.svg"
+				"slider_image_url": "../../assets/icon/bxs-heart.svg",
+        "color": "#f27c4c"
 			},
 			"calories": {
 				"units": {
@@ -41,7 +43,8 @@ export class GlobalDataService {
 						"maxAmount": 99999//10000
 					}
 				},
-				"slider_image_url": "../../assets/icon/bxs-hot.svg"
+				"slider_image_url": "../../assets/icon/bxs-hot.svg",
+        "color": "#7d7aa2"
 			},
 			"time": {
 				"units": {
@@ -52,7 +55,8 @@ export class GlobalDataService {
 						"maxAmount": 99999//14
 					}
 				},
-				"slider_image_url": "../../assets/icon/bxs-time-five.svg"
+				"slider_image_url": "../../assets/icon/bxs-time-five.svg",
+        "color": "#d85372"
 			},
 			"music": {
 				"units": {
@@ -66,7 +70,8 @@ export class GlobalDataService {
 						"maxAmount":99999// 50
 					}
 				},
-				"slider_image_url": "../../assets/icon/bxs-music.svg"
+				"slider_image_url": "../../assets/icon/bxs-music.svg",
+        "color": "#5a819e"
 			}
 		}
 
@@ -204,7 +209,7 @@ export class GlobalDataService {
 				// "../../../assets/stickers/music/6-03.png": true
 			
 		}
-			
+
 		this.stickerInfo = new StickerInfo();
 	}
 }
