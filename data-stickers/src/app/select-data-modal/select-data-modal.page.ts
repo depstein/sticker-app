@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { GlobalDataService } from "./../global-data.service";
 
 @Component({
   selector: 'app-select-data-modal',
@@ -9,7 +10,10 @@ import { ModalController } from '@ionic/angular';
 export class SelectDataModalPage implements OnInit {
   dataValue: number;
 
-  constructor(public viewCtrl: ModalController) {
+  constructor(
+    public viewCtrl: ModalController,
+    public global: GlobalDataService)
+    {
     this.dataValue = 0;
   }
 

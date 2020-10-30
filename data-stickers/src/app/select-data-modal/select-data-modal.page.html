@@ -9,10 +9,16 @@
 
 <ion-content>
 
-  <!-- Chart component -->
-  <app-chart
-    [dataValue]="dataValue"
-    (dataValueChanged)="onDataValueChanged($event)">
-  </app-chart>
+  <div *ngIf="global.stickerInfo.domain == 'calories'; else elseBlock">
+    <!-- Food selection component -->
+    <app-food-selection></app-food-selection>
+  </div>
+  <ng-template #elseBlock>
+    <!-- Chart component -->
+    <app-chart
+      [dataValue]="dataValue"
+      (dataValueChanged)="onDataValueChanged($event)">
+    </app-chart>
+  </ng-template>
 
 </ion-content>

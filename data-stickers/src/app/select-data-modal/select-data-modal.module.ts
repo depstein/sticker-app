@@ -10,6 +10,8 @@ import { SelectDataModalPage } from './select-data-modal.page';
 
 import { ChartComponent } from "../chart/chart.component";
 
+import { FoodSelectionComponent } from "../food-selection/food-selection.component";
+
 
 @NgModule({
   imports: [
@@ -21,6 +23,7 @@ import { ChartComponent } from "../chart/chart.component";
   declarations: [
     SelectDataModalPage,
     ChartComponent,
+    FoodSelectionComponent,
   ]
 })
 export class ChartModalPageModule {}
