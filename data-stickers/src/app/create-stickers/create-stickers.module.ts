@@ -8,7 +8,7 @@ import { IonicModule } from "@ionic/angular";
 
 import { CreateStickersPageRoutingModule } from "./create-stickers-routing.module";
 
-import { ChartModalPageModule } from '../chart-modal/chart-modal.module';
+import { ChartModalPageModule } from '../select-data-modal/select-data-modal.module';
 
 import { CreateStickersPage } from "./create-stickers.page";
 import { InputComponent } from "../input/input.component";

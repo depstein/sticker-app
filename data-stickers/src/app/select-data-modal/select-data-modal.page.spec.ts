@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { ChartModalPage } from './chart-modal.page';
+import { SelectDataModalPage } from './select-data-modal.page';
 
-describe('ChartModalPage', () => {
-  let component: ChartModalPage;
-  let fixture: ComponentFixture<ChartModalPage>;
+describe('SelectDataModalPage', () => {
+  let component: SelectDataModalPage;
+  let fixture: ComponentFixture<SelectDataModalPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ChartModalPage ],
+      declarations: [ SelectDataModalPage ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ChartModalPage);
+    fixture = TestBed.createComponent(SelectDataModalPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

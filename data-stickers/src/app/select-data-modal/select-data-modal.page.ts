@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 
 @Component({
-  selector: 'app-chart-modal',
-  templateUrl: './chart-modal.page.html',
-  styleUrls: ['./chart-modal.page.scss'],
+  selector: 'app-select-data-modal',
+  templateUrl: './select-data-modal.page.html',
+  styleUrls: ['./select-data-modal.page.scss'],
 })
-export class ChartModalPage implements OnInit {
+export class SelectDataModalPage implements OnInit {
   dataValue: number;
 
   constructor(public viewCtrl: ModalController) {

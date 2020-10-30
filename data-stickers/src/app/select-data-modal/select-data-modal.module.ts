@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ChartModalPageRoutingModule } from './chart-modal-routing.module';
+import { ChartModalPageRoutingModule } from './select-data-modal-routing.module';
 
-import { ChartModalPage } from './chart-modal.page';
+import { SelectDataModalPage } from './select-data-modal.page';
 
 import { ChartComponent } from "../chart/chart.component";
 
@@ -19,7 +19,7 @@ import { ChartComponent } from "../chart/chart.component";
     ChartModalPageRoutingModule
   ],
   declarations: [
-    ChartModalPage,
+    SelectDataModalPage,
     ChartComponent,
   ]
 })

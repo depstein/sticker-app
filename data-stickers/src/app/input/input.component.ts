@@ -6,7 +6,7 @@ import { ModalController } from "@ionic/angular";
 import { ModalPage } from "../modals/modal/modal.page";
 import { conditionallyCreateMapObjectLiteral } from '@angular/compiler/src/render3/view/util';
 
-import { ChartModalPage } from '../chart-modal/chart-modal.page';
+import { SelectDataModalPage } from '../select-data-modal/select-data-modal.page';
 
 @Component({
   selector: "app-input",
@@ -488,7 +488,7 @@ export class InputComponent implements OnInit {
     let lastMonthAlbums = { albums: { times: 1, minutes: 0, hours: 0 } };
 
     if (data["items"] != null) {
-      
+
       for (var song of data["items"]) {
         var playAt = new Date(song["played_at"]).getTime();
         // last hour
@@ -556,7 +556,7 @@ export class InputComponent implements OnInit {
               (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
             );
           }
-         
+
         }
         // last day
         if(playAt >= lastDayTime){
@@ -622,7 +622,7 @@ export class InputComponent implements OnInit {
               (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
             );
           }
-          
+
         }
         //lastweek
         if(playAt >= lastWeekTime){
@@ -688,9 +688,9 @@ export class InputComponent implements OnInit {
               (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
             );
           }
-          
+
         }
-        //last month 
+        //last month
         if(playAt >= lastMonthTime){
           if (!Object.keys(lastMonthSongName).includes(song["track"]["name"])) {
             lastMonthSongName[song["track"]["name"]] = {
@@ -756,7 +756,7 @@ export class InputComponent implements OnInit {
           }
 
         }
-        
+
       }
       this.lastHour.push(lastHourSongName);
       this.lastHour.push(lastHourArtists);
@@ -771,10 +771,10 @@ export class InputComponent implements OnInit {
       this.lastMonth.push(lastMonthArtists);
       this.lastMonth.push(lastMonthAlbums);
     }
-          
+
   }
 
-  
+
 
   async presentModal() {
     const modal = await this.modalController.create({
@@ -797,7 +797,7 @@ export class InputComponent implements OnInit {
 
   async openModal() {
     const modal = await this.modalController.create({
-      component: ChartModalPage
+      component: SelectDataModalPage
     });
     modal.onDidDismiss().then(data=>{
       this.global.stickerInfo.value = data.data.sum;
