@@ -4,11 +4,13 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ChartModalPageRoutingModule } from './chart-modal-routing.module';
+import { ChartModalPageRoutingModule } from './select-data-modal-routing.module';
 
-import { ChartModalPage } from './chart-modal.page';
+import { SelectDataModalPage } from './select-data-modal.page';
 
 import { ChartComponent } from "../chart/chart.component";
+import { FoodSelectionComponent } from "../food-selection/food-selection.component";
+import { FoodItemComponent } from "../food-item/food-item.component";
 
 
 @NgModule({
@@ -19,8 +21,10 @@ import { ChartComponent } from "../chart/chart.component";
     ChartModalPageRoutingModule
   ],
   declarations: [
-    ChartModalPage,
+    SelectDataModalPage,
     ChartComponent,
+    FoodSelectionComponent,
+    FoodItemComponent,
   ]
 })
 export class ChartModalPageModule {}

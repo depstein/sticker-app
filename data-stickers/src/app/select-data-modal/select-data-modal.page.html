@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Select Data</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button fill="clear" (click)="dismiss()">Done</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div *ngIf="global.stickerInfo.domain == 'calories'; else elseBlock">
+    <!-- Food selection component -->
+    <app-food-selection></app-food-selection>
+  </div>
+  <ng-template #elseBlock>
+    <!-- Chart component -->
+    <app-chart
+      [dataValue]="dataValue"
+      (dataValueChanged)="onDataValueChanged($event)">
+    </app-chart>
+  </ng-template>
+
+</ion-content>

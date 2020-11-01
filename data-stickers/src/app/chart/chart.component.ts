@@ -8,9 +8,21 @@ import * as moment from 'moment';
 const USING_HEALTH_DATA: boolean = false;
 
 const SAMPLE_DATA: object = {
-  day: [{"t":"2020-08-14T03:00:00.000Z","y":5887},{"t":"2020-08-14T04:00:00.000Z","y":93},{"t":"2020-08-14T05:00:00.000Z","y":23},{"t":"2020-08-14T06:00:00.000Z","y":18},{"t":"2020-08-14T07:00:00.000Z","y":7},{"t":"2020-08-14T08:00:00.000Z","y":0},{"t":"2020-08-14T09:00:00.000Z","y":0},{"t":"2020-08-14T10:00:00.000Z","y":0},{"t":"2020-08-14T11:00:00.000Z","y":0},{"t":"2020-08-14T12:00:00.000Z","y":0},{"t":"2020-08-14T13:00:00.000Z","y":25},{"t":"2020-08-14T14:00:00.000Z","y":1002},{"t":"2020-08-14T15:00:00.000Z","y":8283},{"t":"2020-08-14T16:00:00.000Z","y":68},{"t":"2020-08-14T17:00:00.000Z","y":235},{"t":"2020-08-14T18:00:00.000Z","y":641},{"t":"2020-08-14T19:00:00.000Z","y":0},{"t":"2020-08-14T20:00:00.000Z","y":98},{"t":"2020-08-14T21:00:00.000Z","y":0},{"t":"2020-08-14T22:00:00.000Z","y":0},{"t":"2020-08-14T23:00:00.000Z","y":0},{"t":"2020-08-15T00:00:00.000Z","y":0},{"t":"2020-08-15T01:00:00.000Z","y":0},{"t":"2020-08-15T02:00:00.000Z","y":0},{"t":"2020-08-15T03:00:00.000Z","y":0}],
-  week: [{"t":"2020-08-07T07:00:00.000Z","y":15226},{"t":"2020-08-08T07:00:00.000Z","y":155},{"t":"2020-08-09T07:00:00.000Z","y":2619},{"t":"2020-08-10T07:00:00.000Z","y":16616},{"t":"2020-08-11T07:00:00.000Z","y":1021},{"t":"2020-08-12T07:00:00.000Z","y":12206},{"t":"2020-08-13T07:00:00.000Z","y":15281},{"t":"2020-08-14T07:00:00.000Z","y":10382}],
-  month: [{"t":"2020-07-15T07:00:00.000Z","y":4953},{"t":"2020-07-16T07:00:00.000Z","y":3752},{"t":"2020-07-17T07:00:00.000Z","y":5926},{"t":"2020-07-18T07:00:00.000Z","y":6311},{"t":"2020-07-19T07:00:00.000Z","y":10222},{"t":"2020-07-20T07:00:00.000Z","y":9380},{"t":"2020-07-21T07:00:00.000Z","y":10143},{"t":"2020-07-22T07:00:00.000Z","y":15724},{"t":"2020-07-23T07:00:00.000Z","y":10937},{"t":"2020-07-24T07:00:00.000Z","y":13556},{"t":"2020-07-25T07:00:00.000Z","y":871},{"t":"2020-07-26T07:00:00.000Z","y":1584},{"t":"2020-07-27T07:00:00.000Z","y":8262},{"t":"2020-07-28T07:00:00.000Z","y":8741},{"t":"2020-07-29T07:00:00.000Z","y":1282},{"t":"2020-07-30T07:00:00.000Z","y":1561},{"t":"2020-07-31T07:00:00.000Z","y":9786},{"t":"2020-08-01T07:00:00.000Z","y":5303},{"t":"2020-08-02T07:00:00.000Z","y":8640},{"t":"2020-08-03T07:00:00.000Z","y":10272},{"t":"2020-08-04T07:00:00.000Z","y":7076},{"t":"2020-08-05T07:00:00.000Z","y":1243},{"t":"2020-08-06T07:00:00.000Z","y":496},{"t":"2020-08-07T07:00:00.000Z","y":15226},{"t":"2020-08-08T07:00:00.000Z","y":155},{"t":"2020-08-09T07:00:00.000Z","y":2619},{"t":"2020-08-10T07:00:00.000Z","y":16616},{"t":"2020-08-11T07:00:00.000Z","y":1021},{"t":"2020-08-12T07:00:00.000Z","y":12206},{"t":"2020-08-13T07:00:00.000Z","y":15281},{"t":"2020-08-14T07:00:00.000Z","y":10382}]
+  steps: {
+    day: [{"t":"2020-09-17T19:00:00.000Z","y":385},{"t":"2020-09-17T20:00:00.000Z","y":121},{"t":"2020-09-17T21:00:00.000Z","y":31},{"t":"2020-09-17T22:00:00.000Z","y":64},{"t":"2020-09-17T23:00:00.000Z","y":0},{"t":"2020-09-18T00:00:00.000Z","y":5820},{"t":"2020-09-18T01:00:00.000Z","y":4311},{"t":"2020-09-18T02:00:00.000Z","y":134},{"t":"2020-09-18T03:00:00.000Z","y":94},{"t":"2020-09-18T04:00:00.000Z","y":121},{"t":"2020-09-18T05:00:00.000Z","y":87},{"t":"2020-09-18T06:00:00.000Z","y":24},{"t":"2020-09-18T07:00:00.000Z","y":0},{"t":"2020-09-18T08:00:00.000Z","y":0},{"t":"2020-09-18T09:00:00.000Z","y":0},{"t":"2020-09-18T10:00:00.000Z","y":0},{"t":"2020-09-18T11:00:00.000Z","y":0},{"t":"2020-09-18T12:00:00.000Z","y":0},{"t":"2020-09-18T13:00:00.000Z","y":0},{"t":"2020-09-18T14:00:00.000Z","y":0},{"t":"2020-09-18T15:00:00.000Z","y":39},{"t":"2020-09-18T16:00:00.000Z","y":916},{"t":"2020-09-18T17:00:00.000Z","y":122},{"t":"2020-09-18T18:00:00.000Z","y":0}],
+    week: [{"t":"2020-09-12T07:00:00.000Z","y":1527},{"t":"2020-09-13T07:00:00.000Z","y":471},{"t":"2020-09-14T07:00:00.000Z","y":2806},{"t":"2020-09-15T07:00:00.000Z","y":4453},{"t":"2020-09-16T07:00:00.000Z","y":15580},{"t":"2020-09-17T07:00:00.000Z","y":13496},{"t":"2020-09-18T07:00:00.000Z","y":1077}],
+    month: [{"t":"2020-08-20T07:00:00.000Z","y":14830},{"t":"2020-08-21T07:00:00.000Z","y":1601},{"t":"2020-08-22T07:00:00.000Z","y":2556},{"t":"2020-08-23T07:00:00.000Z","y":184},{"t":"2020-08-24T07:00:00.000Z","y":4732},{"t":"2020-08-25T07:00:00.000Z","y":6832},{"t":"2020-08-26T07:00:00.000Z","y":2274},{"t":"2020-08-27T07:00:00.000Z","y":9531},{"t":"2020-08-28T07:00:00.000Z","y":771},{"t":"2020-08-29T07:00:00.000Z","y":1074},{"t":"2020-08-30T07:00:00.000Z","y":5470},{"t":"2020-08-31T07:00:00.000Z","y":2545},{"t":"2020-09-01T07:00:00.000Z","y":7186},{"t":"2020-09-02T07:00:00.000Z","y":4836},{"t":"2020-09-03T07:00:00.000Z","y":13674},{"t":"2020-09-04T07:00:00.000Z","y":7531},{"t":"2020-09-05T07:00:00.000Z","y":745},{"t":"2020-09-06T07:00:00.000Z","y":1820},{"t":"2020-09-07T07:00:00.000Z","y":5137},{"t":"2020-09-08T07:00:00.000Z","y":1904},{"t":"2020-09-09T07:00:00.000Z","y":6476},{"t":"2020-09-10T07:00:00.000Z","y":4235},{"t":"2020-09-11T07:00:00.000Z","y":1749},{"t":"2020-09-12T07:00:00.000Z","y":1527},{"t":"2020-09-13T07:00:00.000Z","y":471},{"t":"2020-09-14T07:00:00.000Z","y":2806},{"t":"2020-09-15T07:00:00.000Z","y":4453},{"t":"2020-09-16T07:00:00.000Z","y":15580},{"t":"2020-09-17T07:00:00.000Z","y":13496},{"t":"2020-09-18T07:00:00.000Z","y":1077}]
+  },
+  heartbeat: {
+    day: [{"t":"2020-09-17T19:00:00.000Z","y":0},{"t":"2020-09-17T20:00:00.000Z","y":0},{"t":"2020-09-17T21:00:00.000Z","y":0},{"t":"2020-09-17T22:00:00.000Z","y":0},{"t":"2020-09-17T23:00:00.000Z","y":0},{"t":"2020-09-18T00:00:00.000Z","y":111},{"t":"2020-09-18T01:00:00.000Z","y":114},{"t":"2020-09-18T02:00:00.000Z","y":79},{"t":"2020-09-18T03:00:00.000Z","y":76},{"t":"2020-09-18T04:00:00.000Z","y":86},{"t":"2020-09-18T05:00:00.000Z","y":78},{"t":"2020-09-18T06:00:00.000Z","y":70},{"t":"2020-09-18T07:00:00.000Z","y":0},{"t":"2020-09-18T08:00:00.000Z","y":0},{"t":"2020-09-18T09:00:00.000Z","y":0},{"t":"2020-09-18T10:00:00.000Z","y":0},{"t":"2020-09-18T11:00:00.000Z","y":0},{"t":"2020-09-18T12:00:00.000Z","y":0},{"t":"2020-09-18T13:00:00.000Z","y":0},{"t":"2020-09-18T14:00:00.000Z","y":0},{"t":"2020-09-18T15:00:00.000Z","y":75},{"t":"2020-09-18T16:00:00.000Z","y":75},{"t":"2020-09-18T17:00:00.000Z","y":73},{"t":"2020-09-18T18:00:00.000Z","y":0}],
+    week: [{"t":"2020-09-12T07:00:00.000Z","y":75},{"t":"2020-09-13T07:00:00.000Z","y":60},{"t":"2020-09-14T07:00:00.000Z","y":79},{"t":"2020-09-15T07:00:00.000Z","y":74},{"t":"2020-09-16T07:00:00.000Z","y":166},{"t":"2020-09-17T07:00:00.000Z","y":110},{"t":"2020-09-18T07:00:00.000Z","y":74}],
+    month: [{"t":"2020-08-20T07:00:00.000Z","y":98},{"t":"2020-08-21T07:00:00.000Z","y":67},{"t":"2020-08-22T07:00:00.000Z","y":68},{"t":"2020-08-23T07:00:00.000Z","y":65},{"t":"2020-08-24T07:00:00.000Z","y":95},{"t":"2020-08-25T07:00:00.000Z","y":87},{"t":"2020-08-26T07:00:00.000Z","y":91},{"t":"2020-08-27T07:00:00.000Z","y":95},{"t":"2020-08-28T07:00:00.000Z","y":59},{"t":"2020-08-29T07:00:00.000Z","y":65},{"t":"2020-08-30T07:00:00.000Z","y":113},{"t":"2020-08-31T07:00:00.000Z","y":69},{"t":"2020-09-01T07:00:00.000Z","y":82},{"t":"2020-09-02T07:00:00.000Z","y":138},{"t":"2020-09-03T07:00:00.000Z","y":100},{"t":"2020-09-04T07:00:00.000Z","y":142},{"t":"2020-09-05T07:00:00.000Z","y":68},{"t":"2020-09-06T07:00:00.000Z","y":69},{"t":"2020-09-07T07:00:00.000Z","y":91},{"t":"2020-09-08T07:00:00.000Z","y":91},{"t":"2020-09-09T07:00:00.000Z","y":76},{"t":"2020-09-10T07:00:00.000Z","y":70},{"t":"2020-09-11T07:00:00.000Z","y":68},{"t":"2020-09-12T07:00:00.000Z","y":75},{"t":"2020-09-13T07:00:00.000Z","y":60},{"t":"2020-09-14T07:00:00.000Z","y":79},{"t":"2020-09-15T07:00:00.000Z","y":74},{"t":"2020-09-16T07:00:00.000Z","y":166},{"t":"2020-09-17T07:00:00.000Z","y":110},{"t":"2020-09-18T07:00:00.000Z","y":74}]
+  },
+  calories: {
+    day: [{"t":"2020-09-17T19:00:00.000Z","y":67},{"t":"2020-09-17T20:00:00.000Z","y":67},{"t":"2020-09-17T21:00:00.000Z","y":67},{"t":"2020-09-17T22:00:00.000Z","y":67},{"t":"2020-09-17T23:00:00.000Z","y":67},{"t":"2020-09-18T00:00:00.000Z","y":279},{"t":"2020-09-18T01:00:00.000Z","y":233},{"t":"2020-09-18T02:00:00.000Z","y":86},{"t":"2020-09-18T03:00:00.000Z","y":82},{"t":"2020-09-18T04:00:00.000Z","y":84},{"t":"2020-09-18T05:00:00.000Z","y":80},{"t":"2020-09-18T06:00:00.000Z","y":76},{"t":"2020-09-18T07:00:00.000Z","y":66},{"t":"2020-09-18T08:00:00.000Z","y":66},{"t":"2020-09-18T09:00:00.000Z","y":66},{"t":"2020-09-18T10:00:00.000Z","y":66},{"t":"2020-09-18T11:00:00.000Z","y":66},{"t":"2020-09-18T12:00:00.000Z","y":64},{"t":"2020-09-18T13:00:00.000Z","y":66},{"t":"2020-09-18T14:00:00.000Z","y":65},{"t":"2020-09-18T15:00:00.000Z","y":68},{"t":"2020-09-18T16:00:00.000Z","y":107},{"t":"2020-09-18T17:00:00.000Z","y":77},{"t":"2020-09-18T18:00:00.000Z","y":2}],
+    week: [{"t":"2020-09-12T07:00:00.000Z","y":1781},{"t":"2020-09-13T07:00:00.000Z","y":1616},{"t":"2020-09-14T07:00:00.000Z","y":1849},{"t":"2020-09-15T07:00:00.000Z","y":1874},{"t":"2020-09-16T07:00:00.000Z","y":2615},{"t":"2020-09-17T07:00:00.000Z","y":2091},{"t":"2020-09-18T07:00:00.000Z","y":781}],
+    month: [{"t":"2020-08-20T07:00:00.000Z","y":2292},{"t":"2020-08-21T07:00:00.000Z","y":1745},{"t":"2020-08-22T07:00:00.000Z","y":1850},{"t":"2020-08-23T07:00:00.000Z","y":1622},{"t":"2020-08-24T07:00:00.000Z","y":1764},{"t":"2020-08-25T07:00:00.000Z","y":1875},{"t":"2020-08-26T07:00:00.000Z","y":1908},{"t":"2020-08-27T07:00:00.000Z","y":2027},{"t":"2020-08-28T07:00:00.000Z","y":1637},{"t":"2020-08-29T07:00:00.000Z","y":1723},{"t":"2020-08-30T07:00:00.000Z","y":1989},{"t":"2020-08-31T07:00:00.000Z","y":1832},{"t":"2020-09-01T07:00:00.000Z","y":1940},{"t":"2020-09-02T07:00:00.000Z","y":1897},{"t":"2020-09-03T07:00:00.000Z","y":2232},{"t":"2020-09-04T07:00:00.000Z","y":2181},{"t":"2020-09-05T07:00:00.000Z","y":1694},{"t":"2020-09-06T07:00:00.000Z","y":1819},{"t":"2020-09-07T07:00:00.000Z","y":1860},{"t":"2020-09-08T07:00:00.000Z","y":1873},{"t":"2020-09-09T07:00:00.000Z","y":2003},{"t":"2020-09-10T07:00:00.000Z","y":1867},{"t":"2020-09-11T07:00:00.000Z","y":1843},{"t":"2020-09-12T07:00:00.000Z","y":1781},{"t":"2020-09-13T07:00:00.000Z","y":1616},{"t":"2020-09-14T07:00:00.000Z","y":1849},{"t":"2020-09-15T07:00:00.000Z","y":1874},{"t":"2020-09-16T07:00:00.000Z","y":2615},{"t":"2020-09-17T07:00:00.000Z","y":2091},{"t":"2020-09-18T07:00:00.000Z","y":781}]
+  }
 };
 
 @Component({
@@ -22,13 +34,13 @@ export class ChartComponent implements OnInit {
   @ViewChild('overlay', { static: true }) overlay: ElementRef<HTMLCanvasElement>;
   loaded: boolean;
   timeChart: any;
-  segmentedControlValue: string;
+  segControlValue: string;
   chartData: object[];
   knobValues: object;
   selectedTimeRange: object;
 
-  @Input() dataSum: number;
-  @Output() dataSumChanged = new EventEmitter<number>(true);
+  @Input() dataValue: number;
+  @Output() dataValueChanged = new EventEmitter<number>(true);
 
   constructor(
     private platform: Platform,
@@ -36,7 +48,7 @@ export class ChartComponent implements OnInit {
     public global: GlobalDataService
   ) {
     this.loaded = false;
-    this.segmentedControlValue = "day";
+    this.segControlValue = "day";
     this.chartData = [];
     this.knobValues = {
       lower: 0,
@@ -49,24 +61,24 @@ export class ChartComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.testHealth();
     if (USING_HEALTH_DATA) {
-      this.updateChartFromHealthData(false);
+      this.setup();
     }
-    else { this.updateChart(SAMPLE_DATA[this.segmentedControlValue], false); }
+    else {
+      this.updateChartData(SAMPLE_DATA[this.global.stickerInfo.domain][this.segControlValue]);
+      this.updateChart(false);
+    }
   }
 
-  testHealth() {
+  setup() {
     this.health.isAvailable()
-    .then((available:boolean) => {
-      console.log(available);
-      this.health.requestAuthorization([
-        'distance', 'nutrition',  //read and write permissions
-        {
-          read: ['steps'],       //read only permission
-          write: ['height', 'weight']  //write only permission
-        }
-      ])
+    .then(() => {
+      this.health.requestAuthorization([{
+          read: ['steps', 'heart_rate', 'calories']
+      }])
+      .then(() => {
+        this.updateChartFromHealthData(false);
+      })
       .catch(e => console.log(e));
     })
     .catch(e => console.log(e));
@@ -76,46 +88,99 @@ export class ChartComponent implements OnInit {
     this.queryHealthData()
     .then((res) => {
       let data = this.createTimeObjectArray(res);
-      this.updateChart(data, chartAlreadyGenerated);
+      this.updateChartData(data);
+      this.updateChart(chartAlreadyGenerated);
     })
     .catch((e) => {
       console.log(e)
     });
   }
 
-  queryHealthData() {
-    let numDaysPerUnit = {day: 1, week: 7, month: 30};
-    let buckets = {day: "hour", week: "day", month: "day"};
+  async queryHealthData() {
+    const numBucketsPerUnit = {day: 24, week: 7, month: 30};
+    const numBuckets = numBucketsPerUnit[this.segControlValue];
 
-    return this.health.queryAggregated({
-      startDate: new Date(new Date().getTime() - numDaysPerUnit[this.segmentedControlValue] * 24 * 60 * 60 * 1000),
-      endDate: new Date(), // now
-      dataType: 'steps',
-      bucket: buckets[this.segmentedControlValue],
-    });
+    const bucketPerUnit = {day: "hour", week: "day", month: "day"};
+    const bucket = bucketPerUnit[this.segControlValue];
+
+    const startDate = moment().subtract({[`${bucket}s`]: numBuckets - 1}).startOf(bucket);
+
+    const domainToDataType = {steps: "steps", heartbeat: "heart_rate", calories: "calories"};
+    const dataType = domainToDataType[this.global.stickerInfo.domain];
+
+    if (dataType == "heart_rate") {
+      return new Promise((resolve, reject) => {
+        this.health.query({
+          startDate: startDate.toDate(),
+          endDate: new Date(), // now
+          dataType: dataType,
+          limit: 50000,
+          ascending: true
+        })
+        .then((res) => {
+          debugger;
+          let result = new Array(numBuckets);
+
+          for (var i = 0; i < numBuckets; i++) {
+            result[i] = {
+              startDate: startDate.clone().add({[`${bucket}s`]: i}).toDate(),
+              value: 0,
+              count: 0
+            };
+          }
+
+          res.forEach(element => {
+            const timeOffset = moment(element.startDate).diff(startDate, <moment.unitOfTime.DurationConstructor>`${bucket}s`);
+            result[timeOffset].value += element.value;
+            result[timeOffset].count++;
+          });
+
+          result.forEach(element => {
+            element.value = element.count > 0 ? Math.round(element.value / element.count) : 0;
+          });
+
+          console.log(`Result: ${result}`);
+          resolve(result);
+        });
+      });
+    }
+    else {
+      return this.health.queryAggregated({
+        startDate: startDate.toDate(),
+        endDate: new Date(), // now
+        dataType: dataType,
+        bucket: bucket
+      });
+    }
+
   }
 
-  updateChart(data: any[], chartAlreadyGenerated: boolean) {
-    this.updateChartData(data);
+  updateChart(chartAlreadyGenerated: boolean) {
     if (chartAlreadyGenerated) {
-      this.timeChart.data.datasets[0].data = data;
-      this.timeChart.data.datasets[0].backgroundColor = this.createColorArray();
+      this.timeChart.data.datasets[0].data = this.chartData;
+      if (this.global.stickerInfo.domain == 'heartbeat') {
+        this.timeChart.data.datasets[0].borderColor = this.createColorArray();
+      } else {
+        this.timeChart.data.datasets[0].backgroundColor = this.createColorArray();
+      }
       this.timeChart.update();
     }
     else {
-      this.timeChart = new Chart("myChart", this.chartProperties(data));
+      this.timeChart = new Chart("myChart", this.chartProperties(this.chartData));
     }
     this.loaded = true;
     this.redrawOverlay();
   }
 
   chartProperties(data: any[]) {
+    const chartType = this.global.stickerInfo.domain == 'heartbeat' ? 'line' : 'bar';
+    const colorType = this.global.stickerInfo.domain == 'heartbeat' ? 'borderColor' : 'backgroundColor';
     return {
-      type: 'bar',
+      type: chartType,
       data: {
         datasets: [{
           data: data,
-          backgroundColor: this.createColorArray()
+          [colorType]: this.createColorArray()
         }],
       },
       options: {
@@ -152,9 +217,9 @@ export class ChartComponent implements OnInit {
   }
 
   createColorArray() {
+    const baseColor = this.global.domain_info[this.global.stickerInfo.domain]['color'];
+    const fadedColor = this.createFadedColor(baseColor, 0.3);
     let colorArray = [];
-    let baseColor = this.global.domain_info[this.global.stickerInfo.domain]['color'];
-    let fadedColor = this.createFadedColor(baseColor, 0.3);
     for(let i = 0; i < this.knobValues['lower']; i++) {
       colorArray.push(fadedColor);
     }
@@ -168,16 +233,16 @@ export class ChartComponent implements OnInit {
   }
 
   createFadedColor(baseColor, a) {
-    let r = "0x" + baseColor[1] + baseColor[2];
-    let g = "0x" + baseColor[3] + baseColor[4];
-    let b = "0x" + baseColor[5] + baseColor[6];
+    const r = "0x" + baseColor[1] + baseColor[2];
+    const g = "0x" + baseColor[3] + baseColor[4];
+    const b = "0x" + baseColor[5] + baseColor[6];
     return "rgba("+ +r + "," + +g + "," + +b + "," + +a + ")";
   }
 
   redrawOverlay() {
+    const width = this.platform.width() - 50 - 20;
+    const height = (this.platform.width() / 1.25) - 7 - 50;
     var ctx: CanvasRenderingContext2D = this.overlay.nativeElement.getContext('2d');
-    let width = this.platform.width() - 50 - 20;
-    let height = (this.platform.width() / 1.25) - 7 - 50;
     ctx.canvas.width  = width;
     ctx.canvas.height = height;
     ctx.clearRect(0, 0, width, height);
@@ -187,11 +252,14 @@ export class ChartComponent implements OnInit {
   }
 
   segmentChanged(ev: any) {
-    this.segmentedControlValue = ev.detail.value;
+    this.segControlValue = ev.detail.value;
     if (USING_HEALTH_DATA) {
       this.updateChartFromHealthData(true);
     }
-    else { this.updateChart(SAMPLE_DATA[this.segmentedControlValue], true); }
+    else {
+      this.updateChartData(SAMPLE_DATA[this.global.stickerInfo.domain][this.segControlValue]);
+      this.updateChart(true);
+    }
   }
 
   updateChartData(chartData: object[]) {
@@ -207,37 +275,58 @@ export class ChartComponent implements OnInit {
 
   rangeSliderChanged() {
     this.updateDataInfo();
-    this.timeChart.data.datasets[0].backgroundColor = this.createColorArray();
-    this.redrawOverlay();
-    this.timeChart.update();
+    this.updateChart(true);
+    // if (this.global.stickerInfo.domain == 'heartbeat') {
+    //   this.timeChart.data.datasets[0].borderColor = this.createColorArray();
+    // } else {
+    //   this.timeChart.data.datasets[0].backgroundColor = this.createColorArray();
+    // }
+    // this.redrawOverlay();
+    // this.timeChart.update();
   }
 
   updateDataInfo() {
     this.updateSelectedTimeRange();
-    this.updateDataSum();
+    this.updateDataValue();
   }
 
   updateSelectedTimeRange() {
-    let buckets = {day: "hours", week: "days", month: "days"}
-    let formatStrings: object = {hours: "hA", days: "MMM D"}
+    const buckets = {day: "hours", week: "days", month: "days"}
+    const formatStrings: object = {hours: "hA", days: "MMM D"}
 
-    let initialMoment = moment(this.chartData[0]['t']);
-    let moments = {
-      start: initialMoment.clone().add(this.knobValues['lower'], buckets[this.segmentedControlValue]),
-      end: initialMoment.clone().add(this.knobValues['upper'], buckets[this.segmentedControlValue]),
+    const initialMoment = moment(this.chartData[0]['t']);
+    const moments = {
+      start: initialMoment.clone().add(this.knobValues['lower'], buckets[this.segControlValue]),
+      end: initialMoment.clone().add(this.knobValues['upper'], buckets[this.segControlValue]),
     }
 
-    for (let moment in moments) {
-      this.selectedTimeRange[moment] = moments[moment].format(formatStrings[buckets[this.segmentedControlValue]]);
+    for (const moment in moments) {
+      this.selectedTimeRange[moment] = moments[moment].format(formatStrings[buckets[this.segControlValue]]);
     }
   }
 
-  updateDataSum() {
-    let sum = 0;
+  updateDataValue() {
+    let value = 0;
+    let count = 0;
     for (var i = this.knobValues['lower']; i < this.knobValues['upper']; i++) {
-      sum += this.chartData[i]['y'];
+      if (this.chartData[i]['y'] != 0) {
+        value += this.chartData[i]['y'];
+        count++;
+      }
     }
-    this.dataSumChanged.emit(sum);
+    if (count != 0) {
+      if (this.global.stickerInfo.domain == 'heartbeat') {
+        const average = Math.round(((value / count) + Number.EPSILON) * 10) / 10;
+        this.dataValueChanged.emit(average);
+      }
+      else {
+        this.dataValueChanged.emit(value);
+      }
+    }
+    else {
+      this.dataValueChanged.emit(0);
+    }
+
   }
 
   createTimeObjectArray(res) {

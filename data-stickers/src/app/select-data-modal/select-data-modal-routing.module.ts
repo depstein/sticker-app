@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { ChartModalPage } from './chart-modal.page';
+import { SelectDataModalPage } from './select-data-modal.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: ChartModalPage
+    component: SelectDataModalPage
   }
 ];
 

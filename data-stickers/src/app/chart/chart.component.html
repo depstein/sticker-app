@@ -44,9 +44,9 @@
       No data selected
     </span>
     <ng-template #elseBlock>
-      {{ selectedTimeRange['start'] }} - {{ selectedTimeRange['end'] }}
+      {{ selectedTimeRange['start'] }} - {{ knobValues['upper'] == chartData.length ? 'Now' : selectedTimeRange['end'] }}
       <br>
-      Number of steps: {{ dataSum }}
+      {{ global.stickerInfo.domain == 'heartbeat' ? 'Average' : 'Number of' }} {{ global.stickerInfo.domain }}: {{ dataValue }}
     </ng-template>
   </p>
 </div>

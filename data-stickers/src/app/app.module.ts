@@ -14,12 +14,14 @@ import { GlobalDataService } from "./global-data.service";
 import { File } from "@ionic-native/file/ngx";
 import { SocialSharing } from "@ionic-native/social-sharing/ngx";
 import { IonicStorageModule } from "@ionic/storage";
+import { ModalController } from '@ionic/angular';
+import { ModalPage } from '../app/modals/modal/modal.page'
+import { SelectunitPage} from '../app/modals/selectunit/selectunit.page';
 
 import { Health } from '@ionic-native/health/ngx';
 
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
+  declarations: [AppComponent,ModalPage,SelectunitPage],
   imports: [
     BrowserModule,
     IonicModule.forRoot({ animated: false }),
@@ -38,5 +40,6 @@ import { Health } from '@ionic-native/health/ngx';
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  entryComponents: [ModalPage,SelectunitPage]
 })
 export class AppModule {}

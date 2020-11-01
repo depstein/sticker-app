@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { ChartModalPage } from './chart-modal.page';
+import { FoodItemComponent } from './food-item.component';
 
-describe('ChartModalPage', () => {
-  let component: ChartModalPage;
-  let fixture: ComponentFixture<ChartModalPage>;
+describe('FoodItemComponent', () => {
+  let component: FoodItemComponent;
+  let fixture: ComponentFixture<FoodItemComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ChartModalPage ],
+      declarations: [ FoodItemComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ChartModalPage);
+    fixture = TestBed.createComponent(FoodItemComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));
