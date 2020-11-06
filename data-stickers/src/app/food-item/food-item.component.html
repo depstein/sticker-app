@@ -1,9 +1,15 @@
 <img [src]="imageUrl" [alt]="itemName">
 <ion-label class="food-item-label">
   <h2>{{ itemName }}</h2>
-  <h3>1 portion</h3>
+  <h3><strong>{{ numCalories}} cal</strong> per 1 portion</h3>
+  <ion-chip>
+    <ion-icon name="remove-circle"></ion-icon>
+    <!-- <ion-icon name="pin" color="primary"></ion-icon> -->
+    <ion-label>Icon Chip</ion-label>
+    <ion-icon name="add-circle"></ion-icon>
+</ion-chip>
+
 </ion-label>
 <ion-label class="calorie-label">
-  <h2>{{ numCalories }}</h2>
-  <h3>cal</h3>
+  <h2>{{ numCalories }}<small> cal</small></h2>
 </ion-label>
