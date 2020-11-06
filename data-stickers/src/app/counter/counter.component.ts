@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 import { GlobalDataService } from "./../global-data.service";
 
 @Component({
@@ -8,8 +8,22 @@ import { GlobalDataService } from "./../global-data.service";
 })
 export class CounterComponent implements OnInit {
 
+  @Input() counterValue: number;
+  @Output() counterValueChanged = new EventEmitter<number>(true);
+
   constructor(public global: GlobalDataService) { }
 
   ngOnInit() {}
+
+  increment() {
+    this.counterValue++;
+    this.counterValueChanged.emit(this.counterValue);
+    updateCounterValue();
+  }
+
+  decrement() {
+    this.counterValue--;
+    this.counterValueChanged.emit(this.counterValue);
+  }
 
 }
