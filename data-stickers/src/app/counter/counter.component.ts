@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GlobalDataService } from "./../global-data.service";
 
 @Component({
   selector: 'app-counter',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CounterComponent implements OnInit {
 
-  constructor() { }
+  constructor(public global: GlobalDataService) { }
 
   ngOnInit() {}
 
