@@ -11,7 +11,7 @@ import { SelectDataModalPage } from './select-data-modal.page';
 import { ChartComponent } from "../chart/chart.component";
 import { FoodSelectionComponent } from "../food-selection/food-selection.component";
 import { FoodItemComponent } from "../food-item/food-item.component";
-import { CounterComponent } from "../food-item/counter.component";
+import { CounterComponent } from "../counter/counter.component";
 
 
 
