@@ -1,10 +1,11 @@
-<ion-button fill="clear" size="small" (click)="decrement()">
+<ion-button class="left-button" fill="clear" size="small" (click)="decrement()">
   <ion-icon name="remove-circle" color="{{ global.stickerInfo.domain }}"></ion-icon>
 </ion-button>
 
-<ion-input type="text" pattern="[0-9]*" minlength="0" maxlength="2" [(ngModel)]="counterValue" (ngModelChange)="updateCounterValue()"></ion-input>
+<div class="input-div">
+  <ion-input text-center type="text" pattern="[0-9]*" minlength="0" maxlength="2" [(ngModel)]="counterValue"></ion-input>
+</div>
 
-
-<ion-button fill="clear" size="small" (click)="increment()">
+<ion-button class="right-button" fill="clear" size="small" (click)="increment()">
   <ion-icon name="add-circle" color="{{ global.stickerInfo.domain }}"></ion-icon>
 </ion-button>
