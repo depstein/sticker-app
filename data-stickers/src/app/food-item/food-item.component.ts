@@ -10,16 +10,15 @@ export class FoodItemComponent implements OnInit {
   @Input() imageUrl: string;
   @Input() itemName: string;
   @Input() numCalories: number;
-  @Input() totalCalories: number;
   @Output() totalCaloriesChanged = new EventEmitter<number>(true);
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {}
 
-  onCounterValueChanged(counterValue: number) {
-    // this.totalCaloriesChanged.emit(this.numCalories * counterValue);
-    this.totalCalories = this.numCalories * counterValue;
+  onCounterValueChanged(counterValueChange: number) {
+    this.totalCaloriesChanged.emit(this.numCalories * counterValueChange);
   }
 
 }

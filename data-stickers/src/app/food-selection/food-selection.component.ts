@@ -7,8 +7,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FoodSelectionComponent implements OnInit {
 
-  constructor() { }
+  totalCalories: number;
+
+  constructor() {
+    this.totalCalories = 0;
+  }
 
   ngOnInit() {}
+
+  onTotalCaloriesChanged(calorieChange: number) {
+    this.totalCalories += calorieChange;
+    console.log(this.totalCalories);
+
+  }
 
 }
