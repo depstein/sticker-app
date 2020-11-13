@@ -8,12 +8,14 @@ import { GlobalDataService } from "./../global-data.service";
   styleUrls: ['./select-data-modal.page.scss'],
 })
 export class SelectDataModalPage implements OnInit {
+  totalCalories: number;
   dataValue: number;
 
   constructor(
     public viewCtrl: ModalController,
     public global: GlobalDataService)
     {
+    this.totalCalories = 0;
     this.dataValue = 0;
   }
 
@@ -24,6 +26,12 @@ export class SelectDataModalPage implements OnInit {
     this.viewCtrl.dismiss({
       sum: this.dataValue
     });
+  }
+
+  onTotalCaloriesChanged(totalCalories: number) {
+    this.totalCalories = totalCalories;
+    console.log(this.totalCalories);
+
   }
 
   onDataValueChanged(dataValue: number) {
