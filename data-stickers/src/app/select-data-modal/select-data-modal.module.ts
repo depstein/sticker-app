@@ -12,7 +12,6 @@ import { ChartComponent } from "../chart/chart.component";
 import { FoodSelectionComponent } from "../food-selection/food-selection.component";
 import { FoodItemComponent } from "../food-item/food-item.component";
 import { CounterComponent } from "../counter/counter.component";
-import { TotalCaloriesToastComponent } from "../total-calories-toast/total-calories-toast.component";
 
 
 
@@ -29,7 +28,6 @@ import { TotalCaloriesToastComponent } from "../total-calories-toast/total-calor
     FoodSelectionComponent,
     FoodItemComponent,
     CounterComponent,
-    TotalCaloriesToastComponent,
   ]
 })
 export class ChartModalPageModule {}
