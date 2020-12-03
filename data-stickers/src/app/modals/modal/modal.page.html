@@ -13,7 +13,7 @@
 </ion-header>
 
 <ion-content>
-    <ion-item>
+    <ion-item lines="none">
         <ion-label class="selection">Select Category</ion-label>
         <ion-select class="selection" [interfaceOptions]="customPopoverOptions" interface="popover" [(ngModel)]="option" (ionChange)="typeChanged($event)">
             <ion-select-option value="songs">Songs</ion-select-option>
@@ -21,13 +21,14 @@
             <ion-select-option value="albums">Albums</ion-select-option>
         </ion-select>
     </ion-item>
-    <ion-item>
+    <ion-item lines="none">
         <ion-label class="selection">Select Time</ion-label>
         <ion-select class="selection" [interfaceOptions]="customPopoverOptions" interface="popover" [(ngModel)]="selectUnit" (ionChange)="unitChanged($event)">
             <ion-select-option value="hour">Last Hour</ion-select-option>
             <ion-select-option value="day">Last Day</ion-select-option>
             <ion-select-option value="week">Last Week</ion-select-option>
             <ion-select-option value="month">Last Month</ion-select-option>
+            <ion-select-option value="all">All</ion-select-option>
         </ion-select>
     </ion-item>
 

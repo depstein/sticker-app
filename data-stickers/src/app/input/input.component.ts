@@ -4,9 +4,9 @@ import { GlobalDataService } from "./../global-data.service";
 import { SpotifyService } from "../spotify.service";
 import { ModalController } from "@ionic/angular";
 import { ModalPage } from "../modals/modal/modal.page";
-import { conditionallyCreateMapObjectLiteral } from '@angular/compiler/src/render3/view/util';
+import { conditionallyCreateMapObjectLiteral } from "@angular/compiler/src/render3/view/util";
 
-import { ChartModalPage } from '../chart-modal/chart-modal.page';
+import { ChartModalPage } from "../chart-modal/chart-modal.page";
 
 @Component({
   selector: "app-input",
@@ -156,7 +156,9 @@ export class InputComponent implements OnInit {
         }
       }
     }
-    return result.toFixed(2);
+    if (result != null) {
+      return result.toFixed(2);
+    }
   }
 
   // Bound to onChange event for input box
@@ -382,6 +384,17 @@ export class InputComponent implements OnInit {
 
   //Get all recenly played list including songs, artists and albums
   getplaylist() {
+    var before = new Date().getTime();
+    //*1000 convert timestamp to unix time
+    var lastHourTime =
+      parseInt(String((before - 60 * 60 * 1000) / 1000)) * 1000;
+    var lastDayTime =
+      parseInt(String((before - 24 * 60 * 60 * 1000) / 1000)) * 1000;
+    var lastWeekTime =
+      parseInt(String((before - 7 * 24 * 60 * 60 * 1000) / 1000)) * 1000;
+    var lastMonthTime =
+      parseInt(String((before - 30 * 24 * 60 * 60 * 1000) / 1000)) * 1000;
+
     this.spotifyService
       .sendRequestToExpress("/recently-played")
       .then((data) => {
@@ -392,6 +405,7 @@ export class InputComponent implements OnInit {
                 times: 1,
                 minutes: 0,
                 hours: 0,
+                chart: { hour: [], day: [], week: [], month: [] },
               };
               this.songName[song["track"]["name"]]["minutes"] = Number(
                 (song["track"]["duration_ms"] / 1000 / 60).toFixed(2)
@@ -399,6 +413,36 @@ export class InputComponent implements OnInit {
               this.songName[song["track"]["name"]]["hours"] = Number(
                 (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
               );
+              var playAt = new Date(song["played_at"]).getTime();
+              if (playAt >= lastHourTime) {
+                //times of playing = number of object
+                this.songName[song["track"]["name"]]["chart"]["hour"].push({
+                  t: song["played_at"],
+                  minute: song["track"]["duration_ms"] / 1000 / 60,
+                  hour: song["track"]["duration_ms"] / 1000 / 60 / 60,
+                });
+              }
+              if (playAt >= lastDayTime) {
+                this.songName[song["track"]["name"]]["chart"]["day"].push({
+                  t: song["played_at"],
+                  minute: song["track"]["duration_ms"] / 1000 / 60,
+                  hour: song["track"]["duration_ms"] / 1000 / 60 / 60,
+                });
+              }
+              if (playAt >= lastWeekTime) {
+                this.songName[song["track"]["name"]]["chart"]["week"].push({
+                  t: song["played_at"],
+                  minute: song["track"]["duration_ms"] / 1000 / 60,
+                  hour: song["track"]["duration_ms"] / 1000 / 60 / 60,
+                });
+              }
+              if (playAt >= lastMonthTime) {
+                this.songName[song["track"]["name"]]["chart"]["month"].push({
+                  t: song["played_at"],
+                  minute: song["track"]["duration_ms"] / 1000 / 60,
+                  hour: song["track"]["duration_ms"] / 1000 / 60 / 60,
+                });
+              }
             } else {
               this.songName[song["track"]["name"]]["times"] += 1;
               this.songName[song["track"]["name"]]["minutes"] += Number(
@@ -407,6 +451,35 @@ export class InputComponent implements OnInit {
               this.songName[song["track"]["name"]]["hours"] += Number(
                 (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
               );
+              if (playAt >= lastHourTime) {
+                //times of playing = number of object
+                this.songName[song["track"]["name"]]["chart"]["hour"].push({
+                  t: song["played_at"],
+                  minute: song["track"]["duration_ms"] / 1000 / 60,
+                  hour: song["track"]["duration_ms"] / 1000 / 60 / 60,
+                });
+              }
+              if (playAt >= lastDayTime) {
+                this.songName[song["track"]["name"]]["chart"]["day"].push({
+                  t: song["played_at"],
+                  minute: song["track"]["duration_ms"] / 1000 / 60,
+                  hour: song["track"]["duration_ms"] / 1000 / 60 / 60,
+                });
+              }
+              if (playAt >= lastWeekTime) {
+                this.songName[song["track"]["name"]]["chart"]["week"].push({
+                  t: song["played_at"],
+                  minute: song["track"]["duration_ms"] / 1000 / 60,
+                  hour: song["track"]["duration_ms"] / 1000 / 60 / 60,
+                });
+              }
+              if (playAt >= lastMonthTime) {
+                this.songName[song["track"]["name"]]["chart"]["month"].push({
+                  t: song["played_at"],
+                  minute: song["track"]["duration_ms"] / 1000 / 60,
+                  hour: song["track"]["duration_ms"] / 1000 / 60 / 60,
+                });
+              }
             }
 
             for (var a of song["track"]["album"]["artists"]) {
@@ -463,13 +536,17 @@ export class InputComponent implements OnInit {
       });
   }
 
-  getPlaylistOfDifferentTime(data){
+  getPlaylistOfDifferentTime(data) {
     var before = new Date().getTime();
     //*1000 convert timestamp to unix time
-    var lastHourTime = (parseInt(String((before - 60 * 60 * 1000)  / 1000)))*1000;
-    var lastDayTime = (parseInt(String((before - 24 * 60 * 60 * 1000) / 1000)))*1000;
-    var lastWeekTime = (parseInt(String((before - 7 * 24 * 60 * 60 * 1000) / 1000)))*1000;
-    var lastMonthTime =  (parseInt(String((before - 30 * 24 * 60 * 60 * 1000) / 1000)))* 1000;
+    var lastHourTime =
+      parseInt(String((before - 60 * 60 * 1000) / 1000)) * 1000;
+    var lastDayTime =
+      parseInt(String((before - 24 * 60 * 60 * 1000) / 1000)) * 1000;
+    var lastWeekTime =
+      parseInt(String((before - 7 * 24 * 60 * 60 * 1000) / 1000)) * 1000;
+    var lastMonthTime =
+      parseInt(String((before - 30 * 24 * 60 * 60 * 1000) / 1000)) * 1000;
 
     let lastHourSongName = { songName: { times: 1, minutes: 0, hours: 0 } };
     let lastHourArtists = { artistName: { times: 1, minutes: 0, hours: 0 } };
@@ -488,11 +565,10 @@ export class InputComponent implements OnInit {
     let lastMonthAlbums = { albums: { times: 1, minutes: 0, hours: 0 } };
 
     if (data["items"] != null) {
-      
       for (var song of data["items"]) {
         var playAt = new Date(song["played_at"]).getTime();
         // last hour
-        console.log("time check",playAt,lastHourTime)
+        console.log("time check", playAt, lastHourTime);
         if (playAt >= lastHourTime) {
           if (!Object.keys(lastHourSongName).includes(song["track"]["name"])) {
             lastHourSongName[song["track"]["name"]] = {
@@ -535,7 +611,11 @@ export class InputComponent implements OnInit {
               );
             }
           }
-          if (!Object.keys(lastHourAlbums).includes(song["track"]["album"]["name"])) {
+          if (
+            !Object.keys(lastHourAlbums).includes(
+              song["track"]["album"]["name"]
+            )
+          ) {
             lastHourAlbums[song["track"]["album"]["name"]] = {
               times: 1,
               minutes: 0,
@@ -556,10 +636,9 @@ export class InputComponent implements OnInit {
               (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
             );
           }
-         
         }
         // last day
-        if(playAt >= lastDayTime){
+        if (playAt >= lastDayTime) {
           if (!Object.keys(lastDaySongName).includes(song["track"]["name"])) {
             lastDaySongName[song["track"]["name"]] = {
               times: 1,
@@ -601,7 +680,9 @@ export class InputComponent implements OnInit {
               );
             }
           }
-          if (!Object.keys(lastDayAlbums).includes(song["track"]["album"]["name"])) {
+          if (
+            !Object.keys(lastDayAlbums).includes(song["track"]["album"]["name"])
+          ) {
             lastDayAlbums[song["track"]["album"]["name"]] = {
               times: 1,
               minutes: 0,
@@ -622,10 +703,9 @@ export class InputComponent implements OnInit {
               (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
             );
           }
-          
         }
         //lastweek
-        if(playAt >= lastWeekTime){
+        if (playAt >= lastWeekTime) {
           if (!Object.keys(lastWeekSongName).includes(song["track"]["name"])) {
             lastWeekSongName[song["track"]["name"]] = {
               times: 1,
@@ -667,7 +747,11 @@ export class InputComponent implements OnInit {
               );
             }
           }
-          if (!Object.keys(lastWeekAlbums).includes(song["track"]["album"]["name"])) {
+          if (
+            !Object.keys(lastWeekAlbums).includes(
+              song["track"]["album"]["name"]
+            )
+          ) {
             lastWeekAlbums[song["track"]["album"]["name"]] = {
               times: 1,
               minutes: 0,
@@ -688,10 +772,9 @@ export class InputComponent implements OnInit {
               (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
             );
           }
-          
         }
-        //last month 
-        if(playAt >= lastMonthTime){
+        //last month
+        if (playAt >= lastMonthTime) {
           if (!Object.keys(lastMonthSongName).includes(song["track"]["name"])) {
             lastMonthSongName[song["track"]["name"]] = {
               times: 1,
@@ -733,7 +816,11 @@ export class InputComponent implements OnInit {
               );
             }
           }
-          if (!Object.keys(lastMonthAlbums).includes(song["track"]["album"]["name"])) {
+          if (
+            !Object.keys(lastMonthAlbums).includes(
+              song["track"]["album"]["name"]
+            )
+          ) {
             lastMonthAlbums[song["track"]["album"]["name"]] = {
               times: 1,
               minutes: 0,
@@ -747,16 +834,14 @@ export class InputComponent implements OnInit {
             );
           } else {
             lastMonthAlbums[song["track"]["album"]["name"]]["times"] += 1;
-            lastMonthAlbums[song["track"]["album"]["name"]]["minutes"] += Number(
-              (song["track"]["duration_ms"] / 1000 / 60).toFixed(2)
-            );
+            lastMonthAlbums[song["track"]["album"]["name"]][
+              "minutes"
+            ] += Number((song["track"]["duration_ms"] / 1000 / 60).toFixed(2));
             lastMonthAlbums[song["track"]["album"]["name"]]["hours"] += Number(
               (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
             );
           }
-
         }
-        
       }
       this.lastHour.push(lastHourSongName);
       this.lastHour.push(lastHourArtists);
@@ -771,10 +856,8 @@ export class InputComponent implements OnInit {
       this.lastMonth.push(lastMonthArtists);
       this.lastMonth.push(lastMonthAlbums);
     }
-          
   }
-
-  
+  getChartInfo() {}
 
   async presentModal() {
     const modal = await this.modalController.create({
@@ -790,19 +873,28 @@ export class InputComponent implements OnInit {
         month: this.lastMonth,
       },
     });
-    console.log("check","day",this.lastDay,"hour",this.lastHour,"week",this.lastWeek,"month",this.lastMonth)
+    console.log(
+      "check",
+      "day",
+      this.lastDay,
+      "hour",
+      this.lastHour,
+      "week",
+      this.lastWeek,
+      "month",
+      this.lastMonth
+    );
     return await modal.present();
   }
 
-
   async openModal() {
     const modal = await this.modalController.create({
-      component: ChartModalPage
+      component: ChartModalPage,
     });
-    modal.onDidDismiss().then(data=>{
+    modal.onDidDismiss().then((data) => {
       this.global.stickerInfo.value = data.data.sum;
       this.updateInputValue();
-    })
+    });
     return await modal.present();
   }
 }

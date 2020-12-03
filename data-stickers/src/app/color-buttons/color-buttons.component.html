@@ -1,11 +1,11 @@
 <ion-item lines="none">
-	<ion-row>
+    <ion-row>
 
-		<ion-col *ngFor="let color of colors">
-      <ion-button (click)="updateColor(color)" color="white" shape="round" [style.background-color]="color">
-        <ion-icon *ngIf="global.stickerInfo.color == color" name="checkmark" routerLinkActive="active" ></ion-icon>
-			</ion-button>
-		</ion-col>
+        <ion-col *ngFor="let color of colors">
+            <ion-button (click)="updateColor(color)" color="white" shape="round" [style.background-color]="color">
+                <ion-icon *ngIf="global.stickerInfo.color == color" name="checkmark" routerLinkActive="active"></ion-icon>
+            </ion-button>
+        </ion-col>
 
-	</ion-row>
+    </ion-row>
 </ion-item>
