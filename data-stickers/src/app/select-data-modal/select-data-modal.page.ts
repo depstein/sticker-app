@@ -24,7 +24,7 @@ export class SelectDataModalPage implements OnInit {
 
   dismiss() {
     this.viewCtrl.dismiss({
-      sum: this.dataValue
+      sum: this.global.stickerInfo.domain == 'calories' ? this.totalCalories : this.dataValue
     });
   }
 
