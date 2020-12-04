@@ -22,32 +22,25 @@ export class ModalPage implements OnInit {
   currentCategory:any;
 
   constructor(public modalController: ModalController) { 
-    this.option = "songs";
-    this.selectUnit = "month";
-    // set the default selection (SongName and LastMonth)
-    // let arr = [];
-    // let songName = {"songName":{'times':1,"minutes":0,"hours":0}};
-    // let artists= {"artistName":{'times':1,"minutes":0,"hours":0}};
-    // let albums = {"albums":{'times':1,"minutes":0,"hours":0}};
-    // songName = this.month[0];
-    // artists = this.month[1];
-    // albums = this.month[2];
-    // if(this.songName != null){
-    //     for(var songname of Object.keys(this.songName) ){
-    //       if(songname != undefined && songname != null && songname != "songName"){
-    //         arr.push(songname);
-    //       } 
-    //     }
-    //   }
-    // this.type = arr;
-      
-    
-    console.log(this.hour, this.day,this.week, this.month);
+     
   }
 
   ngOnInit() {
-    this.currentCategory = "songs";
+    this.option = "songs";
     this.selectUnit = "month";
+    // set the default selection (SongName and LastMonth)
+    let songName = {"songName":{'times':1,"minutes":0,"hours":0}};
+    songName = this.month[0];
+    let arr = [];
+      if(songName != null){
+        for(var songname of Object.keys(songName) ){
+          if(songname != undefined && songname != null && songname != "songName"){
+            arr.push(songname);
+          }
+        }
+      }
+      this.type = arr;
+    
   }
   
   dismiss() {
@@ -134,27 +127,22 @@ export class ModalPage implements OnInit {
     let albums = {"albums":{'times':1,"minutes":0,"hours":0}};
     this.selectUnit =  selected["detail"]["value"];
     if( this.selectUnit == "hour"){
-      console.log(this.hour[0]);
       songName = this.hour[0];
       artists = this.hour[1];
       albums = this.hour[2];
     }else if(this.selectUnit == "day"){
-      console.log(this.day[0]);
       songName = this.day[0];
       artists = this.day[1];
       albums = this.day[2];
     }else if(this.selectUnit == "week"){
-      console.log(this.week[0]);
       songName = this.week[0];
       artists = this.week[1];
       albums = this.week[2];
     }else if(this.selectUnit== "month"){
-      console.log(this.month[0]);
       songName = this.month[0];
       artists = this.month[1];
       albums = this.month[2];
     }
-
     //change what will show in HTML according the current category based on the selected time range above.
     if(this.currentCategory == "songs"){
       let arr1 = [];
