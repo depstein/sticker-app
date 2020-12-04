@@ -7,6 +7,7 @@ import { ModalPage } from "../modals/modal/modal.page";
 import { conditionallyCreateMapObjectLiteral } from "@angular/compiler/src/render3/view/util";
 
 import { ChartModalPage } from "../chart-modal/chart-modal.page";
+import { V4MAPPED } from "dns";
 
 @Component({
   selector: "app-input",
@@ -382,7 +383,7 @@ export class InputComponent implements OnInit {
     await alert.present();
   }
 
-  //Get all recenly played list including songs, artists and albums
+  //Get all recenly played list including songs, artists and albums and present mondal.
   getplaylist() {
     var before = new Date().getTime();
     //*1000 convert timestamp to unix time
@@ -414,6 +415,7 @@ export class InputComponent implements OnInit {
                 (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
               );
               var playAt = new Date(song["played_at"]).getTime();
+              //store data related to chart
               if (playAt >= lastHourTime) {
                 //times of playing = number of object
                 this.songName[song["track"]["name"]]["chart"]["hour"].push({
@@ -444,6 +446,7 @@ export class InputComponent implements OnInit {
                 });
               }
             } else {
+              //if songName have not stored into songName before
               this.songName[song["track"]["name"]]["times"] += 1;
               this.songName[song["track"]["name"]]["minutes"] += Number(
                 (song["track"]["duration_ms"] / 1000 / 60).toFixed(2)
@@ -451,6 +454,7 @@ export class InputComponent implements OnInit {
               this.songName[song["track"]["name"]]["hours"] += Number(
                 (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
               );
+              //store data related to chart
               if (playAt >= lastHourTime) {
                 //times of playing = number of object
                 this.songName[song["track"]["name"]]["chart"]["hour"].push({
@@ -482,6 +486,7 @@ export class InputComponent implements OnInit {
               }
             }
 
+            // store all astists names users listened
             for (var a of song["track"]["album"]["artists"]) {
               if (!Object.keys(this.artists).includes(a["name"])) {
                 this.artists[a["name"]] = { times: 1, minutes: 0, hours: 0 };
@@ -501,6 +506,7 @@ export class InputComponent implements OnInit {
                 );
               }
             }
+            // store all album names users listened
             if (
               !Object.keys(this.albums).includes(song["track"]["album"]["name"])
             ) {
@@ -532,10 +538,127 @@ export class InputComponent implements OnInit {
         console.log(this.artists);
         console.log(data);
         this.getPlaylistOfDifferentTime(data);
-        this.presentModal();
+        this.generateFullTimestamp();
       });
   }
 
+  //generate all data chart needs here
+  generateFullTimestamp() {
+    var currentTime = Date.now();
+    for (const [k1, v1] of Object.entries(this.songName)) {
+      for (const [k2, v2] of Object.entries(v1)) {
+        if (k2 == "chart") {
+          for (const [k3, v3] of Object.entries(v2)) {
+            for (let i = 0; i < 30; i++) {
+              if (k3 == "hour") {
+                //in last one hour (six ten minutes)
+                if (i < 6) {
+                  v3.push({
+                    t: new Date(currentTime - i * 60 * 1000 * 10).toISOString(),
+                    minute: 0,
+                    hour: 0,
+                  });
+                }
+              } else if (k3 == "day") {
+                // in last one day (24 hours) 
+                if (i < 24) {
+                  v3.push({
+                    t: new Date(currentTime - i * 60 * 60 * 1000).toISOString(),
+                    minute: 0,
+                    hour: 0,
+                  });
+                }
+              } else if (k3 == "week") {
+                // in last week, seven days
+                if (i < 7) {
+                  v3.push({
+                    t: new Date(
+                      currentTime - i * 60 * 60 * 1000 * 24
+                    ).toISOString(),
+                    minute: 0,
+                    hour: 0,
+                  });
+                }
+              } else if (k3 == "month") {
+                // in last month. 30 days
+                v3.push({
+                  t: new Date(
+                    currentTime - i * 60 * 60 * 1000 * 24
+                  ).toISOString(),
+                  minute: 0,
+                  hour: 0,
+                });
+              }
+            }
+
+            if (k3 == "hour" ) {
+              // the index which is listened , get the data and store them into suitable intervals.
+              var hasPlayHistory = v3.length - 6;
+              // find the same hour and aggregate the minutes and hours
+              for (var i = 0; i < hasPlayHistory; i++) {
+                for (var j = hasPlayHistory; j < v3.length; j++) {
+                  var tem = new Date(v3[i]["t"]);
+                  var tem2 = new Date(v3[j]["t"]);
+                  if (tem.getUTCMinutes() == tem2.getUTCMinutes()) {
+                    v3[j]["minute"] += v3[i]["minute"];
+                    v3[j]["hour"] += v3[i]["hour"];
+                  }
+                }
+              }
+            } else if (k3 == "day" ) {
+              // the index which is listened , get the data and store them into suitable intervals.
+              var hasPlayHistory = v3.length - 24;
+              // find the same day and aggregate the minutes and hours
+              for (var i = 0; i < hasPlayHistory; i++) {
+                for (var j = hasPlayHistory; j < v3.length; j++) {
+                  var tem = new Date(v3[i]["t"]);
+                  var tem2 = new Date(v3[j]["t"]);
+                  //same hour & same day 
+                  if (tem.getHours() == tem2.getHours() && tem.getUTCDate() == tem2.getUTCDate()) {
+                    
+                    v3[j]["minute"] += v3[i]["minute"];
+                    v3[j]["hour"] += v3[i]["hour"];
+                  }
+                }
+              }
+            } else if (k3 == "week" ) {
+              // the index which is listened , get the data and store them into suitable intervals.
+              var hasPlayHistory = v3.length - 7;
+              // find the same week and aggregate the minutes and hours
+              for (var i = 0; i < hasPlayHistory; i++) {
+                for (var j = hasPlayHistory; j < v3.length; j++) {
+                  var tem = new Date(v3[i]["t"]);
+                  var tem2 = new Date(v3[j]["t"]);
+                  if (tem.getUTCDay() == tem2.getUTCDay()) {
+                    v3[j]["minute"] += v3[i]["minute"];
+                    v3[j]["hour"] += v3[i]["hour"];
+                  }
+                }
+              }
+            } else if (k3 == "month") {
+              // the index which is listened , get the data and store them into suitable intervals.
+              var hasPlayHistory = v3.length - 30;
+              // find the same month and aggregate the minutes and hours
+              for (var i = 0; i < hasPlayHistory; i++) {
+                for (var j = hasPlayHistory; j < v3.length; j++) {
+                  var tem = new Date(v3[i]["t"]);
+                  var tem2 = new Date(v3[j]["t"]);
+                  if (tem.getUTCDate() == tem2.getUTCDate()) {
+                    v3[j]["minute"] += v3[i]["minute"];
+                    v3[j]["hour"] += v3[i]["hour"];
+                  }
+                }
+              }
+            }
+             v3.splice(0, hasPlayHistory);
+          }
+        }
+      }
+    }
+    this.presentModal();
+  }
+
+  //Since we need to get different lists which divided by the time user listened (lastHour,lastWeek,lastDay,lastMonth)
   getPlaylistOfDifferentTime(data) {
     var before = new Date().getTime();
     //*1000 convert timestamp to unix time
@@ -568,7 +691,7 @@ export class InputComponent implements OnInit {
       for (var song of data["items"]) {
         var playAt = new Date(song["played_at"]).getTime();
         // last hour
-        console.log("time check", playAt, lastHourTime);
+        // console.log("time check", playAt, lastHourTime);
         if (playAt >= lastHourTime) {
           if (!Object.keys(lastHourSongName).includes(song["track"]["name"])) {
             lastHourSongName[song["track"]["name"]] = {
@@ -860,6 +983,7 @@ export class InputComponent implements OnInit {
   getChartInfo() {}
 
   async presentModal() {
+    //pass the value of songName, artists and albums to modals/modal, and show the modal html.
     const modal = await this.modalController.create({
       component: ModalPage,
       cssClass: "my-custom-class",
