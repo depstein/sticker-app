@@ -24,3 +24,9 @@
   </ng-template>
 
 </ion-content>
+
+<ion-footer *ngIf="global.stickerInfo.domain == 'calories'">
+  <ion-toolbar>
+    Total Calories: {{ totalCalories }}
+  </ion-toolbar>
+</ion-footer>
