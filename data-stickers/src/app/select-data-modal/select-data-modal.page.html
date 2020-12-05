@@ -11,7 +11,9 @@
 
   <div *ngIf="global.stickerInfo.domain == 'calories'; else elseBlock">
     <!-- Food selection component -->
-    <app-food-selection></app-food-selection>
+    <app-food-selection
+      (totalCaloriesChanged)="onTotalCaloriesChanged($event)">
+    </app-food-selection>
   </div>
   <ng-template #elseBlock>
     <!-- Chart component -->
@@ -22,3 +24,9 @@
   </ng-template>
 
 </ion-content>
+
+<ion-footer *ngIf="global.stickerInfo.domain == 'calories'">
+  <ion-toolbar>
+    <h6>Total Calories: {{ totalCalories }}</h6>
+  </ion-toolbar>
+</ion-footer>

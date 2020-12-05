@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-food-selection',
@@ -7,8 +7,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FoodSelectionComponent implements OnInit {
 
-  constructor() { }
+  totalCalories: number;
+  @Output() totalCaloriesChanged = new EventEmitter<number>(true);
+
+  constructor() {
+    this.totalCalories = 0;
+  }
 
   ngOnInit() {}
+
+  onTotalCaloriesChanged(calorieChange: number) {
+    this.totalCalories += calorieChange;
+    this.totalCaloriesChanged.emit(this.totalCalories);
+  }
 
 }

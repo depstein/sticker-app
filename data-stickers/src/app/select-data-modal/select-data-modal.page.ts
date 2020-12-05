@@ -8,12 +8,14 @@ import { GlobalDataService } from "./../global-data.service";
   styleUrls: ['./select-data-modal.page.scss'],
 })
 export class SelectDataModalPage implements OnInit {
+  totalCalories: number;
   dataValue: number;
 
   constructor(
     public viewCtrl: ModalController,
     public global: GlobalDataService)
     {
+    this.totalCalories = 0;
     this.dataValue = 0;
   }
 
@@ -22,8 +24,12 @@ export class SelectDataModalPage implements OnInit {
 
   dismiss() {
     this.viewCtrl.dismiss({
-      sum: this.dataValue
+      sum: this.global.stickerInfo.domain == 'calories' ? this.totalCalories : this.dataValue
     });
+  }
+
+  onTotalCaloriesChanged(totalCalories: number) {
+    this.totalCalories = totalCalories;
   }
 
   onDataValueChanged(dataValue: number) {
