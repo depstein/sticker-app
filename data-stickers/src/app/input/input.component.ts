@@ -415,9 +415,8 @@ export class InputComponent implements OnInit {
                 (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
               );
               var playAt = new Date(song["played_at"]).getTime();
-              //store data related to chart
+              //store data related to chart Obeject
               if (playAt >= lastHourTime) {
-                //times of playing = number of object
                 this.songName[song["track"]["name"]]["chart"]["hour"].push({
                   t: song["played_at"],
                   minute: song["track"]["duration_ms"] / 1000 / 60,
@@ -454,9 +453,8 @@ export class InputComponent implements OnInit {
               this.songName[song["track"]["name"]]["hours"] += Number(
                 (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
               );
-              //store data related to chart
+              //store data related to chart Object
               if (playAt >= lastHourTime) {
-                //times of playing = number of object
                 this.songName[song["track"]["name"]]["chart"]["hour"].push({
                   t: song["played_at"],
                   minute: song["track"]["duration_ms"] / 1000 / 60,
@@ -486,16 +484,48 @@ export class InputComponent implements OnInit {
               }
             }
 
+
             // store all astists names users listened
             for (var a of song["track"]["album"]["artists"]) {
               if (!Object.keys(this.artists).includes(a["name"])) {
-                this.artists[a["name"]] = { times: 1, minutes: 0, hours: 0 };
+                this.artists[a["name"]] = { times: 1, minutes: 0, hours: 0, chart: { hour: [], day: [], week: [], month: [] } };
                 this.artists[a["name"]]["minutes"] = Number(
                   (song["track"]["duration_ms"] / 1000 / 60).toFixed(2)
                 );
                 this.artists[a["name"]]["hours"] = Number(
                   (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
                 );
+                var playAt = new Date(song["played_at"]).getTime();
+                //store data related to chart Object
+                if (playAt >= lastHourTime) {
+                  this.artists[a["name"]]["chart"]["hour"].push({
+                    t: song["played_at"],
+                    minute: song["track"]["duration_ms"] / 1000 / 60,
+                    hour: song["track"]["duration_ms"] / 1000 / 60 / 60,
+                  });
+                }
+                if (playAt >= lastDayTime) {
+                  this.artists[a["name"]]["chart"]["day"].push({
+                    t: song["played_at"],
+                    minute: song["track"]["duration_ms"] / 1000 / 60,
+                    hour: song["track"]["duration_ms"] / 1000 / 60 / 60,
+                  });
+                }
+                if (playAt >= lastWeekTime) {
+                  this.artists[a["name"]]["chart"]["week"].push({
+                    t: song["played_at"],
+                    minute: song["track"]["duration_ms"] / 1000 / 60,
+                    hour: song["track"]["duration_ms"] / 1000 / 60 / 60,
+                  });
+                }
+                if (playAt >= lastMonthTime) {
+                  this.artists[a["name"]]["chart"]["month"].push({
+                    t: song["played_at"],
+                    minute: song["track"]["duration_ms"] / 1000 / 60,
+                    hour: song["track"]["duration_ms"] / 1000 / 60 / 60,
+                  });
+                }
+                
               } else {
                 this.artists[a["name"]]["times"] += 1;
                 this.artists[a["name"]]["minutes"] += Number(
@@ -504,8 +534,39 @@ export class InputComponent implements OnInit {
                 this.artists[a["name"]]["hours"] += Number(
                   (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
                 );
+                var playAt = new Date(a["played_at"]).getTime();
+                //store data related to chart Object
+                if (playAt >= lastHourTime) {
+                  this.artists[a["name"]]["chart"]["hour"].push({
+                    t: song["played_at"],
+                    minute: song["track"]["duration_ms"] / 1000 / 60,
+                    hour: song["track"]["duration_ms"] / 1000 / 60 / 60,
+                  });
+                }
+                if (playAt >= lastDayTime) {
+                  this.artists[a["name"]]["chart"]["day"].push({
+                    t: song["played_at"],
+                    minute: song["track"]["duration_ms"] / 1000 / 60,
+                    hour: song["track"]["duration_ms"] / 1000 / 60 / 60,
+                  });
+                }
+                if (playAt >= lastWeekTime) {
+                  this.artists[a["name"]]["chart"]["week"].push({
+                    t: song["played_at"],
+                    minute: song["track"]["duration_ms"] / 1000 / 60,
+                    hour: song["track"]["duration_ms"] / 1000 / 60 / 60,
+                  });
+                }
+                if (playAt >= lastMonthTime) {
+                  this.artists[a["name"]]["chart"]["month"].push({
+                    t: song["played_at"],
+                    minute: song["track"]["duration_ms"] / 1000 / 60,
+                    hour: song["track"]["duration_ms"] / 1000 / 60 / 60,
+                  });
+                }
               }
             }
+          
             // store all album names users listened
             if (
               !Object.keys(this.albums).includes(song["track"]["album"]["name"])
@@ -514,6 +575,7 @@ export class InputComponent implements OnInit {
                 times: 1,
                 minutes: 0,
                 hours: 0,
+                chart: { hour: [], day: [], week: [], month: [] },
               };
               this.albums[song["track"]["album"]["name"]]["minutes"] = Number(
                 (song["track"]["duration_ms"] / 1000 / 60).toFixed(2)
@@ -521,6 +583,36 @@ export class InputComponent implements OnInit {
               this.albums[song["track"]["album"]["name"]]["hours"] = Number(
                 (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
               );
+              var playAt = new Date(song["played_at"]).getTime();
+              //store data related to chart Object
+              if (playAt >= lastHourTime) {
+                this.albums[song["track"]["album"]["name"]]["chart"]["hour"].push({
+                  t: song["played_at"],
+                  minute: song["track"]["duration_ms"] / 1000 / 60,
+                  hour: song["track"]["duration_ms"] / 1000 / 60 / 60,
+                });
+              }
+              if (playAt >= lastDayTime) {
+                this.albums[song["track"]["album"]["name"]]["chart"]["day"].push({
+                  t: song["played_at"],
+                  minute: song["track"]["duration_ms"] / 1000 / 60,
+                  hour: song["track"]["duration_ms"] / 1000 / 60 / 60,
+                });
+              }
+              if (playAt >= lastWeekTime) {
+                this.albums[song["track"]["album"]["name"]]["chart"]["week"].push({
+                  t: song["played_at"],
+                  minute: song["track"]["duration_ms"] / 1000 / 60,
+                  hour: song["track"]["duration_ms"] / 1000 / 60 / 60,
+                });
+              }
+              if (playAt >= lastMonthTime) {
+                this.albums[song["track"]["album"]["name"]]["chart"]["month"].push({
+                  t: song["played_at"],
+                  minute: song["track"]["duration_ms"] / 1000 / 60,
+                  hour: song["track"]["duration_ms"] / 1000 / 60 / 60,
+                });
+              }
             } else {
               this.albums[song["track"]["album"]["name"]]["times"] += 1;
               this.albums[song["track"]["album"]["name"]]["minutes"] += Number(
@@ -529,6 +621,35 @@ export class InputComponent implements OnInit {
               this.albums[song["track"]["album"]["name"]]["hours"] += Number(
                 (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
               );
+               //store data related to chart Object
+               if (playAt >= lastHourTime) {
+                this.albums[song["track"]["album"]["name"]]["chart"]["hour"].push({
+                  t: song["played_at"],
+                  minute: song["track"]["duration_ms"] / 1000 / 60,
+                  hour: song["track"]["duration_ms"] / 1000 / 60 / 60,
+                });
+              }
+              if (playAt >= lastDayTime) {
+                this.albums[song["track"]["album"]["name"]]["chart"]["day"].push({
+                  t: song["played_at"],
+                  minute: song["track"]["duration_ms"] / 1000 / 60,
+                  hour: song["track"]["duration_ms"] / 1000 / 60 / 60,
+                });
+              }
+              if (playAt >= lastWeekTime) {
+                this.albums[song["track"]["album"]["name"]]["chart"]["week"].push({
+                  t: song["played_at"],
+                  minute: song["track"]["duration_ms"] / 1000 / 60,
+                  hour: song["track"]["duration_ms"] / 1000 / 60 / 60,
+                });
+              }
+              if (playAt >= lastMonthTime) {
+                this.albums[song["track"]["album"]["name"]]["chart"]["month"].push({
+                  t: song["played_at"],
+                  minute: song["track"]["duration_ms"] / 1000 / 60,
+                  hour: song["track"]["duration_ms"] / 1000 / 60 / 60,
+                });
+              }
             }
           }
         }
@@ -546,6 +667,230 @@ export class InputComponent implements OnInit {
   generateFullTimestamp() {
     var currentTime = Date.now();
     for (const [k1, v1] of Object.entries(this.songName)) {
+      for (const [k2, v2] of Object.entries(v1)) {
+        if (k2 == "chart") {
+          for (const [k3, v3] of Object.entries(v2)) {
+            for (let i = 0; i < 30; i++) {
+              if (k3 == "hour") {
+                //in last one hour (six ten minutes)
+                if (i < 6) {
+                  v3.push({
+                    t: new Date(currentTime - i * 60 * 1000 * 10).toISOString(),
+                    minute: 0,
+                    hour: 0,
+                  });
+                }
+              } else if (k3 == "day") {
+                // in last one day (24 hours) 
+                if (i < 24) {
+                  v3.push({
+                    t: new Date(currentTime - i * 60 * 60 * 1000).toISOString(),
+                    minute: 0,
+                    hour: 0,
+                  });
+                }
+              } else if (k3 == "week") {
+                // in last week, seven days
+                if (i < 7) {
+                  v3.push({
+                    t: new Date(
+                      currentTime - i * 60 * 60 * 1000 * 24
+                    ).toISOString(),
+                    minute: 0,
+                    hour: 0,
+                  });
+                }
+              } else if (k3 == "month") {
+                // in last month. 30 days
+                v3.push({
+                  t: new Date(
+                    currentTime - i * 60 * 60 * 1000 * 24
+                  ).toISOString(),
+                  minute: 0,
+                  hour: 0,
+                });
+              }
+            }
+
+            if (k3 == "hour" ) {
+              // the index which is listened , get the data and store them into suitable intervals.
+              var hasPlayHistory = v3.length - 6;
+              // find the same hour and aggregate the minutes and hours
+              for (var i = 0; i < hasPlayHistory; i++) {
+                for (var j = hasPlayHistory; j < v3.length; j++) {
+                  var tem = new Date(v3[i]["t"]);
+                  var tem2 = new Date(v3[j]["t"]);
+                  if (tem.getUTCMinutes() == tem2.getUTCMinutes()) {
+                    v3[j]["minute"] += v3[i]["minute"];
+                    v3[j]["hour"] += v3[i]["hour"];
+                  }
+                }
+              }
+            } else if (k3 == "day" ) {
+              // the index which is listened , get the data and store them into suitable intervals.
+              var hasPlayHistory = v3.length - 24;
+              // find the same day and aggregate the minutes and hours
+              for (var i = 0; i < hasPlayHistory; i++) {
+                for (var j = hasPlayHistory; j < v3.length; j++) {
+                  var tem = new Date(v3[i]["t"]);
+                  var tem2 = new Date(v3[j]["t"]);
+                  //same hour & same day 
+                  if (tem.getHours() == tem2.getHours() && tem.getUTCDate() == tem2.getUTCDate()) {
+                    
+                    v3[j]["minute"] += v3[i]["minute"];
+                    v3[j]["hour"] += v3[i]["hour"];
+                  }
+                }
+              }
+            } else if (k3 == "week" ) {
+              // the index which is listened , get the data and store them into suitable intervals.
+              var hasPlayHistory = v3.length - 7;
+              // find the same week and aggregate the minutes and hours
+              for (var i = 0; i < hasPlayHistory; i++) {
+                for (var j = hasPlayHistory; j < v3.length; j++) {
+                  var tem = new Date(v3[i]["t"]);
+                  var tem2 = new Date(v3[j]["t"]);
+                  if (tem.getUTCDay() == tem2.getUTCDay()) {
+                    v3[j]["minute"] += v3[i]["minute"];
+                    v3[j]["hour"] += v3[i]["hour"];
+                  }
+                }
+              }
+            } else if (k3 == "month") {
+              // the index which is listened , get the data and store them into suitable intervals.
+              var hasPlayHistory = v3.length - 30;
+              // find the same month and aggregate the minutes and hours
+              for (var i = 0; i < hasPlayHistory; i++) {
+                for (var j = hasPlayHistory; j < v3.length; j++) {
+                  var tem = new Date(v3[i]["t"]);
+                  var tem2 = new Date(v3[j]["t"]);
+                  if (tem.getUTCDate() == tem2.getUTCDate()) {
+                    v3[j]["minute"] += v3[i]["minute"];
+                    v3[j]["hour"] += v3[i]["hour"];
+                  }
+                }
+              }
+            }
+             v3.splice(0, hasPlayHistory);
+             //before I added the specific time the song played at.
+             //After I find the correct time range, I can delete the origin data which is used to compare and find the interval it should stay at.
+          }
+        }
+      }
+    }
+
+    for (const [k1, v1] of Object.entries(this.artists)) {
+      for (const [k2, v2] of Object.entries(v1)) {
+        if (k2 == "chart") {
+          for (const [k3, v3] of Object.entries(v2)) {
+            for (let i = 0; i < 30; i++) {
+              if (k3 == "hour") {
+                //in last one hour (six ten minutes)
+                if (i < 6) {
+                  v3.push({
+                    t: new Date(currentTime - i * 60 * 1000 * 10).toISOString(),
+                    minute: 0,
+                    hour: 0,
+                  });
+                }
+              } else if (k3 == "day") {
+                // in last one day (24 hours) 
+                if (i < 24) {
+                  v3.push({
+                    t: new Date(currentTime - i * 60 * 60 * 1000).toISOString(),
+                    minute: 0,
+                    hour: 0,
+                  });
+                }
+              } else if (k3 == "week") {
+                // in last week, seven days
+                if (i < 7) {
+                  v3.push({
+                    t: new Date(
+                      currentTime - i * 60 * 60 * 1000 * 24
+                    ).toISOString(),
+                    minute: 0,
+                    hour: 0,
+                  });
+                }
+              } else if (k3 == "month") {
+                // in last month. 30 days
+                v3.push({
+                  t: new Date(
+                    currentTime - i * 60 * 60 * 1000 * 24
+                  ).toISOString(),
+                  minute: 0,
+                  hour: 0,
+                });
+              }
+            }
+
+            if (k3 == "hour" ) {
+              // the index which is listened , get the data and store them into suitable intervals.
+              var hasPlayHistory = v3.length - 6;
+              // find the same hour and aggregate the minutes and hours
+              for (var i = 0; i < hasPlayHistory; i++) {
+                for (var j = hasPlayHistory; j < v3.length; j++) {
+                  var tem = new Date(v3[i]["t"]);
+                  var tem2 = new Date(v3[j]["t"]);
+                  if (tem.getUTCMinutes() == tem2.getUTCMinutes()) {
+                    v3[j]["minute"] += v3[i]["minute"];
+                    v3[j]["hour"] += v3[i]["hour"];
+                  }
+                }
+              }
+            } else if (k3 == "day" ) {
+              // the index which is listened , get the data and store them into suitable intervals.
+              var hasPlayHistory = v3.length - 24;
+              // find the same day and aggregate the minutes and hours
+              for (var i = 0; i < hasPlayHistory; i++) {
+                for (var j = hasPlayHistory; j < v3.length; j++) {
+                  var tem = new Date(v3[i]["t"]);
+                  var tem2 = new Date(v3[j]["t"]);
+                  //same hour & same day 
+                  if (tem.getHours() == tem2.getHours() && tem.getUTCDate() == tem2.getUTCDate()) {
+                    
+                    v3[j]["minute"] += v3[i]["minute"];
+                    v3[j]["hour"] += v3[i]["hour"];
+                  }
+                }
+              }
+            } else if (k3 == "week" ) {
+              // the index which is listened , get the data and store them into suitable intervals.
+              var hasPlayHistory = v3.length - 7;
+              // find the same week and aggregate the minutes and hours
+              for (var i = 0; i < hasPlayHistory; i++) {
+                for (var j = hasPlayHistory; j < v3.length; j++) {
+                  var tem = new Date(v3[i]["t"]);
+                  var tem2 = new Date(v3[j]["t"]);
+                  if (tem.getUTCDay() == tem2.getUTCDay()) {
+                    v3[j]["minute"] += v3[i]["minute"];
+                    v3[j]["hour"] += v3[i]["hour"];
+                  }
+                }
+              }
+            } else if (k3 == "month") {
+              // the index which is listened , get the data and store them into suitable intervals.
+              var hasPlayHistory = v3.length - 30;
+              // find the same month and aggregate the minutes and hours
+              for (var i = 0; i < hasPlayHistory; i++) {
+                for (var j = hasPlayHistory; j < v3.length; j++) {
+                  var tem = new Date(v3[i]["t"]);
+                  var tem2 = new Date(v3[j]["t"]);
+                  if (tem.getUTCDate() == tem2.getUTCDate()) {
+                    v3[j]["minute"] += v3[i]["minute"];
+                    v3[j]["hour"] += v3[i]["hour"];
+                  }
+                }
+              }
+            }
+             v3.splice(0, hasPlayHistory);
+          }
+        }
+      }
+    }
+
+    for (const [k1, v1] of Object.entries(this.albums)) {
       for (const [k2, v2] of Object.entries(v1)) {
         if (k2 == "chart") {
           for (const [k3, v3] of Object.entries(v2)) {
@@ -997,6 +1342,7 @@ export class InputComponent implements OnInit {
         month: this.lastMonth,
       },
     });
+    //testing
     console.log(
       "check",
       "day",
