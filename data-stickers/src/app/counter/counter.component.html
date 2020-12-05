@@ -1,4 +1,4 @@
-<ion-button class="left-button" [disabled]="counterValue == 0" fill="clear" size="small" (click)="decrement()">
+<ion-button class="left-button" [disabled]="counterValue <= 0" fill="clear" size="small" (click)="decrement()">
   <ion-icon name="remove-circle" color="{{ global.stickerInfo.domain }}"></ion-icon>
 </ion-button>
 
