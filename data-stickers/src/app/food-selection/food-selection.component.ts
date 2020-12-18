@@ -1,4 +1,5 @@
 import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
+import { FoodDataService } from '../food-data.service';
 
 @Component({
   selector: 'app-food-selection',
@@ -9,16 +10,23 @@ export class FoodSelectionComponent implements OnInit {
 
   totalCalories: number;
   @Output() totalCaloriesChanged = new EventEmitter<number>(true);
+  foodData: Any;
 
-  constructor() {
+  constructor(private foodDataService: FoodDataService) {
     this.totalCalories = 0;
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getFoodData();
+  }
 
   onTotalCaloriesChanged(calorieChange: number) {
     this.totalCalories += calorieChange;
     this.totalCaloriesChanged.emit(this.totalCalories);
+  }
+
+  getFoodData(): void {
+    this.foodData = this.foodDataService.getFoodData();
   }
 
 }
