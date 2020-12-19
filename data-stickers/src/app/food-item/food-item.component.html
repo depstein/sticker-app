@@ -1,0 +1,11 @@
+<img [src]="imageUrl" [alt]="itemName">
+<ion-label class="food-item-label">
+  <h2>{{ itemName }}</h2>
+  <h3>1 portion</h3>
+  <app-counter counterValue=0 (counterValueChanged)="onCounterValueChanged($event)"></app-counter>
+
+</ion-label>
+<ion-label class="calorie-label">
+  <h2>{{ numCalories }}</h2>
+  <h3>cal</h3>
+</ion-label>

@@ -1,0 +1,44 @@
+<ion-searchbar placeholder="Search for food items..."></ion-searchbar>
+
+<ion-list>
+  <ion-item>
+    <app-food-item
+      imageUrl = "https://cdn.shopify.com/s/files/1/0093/0666/9153/products/apple_e98f4baa-162e-4d71-a715-fbd55a3f3acc_352x.jpg?v=1580007838"
+      itemName = "Fuji Apple"
+      numCalories = 200
+      (totalCaloriesChanged)="onTotalCaloriesChanged($event)">
+    </app-food-item>
+  </ion-item>
+  <ion-item>
+    <app-food-item
+      imageUrl = "https://d2lnr5mha7bycj.cloudfront.net/product-image/file/large_476c771d-eff5-40af-881d-dc132b770890.jpg"
+      itemName = "Red Delicious Apple"
+      numCalories = 150
+      (totalCaloriesChanged)="onTotalCaloriesChanged($event)">
+    </app-food-item>
+  </ion-item>
+  <ion-item>
+    <app-food-item
+      imageUrl = "https://storcpdkenticomedia.blob.core.windows.net/media/recipemanagementsystem/media/recipe-media-files/recipes/retail/x17/17607-caramel-apple-pie-600x600.jpg?ext=.jpg"
+      itemName = "Apple Pie"
+      numCalories = 400
+      (totalCaloriesChanged)="onTotalCaloriesChanged($event)">
+    </app-food-item>
+  </ion-item>
+  <ion-item>
+    <app-food-item
+      imageUrl = "https://cdn.sallysbakingaddiction.com/wp-content/uploads/2015/09/homemade-slow-cooker-apple-cider-2-225x225.jpg"
+      itemName = "Apple Cider"
+      numCalories = 321
+      (totalCaloriesChanged)="onTotalCaloriesChanged($event)">
+    </app-food-item>
+  </ion-item>
+  <ion-item>
+    <app-food-item
+      imageUrl = "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-12-pro-family-hero?wid=926&amp;hei=1112&amp;fmt=jpeg&amp;qlt=80&amp;op_usm=0.5,0.5&amp;.v=1602088412000"
+      itemName = "Apple iPhone"
+      numCalories = 0
+      (totalCaloriesChanged)="onTotalCaloriesChanged($event)">
+    </app-food-item>
+  </ion-item>
+</ion-list>

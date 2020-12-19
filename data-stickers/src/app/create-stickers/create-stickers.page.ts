@@ -49,14 +49,14 @@ export class CreateStickersPage implements OnInit {
     this.storage.get('healthPermission')
     .then((value) => {
       this.healthbutton = value;
-      if(this.global.stickerInfo.domain == "steps" || this.global.stickerInfo.domain == "calories" || this.global.stickerInfo.domain == "heartbeat"){
+      if(this.global.stickerInfo.domain == "steps" || this.global.stickerInfo.domain == "heartbeat"){
         this.presentAlerthealthButtons();
       }
     })
-    
-    
-    
-    
+
+
+
+
   }
 
   ngOnInit() {}
@@ -119,7 +119,7 @@ export class CreateStickersPage implements OnInit {
       message: 'Do you want to get your data from Healthkit?',
       buttons: [
         {
-          text: 'YES' 
+          text: 'YES'
         },
         {
           text: 'NO'
@@ -127,7 +127,6 @@ export class CreateStickersPage implements OnInit {
     })
     await alert.present();
   }
-  
+
 
 }
-

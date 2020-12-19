@@ -6,8 +6,9 @@ import { ModalController } from "@ionic/angular";
 import { ModalPage } from "../modals/modal/modal.page";
 import { conditionallyCreateMapObjectLiteral } from "@angular/compiler/src/render3/view/util";
 
-import { ChartModalPage } from "../chart-modal/chart-modal.page";
-import { V4MAPPED } from "dns";
+// import { ChartModalPage } from "../chart-modal/chart-modal.page";
+// import { V4MAPPED } from "dns";
+import { SelectDataModalPage } from '../select-data-modal/select-data-modal.page';
 
 @Component({
   selector: "app-input",
@@ -1325,7 +1326,7 @@ export class InputComponent implements OnInit {
       this.lastMonth.push(lastMonthAlbums);
     }
   }
-  getChartInfo() {}
+
 
   async presentModal() {
     //pass the value of songName, artists and albums to modals/modal, and show the modal html.
@@ -1359,7 +1360,7 @@ export class InputComponent implements OnInit {
 
   async openModal() {
     const modal = await this.modalController.create({
-      component: ChartModalPage,
+      component: SelectDataModalPage,
     });
     modal.onDidDismiss().then((data) => {
       this.global.stickerInfo.value = data.data.sum;
