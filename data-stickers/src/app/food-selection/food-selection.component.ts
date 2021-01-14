@@ -10,7 +10,7 @@ export class FoodSelectionComponent implements OnInit {
 
   totalCalories: number;
   @Output() totalCaloriesChanged = new EventEmitter<number>(true);
-  foodData: Any;
+  foodData: any;
 
   constructor(private foodDataService: FoodDataService) {
     this.totalCalories = 0;
@@ -26,7 +26,10 @@ export class FoodSelectionComponent implements OnInit {
   }
 
   getFoodData(): void {
-    this.foodData = this.foodDataService.getFoodData();
+    this.foodDataService.getFoodData()
+    .subscribe((data) => {
+      this.foodData = data;
+      console.log(this.foodData);
+    });
   }
-
 }
