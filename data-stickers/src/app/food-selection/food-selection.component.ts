@@ -27,8 +27,14 @@ export class FoodSelectionComponent implements OnInit {
 
   getFoodData(): void {
     this.foodDataService.getFoodData()
-    .subscribe((data) => {
-      this.foodData = data;
+    .subscribe(data => {
+      this.foodData = data["branded"].map(item => {
+        return {
+          name: item.brand_name_item_name,
+          image: item.image,
+          calories: item.nf_calories
+        }
+      });
       console.log(this.foodData);
     });
   }
