@@ -10,7 +10,7 @@ export class FoodDataService {
 
   constructor(private http: HttpClient) { }
 
-  getFoodData() {
+  getFoodData(query: string) {
     return this.http.get(
       'https://trackapi.nutritionix.com/v2/search/instant',
       {
@@ -20,7 +20,7 @@ export class FoodDataService {
           'x-app-key': 'd27556fd8ab42acd7a7def7d91347f0e'
         },
         params: {
-          "query":"chicken nachos and milk"
+          "query": query
         }
       }
     );

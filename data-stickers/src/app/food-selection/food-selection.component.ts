@@ -26,7 +26,7 @@ export class FoodSelectionComponent implements OnInit {
   }
 
   getFoodData(): void {
-    this.foodDataService.getFoodData()
+    this.foodDataService.getFoodData("grilled cheese")
     .subscribe(data => {
       this.foodData = data["branded"].map(item => {
         return {
