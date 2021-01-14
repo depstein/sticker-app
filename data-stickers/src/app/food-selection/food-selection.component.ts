@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FoodDataService } from '../food-data.service';
 
 @Component({
@@ -6,8 +6,8 @@ import { FoodDataService } from '../food-data.service';
   templateUrl: './food-selection.component.html',
   styleUrls: ['./food-selection.component.scss'],
 })
-export class FoodSelectionComponent implements OnInit {
-
+export class FoodSelectionComponent {
+  queryText: string;
   totalCalories: number;
   @Output() totalCaloriesChanged = new EventEmitter<number>(true);
   foodData: any;
@@ -16,17 +16,15 @@ export class FoodSelectionComponent implements OnInit {
     this.totalCalories = 0;
   }
 
-  ngOnInit() {
-    this.getFoodData();
-  }
-
   onTotalCaloriesChanged(calorieChange: number) {
     this.totalCalories += calorieChange;
     this.totalCaloriesChanged.emit(this.totalCalories);
   }
 
   getFoodData(): void {
-    this.foodDataService.getFoodData("grilled cheese")
+    console.log(this.queryText);
+
+    this.foodDataService.getFoodData(this.queryText)
     .subscribe(data => {
       this.foodData = data["branded"].map(item => {
         return {
