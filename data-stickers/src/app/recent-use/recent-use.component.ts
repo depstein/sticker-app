@@ -1,6 +1,7 @@
 import { Router } from "@angular/router";
 import { Component, OnInit, Input} from "@angular/core";
 import { GlobalDataService } from "./../global-data.service";
+import { AnalyticsService } from '../analytics.service';
 
 @Component({
   selector: "app-recent-use",
@@ -13,7 +14,8 @@ export class RecentUseComponent implements OnInit {
 
   constructor(
     public global: GlobalDataService,
-    public router: Router
+    public router: Router,
+    private analyticsService: AnalyticsService
   ) {
   }
   ngOnInit(){
@@ -25,5 +27,7 @@ export class RecentUseComponent implements OnInit {
       "create-sticker",
       { img: this_img, domain: this.domain },
     ]);
+    this.analyticsService.setUser();
+    this.analyticsService.recentStickerButtonEvent(this_img, this.domain);
   }
 }

@@ -21,7 +21,7 @@ export class AnalyticsService {
       filter((e: RouterEvent) => e instanceof NavigationEnd),
     ).subscribe((e: RouterEvent) => {
       console.log('route changed: ', e.url);
-      this.setScreenName(e.url)
+      this.setScreenName(e.url);
     });
   }
  
@@ -46,7 +46,7 @@ export class AnalyticsService {
   }
  
   colorButtonEvent(colorClicked) {
-    console.log("color-clicked: "+colorClicked);
+    console.log("color clicked: "+colorClicked);
     FirebaseAnalytics.logEvent({
       name: "color button clicked",
       params: {
@@ -58,12 +58,48 @@ export class AnalyticsService {
   }
 
   animationButtonEvent(animationClicked) {
-    console.log("color-clicked: "+animationClicked);
+    console.log("animation clicked: "+animationClicked);
     FirebaseAnalytics.logEvent({
       name: "animation button clicked",
       params: {
         // method: "email",
         userEvent: animationClicked,
+        time: Date.now()
+      }
+    });
+  }
+
+  stickerButtonEvent(stickerClicked, currentDomain) {
+    console.log("sticker clicked: "+stickerClicked);
+    FirebaseAnalytics.logEvent({
+      name: "sticker clicked",
+      params: {
+        // method: "email",
+        userEvent: stickerClicked + " - " + currentDomain,
+        time: Date.now()
+      }
+    });
+  }
+
+  recentStickerButtonEvent(stickerClicked, currentDomain) {
+    console.log("recent sticker clicked: "+stickerClicked);
+    FirebaseAnalytics.logEvent({
+      name: "recent sticker clicked",
+      params: {
+        // method: "email",
+        userEvent: stickerClicked + " - " + currentDomain,
+        time: Date.now()
+      }
+    });
+  }
+
+  domainButtonEvent(domainClicked) {
+    console.log("domain clicked: "+domainClicked);
+    FirebaseAnalytics.logEvent({
+      name: "domain clicked",
+      params: {
+        // method: "email",
+        userEvent: domainClicked,
         time: Date.now()
       }
     });

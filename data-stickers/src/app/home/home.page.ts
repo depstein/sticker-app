@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { AlertController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { StylesCompileDependency } from '@angular/compiler';
+import { AnalyticsService } from '../analytics.service';
 
 @Component({
   selector: 'app-home',
@@ -20,6 +21,7 @@ export class HomePage {
   constructor(
     private storage: Storage, 
     private router: Router, 
+    private analyticsService: AnalyticsService,
     private alertController: AlertController
   ) {
     this.idEntered = false;
@@ -117,6 +119,11 @@ export class HomePage {
   setHealthPermission(permission: boolean){
     this.storage.set('healthPermission', permission);
     this.healthPermission = permission;
+  }
+
+  tabClickedEvent(domain: String) {
+    this.analyticsService.setUser();
+    this.analyticsService.domainButtonEvent(domain);
   }
 
 }
