@@ -20,9 +20,11 @@
     "@angular/platform-browser-dynamic": "~8.1.2",
     "@angular/router": "~8.1.2",
     "@babel/compat-data": "^7.8.0",
+    "@capacitor-community/firebase-analytics": "^0.2.0",
     "@capacitor/android": "^2.1.0",
     "@capacitor/core": "1.4.0",
     "@capacitor/ios": "^1.4.0",
+    "@ionic-native/analytics-firebase": "^5.30.0",
     "@ionic-native/core": "^5.0.0",
     "@ionic-native/file": "^5.24.0",
     "@ionic-native/health": "^5.27.0",
@@ -84,7 +86,7 @@
     "protractor": "^5.4.4",
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
-    "typescript": "~3.4.3"
+    "typescript": "^3.4.3"
   },
   "description": "An Ionic project",
   "cordova": {
@@ -108,7 +110,8 @@
       "cordova-plugin-health": {
         "HEALTH_READ_PERMISSION": "App needs read access",
         "HEALTH_WRITE_PERMISSION": "App needs write access"
-      }
+      },
+      "cordova-plugin-analytics": {}
     },
     "platforms": [
       "android",
