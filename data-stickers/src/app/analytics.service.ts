@@ -30,18 +30,16 @@ export class AnalyticsService {
       FirebaseAnalytics.initializeFirebase(environment.firebaseConfig);
     }
   }
- 
-  setUser() {
-    // Use Firebase Auth uid
-    FirebaseAnalytics.setUserId({
-      userId: "test_123",
-    });
-  }
- 
-  setProperty() {
-    FirebaseAnalytics.setUserProperty({
-      name: "framework",
-      value: "angular",
+
+  animationButtonEvent(animationClicked) {
+    console.log("animation clicked: "+animationClicked);
+    FirebaseAnalytics.logEvent({
+      name: "animation button clicked",
+      params: {
+        // method: "email",
+        userEvent: animationClicked,
+        time: Date.now()
+      }
     });
   }
  
@@ -57,25 +55,13 @@ export class AnalyticsService {
     });
   }
 
-  animationButtonEvent(animationClicked) {
-    console.log("animation clicked: "+animationClicked);
+  domainButtonEvent(domainClicked) {
+    console.log("domain clicked: "+domainClicked);
     FirebaseAnalytics.logEvent({
-      name: "animation button clicked",
+      name: "domain clicked",
       params: {
         // method: "email",
-        userEvent: animationClicked,
-        time: Date.now()
-      }
-    });
-  }
-
-  stickerButtonEvent(stickerClicked, currentDomain) {
-    console.log("sticker clicked: "+stickerClicked);
-    FirebaseAnalytics.logEvent({
-      name: "sticker clicked",
-      params: {
-        // method: "email",
-        userEvent: stickerClicked + " - " + currentDomain,
+        userEvent: domainClicked,
         time: Date.now()
       }
     });
@@ -93,15 +79,30 @@ export class AnalyticsService {
     });
   }
 
-  domainButtonEvent(domainClicked) {
-    console.log("domain clicked: "+domainClicked);
+  stickerButtonEvent(stickerClicked, currentDomain) {
+    console.log("sticker clicked: "+stickerClicked);
     FirebaseAnalytics.logEvent({
-      name: "domain clicked",
+      name: "sticker clicked",
       params: {
         // method: "email",
-        userEvent: domainClicked,
+        userEvent: stickerClicked + " - " + currentDomain,
         time: Date.now()
       }
+    });
+  }
+ 
+  setUser(userId) {
+    // Use Firebase Auth uid
+    console.log(userId);
+    FirebaseAnalytics.setUserId({
+      userId: userId,
+    });
+  }
+ 
+  setProperty() {
+    FirebaseAnalytics.setUserProperty({
+      name: "framework",
+      value: "angular",
     });
   }
  

@@ -42,7 +42,7 @@ export class AnimationButtonsComponent implements OnInit {
 	}	
 
 	logAnimationEvent(animationName) {
-		this.analyticsService.setUser();
+		// this.analyticsService.setUser();
     	this.analyticsService.animationButtonEvent(animationName);
 	}
 }

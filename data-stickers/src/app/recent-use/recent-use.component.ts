@@ -27,7 +27,7 @@ export class RecentUseComponent implements OnInit {
       "create-sticker",
       { img: this_img, domain: this.domain },
     ]);
-    this.analyticsService.setUser();
+    // this.analyticsService.setUser();
     this.analyticsService.recentStickerButtonEvent(this_img, this.domain);
   }
 }

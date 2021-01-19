@@ -30,7 +30,7 @@ export class AppComponent {
     private analyticsService: AnalyticsService
   ) {
     this.initializeApp();
-    this.settingsPage = new SettingsPage(modalController, toastController, navCtrl, storage);
+    this.settingsPage = new SettingsPage(modalController, toastController, navCtrl, analyticsService, storage);
   }
 
   initializeApp() {
@@ -38,6 +38,6 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
-    this.analyticsService.setUser();
+    // this.analyticsService.setUser();
   }
 }

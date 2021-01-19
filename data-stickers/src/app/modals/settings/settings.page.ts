@@ -3,6 +3,7 @@ import { ModalController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
 import { NavController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
+import { AnalyticsService } from '../../analytics.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,7 @@ export class SettingsPage implements OnInit {
     private modalController: ModalController,
     private toastController: ToastController,
     private navCtrl: NavController,
+    private analyticsService: AnalyticsService,
     private storage: Storage
   ) { 
     this.getIdandPermissionsFromStorage();
@@ -51,6 +53,7 @@ export class SettingsPage implements OnInit {
   async closeModal() {
     if (this.idInput != null)
       this.storage.set('id', this.idInput);
+      this.analyticsService.setUser(this.idInput);
     this.storage.set('healthPermission', this.healthPermission);
     this.storage.set('spotifyPermission', this.spotifyPermission);
     await this.modalController.dismiss();
@@ -64,6 +67,7 @@ export class SettingsPage implements OnInit {
     .then(() => {
       this.idInput = null;
       this.healthPermission = false; 
+      this.spotifyPermission = false;
       this.presentToast()
     })
   }

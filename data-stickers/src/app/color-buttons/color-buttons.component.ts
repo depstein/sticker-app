@@ -17,7 +17,7 @@ export class ColorButtonsComponent implements OnInit {
 
   updateColor(color: string) {
     this.global.stickerInfo.color = color;
-    this.analyticsService.setUser();
+    // this.analyticsService.setUser();
     this.analyticsService.colorButtonEvent(color);
   }
   // logEvent(color: string) {

@@ -36,6 +36,7 @@ export class HomePage {
       if (value != null){
         this.userId = value;
         this.idEntered = true; 
+        this.analyticsService.setUser(value);
         this.checkForDomain();
       } else {
         this.presentIdInputPrompt()
@@ -78,6 +79,7 @@ export class HomePage {
           text: 'Submit',
           handler: data => {
             this.setUserId(data.id);
+            this.analyticsService.setUser(data.id);
             //this.presentHealthPrompt();
           }
         }
@@ -122,7 +124,7 @@ export class HomePage {
   }
 
   tabClickedEvent(domain: String) {
-    this.analyticsService.setUser();
+    // this.analyticsService.setUser();
     this.analyticsService.domainButtonEvent(domain);
   }
 

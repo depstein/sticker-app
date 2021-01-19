@@ -72,7 +72,7 @@ export class StickerListPage implements OnInit {
       'create-sticker',
       { img: this_img, domain: this.domain },
     ]);
-    this.analyticsService.setUser();
+    // this.analyticsService.setUser();
     this.analyticsService.stickerButtonEvent(this_img, this.domain);
   }
 }
