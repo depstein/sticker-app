@@ -93,7 +93,7 @@ export class AnalyticsService {
  
   setUser(userId) {
     // Use Firebase Auth uid
-    console.log(userId);
+    // console.log(userId);
     FirebaseAnalytics.setUserId({
       userId: userId,
     });
