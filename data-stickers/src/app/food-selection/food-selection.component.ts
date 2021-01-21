@@ -29,11 +29,10 @@ export class FoodSelectionComponent {
       this.foodData = data["branded"].map(item => {
         return {
           name: item.brand_name_item_name,
-          image: item.image,
+          image: item.photo.thumb,
           calories: item.nf_calories
         }
       });
-      console.log(this.foodData);
     });
   }
 }
