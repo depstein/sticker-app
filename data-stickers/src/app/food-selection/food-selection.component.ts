@@ -39,18 +39,24 @@ export class FoodSelectionComponent {
 
       var promises = data["common"].map(item => {
         return this.foodDataService.getFoodData(item.food_name).toPromise()
-        .then(nutritionData => {
+        .then((nutritionData: any) => {
           console.log('2. nutrition data');
           console.log(nutritionData);
+          console.log('3. calories');
+          console.log(nutritionData.foods[0].nf_calories);
+
           return {
             name: item.food_name,
             image: item.photo.thumb,
-            calories: item.nf_calories
+            calories: Math.round(nutritionData.foods[0].nf_calories)
           };
         });
       });
 
       Promise.all(promises).then(results => {
+        console.log('4. results');
+        console.log(results);
+
         this.foodData = results
       });
     });
