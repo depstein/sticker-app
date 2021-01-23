@@ -26,20 +26,32 @@ export class FoodSelectionComponent {
 
     this.foodDataService.searchForFoodItems(this.queryText)
     .subscribe(data => {
+      console.log('1. search data');
       console.log(data);
 
-      this.foodData = data["common"].map(item => {
-        let result;
-        this.foodDataService.getFoodData(item.food_name)
-        .subscribe(nutritionData => {
+      this.foodData = data['common'].map(item => {
+        return {
+          name: item.food_name,
+          image: item.photo.thumb,
+          calories: 0
+        }
+      });
+
+      var promises = data["common"].map(item => {
+        return this.foodDataService.getFoodData(item.food_name).toPromise()
+        .then(nutritionData => {
+          console.log('2. nutrition data');
           console.log(nutritionData);
-          result = {
+          return {
             name: item.food_name,
             image: item.photo.thumb,
             calories: item.nf_calories
           };
         });
-        return result;
+      });
+
+      Promise.all(promises).then(results => {
+        this.foodData = results
       });
     });
   }
