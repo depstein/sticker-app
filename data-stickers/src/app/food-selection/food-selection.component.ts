@@ -24,14 +24,22 @@ export class FoodSelectionComponent {
   getFoodData(): void {
     console.log(this.queryText);
 
-    this.foodDataService.getFoodData(this.queryText)
+    this.foodDataService.searchForFoodItems(this.queryText)
     .subscribe(data => {
-      this.foodData = data["branded"].map(item => {
-        return {
-          name: item.brand_name_item_name,
-          image: item.photo.thumb,
-          calories: item.nf_calories
-        }
+      console.log(data);
+
+      this.foodData = data["common"].map(item => {
+        let result;
+        this.foodDataService.getFoodData(item.food_name)
+        .subscribe(nutritionData => {
+          console.log(nutritionData);
+          result = {
+            name: item.food_name,
+            image: item.photo.thumb,
+            calories: item.nf_calories
+          };
+        });
+        return result;
       });
     });
   }
