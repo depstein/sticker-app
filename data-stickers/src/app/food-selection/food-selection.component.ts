@@ -26,8 +26,6 @@ export class FoodSelectionComponent {
 
     this.foodDataService.searchForFoodItems(this.queryText)
     .subscribe(data => {
-      console.log('1. search data');
-      console.log(data);
 
       this.foodData = data['common'].map(item => {
         return {
@@ -40,11 +38,6 @@ export class FoodSelectionComponent {
       var promises = data["common"].map(item => {
         return this.foodDataService.getFoodData(item.food_name).toPromise()
         .then((nutritionData: any) => {
-          console.log('2. nutrition data');
-          console.log(nutritionData);
-          console.log('3. calories');
-          console.log(nutritionData.foods[0].nf_calories);
-
           return {
             name: item.food_name,
             image: item.photo.thumb,
@@ -53,12 +46,7 @@ export class FoodSelectionComponent {
         });
       });
 
-      Promise.all(promises).then(results => {
-        console.log('4. results');
-        console.log(results);
-
-        this.foodData = results
-      });
+      Promise.all(promises).then(results => this.foodData = results);
     });
   }
 }
