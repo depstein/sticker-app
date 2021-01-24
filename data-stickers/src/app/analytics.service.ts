@@ -34,7 +34,7 @@ export class AnalyticsService {
   animationButtonEvent(animationClicked) {
     console.log("animation clicked: "+animationClicked);
     FirebaseAnalytics.logEvent({
-      name: "animation button clicked",
+      name: "animation_button_clicked",
       params: {
         // method: "email",
         userEvent: animationClicked,
@@ -46,7 +46,7 @@ export class AnalyticsService {
   colorButtonEvent(colorClicked) {
     console.log("color clicked: "+colorClicked);
     FirebaseAnalytics.logEvent({
-      name: "color button clicked",
+      name: "color_button_clicked",
       params: {
         // method: "email",
         userEvent: colorClicked,
@@ -58,7 +58,7 @@ export class AnalyticsService {
   domainButtonEvent(domainClicked) {
     console.log("domain clicked: "+domainClicked);
     FirebaseAnalytics.logEvent({
-      name: "domain clicked",
+      name: "domain_clicked",
       params: {
         // method: "email",
         userEvent: domainClicked,
@@ -70,7 +70,7 @@ export class AnalyticsService {
   recentStickerButtonEvent(stickerClicked, currentDomain) {
     console.log("recent sticker clicked: "+stickerClicked);
     FirebaseAnalytics.logEvent({
-      name: "recent sticker clicked",
+      name: "recent_ticker_clicked",
       params: {
         // method: "email",
         userEvent: stickerClicked + " - " + currentDomain,
@@ -82,7 +82,7 @@ export class AnalyticsService {
   stickerButtonEvent(stickerClicked, currentDomain) {
     console.log("sticker clicked: "+stickerClicked);
     FirebaseAnalytics.logEvent({
-      name: "sticker clicked",
+      name: "sticker_clicked",
       params: {
         // method: "email",
         userEvent: stickerClicked + " - " + currentDomain,
