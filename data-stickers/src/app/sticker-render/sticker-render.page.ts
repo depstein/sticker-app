@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { GlobalDataService } from './../global-data.service';
-import { StickerInfo } from '../sticker-info-class';
 import { RecentUseService } from './../recent-use.service'
 
 @Component({
@@ -40,17 +39,19 @@ export class StickerRenderPage implements OnInit {
         this.imageLoading = false;
         this.imageLoadedError = true;
       });
-    this.recentUse.addToRecentUse(this.global.stickerInfo.image);
+      //TODO: fix this
+    //this.recentUse.addToRecentUse(this.global.stickerInfo.image);
   }
 
+  //TODO: fix this
   constructUrl() {
-    var image_arr = this.global.stickerInfo.image.split('/');
-    image_arr = image_arr[image_arr.length-1].split('.');
+    //var image_arr = this.global.stickerInfo.image.split('/');
+    //image_arr = image_arr[image_arr.length-1].split('.');
     
     this.url = 'https://sheltered-waters-08469.herokuapp.com/';           // base url
     this.url += String(this.global.stickerInfo.domain);                   // domain (ex. steps)
     this.url += '/?value=' + String(this.global.stickerInfo.value);       // value (ex. 1000)
-    this.url += '&type=' + String(image_arr[0]);                          // image type (ex. plain-domain-relevant-1)
+    this.url += '&type=' + 'plain-domain-relevant-1'//String(image_arr[0]);                          // image type (ex. plain-domain-relevant-1)
     this.url += '&option=' + String(this.global.stickerInfo.animation);   // animation (ex. shake) 
     this.url += '&goal=' + (this.global.stickerInfo.hasGoal ? String(this.global.stickerInfo.goal) : '0');  // goal (ex. 1000)
   }

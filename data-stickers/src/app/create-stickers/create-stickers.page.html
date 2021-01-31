@@ -10,16 +10,17 @@
 
 <ion-content class="hide-scrollbar">
     <!-- Sticker image component-->
-    <app-sticker [(image)]="global.stickerInfo.image"></app-sticker>
+    <app-sticker
+    [stickerInfo]="this.global.stickerInfo"></app-sticker>
 
     <!-- Animation buttons component -->
-    <app-animation-buttons></app-animation-buttons>
+    <app-animation-buttons (changeAnimation)="rerender()"></app-animation-buttons>
 
     <!-- Color buttons component -->
-    <app-color-buttons></app-color-buttons>
+    <app-color-buttons *ngIf="global.stickerInfo.colorMap" (changeColor)="rerender()"></app-color-buttons>
 
     <!-- Input component (includes input, unit selector, goal) -->
-    <app-input></app-input>
+    <app-input (changeInput)="rerender()"></app-input>
 
     <!-- Test Health plugin -->
     {{health_test}}

@@ -21,18 +21,19 @@
 		  </ion-button>
 		</ion-col>
 		
-		<!-- Fill animation (goal only) --> 
-		<ion-col>
-			<ion-button id="fillAnimation" (click)="fillAnimation()"fill="clear" [ngClass]="{'selected': global.stickerInfo.animation == 'fill'}">
-				<ion-icon name="color-fill" routerLinkActive="active" ></ion-icon>		 
-			 </ion-button>
-			
-		</ion-col>
-		<!-- Count up animation (analogy/no goal) --> 
+		<!-- Count up animation --> 
 		<ion-col>
 			<ion-button id="countAnimation" (click)="countAnimation()" fill="clear" [ngClass]="{'selected': global.stickerInfo.animation == 'count'}">
 				<ion-icon name="arrow-up" routerLinkActive="active"></ion-icon>
 			</ion-button>
+		</ion-col>
+
+		<!-- Fill animation (goal only) --> 
+		<ion-col *ngIf="global.stickerInfo.hasGoal">
+			<ion-button id="fillAnimation" (click)="fillAnimation()"fill="clear" [ngClass]="{'selected': global.stickerInfo.animation == 'fill'}">
+				<ion-icon name="color-fill" routerLinkActive="active" ></ion-icon>		 
+			 </ion-button>
+			
 		</ion-col>
 	</ion-row>
 </ion-item>

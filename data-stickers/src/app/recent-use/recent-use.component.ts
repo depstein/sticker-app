@@ -1,6 +1,7 @@
 import { Router } from "@angular/router";
 import { Component, OnInit, Input} from "@angular/core";
 import { GlobalDataService } from "./../global-data.service";
+import { StickerConfig } from '../sticker-configs/sticker-config';
 
 @Component({
   selector: "app-recent-use",
@@ -8,8 +9,7 @@ import { GlobalDataService } from "./../global-data.service";
   styleUrls: ["./recent-use.component.scss"],
 })
 export class RecentUseComponent implements OnInit {
-  @Input() stickerArray = [];
-  @Input() domain;
+  @Input() stickerArray:string[] = [];
 
   constructor(
     public global: GlobalDataService,
@@ -17,13 +17,23 @@ export class RecentUseComponent implements OnInit {
   ) {
   }
   ngOnInit(){
-    console.log(this.stickerArray);
   }
 
-  goToCreateStickerPage(this_img) {
-    this.router.navigate([
-      "create-sticker",
-      { img: this_img, domain: this.domain },
-    ]);
+  goToCreateStickerPage(image:string) {
+    //It's not great that this is being hacked from the file path, but it should work...
+    this.global.stickerInfo.domain = image.substring(image.indexOf('stickers/') + 9, image.lastIndexOf('/'));
+    var config = this.global.sticker_dict[this.global.stickerInfo.domain].find(config => {
+      return image.includes(config.imageURL);
+    });
+    if(config) {
+      this.global.stickerInfo = config;
+      this.router.navigate([
+        "create-sticker",
+        { },
+      ]);
+    } else {
+      //Something went wrong, the config isn't in our list
+      console.log("Config not present: " + image);
+    }
   }
 }

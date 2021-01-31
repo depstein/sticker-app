@@ -10,7 +10,7 @@ export class ServerCallService {
   constructor(public global: GlobalDataService, private http: HttpClient) { }
 
   constructUrl() {
-    var image_arr = this.global.stickerInfo.image.split('/');
+    var image_arr = this.global.stickerInfo.imageURL.split('/');
     image_arr = image_arr[image_arr.length-1].split('.');
     this.url = 'https://sheltered-waters-08469.herokuapp.com/';           // base url
     //this.url += (this.global.stickerInfo.domain === 'calories' ? 'food' : this.global.stickerInfo.domain);  // domain (ex. steps)
