@@ -28,9 +28,11 @@ export class GenericChartjunkConfig extends StickerConfig {
 	animation_options(el, svg, param, options) {
 		// @ts-ignore
 		var tl = gsap.timeline({ paused: true });
+		//Maxing this out at 100 so the bar fills up, but this might not be what we want to happen.
+		var percent = Math.min(100, Math.floor(options['value']/options['goal']*100));
 		if(param == 'fill') {
 			var gsap_animation = tl.to("#fill-mask", {duration:0, yPercent:0})
-			.to("#fill-mask", {duration:1, yPercent:-options['percent'], stagger:0.4})
+			.to("#fill-mask", {duration:1, yPercent:-percent, stagger:0.4})
 				.to(svg, 0.8, {
 				scaleX: 1.05,
 				scaleY: 1.05,
@@ -46,7 +48,7 @@ export class GenericChartjunkConfig extends StickerConfig {
 		}
 
 		//Fill up the bar before running the next animation
-		tl.to("#fill-mask", {duration:0, yPercent:-options['percent']}).play();
+		tl.to("#fill-mask", {duration:0, yPercent:-percent}).play();
 		return super.animation_options(el, svg, param, options);
 	}
 }

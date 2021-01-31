@@ -29,7 +29,7 @@ export class GenericChartjunk3Config extends StickerConfig {
 		// @ts-ignore
 		var tl = gsap.timeline({ paused: true });
 		//Slightly different pixel counts
-		var percent = 18+1.62*options['percent'];
+		var percent = 18 + 1.62*Math.min(100, Math.floor(options['value']/options['goal']*100));
 		if(param == 'fill') {
 			var gsap_animation = 
 			tl.to("#fill-mask", {duration:0, rotation:0, transformOrigin: "top center"})
