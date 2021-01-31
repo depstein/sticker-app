@@ -16,7 +16,7 @@ export class GenericChartjunkConfig extends StickerConfig {
 		};
 	}
 
-	color(el:ElementRef, color:string) {
+	colorSticker(el:ElementRef, color:string) {
 		['main', 'text'].forEach(selector => {
         var sel = el.nativeElement.querySelector('#' + selector);
         if(sel) {

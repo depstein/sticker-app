@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { GlobalDataService } from "./../global-data.service";
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import * as moment from 'moment';
-import { StickerInfo } from '../sticker-info-class';
+import { StickerConfig } from '../sticker-configs/sticker-config';
 
 @Component({
   selector: 'app-sticker',
@@ -14,12 +14,12 @@ import { StickerInfo } from '../sticker-info-class';
 export class StickerComponent implements AfterViewInit {
 	
 	@ViewChild('sticker', {static:true}) stickerElement:ElementRef;
-  @Input() stickerInfo:StickerInfo;
+  @Input() stickerInfo:StickerConfig;
 
   constructor(private http:HttpClient, private sanitizer: DomSanitizer, private global:GlobalDataService) { }
 
   ngAfterViewInit() {
-  	this.http.get(this.stickerInfo.config.svgURL, {responseType: 'text'}).subscribe(svg => {
+  	this.http.get(this.stickerInfo.svgURL, {responseType: 'text'}).subscribe(svg => {
   		this.stickerElement.nativeElement.innerHTML = svg;
   		this.rerender();
   	});
@@ -33,7 +33,7 @@ export class StickerComponent implements AfterViewInit {
 
   colorSticker() {
     if(this.stickerElement && this.stickerElement.nativeElement) {
-      this.stickerInfo.config.color(this.stickerElement, this.stickerInfo.color);
+      this.stickerInfo.colorSticker(this.stickerElement, this.stickerInfo.color);
     }
   }
 
@@ -44,7 +44,7 @@ export class StickerComponent implements AfterViewInit {
       options['domain'] = this.stickerInfo.domain;
       options['goal'] = this.stickerInfo.goal;
       options['unit'] = this.stickerInfo.unit;
-      this.stickerInfo.config.wrapText(this.stickerElement, options);
+      this.stickerInfo.wrapText(this.stickerElement, options);
     }
   }
 
@@ -55,7 +55,7 @@ export class StickerComponent implements AfterViewInit {
       options['domain'] = this.stickerInfo.domain;
       options['goal'] = this.stickerInfo.goal;
       options['unit'] = this.stickerInfo.unit;
-      this.stickerInfo.config.animate(this.stickerElement, this.stickerInfo.animation, options);
+      this.stickerInfo.animate(this.stickerElement, this.stickerInfo.animation, options);
     }    
   }
 }

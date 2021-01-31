@@ -6,7 +6,7 @@ export class GenericPlain3Config extends GenericPlainConfig {
 		super(imageURL, svgURL);
 	}
 
-	color(el:ElementRef, color:string) {
+	colorSticker(el:ElementRef, color:string) {
 		var classMap = {'cls-3':'main', 'cls-8':'shadow', 'cls-6':'highlight'}
 		Object.keys(classMap).forEach(cls => {
         var sels = el.nativeElement.querySelectorAll('.' + cls);

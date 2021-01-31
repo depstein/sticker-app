@@ -31,6 +31,10 @@ export class CreateStickersPage implements OnInit {
     private http: HttpClient,
     private spotifyService: SpotifyService
   ) {
+    
+  }
+
+  ngOnInit() {
     this.global.stickerInfo.color = "red";
     this.global.stickerInfo.value = 0;
     this.global.stickerInfo.music_value = "";
@@ -52,8 +56,6 @@ export class CreateStickersPage implements OnInit {
       }
     })
   }
-
-  ngOnInit() {}
 
   rerender() {
     this.stickerComponent.rerender();

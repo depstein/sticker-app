@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { StickerInfo } from './sticker-info-class';
 import { StickerConfig } from './sticker-configs/sticker-config';
 import { GenericPlainConfig } from './sticker-configs/generic/GenericPlainConfig';
 import { GenericPlain3Config } from './sticker-configs/generic/GenericPlain3Config';
@@ -19,7 +18,7 @@ export class GlobalDataService {
 	recent_use = [];
 	music_history =[];
 	asked:boolean;
-	stickerInfo:StickerInfo;
+	stickerInfo:StickerConfig = undefined;
 	
   	constructor() {
 		this.asked = false;
@@ -173,7 +172,5 @@ export class GlobalDataService {
 				// {"sticker":"../../../assets/stickers/music/6-03.png", "stickerType":"plain","relevance":"domain-relevant" }
 			]
 		}
-
-		this.stickerInfo = new StickerInfo();
 	}
 }

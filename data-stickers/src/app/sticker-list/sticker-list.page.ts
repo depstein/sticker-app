@@ -68,8 +68,8 @@ export class StickerListPage implements OnInit {
   }
 
   goToCreateStickerPage(config) {
-    this.global.stickerInfo.domain = this.domain;
-    this.global.stickerInfo.config = config;
+    config.domain = this.domain;
+    this.global.stickerInfo = config;
     this.router.navigate([
       'create-sticker',
       { },

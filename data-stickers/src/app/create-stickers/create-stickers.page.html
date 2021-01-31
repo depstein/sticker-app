@@ -17,7 +17,7 @@
     <app-animation-buttons (changeAnimation)="rerender()"></app-animation-buttons>
 
     <!-- Color buttons component -->
-    <app-color-buttons *ngIf="global.stickerInfo.config.colorMap" (changeColor)="rerender()"></app-color-buttons>
+    <app-color-buttons *ngIf="global.stickerInfo.colorMap" (changeColor)="rerender()"></app-color-buttons>
 
     <!-- Input component (includes input, unit selector, goal) -->
     <app-input (changeInput)="rerender()"></app-input>

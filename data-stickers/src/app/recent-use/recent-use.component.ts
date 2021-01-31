@@ -26,7 +26,7 @@ export class RecentUseComponent implements OnInit {
       return image.includes(config.imageURL);
     });
     if(config) {
-      this.global.stickerInfo.config = config;
+      this.global.stickerInfo = config;
       this.router.navigate([
         "create-sticker",
         { },

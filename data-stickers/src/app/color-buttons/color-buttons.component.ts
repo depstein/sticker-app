@@ -15,13 +15,13 @@ export class ColorButtonsComponent implements OnInit {
   constructor(public global: GlobalDataService) { }
 
   ngOnInit() {
-    this.colors = Object.keys(this.global.stickerInfo.config.colorMap);
+    this.colors = Object.keys(this.global.stickerInfo.colorMap);
     this.colors.forEach(color => {
-      if('main' in this.global.stickerInfo.config.colorMap[color]) {
-        this.color_map[color] = this.global.stickerInfo.config.colorMap[color]['main'];
+      if('main' in this.global.stickerInfo.colorMap[color]) {
+        this.color_map[color] = this.global.stickerInfo.colorMap[color]['main'];
       } else {
         //Just grab a random string.. it's probably fine.
-        this.color_map[color] = this.global.stickerInfo.config.colorMap[color][Object.keys(this.global.stickerInfo.config.colorMap)[0]];
+        this.color_map[color] = this.global.stickerInfo.colorMap[color][Object.keys(this.global.stickerInfo.colorMap)[0]];
       }
     });
   }

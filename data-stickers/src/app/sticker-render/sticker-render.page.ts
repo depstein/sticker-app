@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { GlobalDataService } from './../global-data.service';
-import { StickerInfo } from '../sticker-info-class';
 import { RecentUseService } from './../recent-use.service'
 
 @Component({

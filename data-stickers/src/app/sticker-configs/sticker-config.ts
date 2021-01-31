@@ -7,6 +7,18 @@ export abstract class StickerConfig {
 	stickerType: string;
 	stickerRelevance: string;
   colorMap:{};
+  color: string;
+  domain: string;
+  value: number = 0;
+  unit: string;
+  music_value: string;
+  animation: string;
+  hasGoal: boolean;
+  goal: number;
+  min:number = 0;
+  hour:number = 0;
+  goal_min:number;
+  goal_hour:number;
 
 	constructor(imageURL, svgURL) {
 		this.imageURL = imageURL;
@@ -16,7 +28,7 @@ export abstract class StickerConfig {
     this.colorMap = undefined;
 	}
 
-	color(el:ElementRef, color:string) {
+	colorSticker(el:ElementRef, color:string) {
     //By default, coloring does nothing because most stickers are not colorable.
 	}
 

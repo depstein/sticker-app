@@ -41,7 +41,7 @@ export class InputComponent implements OnInit {
 
   ngOnInit() {
     this.unit_list = this.unit_copy = this.global.domain_info[this.global.stickerInfo.domain].units;
-    if (this.global.stickerInfo.config.stickerType == "chartjunk" || this.global.stickerInfo.config.stickerType == "hybrid") {
+    if (this.global.stickerInfo.stickerType == "chartjunk" || this.global.stickerInfo.stickerType == "hybrid") {
       //Add the ability to add a goal if allowed for the domains
       this.canAddGoal = true;
       this.global.stickerInfo.goal = this.global.domain_info[this.global.stickerInfo.domain].default_goal;
@@ -50,7 +50,7 @@ export class InputComponent implements OnInit {
         this.global.stickerInfo.goal_hour = Math.floor(this.global.stickerInfo.goal/(60*60*1000));
         this.global.stickerInfo.goal_min = Math.floor(this.global.stickerInfo.goal/(60*1000)%60);
       }
-      if(this.global.stickerInfo.config.stickerType == "chartjunk") {
+      if(this.global.stickerInfo.stickerType == "chartjunk") {
         this.global.stickerInfo.hasGoal = true;
       }
     } else {
@@ -257,8 +257,8 @@ export class InputComponent implements OnInit {
         this.global.stickerInfo.domain == "time" &&
         this.global.stickerInfo.unit == "hour:minute"
       ) {
-        this.hour_str = String(this.global.stickerInfo.hour);
-        this.min_str = String(this.global.stickerInfo.min);
+        // this.hour_str = String(this.global.stickerInfo.hour);
+        // this.min_str = String(this.global.stickerInfo.min);
       }
     }
 
