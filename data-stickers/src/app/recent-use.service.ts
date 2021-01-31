@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
+import { StickerConfig } from './sticker-configs/sticker-config';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,6 @@ export class RecentUseService {
   	this.storage.get('recentUse').then((value) => {
       this.stickerArray = JSON.parse(value);
     });
-    console.log("loadStickers() executed: "+this.stickerArray)
   }
 
   addToRecentUse(sticker:string) {

@@ -16,7 +16,6 @@
       lines="none"
     >
       <app-recent-use
-        [(domain)]="domain"
         [(stickerArray)]="recentUse.stickerArray"
       ></app-recent-use>
     </ion-item>
@@ -31,8 +30,8 @@
 <ion-content class="hide-scrollbar" color="{{domain}}">
   <ion-grid>
     <ion-row *ngFor="let row of imageArray">
-      <ion-col *ngFor="let image of row">
-        <img [src]="image" (click)="goToCreateStickerPage(image)" />
+      <ion-col *ngFor="let config of row">
+        <img [src]="config.imageURL" (click)="goToCreateStickerPage(config)" />
       </ion-col>
     </ion-row>
   </ion-grid>

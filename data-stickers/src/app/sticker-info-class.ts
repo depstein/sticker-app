@@ -1,5 +1,7 @@
+import { StickerConfig } from './sticker-configs/sticker-config';
+
 export class StickerInfo {
-	image: string;
+	config:StickerConfig;
 	color: string;
 	domain: string;
 	value: number;
@@ -10,10 +12,10 @@ export class StickerInfo {
 	goal: number;
 	min:number;
 	hour:number;
-	milsec:number;
+	goal_min:number;
+	goal_hour:number;
 
 	constructor() {
-		this.image = '';
 		this.color = '';
 		this.domain = '';
 		this.value = 0;
@@ -23,7 +25,8 @@ export class StickerInfo {
 		this.hasGoal = false;
 		this.goal = 0;
 		this.min = 0;
-		this.hour = 0
-
+		this.hour = 0;
+		this.goal_min = 0;
+		this.goal_hour = 0;
 	}
 }

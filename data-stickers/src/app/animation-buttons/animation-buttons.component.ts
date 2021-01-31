@@ -8,30 +8,34 @@ import { GlobalDataService } from './../global-data.service';
   styleUrls: ['./animation-buttons.component.scss'],
 })
 export class AnimationButtonsComponent implements OnInit {
+	@Output() changeAnimation:EventEmitter<any> = new EventEmitter();
 
   	constructor(public global: GlobalDataService) {}
 
   	ngOnInit() {}
 
 	noAnimation() {
-		if (this.global.stickerInfo.animation != "none") {
-			this.global.stickerInfo.animation = "none";
-		}
+		this.global.stickerInfo.animation = "none";
+		this.changeAnimation.emit();
 	}
 
 	pulseAnimation() {
-		this.global.stickerInfo.animation = (this.global.stickerInfo.animation == "pulse" ? "none" : "pulse");
+		this.global.stickerInfo.animation = "pulse";
+		this.changeAnimation.emit();
 	}
 
 	shakeAnimation() {
-		this.global.stickerInfo.animation = (this.global.stickerInfo.animation == "shake" ? "none" : "shake");
+		this.global.stickerInfo.animation = "shake";
+		this.changeAnimation.emit();
 	}
 
 	fillAnimation() {
-		this.global.stickerInfo.animation = (this.global.stickerInfo.animation == "fill" ? "none" : "fill");
+		this.global.stickerInfo.animation = "fill";
+		this.changeAnimation.emit();
 	}
 
 	countAnimation() {
-		this.global.stickerInfo.animation = (this.global.stickerInfo.animation == "count" ? "none" : "count");
+		this.global.stickerInfo.animation = "count";
+		this.changeAnimation.emit();
 	}	
 }
