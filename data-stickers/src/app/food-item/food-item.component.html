@@ -1,5 +1,5 @@
 <img [src]="imageUrl" [alt]="itemName">
-<ion-label class="food-item-label">
+<ion-label class="food-item-label ion-text-wrap">
   <h2>{{ itemName }}</h2>
   <h3>1 portion</h3>
   <app-counter counterValue=0 (counterValueChanged)="onCounterValueChanged($event)"></app-counter>
