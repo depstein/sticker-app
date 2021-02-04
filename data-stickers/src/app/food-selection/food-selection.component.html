@@ -1,4 +1,7 @@
-<ion-searchbar [(ngModel)]="queryText" (ionChange)="getFoodData($event)" placeholder="Search for food items..."></ion-searchbar>
+<div class="search">
+  <ion-searchbar [(ngModel)]="queryText" placeholder="Search food items..."></ion-searchbar>
+  <ion-button fill="clear" (click)="getFoodData($event)">Search</ion-button>
+</div>
 
 <ion-list>
   <ion-item *ngFor="let item of foodData">
