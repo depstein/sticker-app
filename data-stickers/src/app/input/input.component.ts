@@ -102,6 +102,14 @@ export class InputComponent implements OnInit {
           result = (value * 2.5) / 3280.8;
         }
       }
+    } else if (this.global.stickerInfo.domain == "calories") {
+      if (currentUnit == "calories") {
+        result = Math.floor(value * 4.184);
+        return result;
+      } else {
+        result = Math.floor(value / 4.184);
+        return result;
+      }
     } else if (this.global.stickerInfo.domain == "music") {
       // Average song playtime = 3.5 minutes
       if (currentUnit == "minutes") {
