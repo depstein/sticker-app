@@ -26,8 +26,8 @@ export class FoodSelectionComponent {
 
     this.foodDataService.searchForFoodItems(this.queryText)
     .subscribe(data => {
-
-      this.foodData = data['common'].map(item => {
+      let trimmedData = data['common'].slice(0, 5);
+      this.foodData = trimmedData.map(item => {
         return {
           name: item.food_name,
           image: item.photo.thumb,
@@ -35,7 +35,7 @@ export class FoodSelectionComponent {
         }
       });
 
-      var promises = data["common"].map(item => {
+      var promises = trimmedData.map(item => {
         return this.foodDataService.getFoodData(item.food_name).toPromise()
         .then((nutritionData: any) => {
           return {
