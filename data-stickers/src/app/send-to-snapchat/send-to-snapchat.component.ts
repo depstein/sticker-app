@@ -7,7 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class SendToSnapchatComponent implements OnInit {
 	@Input() sticker:string;
-  private base_url:string = "http://sheltered-waters-08469.herokuapp.com";
+  private base_url:string = "https://sheltered-waters-08469.herokuapp.com";
 
   constructor() { 
 	}
@@ -22,13 +22,16 @@ export class SendToSnapchatComponent implements OnInit {
       tag.parentNode.removeChild(tag);
       sjs = document.getElementsByTagName('script')[0];
 		}
-  	js = document.createElement('script'); js.id = 'snapkit-creative-kit-sdk';
+  	js = document.createElement('script'); 
+    js.id = 'snapkit-creative-kit-sdk';
   	js.src = "https://sdk.snapkit.com/js/v1/create.js";
   	sjs.parentNode.insertBefore(js, sjs);
   }
 
   get URL():string {
-    return this.base_url + '/' + this.sticker;
+    console.log(this.sticker);
+    // return this.base_url + '/' + this.sticker;
+    return "https://denniswang.info/assets/images/test-sticker.png";
   }
 
 }
