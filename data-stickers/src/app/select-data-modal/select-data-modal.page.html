@@ -12,6 +12,7 @@
   <div *ngIf="global.stickerInfo.domain == 'calories'; else elseBlock">
     <!-- Food selection component -->
     <app-food-selection
+      selectedMeasurement="calories"
       (totalCaloriesChanged)="onTotalCaloriesChanged($event)">
     </app-food-selection>
   </div>

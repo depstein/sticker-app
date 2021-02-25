@@ -10,6 +10,7 @@ export class FoodItemComponent implements OnInit {
   @Input() imageUrl: string;
   @Input() itemName: string;
   @Input() numCalories: number;
+  @Input() selectedMeasurement: string;
   @Output() totalCaloriesChanged = new EventEmitter<number>(true);
 
   constructor() {
