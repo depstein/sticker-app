@@ -9,8 +9,8 @@ export class FoodItemComponent implements OnInit {
 
   @Input() imageUrl: string;
   @Input() itemName: string;
-  @Input() numCalories: number;
-  @Input() selectedMeasurement: string;
+  @Input() nutrients: any;
+  @Input() selectedNutrient: string;
   @Output() totalCaloriesChanged = new EventEmitter<number>(true);
 
   constructor() {
@@ -19,7 +19,7 @@ export class FoodItemComponent implements OnInit {
   ngOnInit() {}
 
   onCounterValueChanged(counterValueChange: number) {
-    this.totalCaloriesChanged.emit(this.numCalories * counterValueChange);
+    this.totalCaloriesChanged.emit(this.value * counterValueChange);
   }
 
 }

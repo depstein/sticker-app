@@ -9,12 +9,20 @@ import { FoodDataService } from '../food-data.service';
 export class FoodSelectionComponent {
   queryText: string;
   totalCalories: number;
-  @Input() selectedMeasurement: string;
+  totalNutrients: any;
+  @Input() selectedNutrient: string;
   @Output() totalCaloriesChanged = new EventEmitter<number>(true);
   foodData: any;
 
   constructor(private foodDataService: FoodDataService) {
     this.totalCalories = 0;
+    this.totalNutrients = {
+      "calories": 0,
+      "g fiber": 0,
+      "g carbohydrate": 0,
+      "g sodium": 0,
+      "g sugar": 0
+    };
   }
 
   onTotalCaloriesChanged(calorieChange: number) {

@@ -8,8 +8,8 @@
     <app-food-item
       [imageUrl] = "item.image"
       [itemName] = "item.name"
-      [numCalories] = "item.nutrients[selectedMeasurement]"
-      [selectedMeasurement] = "selectedMeasurement"
+      [nutrients] = "item.nutrients"
+      [selectedNutrient] = "selectedNutrient"
       (totalCaloriesChanged)="onTotalCaloriesChanged($event)">
     </app-food-item>
   </ion-item>
