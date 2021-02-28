@@ -26,12 +26,7 @@ export class FoodSelectionComponent {
 
   onTotalNutrientsChanged(nutrientChange: any) {
     this.totalNutrients = addNutrients(this.totalNutrients, nutrientChange);
-    console.log('onTotalNutrientsChanged result:');
-    console.log(this.totalNutrients);
     this.totalNutrientsChanged.emit(this.totalNutrients);
-
-    // this.totalCalories += calorieChange;
-    // this.totalNutrientsChanged.emit(this.totalCalories);
   }
 
   getFoodData(): void {
