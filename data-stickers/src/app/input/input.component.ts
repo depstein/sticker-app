@@ -21,6 +21,7 @@ export class InputComponent implements OnInit {
   custom: string;
   canAddGoal: boolean;
   saved_unit: string;
+  nutrient_data: any;
   music_str: string;
   songName: Object;
   artists: Object;
@@ -57,6 +58,13 @@ export class InputComponent implements OnInit {
       this.canAddGoal = false;
     }
     this.selected_unit = this.unit_list[0].trim();
+    this.nutrient_data = {
+      "calories": 0,
+      "g fiber": 0,
+      "g carbohydrate": 0,
+      "g sodium": 0,
+      "g sugar": 0
+    };
     this.songName = { songName: { times: 1, minutes: 0, hours: 0 } };
     this.artists = { artistName: { times: 1, minutes: 0, hours: 0 } };
     this.albums = { albums: { times: 1, minutes: 0, hours: 0 } };
@@ -103,13 +111,7 @@ export class InputComponent implements OnInit {
         }
       }
     } else if (this.global.stickerInfo.domain == "calories") {
-      if (currentUnit == "calories") {
-        result = Math.floor(value * 4.184);
-        return result;
-      } else {
-        result = Math.floor(value / 4.184);
-        return result;
-      }
+      return this.nutrient_data[newUnit];
     } else if (this.global.stickerInfo.domain == "music") {
       // Average song playtime = 3.5 minutes
       if (currentUnit == "minutes") {
@@ -776,7 +778,13 @@ export class InputComponent implements OnInit {
       }
     });
     modal.onDidDismiss().then(data=>{
-      this.global.stickerInfo.value = data.data.sum;
+      if (this.global.stickerInfo.domain == "calories") {
+        this.nutrient_data = data.data.sum;
+        this.global.stickerInfo.value = this.nutrient_data[this.selected_unit];
+      }
+      else {
+        this.global.stickerInfo.value = data.data.sum;
+      }
       this.updateInputValue();
     })
     return await modal.present();
