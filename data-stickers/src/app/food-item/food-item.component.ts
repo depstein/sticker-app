@@ -13,19 +13,12 @@ export class FoodItemComponent implements OnInit {
   @Input() selectedNutrient: string;
   @Output() totalNutrientsChanged = new EventEmitter<any>(true);
 
-  constructor() {
-  }
+  constructor() {}
 
   ngOnInit() {}
 
   onCounterValueChanged(counterValueChange: number) {
-    console.log(counterValueChange);
-
-    const result = generateNutrientObject(this.nutrients, counterValueChange);
-    console.log('onCounterValueChanged result:');
-    console.log(result);
-    this.totalNutrientsChanged.emit(result);
-    // this.totalNutrientsChanged.emit(this.value * counterValueChange);
+    this.totalNutrientsChanged.emit(generateNutrientObject(this.nutrients, counterValueChange));
   }
 
 }
