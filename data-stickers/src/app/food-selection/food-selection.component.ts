@@ -59,10 +59,10 @@ export class FoodSelectionComponent {
             image: item.photo.thumb,
             nutrients: {
               "calories": Math.round(nutritionData.foods[0].nf_calories),
-              "g fiber": nutritionData.foods[0].nf_dietary_fiber,
-              "g carbohydrate": nutritionData.foods[0].nf_total_carbohydrate,
-              "g sodium": nutritionData.foods[0].nf_sodium,
-              "g sugar": nutritionData.foods[0].nf_sugars
+              "g fiber": roundTo2(nutritionData.foods[0].nf_dietary_fiber),
+              "g carbohydrate": roundTo2(nutritionData.foods[0].nf_total_carbohydrate),
+              "g sodium": roundTo2(nutritionData.foods[0].nf_sodium),
+              "g sugar": roundTo2(nutritionData.foods[0].nf_sugars)
             }
           };
         });
@@ -74,13 +74,17 @@ export class FoodSelectionComponent {
 
 }
 
-// Helper function outside of class
+// Helper functions outside of class
 function addNutrients(obj1, obj2) {
   return {
-    "calories": obj1["calories"] + obj2["calories"],
-    "g fiber": obj1["g fiber"] + obj2["g fiber"],
-    "g carbohydrate": obj1["g carbohydrate"] + obj2["g carbohydrate"],
-    "g sodium": obj1["g sodium"] + obj2["g sodium"],
-    "g sugar": obj1["g sugar"] + obj2["g sugar"]
+    "calories": Math.round(obj1["calories"] + obj2["calories"]),
+    "g fiber": roundTo2(obj1["g fiber"] + obj2["g fiber"]),
+    "g carbohydrate": roundTo2(obj1["g carbohydrate"] + obj2["g carbohydrate"]),
+    "g sodium": roundTo2(obj1["g sodium"] + obj2["g sodium"]),
+    "g sugar": roundTo2(obj1["g sugar"] + obj2["g sugar"])
   };
+}
+
+function roundTo2(x: number) {
+  return Math.round(x * 100) / 100
 }

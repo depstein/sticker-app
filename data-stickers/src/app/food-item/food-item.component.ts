@@ -26,10 +26,14 @@ export class FoodItemComponent implements OnInit {
 // Helper function outside of class
 function generateNutrientObject(obj: any, counterValueChange: number) {
   return {
-    "calories": obj["calories"] * counterValueChange,
-    "g fiber": obj["g fiber"] * counterValueChange,
-    "g carbohydrate": obj["g carbohydrate"] * counterValueChange,
-    "g sodium": obj["g sodium"] * counterValueChange,
-    "g sugar": obj["g sugar"] * counterValueChange
+    "calories": Math.round(obj["calories"] * counterValueChange),
+    "g fiber": roundTo2(obj["g fiber"] * counterValueChange),
+    "g carbohydrate": roundTo2(obj["g carbohydrate"] * counterValueChange),
+    "g sodium": roundTo2(obj["g sodium"] * counterValueChange),
+    "g sugar": roundTo2(obj["g sugar"] * counterValueChange)
   };
+}
+
+function roundTo2(x: number) {
+  return Math.round(x * 100) / 100
 }
