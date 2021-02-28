@@ -28,7 +28,7 @@ export class SelectDataModalPage implements OnInit {
     });
   }
 
-  onTotalCaloriesChanged(totalCalories: number) {
+  onTotalNutrientsChanged(totalCalories: number) {
     this.totalCalories = totalCalories;
   }
 

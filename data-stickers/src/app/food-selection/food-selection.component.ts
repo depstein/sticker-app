@@ -11,11 +11,10 @@ export class FoodSelectionComponent {
   totalCalories: number;
   totalNutrients: any;
   @Input() selectedNutrient: string;
-  @Output() totalCaloriesChanged = new EventEmitter<number>(true);
+  @Output() totalNutrientsChanged = new EventEmitter<any>(true);
   foodData: any;
 
   constructor(private foodDataService: FoodDataService) {
-    this.totalCalories = 0;
     this.totalNutrients = {
       "calories": 0,
       "g fiber": 0,
@@ -25,9 +24,14 @@ export class FoodSelectionComponent {
     };
   }
 
-  onTotalCaloriesChanged(calorieChange: number) {
-    this.totalCalories += calorieChange;
-    this.totalCaloriesChanged.emit(this.totalCalories);
+  onTotalNutrientsChanged(nutrientChange: any) {
+    this.totalNutrients = addNutrients(this.totalNutrients, nutrientChange);
+    console.log('onTotalNutrientsChanged result:');
+    console.log(this.totalNutrients);
+    this.totalNutrientsChanged.emit(this.totalNutrients);
+
+    // this.totalCalories += calorieChange;
+    // this.totalNutrientsChanged.emit(this.totalCalories);
   }
 
   getFoodData(): void {
@@ -72,4 +76,16 @@ export class FoodSelectionComponent {
       Promise.all(promises).then(results => this.foodData = results);
     });
   }
+
+}
+
+// Helper function outside of class
+function addNutrients(obj1, obj2) {
+  return {
+    "calories": obj1["calories"] + obj2["calories"],
+    "g fiber": obj1["g fiber"] + obj2["g fiber"],
+    "g carbohydrate": obj1["g carbohydrate"] + obj2["g carbohydrate"],
+    "g sodium": obj1["g sodium"] + obj2["g sodium"],
+    "g sugar": obj1["g sugar"] + obj2["g sugar"]
+  };
 }
