@@ -9,16 +9,24 @@ import { FoodDataService } from '../food-data.service';
 export class FoodSelectionComponent {
   queryText: string;
   totalCalories: number;
-  @Output() totalCaloriesChanged = new EventEmitter<number>(true);
+  totalNutrients: any;
+  @Input() selectedNutrient: string;
+  @Output() totalNutrientsChanged = new EventEmitter<any>(true);
   foodData: any;
 
   constructor(private foodDataService: FoodDataService) {
-    this.totalCalories = 0;
+    this.totalNutrients = {
+      "calories": 0,
+      "g fiber": 0,
+      "g carbohydrate": 0,
+      "g sodium": 0,
+      "g sugar": 0
+    };
   }
 
-  onTotalCaloriesChanged(calorieChange: number) {
-    this.totalCalories += calorieChange;
-    this.totalCaloriesChanged.emit(this.totalCalories);
+  onTotalNutrientsChanged(nutrientChange: any) {
+    this.totalNutrients = addNutrients(this.totalNutrients, nutrientChange);
+    this.totalNutrientsChanged.emit(this.totalNutrients);
   }
 
   getFoodData(): void {
@@ -26,22 +34,36 @@ export class FoodSelectionComponent {
 
     this.foodDataService.searchForFoodItems(this.queryText)
     .subscribe(data => {
-
-      this.foodData = data['common'].map(item => {
+      let trimmedData = data['common'].slice(0, 5);
+      this.foodData = trimmedData.map(item => {
         return {
           name: item.food_name,
           image: item.photo.thumb,
-          calories: 0
+          nutrients: {
+            "calories": 0,
+            "g fiber": 0,
+            "g carbohydrate": 0,
+            "g sodium": 0,
+            "g sugar": 0
+          }
         }
       });
 
-      var promises = data["common"].map(item => {
+      var promises = trimmedData.map(item => {
         return this.foodDataService.getFoodData(item.food_name).toPromise()
         .then((nutritionData: any) => {
+          console.log(nutritionData);
+
           return {
             name: item.food_name,
             image: item.photo.thumb,
-            calories: Math.round(nutritionData.foods[0].nf_calories)
+            nutrients: {
+              "calories": Math.round(nutritionData.foods[0].nf_calories),
+              "g fiber": roundTo2(nutritionData.foods[0].nf_dietary_fiber),
+              "g carbohydrate": roundTo2(nutritionData.foods[0].nf_total_carbohydrate),
+              "g sodium": roundTo2(nutritionData.foods[0].nf_sodium),
+              "g sugar": roundTo2(nutritionData.foods[0].nf_sugars)
+            }
           };
         });
       });
@@ -49,4 +71,20 @@ export class FoodSelectionComponent {
       Promise.all(promises).then(results => this.foodData = results);
     });
   }
+
+}
+
+// Helper functions outside of class
+function addNutrients(obj1, obj2) {
+  return {
+    "calories": Math.round(obj1["calories"] + obj2["calories"]),
+    "g fiber": roundTo2(obj1["g fiber"] + obj2["g fiber"]),
+    "g carbohydrate": roundTo2(obj1["g carbohydrate"] + obj2["g carbohydrate"]),
+    "g sodium": roundTo2(obj1["g sodium"] + obj2["g sodium"]),
+    "g sugar": roundTo2(obj1["g sugar"] + obj2["g sugar"])
+  };
+}
+
+function roundTo2(x: number) {
+  return Math.round(x * 100) / 100
 }

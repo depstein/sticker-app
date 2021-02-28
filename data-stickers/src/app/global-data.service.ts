@@ -12,14 +12,14 @@ import { GenericAnalogy3Config } from './sticker-configs/generic/GenericAnalogy3
   providedIn: 'root'
 })
 export class GlobalDataService {
-	
+
 	domain_info = {};
 	sticker_dict = {};
 	recent_use = [];
 	music_history =[];
 	asked:boolean;
 	stickerInfo:StickerConfig = undefined;
-	
+
   	constructor() {
 		this.asked = false;
 
@@ -35,7 +35,7 @@ export class GlobalDataService {
         		"default_goal": 180
 			},
 			"calories": {
-				"units": ["calories"],
+				"units": ["calories", "g fiber", "g carbohydrate", "g sodium", "g sugar"],
         		"color": "#7d7aa2",
         		"default_goal": 2500
 			},
@@ -96,8 +96,8 @@ export class GlobalDataService {
 				// {"sticker":"../../../assets/stickers/heartbeat/embellished-15.png", "stickerType":"chartjunk","relevance":"domain-agnostic" },
 				// {"sticker":"../../../assets/stickers/heartbeat/7-12.png", "stickerType":"analogy","relevance":"domain-agnostic" },
 				// {"sticker":"../../../assets/stickers/heartbeat/7-08.png", "stickerType":"analogy","relevance":"domain-relevant" }
-			], 
-			"calories": 
+			],
+			"calories":
 			[
 				new GenericPlainConfig("assets/stickers/calories/plain-domain-agnostic-1.png", "assets/stickers/generic/plain-1.svg"),
 				new GenericPlainConfig("assets/stickers/calories/plain-domain-agnostic-2.png", "assets/stickers/generic/plain-2.svg"),
@@ -121,7 +121,7 @@ export class GlobalDataService {
 				// {"sticker":"../../../assets/stickers/calories/4-07.png", "stickerType":"analogy","relevance":"domain-relevant" },
 				// {"sticker":"../../../assets/stickers/calories/embellished-01.png", "stickerType":"chartjunk","relevance":"domain-agnostic" }
 			],
-			"time": 
+			"time":
 			[
 				new GenericPlainConfig("assets/stickers/time/plain-domain-agnostic-1.png", "assets/stickers/generic/plain-1.svg"),
 				new GenericPlainConfig("assets/stickers/time/plain-domain-agnostic-2.png", "assets/stickers/generic/plain-2.svg"),
