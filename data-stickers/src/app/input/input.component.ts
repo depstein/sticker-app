@@ -770,7 +770,10 @@ export class InputComponent implements OnInit {
 
   async openModal() {
     const modal = await this.modalController.create({
-      component: SelectDataModalPage
+      component: SelectDataModalPage,
+      componentProps: {
+        selectedUnit: this.selected_unit
+      }
     });
     modal.onDidDismiss().then(data=>{
       this.global.stickerInfo.value = data.data.sum;
