@@ -35,7 +35,7 @@ export class GlobalDataService {
         		"default_goal": 180
 			},
 			"calories": {
-				"units": ["calories", "kilojoules"],
+				"units": ["calories", "g fiber", "g carbohydrate", "g sodium", "g sugar"],
         		"color": "#7d7aa2",
         		"default_goal": 2500
 			},
