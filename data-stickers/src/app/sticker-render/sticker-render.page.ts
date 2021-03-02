@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { GlobalDataService } from './../global-data.service';
-import { StickerInfo } from '../sticker-info-class';
 import { RecentUseService } from './../recent-use.service'
 import { Meta } from '@angular/platform-browser';
 
@@ -42,12 +41,14 @@ export class StickerRenderPage implements OnInit {
         this.imageLoading = false;
         this.imageLoadedError = true;
       });
-    this.recentUse.addToRecentUse(this.global.stickerInfo.image);
+      //TODO: fix this
+    //this.recentUse.addToRecentUse(this.global.stickerInfo.image);
   }
 
+  //TODO: fix this
   constructUrl() {
-    var image_arr = this.global.stickerInfo.image.split('/');
-    image_arr = image_arr[image_arr.length-1].split('.');
+    //var image_arr = this.global.stickerInfo.image.split('/');
+    //image_arr = image_arr[image_arr.length-1].split('.');
     
     this.url = 'https://sheltered-waters-08469.herokuapp.com/';           // base url
     // this.url = 'http://192.168.86.24:5000/';           // base url

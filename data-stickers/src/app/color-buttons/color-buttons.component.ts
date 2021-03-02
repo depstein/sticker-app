@@ -9,16 +9,30 @@ import { AnalyticsService } from '../analytics.service';
 })
 export class ColorButtonsComponent implements OnInit {
   enabled = this.analyticsService.analyticsEnabled;
-  colors = ['#C274D5', '#95DA48', '#F4C454', '#9BC7DE', '#ED6D68'];
+	@Output() changeColor:EventEmitter<any> = new EventEmitter();
+  color_map = {};
+
+  colors = [];
 
   constructor(public global: GlobalDataService, private analyticsService: AnalyticsService) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.colors = Object.keys(this.global.stickerInfo.colorMap);
+    this.colors.forEach(color => {
+      if('main' in this.global.stickerInfo.colorMap[color]) {
+        this.color_map[color] = this.global.stickerInfo.colorMap[color]['main'];
+      } else {
+        //Just grab a random string.. it's probably fine.
+        this.color_map[color] = this.global.stickerInfo.colorMap[color][Object.keys(this.global.stickerInfo.colorMap)[0]];
+      }
+    });
+  }
 
   updateColor(color: string) {
     this.global.stickerInfo.color = color;
     // this.analyticsService.setUser();
     this.analyticsService.colorButtonEvent(color);
+    this.changeColor.emit(color);
   }
   // logEvent(color: string) {
   //   this.analyticsService.logEvent(color);

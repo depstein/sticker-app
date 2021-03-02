@@ -32,7 +32,6 @@ export class SettingsPage implements OnInit {
   }
 
   getIdandPermissionsFromStorage(){
-    console.log("here");
     this.storage.get('id')
     .then((value) => {
       this.idInput = value;

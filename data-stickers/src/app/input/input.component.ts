@@ -14,22 +14,14 @@ import { SelectDataModalPage } from '../select-data-modal/select-data-modal.page
   styleUrls: ["./input.component.scss"],
 })
 export class InputComponent implements OnInit {
+  @Output() changeInput:EventEmitter<any> = new EventEmitter();
   unit_list: any[] = [];
   unit_copy: any[] = []; // Used for slider's *ngIf to check for custom unit
   selected_unit: string;
   custom: string;
   canAddGoal: boolean;
-  goal: string;
-  goal_str: string;
-  hour_str: string;
-  min_str: string;
-  saved_value: number;
   saved_unit: string;
-  max_slider_value: number;
-  slider_input_value: number;
-  slider_image_url: string;
   music_str: string;
-  milsec: number;
   songName: Object;
   artists: Object;
   albums: Object;
@@ -44,32 +36,27 @@ export class InputComponent implements OnInit {
     private spotifyService: SpotifyService,
     public modalController: ModalController
   ) {
-    this.slider_input_value = 0;
-    this.goal_str = "";
-    this.goal = "ADD GOAL";
     this.custom = "custom";
-    for (var type of this.global.image_dict[this.global.stickerInfo.domain]) {
-      if (this.global.stickerInfo.image == type.sticker) {
-        if (type.stickerType == "chartjunk") {
-          this.canAddGoal = true;
-        } else {
-          this.canAddGoal = false;
-        }
-      }
-    }
   }
 
   ngOnInit() {
-    this.unit_list = this.unit_copy = Object.keys(
-      this.global.domain_info[this.global.stickerInfo.domain].units
-    );
+    this.unit_list = this.unit_copy = this.global.domain_info[this.global.stickerInfo.domain].units;
+    if (this.global.stickerInfo.stickerType == "chartjunk" || this.global.stickerInfo.stickerType == "hybrid") {
+      //Add the ability to add a goal if allowed for the domains
+      this.canAddGoal = true;
+      this.global.stickerInfo.goal = this.global.domain_info[this.global.stickerInfo.domain].default_goal;
+      if(this.global.stickerInfo.domain == "time") {
+        //for time, hour and minute are displayed instead of the goal field, so update appropriately
+        this.global.stickerInfo.goal_hour = Math.floor(this.global.stickerInfo.goal/(60*60*1000));
+        this.global.stickerInfo.goal_min = Math.floor(this.global.stickerInfo.goal/(60*1000)%60);
+      }
+      if(this.global.stickerInfo.stickerType == "chartjunk") {
+        this.global.stickerInfo.hasGoal = true;
+      }
+    } else {
+      this.canAddGoal = false;
+    }
     this.selected_unit = this.unit_list[0].trim();
-    this.max_slider_value = this.global.domain_info[
-      this.global.stickerInfo.domain
-    ].units[this.global.stickerInfo.unit].maxAmount;
-    this.slider_image_url = this.global.domain_info[
-      this.global.stickerInfo.domain
-    ].slider_image_url;
     this.songName = { songName: { times: 1, minutes: 0, hours: 0 } };
     this.artists = { artistName: { times: 1, minutes: 0, hours: 0 } };
     this.albums = { albums: { times: 1, minutes: 0, hours: 0 } };
@@ -80,7 +67,7 @@ export class InputComponent implements OnInit {
   }
 
   // Called to calculate unit conversions when the selected unit is changed
-  convertValue(currentUnit, newUnit) {
+  convertValue(value, currentUnit, newUnit) {
     if (
       !this.unit_list.includes(currentUnit) ||
       !this.unit_list.includes(newUnit)
@@ -95,97 +82,116 @@ export class InputComponent implements OnInit {
       // average step distance = 2.5 feet
       if (currentUnit == "miles") {
         if (newUnit == "km") {
-          result = this.global.stickerInfo.value * 1.60934;
+          result = value * 1.60934;
         } else if (newUnit == "steps") {
-          result = (this.global.stickerInfo.value * 5280) / 2.5;
+          result = Math.floor((value * 5280) / 2.5);
+          return result;
         }
       } else if (currentUnit == "km") {
         if (newUnit == "miles") {
-          result = this.global.stickerInfo.value / 1.60934;
+          result = value / 1.60934;
         } else if (newUnit == "steps") {
-          result = (this.global.stickerInfo.value * 3280.8) / 2.5;
+          result = Math.floor((value * 3280.8) / 2.5);
+          return result;
         }
       } else {
         // currentUnit = 'steps'
         if (newUnit == "miles") {
-          result = (this.global.stickerInfo.value * 2.5) / 5280;
+          result = (value * 2.5) / 5280;
         } else if (newUnit == "km") {
-          result = (this.global.stickerInfo.value * 2.5) / 3280.8;
+          result = (value * 2.5) / 3280.8;
         }
       }
     } else if (this.global.stickerInfo.domain == "music") {
       // Average song playtime = 3.5 minutes
       if (currentUnit == "minutes") {
         if (newUnit == "hours") {
-          result = this.global.stickerInfo.value / 60;
+          result = value / 60;
         } else if (newUnit == "times") {
-          result = this.global.stickerInfo.value / 3.5;
+          result = value / 3.5;
         }
       } else if (currentUnit == "hours") {
         if (newUnit == "minutes") {
-          result = this.global.stickerInfo.value * 60;
+          result = value * 60;
         } else if (newUnit == "times") {
-          result = (this.global.stickerInfo.value * 60) / 3.5;
+          result = (value * 60) / 3.5;
         }
       } else if (currentUnit == "times") {
         if (newUnit == "minutes") {
-          result = this.global.stickerInfo.value * 3.5;
+          result = value * 3.5;
         } else if (newUnit == "hours") {
-          result = (this.global.stickerInfo.value * 3.5) / 60;
+          result = (value * 3.5) / 60;
         }
       }
-    } else {
-      // time
-      if (currentUnit == "hours") {
-        if (newUnit == "minutes") {
-          result = this.global.stickerInfo.value * 60;
-        } else if (newUnit == "days") {
-          result = this.global.stickerInfo.value / 24;
+    } else if(this.global.stickerInfo.domain == "time") {
+      if(currentUnit == "hour:minute") {
+        if(newUnit == "days") {
+          this.global.stickerInfo.hour = Math.floor(this.global.stickerInfo.hour/24);
+          this.global.stickerInfo.min = 0; //Zero out minute field
+          this.global.stickerInfo.goal_hour = Math.floor(this.global.stickerInfo.goal_hour/24);
+          this.global.stickerInfo.goal_min = 0;
+        } else if(newUnit == "seconds") {
+          this.global.stickerInfo.hour = this.global.stickerInfo.hour*60*60 + this.global.stickerInfo.min*60;
+          this.global.stickerInfo.min = 0;
+          this.global.stickerInfo.goal_hour = this.global.stickerInfo.goal_hour*60*60 + this.global.stickerInfo.goal_min*60;
+          this.global.stickerInfo.goal_min = 0;
         }
-      } else if (currentUnit == "minutes") {
-        if (newUnit == "hours") {
-          result = this.global.stickerInfo.value / 60;
-        } else if (newUnit == "days") {
-          result = this.global.stickerInfo.value / 60 / 24;
+      } else if(currentUnit == "days") {
+        if(newUnit == "hour:minute") {
+          this.global.stickerInfo.hour = this.global.stickerInfo.hour*24;
+          this.global.stickerInfo.min = 0;
+          this.global.stickerInfo.goal_hour = this.global.stickerInfo.goal_hour*24;
+          this.global.stickerInfo.goal_min = 0;
+        } else if(newUnit == "seconds") {
+          this.global.stickerInfo.hour = this.global.stickerInfo.hour*24*60*60;
+          this.global.stickerInfo.min = 0;
+          this.global.stickerInfo.goal_hour = this.global.stickerInfo.goal_hour*24*60*60;
+          this.global.stickerInfo.goal_min = 0;
         }
-      } else if (currentUnit == "days") {
-        if (newUnit == "minutes") {
-          result = this.global.stickerInfo.value * 24 * 60;
-        } else if (newUnit == "hours") {
-          result = this.global.stickerInfo.value * 24;
+      } else if(currentUnit == "seconds") {
+        if(newUnit == "hour:minute") {
+          var seconds = this.global.stickerInfo.hour;
+          this.global.stickerInfo.hour = Math.floor(seconds/(60*60));
+          this.global.stickerInfo.min = Math.floor(seconds/60)%60;
+          seconds = this.global.stickerInfo.goal_hour;
+          this.global.stickerInfo.goal_hour = Math.floor(seconds/(60*60));
+          this.global.stickerInfo.goal_min = Math.floor(seconds/60)%60;
+        } else if(newUnit == "days") {
+          this.global.stickerInfo.hour = Math.floor(this.global.stickerInfo.hour/(24*60*60));
+          this.global.stickerInfo.goal_hour = Math.floor(this.global.stickerInfo.goal_hour/(24*60*60));
         }
       }
+      //Don't update the value for time unit, since it's still in MS.
+      return value;
     }
     return result.toFixed(2);
   }
 
   // Bound to onChange event for input box
   updateInputValue() {
-    if (
-      this.global.stickerInfo.domain == "time" &&
-      this.global.stickerInfo.unit == "hour:minute"
-    ) {
-      this.slider_input_value =
-        this.global.stickerInfo.hour * 60 + this.global.stickerInfo.min;
-      this.milsec = this.slider_input_value * 60000;
-    } else {
-      this.slider_input_value = this.global.stickerInfo.value;
+    if(this.global.stickerInfo.domain == "time") {
+      if(this.global.stickerInfo.unit == "hour:minute") {
+        this.global.stickerInfo.value = this.global.stickerInfo.hour*60*60*1000 + this.global.stickerInfo.min*60*1000;
+        if(this.global.stickerInfo.hasGoal) {
+          this.global.stickerInfo.goal = this.global.stickerInfo.goal_hour*60*60*1000 + this.global.stickerInfo.goal_min*60*1000;
+        }
+      } else if(this.global.stickerInfo.unit == "days") {
+        //This is a hack that Daniel didn't fix because it would require a lot of different changes.this
+        //The "hour" field is actually a day, so treat it accordingly. (24 hrs in a day, 60 mins in an hr, etc.)
+        this.global.stickerInfo.value = this.global.stickerInfo.hour *24*60*60*1000;
+        if(this.global.stickerInfo.hasGoal) {
+          this.global.stickerInfo.goal = this.global.stickerInfo.goal_hour *24*60*60*1000;
+        }
+      } else if(this.global.stickerInfo.unit == "seconds") {
+        //Seconds are similarly hacked, but just multiply by 1000 to get ms.
+        this.global.stickerInfo.value = this.global.stickerInfo.hour * 1000;
+        if(this.global.stickerInfo.hasGoal) {
+          this.global.stickerInfo.goal = this.global.stickerInfo.hour * 1000;
+        }
+      }
     }
 
-    if (this.global.stickerInfo.hasGoal) {
-      // If a goal has been created it must be updated
-      if (this.global.stickerInfo.domain == "music") {
-        this.goal_str =
-          String(this.global.stickerInfo.value) +
-          " " +
-          this.selected_unit +
-          " of " +
-          String(this.global.stickerInfo.music_value);
-      } else {
-        this.goal_str = String(this.global.stickerInfo.value);
-      }
-      this.global.stickerInfo.goal = this.global.stickerInfo.value;
-    }
+    this.changeInput.emit();
   }
 
   // Bound to onChange event for music input box
@@ -197,60 +203,19 @@ export class InputComponent implements OnInit {
       this.presentCustomUnitPrompt();
     }
     if (this.selected_unit != undefined) {
-      // Saves the value so that conversions don't mess up original input (mostly for steps)
-      if (this.saved_value == undefined) {
-        this.saved_value = this.global.stickerInfo.value;
-        this.saved_unit = this.selected_unit;
-      } else {
-        if (this.global.stickerInfo.unit == this.saved_unit) {
-          this.global.stickerInfo.value = this.saved_value;
-          this.selected_unit = this.saved_unit;
-          this.updateInputValue();
-          this.max_slider_value = this.global.domain_info[
-            this.global.stickerInfo.domain
-          ].units[this.selected_unit].maxAmount;
-          return;
-        }
-      }
-      this.global.stickerInfo.value = this.convertValue(
-        this.selected_unit,
-        this.global.stickerInfo.unit
-      );
+      this.global.stickerInfo.value = this.convertValue(this.global.stickerInfo.value, this.selected_unit, this.global.stickerInfo.unit);
+      this.global.stickerInfo.goal = this.convertValue(this.global.stickerInfo.goal, this.selected_unit, this.global.stickerInfo.unit);
     }
     this.updateInputValue();
     this.selected_unit = this.global.stickerInfo.unit;
 
-    if (this.unit_copy.includes(this.selected_unit)) {
-      this.max_slider_value = this.global.domain_info[
-        this.global.stickerInfo.domain
-      ].units[this.selected_unit].maxAmount;
-    }
-  }
-
-  // Bound to onChange event for slider
-  updateInputValueFromSlider() {
-    if (
-      this.slider_input_value >= 0 &&
-      this.slider_input_value <= this.max_slider_value
-    ) {
-      if (
-        this.global.stickerInfo.domain == "time" &&
-        this.global.stickerInfo.unit == "hour:minute"
-      ) {
-        this.global.stickerInfo.hour = Math.floor(this.slider_input_value / 60);
-        this.global.stickerInfo.min = this.slider_input_value % 60;
-      }
-      this.global.stickerInfo.value = this.slider_input_value;
-    }
-    if (this.global.stickerInfo.hasGoal) {
-      this.global.stickerInfo.goal = this.slider_input_value;
-    }
+    this.changeInput.emit();
   }
 
   // Bound to click event for add/remove goal button
   toggleGoal() {
-    if (this.goal == "REMOVE") {
-      this.goal = "ADD GOAL";
+    //TODO: error handling really shouldn't be on the toggle goal button, but rather on the input fields themselves.
+    if (this.global.stickerInfo.hasGoal) {
       this.global.stickerInfo.hasGoal = false;
       this.global.stickerInfo.goal = 0;
     } else {
@@ -281,11 +246,9 @@ export class InputComponent implements OnInit {
         }
       }
 
-      this.goal = "REMOVE";
       this.global.stickerInfo.hasGoal = true;
       this.global.stickerInfo.goal = this.global.stickerInfo.value;
       if (this.global.stickerInfo.domain == "music") {
-        this.goal_str = String(this.global.stickerInfo.value);
         this.music_str =
           this.selected_unit +
           " of " +
@@ -294,12 +257,12 @@ export class InputComponent implements OnInit {
         this.global.stickerInfo.domain == "time" &&
         this.global.stickerInfo.unit == "hour:minute"
       ) {
-        this.hour_str = String(this.global.stickerInfo.hour);
-        this.min_str = String(this.global.stickerInfo.min);
-      } else {
-        this.goal_str = String(this.global.stickerInfo.value);
+        // this.hour_str = String(this.global.stickerInfo.hour);
+        // this.min_str = String(this.global.stickerInfo.min);
       }
     }
+
+    this.changeInput.emit();
   }
 
   // Validates unit input, returns true if the input is valid
@@ -314,6 +277,7 @@ export class InputComponent implements OnInit {
 
   cancelledCustomUnitInput() {
     this.global.stickerInfo.unit = this.unit_list[0];
+    this.changeInput.emit();
   }
 
   async presentCustomUnitPrompt() {
@@ -348,6 +312,7 @@ export class InputComponent implements OnInit {
             } else {
               this.unit_list.push(data.name);
               this.global.stickerInfo.unit = data.name;
+              this.changeInput.emit();
             }
           },
         },

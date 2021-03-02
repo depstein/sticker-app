@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { GlobalDataService } from './../global-data.service';
-import { AnalyticsService } from '../analytics.service';
+
 
 @Component({
   selector: 'app-animation-buttons',
@@ -8,41 +8,34 @@ import { AnalyticsService } from '../analytics.service';
   styleUrls: ['./animation-buttons.component.scss'],
 })
 export class AnimationButtonsComponent implements OnInit {
+	@Output() changeAnimation:EventEmitter<any> = new EventEmitter();
 
-	enabled = this.analyticsService.analyticsEnabled;
-  	constructor(public global: GlobalDataService, private analyticsService: AnalyticsService) {}
+  	constructor(public global: GlobalDataService) {}
 
   	ngOnInit() {}
 
 	noAnimation() {
-		if (this.global.stickerInfo.animation != "none") {
-			this.global.stickerInfo.animation = "none";
-		}
-		this.logAnimationEvent("none");
+		this.global.stickerInfo.animation = "none";
+		this.changeAnimation.emit();
 	}
 
 	pulseAnimation() {
-		this.global.stickerInfo.animation = (this.global.stickerInfo.animation == "pulse" ? "none" : "pulse");
-		this.logAnimationEvent("pulse");
+		this.global.stickerInfo.animation = "pulse";
+		this.changeAnimation.emit();
 	}
 
 	shakeAnimation() {
-		this.global.stickerInfo.animation = (this.global.stickerInfo.animation == "shake" ? "none" : "shake");
-		this.logAnimationEvent("shake");
+		this.global.stickerInfo.animation = "shake";
+		this.changeAnimation.emit();
 	}
 
 	fillAnimation() {
-		this.global.stickerInfo.animation = (this.global.stickerInfo.animation == "fill" ? "none" : "fill");
-		this.logAnimationEvent("fill");
+		this.global.stickerInfo.animation = "fill";
+		this.changeAnimation.emit();
 	}
 
 	countAnimation() {
-		this.global.stickerInfo.animation = (this.global.stickerInfo.animation == "count" ? "none" : "count");
-		this.logAnimationEvent("count");
+		this.global.stickerInfo.animation = "count";
+		this.changeAnimation.emit();
 	}	
-
-	logAnimationEvent(animationName) {
-		// this.analyticsService.setUser();
-    	this.analyticsService.animationButtonEvent(animationName);
-	}
 }
