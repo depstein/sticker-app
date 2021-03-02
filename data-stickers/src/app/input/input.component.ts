@@ -57,6 +57,12 @@ export class InputComponent implements OnInit {
     } else {
       this.canAddGoal = false;
     }
+
+    if (this.global.stickerInfo.domain == 'music') {
+      this.global.stickerInfo.hasGoal = false;
+      this.canAddGoal = false;
+    }
+    
     this.selected_unit = this.unit_list[0].trim();
     this.nutrient_data = {
       "calories": 0,
@@ -755,6 +761,7 @@ export class InputComponent implements OnInit {
     const modal = await this.modalController.create({
       component: ModalPage,
       cssClass: "my-custom-class",
+      id: "ModalPage",
       componentProps: {
         songName: this.songName,
         artists: this.artists,
@@ -765,6 +772,17 @@ export class InputComponent implements OnInit {
         month: this.lastMonth,
       },
     });
+
+    modal.onDidDismiss().then(data => {
+      console.log("InputComponent - get data from ModalPage");
+      console.log(data);
+      if (!data.data.dismissed) {
+        console.log('data.data: ', data.data);
+
+        this.global.stickerInfo.value = data.data.value;
+        this.global.stickerInfo.music_value = data.data.title;
+      }
+    });    
     console.log("check","day",this.lastDay,"hour",this.lastHour,"week",this.lastWeek,"month",this.lastMonth)
     return await modal.present();
   }

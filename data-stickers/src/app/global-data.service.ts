@@ -47,7 +47,8 @@ export class GlobalDataService {
 			"music": {
 				"units": ["minutes", "hours", "plays"],
         		"color": "#5a819e",
-        		"default_goal": 60
+        		// "default_goal": 60
+				"default_goal": null
 			}
 		}
 

@@ -1,6 +1,7 @@
-import { Component, OnInit,Input } from '@angular/core';
+import { Component, OnInit,Input, Output, EventEmitter } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { SpotifyService } from '../../spotify.service';
+import { GlobalDataService} from '../../global-data.service';
 
 @Component({
   selector: 'app-selectunit',
@@ -10,7 +11,9 @@ import { SpotifyService } from '../../spotify.service';
 export class SelectunitPage implements OnInit {
   @Input() content;
   @Input() record;
-  constructor(public modalController: ModalController,private spotifyService: SpotifyService) { }
+  @Output() unitSelected = new EventEmitter<{unit: string, value: number, title: string}>();
+
+  constructor(public modalController: ModalController,private spotifyService: SpotifyService, private global: GlobalDataService) { }
 
   ngOnInit() {
 
@@ -24,6 +27,11 @@ export class SelectunitPage implements OnInit {
     });
   }
 
-
+  onSelectButtonClicked(unit: string) {
+    console.log('SelectUnitPage:onSendButtonClicked');
+    this.unitSelected.emit({ unit, value: this.record[unit], title: this.content})
+    this.global.stickerInfo.unit = unit;
+    this.modalController.dismiss();
+  }
   
 }
