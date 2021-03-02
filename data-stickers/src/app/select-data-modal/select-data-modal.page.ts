@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { GlobalDataService } from "./../global-data.service";
 
@@ -8,14 +8,21 @@ import { GlobalDataService } from "./../global-data.service";
   styleUrls: ['./select-data-modal.page.scss'],
 })
 export class SelectDataModalPage implements OnInit {
-  totalCalories: number;
+  totalNutrients: any;
   dataValue: number;
+  @Input() selectedUnit: string;
 
   constructor(
     public viewCtrl: ModalController,
     public global: GlobalDataService)
     {
-    this.totalCalories = 0;
+    this.totalNutrients = {
+      "calories": 0,
+      "g fiber": 0,
+      "g carbohydrate": 0,
+      "g sodium": 0,
+      "g sugar": 0
+    };
     this.dataValue = 0;
   }
 
@@ -24,12 +31,12 @@ export class SelectDataModalPage implements OnInit {
 
   dismiss() {
     this.viewCtrl.dismiss({
-      sum: this.global.stickerInfo.domain == 'calories' ? this.totalCalories : this.dataValue
+      sum: this.global.stickerInfo.domain == 'calories' ? this.totalNutrients : this.dataValue
     });
   }
 
-  onTotalCaloriesChanged(totalCalories: number) {
-    this.totalCalories = totalCalories;
+  onTotalNutrientsChanged(totalNutrients: any) {
+    this.totalNutrients = totalNutrients;
   }
 
   onDataValueChanged(dataValue: number) {
