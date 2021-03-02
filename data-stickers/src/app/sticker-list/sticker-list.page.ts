@@ -77,6 +77,6 @@ export class StickerListPage implements OnInit {
       { },
     ]);
     // this.analyticsService.setUser();
-    this.analyticsService.stickerButtonEvent(this_img, this.domain);
+    this.analyticsService.stickerButtonEvent(config, this.domain);
   }
 }
