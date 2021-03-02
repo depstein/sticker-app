@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { SelectunitPage} from '../../modals/selectunit/selectunit.page';
 @Component({
@@ -14,7 +14,8 @@ export class ModalPage implements OnInit {
   @Input() day:any[];
   @Input() week:any[];
   @Input() month:any[];
-  
+
+  eventEmitterToSelectUnit = new EventEmitter<{type: string, value: number}>();
   
   option:any;
   type:any[] =[];
@@ -23,6 +24,12 @@ export class ModalPage implements OnInit {
 
   constructor(public modalController: ModalController) { 
     console.log(this.hour, this.day,this.week, this.month);
+
+    this.eventEmitterToSelectUnit.subscribe(data => {
+      console.log('ModalPage-event from select unit');
+      console.log(data);
+      this.modalController.dismiss(data, null, "ModalPage");
+    });  
   }
 
   ngOnInit() {
@@ -99,7 +106,8 @@ export class ModalPage implements OnInit {
       cssClass: 'my-custom-class',
       componentProps: {
         "content":item,
-        "record":record
+        "record":record,
+        "unitSelected": this.eventEmitterToSelectUnit
       }
     });
     return await modal.present();
