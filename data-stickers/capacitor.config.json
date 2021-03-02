@@ -15,5 +15,9 @@
       "SplashScreen": "screen",
       "SplashScreenDelay": "3000"
     }
+  }, 
+  "server": {
+    "iosScheme": "ionic",
+    "hostname": "app"
   }
 }

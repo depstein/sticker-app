@@ -5,7 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class SpotifyService {
-	expressBaseUrl:string = 'http://localhost:8888';
+	expressBaseUrl:string = 'https://sticker-spotify.herokuapp.com';
 
   constructor(private http:HttpClient) { }
 

@@ -17,7 +17,7 @@ import { StickerComponent } from '../sticker/sticker.component';
 export class CreateStickersPage implements OnInit {
   img_list = [];
   health_test = '';
-  expressBaseUrl:string = 'http://localhost:8888';
+  expressBaseUrl:string = 'https://sticker-spotify.herokuapp.com';
   spotifybutton:boolean;
   healthbutton:boolean;
   @ViewChild(StickerComponent, {static:true}) stickerComponent;
@@ -93,7 +93,7 @@ export class CreateStickersPage implements OnInit {
           text: 'YES',
           handler: () => {
             console.log("open webpage");
-            window.open("http://localhost:8888/login", "_self");
+            window.open("https://sticker-spotify.herokuapp.com/login", "_self");
             this.storage.set('spotifyPermission', true);
           }
         },
