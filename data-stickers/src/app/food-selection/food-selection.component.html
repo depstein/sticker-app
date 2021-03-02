@@ -1,16 +1,12 @@
-<div class="search">
-  <ion-searchbar [(ngModel)]="queryText" placeholder="Search food items..."></ion-searchbar>
-  <ion-button fill="clear" (click)="getFoodData($event)">Search</ion-button>
-</div>
+<ion-searchbar [(ngModel)]="queryText" (ionChange)="getFoodData($event)" placeholder="Search for food items..."></ion-searchbar>
 
 <ion-list>
   <ion-item *ngFor="let item of foodData">
     <app-food-item
       [imageUrl] = "item.image"
       [itemName] = "item.name"
-      [nutrients] = "item.nutrients"
-      [selectedNutrient] = "selectedNutrient"
-      (totalNutrientsChanged)="onTotalNutrientsChanged($event)">
+      [numCalories] = "item.calories"
+      (totalCaloriesChanged)="onTotalCaloriesChanged($event)">
     </app-food-item>
   </ion-item>
 </ion-list>

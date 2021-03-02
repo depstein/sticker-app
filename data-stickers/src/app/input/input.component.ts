@@ -21,7 +21,6 @@ export class InputComponent implements OnInit {
   custom: string;
   canAddGoal: boolean;
   saved_unit: string;
-  nutrient_data: any;
   music_str: string;
   songName: Object;
   artists: Object;
@@ -57,20 +56,7 @@ export class InputComponent implements OnInit {
     } else {
       this.canAddGoal = false;
     }
-
-    if (this.global.stickerInfo.domain == 'music') {
-      this.global.stickerInfo.hasGoal = false;
-      this.canAddGoal = false;
-    }
-    
     this.selected_unit = this.unit_list[0].trim();
-    this.nutrient_data = {
-      "calories": 0,
-      "g fiber": 0,
-      "g carbohydrate": 0,
-      "g sodium": 0,
-      "g sugar": 0
-    };
     this.songName = { songName: { times: 1, minutes: 0, hours: 0 } };
     this.artists = { artistName: { times: 1, minutes: 0, hours: 0 } };
     this.albums = { albums: { times: 1, minutes: 0, hours: 0 } };
@@ -116,8 +102,6 @@ export class InputComponent implements OnInit {
           result = (value * 2.5) / 3280.8;
         }
       }
-    } else if (this.global.stickerInfo.domain == "calories") {
-      return this.nutrient_data[newUnit];
     } else if (this.global.stickerInfo.domain == "music") {
       // Average song playtime = 3.5 minutes
       if (currentUnit == "minutes") {
@@ -761,7 +745,6 @@ export class InputComponent implements OnInit {
     const modal = await this.modalController.create({
       component: ModalPage,
       cssClass: "my-custom-class",
-      id: "ModalPage",
       componentProps: {
         songName: this.songName,
         artists: this.artists,
@@ -772,17 +755,6 @@ export class InputComponent implements OnInit {
         month: this.lastMonth,
       },
     });
-
-    modal.onDidDismiss().then(data => {
-      console.log("InputComponent - get data from ModalPage");
-      console.log(data);
-      if (!data.data.dismissed) {
-        console.log('data.data: ', data.data);
-
-        this.global.stickerInfo.value = data.data.value;
-        this.global.stickerInfo.music_value = data.data.title;
-      }
-    });    
     console.log("check","day",this.lastDay,"hour",this.lastHour,"week",this.lastWeek,"month",this.lastMonth)
     return await modal.present();
   }
@@ -790,19 +762,10 @@ export class InputComponent implements OnInit {
 
   async openModal() {
     const modal = await this.modalController.create({
-      component: SelectDataModalPage,
-      componentProps: {
-        selectedUnit: this.selected_unit
-      }
+      component: SelectDataModalPage
     });
     modal.onDidDismiss().then(data=>{
-      if (this.global.stickerInfo.domain == "calories") {
-        this.nutrient_data = data.data.sum;
-        this.global.stickerInfo.value = this.nutrient_data[this.selected_unit];
-      }
-      else {
-        this.global.stickerInfo.value = data.data.sum;
-      }
+      this.global.stickerInfo.value = data.data.sum;
       this.updateInputValue();
     })
     return await modal.present();

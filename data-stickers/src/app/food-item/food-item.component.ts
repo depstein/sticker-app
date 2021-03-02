@@ -9,31 +9,16 @@ export class FoodItemComponent implements OnInit {
 
   @Input() imageUrl: string;
   @Input() itemName: string;
-  @Input() nutrients: any;
-  @Input() selectedNutrient: string;
-  @Output() totalNutrientsChanged = new EventEmitter<any>(true);
+  @Input() numCalories: number;
+  @Output() totalCaloriesChanged = new EventEmitter<number>(true);
 
-  constructor() {}
+  constructor() {
+  }
 
   ngOnInit() {}
 
   onCounterValueChanged(counterValueChange: number) {
-    this.totalNutrientsChanged.emit(generateNutrientObject(this.nutrients, counterValueChange));
+    this.totalCaloriesChanged.emit(this.numCalories * counterValueChange);
   }
 
-}
-
-// Helper function outside of class
-function generateNutrientObject(obj: any, counterValueChange: number) {
-  return {
-    "calories": Math.round(obj["calories"] * counterValueChange),
-    "g fiber": roundTo2(obj["g fiber"] * counterValueChange),
-    "g carbohydrate": roundTo2(obj["g carbohydrate"] * counterValueChange),
-    "g sodium": roundTo2(obj["g sodium"] * counterValueChange),
-    "g sugar": roundTo2(obj["g sugar"] * counterValueChange)
-  };
-}
-
-function roundTo2(x: number) {
-  return Math.round(x * 100) / 100
 }
