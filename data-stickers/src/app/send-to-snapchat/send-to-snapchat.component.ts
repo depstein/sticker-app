@@ -29,8 +29,9 @@ export class SendToSnapchatComponent implements OnInit {
   }
 
   get URL():string {
-    console.log(this.sticker);
+    console.log("sticker:" + this.sticker);
     // return this.base_url + '/' + this.sticker;
+    // return this.sticker;
     return "https://denniswang.info/assets/images/test-sticker.png";
   }
 

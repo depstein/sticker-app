@@ -23,7 +23,7 @@ export class StickerRenderPage implements OnInit {
     this.imageLoading = true;
     this.imageLoadedSuccess = false;
     this.imageLoadedError = false;
-    this.meta.updateTag({ content: "https://denniswang.info/assets/images/test-sticker.png", property: "snapchat:sticker" });
+    // this.meta.updateTag({ content: "https://denniswang.info/assets/images/test-sticker.png", property: "snapchat:sticker" });
 
     this.constructUrl();
 
@@ -51,7 +51,11 @@ export class StickerRenderPage implements OnInit {
     
     this.url = 'https://sheltered-waters-08469.herokuapp.com/';           // base url
     // this.url = 'http://192.168.86.24:5000/';           // base url
-    this.url += String(this.global.stickerInfo.domain);                   // domain (ex. steps)
+    if (String(this.global.stickerInfo.domain) == "calories") {
+      this.url += "food";
+    } else {
+      this.url += String(this.global.stickerInfo.domain);                   // domain (ex. steps)
+    }
     this.url += '/?value=' + String(this.global.stickerInfo.value);       // value (ex. 1000)
     this.url += '&variation=' + String(1);                                // variation (ex. 1, 2, 3)
     this.url += '&unit=' + String("unit");                                // unit (ex. banana, beats per minute)
