@@ -18,7 +18,7 @@ export class FoodSelectionComponent {
     this.totalNutrients = {
       "calories": 0,
       "g fiber": 0,
-      "g carbohydrate": 0,
+      "g carbs": 0,
       "g sodium": 0,
       "g sugar": 0
     };
@@ -42,7 +42,7 @@ export class FoodSelectionComponent {
           nutrients: {
             "calories": 0,
             "g fiber": 0,
-            "g carbohydrate": 0,
+            "g carbs": 0,
             "g sodium": 0,
             "g sugar": 0
           }
@@ -60,7 +60,7 @@ export class FoodSelectionComponent {
             nutrients: {
               "calories": Math.round(nutritionData.foods[0].nf_calories),
               "g fiber": roundTo2(nutritionData.foods[0].nf_dietary_fiber),
-              "g carbohydrate": roundTo2(nutritionData.foods[0].nf_total_carbohydrate),
+              "g carbs": roundTo2(nutritionData.foods[0].nf_total_carbohydrate),
               "g sodium": roundTo2(nutritionData.foods[0].nf_sodium),
               "g sugar": roundTo2(nutritionData.foods[0].nf_sugars)
             }
@@ -79,7 +79,7 @@ function addNutrients(obj1, obj2) {
   return {
     "calories": Math.round(obj1["calories"] + obj2["calories"]),
     "g fiber": roundTo2(obj1["g fiber"] + obj2["g fiber"]),
-    "g carbohydrate": roundTo2(obj1["g carbohydrate"] + obj2["g carbohydrate"]),
+    "g carbs": roundTo2(obj1["g carbs"] + obj2["g carbs"]),
     "g sodium": roundTo2(obj1["g sodium"] + obj2["g sodium"]),
     "g sugar": roundTo2(obj1["g sugar"] + obj2["g sugar"])
   };
