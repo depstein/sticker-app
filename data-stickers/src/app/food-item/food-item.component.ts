@@ -28,7 +28,7 @@ function generateNutrientObject(obj: any, counterValueChange: number) {
   return {
     "calories": Math.round(obj["calories"] * counterValueChange),
     "g fiber": roundTo2(obj["g fiber"] * counterValueChange),
-    "g carbohydrate": roundTo2(obj["g carbohydrate"] * counterValueChange),
+    "g carbs": roundTo2(obj["g carbs"] * counterValueChange),
     "g sodium": roundTo2(obj["g sodium"] * counterValueChange),
     "g sugar": roundTo2(obj["g sugar"] * counterValueChange)
   };

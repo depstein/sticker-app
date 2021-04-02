@@ -57,8 +57,12 @@ export class CreateStickersPage implements OnInit {
     })
   }
 
-  rerender() {
-    this.stickerComponent.rerender();
+  rerender(args:any) {
+    if(args == "toggleGoal") {
+      this.stickerComponent.loadSticker();
+    } else {
+      this.stickerComponent.rerender();
+    }
   }
 
   /*testHealth() {

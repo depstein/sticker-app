@@ -20,7 +20,7 @@
     <app-color-buttons *ngIf="global.stickerInfo.colorMap" (changeColor)="rerender()"></app-color-buttons>
 
     <!-- Input component (includes input, unit selector, goal) -->
-    <app-input (changeInput)="rerender()"></app-input>
+    <app-input (changeInput)="rerender($event)"></app-input>
 
     <!-- Test Health plugin -->
     {{health_test}}

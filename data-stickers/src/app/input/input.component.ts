@@ -42,7 +42,7 @@ export class InputComponent implements OnInit {
 
   ngOnInit() {
     this.unit_list = this.unit_copy = this.global.domain_info[this.global.stickerInfo.domain].units;
-    if (this.global.stickerInfo.stickerType == "chartjunk" || this.global.stickerInfo.stickerType == "hybrid") {
+    if (this.global.stickerInfo.stickerType == "chartjunk" || this.global.stickerInfo.canAddGoal) {
       //Add the ability to add a goal if allowed for the domains
       this.canAddGoal = true;
       this.global.stickerInfo.goal = this.global.domain_info[this.global.stickerInfo.domain].default_goal;
@@ -67,7 +67,7 @@ export class InputComponent implements OnInit {
     this.nutrient_data = {
       "calories": 0,
       "g fiber": 0,
-      "g carbohydrate": 0,
+      "g carbs": 0,
       "g sodium": 0,
       "g sugar": 0
     };
@@ -278,7 +278,9 @@ export class InputComponent implements OnInit {
       }
     }
 
-    this.changeInput.emit();
+    this.global.stickerInfo.toggleGoal();
+
+    this.changeInput.emit("toggleGoal");
   }
 
   // Validates unit input, returns true if the input is valid

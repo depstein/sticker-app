@@ -19,10 +19,14 @@ export class StickerComponent implements AfterViewInit {
   constructor(private http:HttpClient, private sanitizer: DomSanitizer, private global:GlobalDataService) { }
 
   ngAfterViewInit() {
-  	this.http.get(this.stickerInfo.svgURL, {responseType: 'text'}).subscribe(svg => {
-  		this.stickerElement.nativeElement.innerHTML = svg;
-  		this.rerender();
-  	});
+  	this.loadSticker();
+  }
+
+  loadSticker() {
+    this.http.get(this.stickerInfo.svgURL, {responseType: 'text'}).subscribe(svg => {
+      this.stickerElement.nativeElement.innerHTML = svg;
+      this.rerender();
+    });
   }
 
   rerender(){

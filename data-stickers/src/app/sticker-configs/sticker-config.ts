@@ -13,6 +13,7 @@ export abstract class StickerConfig {
   unit: string;
   music_value: string;
   animation: string;
+  canAddGoal:boolean = false;
   hasGoal: boolean;
   goal: number;
   min:number = 0;
@@ -47,6 +48,10 @@ export abstract class StickerConfig {
       gsap_animation.play();
     }
 	}
+
+  toggleGoal() {
+    //By default, a goal can't be toggled. Only hybrid stickers can have a goal added/removed
+  }
 
   wrapText(el, options) {
     this.updateText(el, options);
