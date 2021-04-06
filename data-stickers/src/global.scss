@@ -50,11 +50,15 @@ app-recent-use{
 }
 
 @font-face {
-	font-family: JandaManateeSolid;
-	src: url("assets/fonts/JandaManateeSolid.ttf") format("ttf");
+    font-family: JandaManateeSolid;
+    src: url('./assets/fonts/JandaManateeSolid.woff2') format('woff2'),
+        url('./assets/fonts/JandaManateeSolid.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
 }
 
 @font-face {
 	font-family: MyDearWatson-Regular;
-	src: url("assets/fonts/MyDearWatson-Regular.otf") format("otf");
+	src: url("./assets/fonts/MyDearWatson-Regular.otf") format("otf");
 }
