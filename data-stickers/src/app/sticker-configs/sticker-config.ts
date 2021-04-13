@@ -6,6 +6,7 @@ export abstract class StickerConfig {
 	svgURL: string;
 	stickerType: string;
 	stickerRelevance: string;
+  variation: number = 1;
   colorMap:{};
   color: string;
   domain: string;

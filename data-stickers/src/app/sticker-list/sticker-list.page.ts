@@ -72,6 +72,7 @@ export class StickerListPage implements OnInit {
   goToCreateStickerPage(config) {
     config.domain = this.domain;
     this.global.stickerInfo = config;
+    this.global.stickerInfo.variation = Number(this.global.stickerInfo.imageURL.substr(-5,1));
     this.router.navigate([
       'create-sticker',
       { },

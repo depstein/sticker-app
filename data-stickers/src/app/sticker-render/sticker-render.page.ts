@@ -57,14 +57,26 @@ export class StickerRenderPage implements OnInit {
     } else {
       this.url += String(this.global.stickerInfo.domain);                   // domain (ex. steps)
     }
-    this.url += '/?value=' + String(this.global.stickerInfo.value);       // value (ex. 1000)
-    this.url += '&variation=' + String(1);                                // variation (ex. 1, 2, 3)
-    this.url += '&unit=' + String("unit");                                // unit (ex. banana, beats per minute)
-    // this.url += '&type=' + String(image_arr[0]);                          // image type (ex. plain-domain-relevant-1)
-    this.url += '&type=' + String("plain");                          // image type (ex. plain-domain-relevant-1)
-    // this.url += '&option=' + String(this.global.stickerInfo.animation);   // animation (ex. shake) 
-    this.url += '&option=' + String("pulse");   // animation (ex. shake) 
-    this.url += '&goal=' + (this.global.stickerInfo.hasGoal ? String(this.global.stickerInfo.goal) : '0');  // goal (ex. 1000)
+    //// working parameters
+    this.url += '/?value=' + String(this.global.stickerInfo.value);             // value (ex. 1000)
+    this.url += '&variation=' + String(this.global.stickerInfo.variation);      // variation (ex. 1, 2, 3)
+    this.url += '&unit=' + String(this.global.stickerInfo.unit);                // unit (ex. banana, beats per minute)
+    this.url += '&type=' + String(this.global.stickerInfo.imageURL.split("-")[0].substr(22));                                     // image type (ex. plain-domain-relevant-1)
+    this.url += '&option=' + String(this.global.stickerInfo.animation);         // animation (ex. shake) 
+    if (this.global.stickerInfo.hasGoal) {
+      this.url += '&goal=' + (this.global.stickerInfo.hasGoal ? String(this.global.stickerInfo.goal) : '0');  // goal (ex. 1000)
+    }
+    // TODO: color? change type.
+    
+    //// testing parameters
+    // this.url += '/?value=' + String(this.global.stickerInfo.value);         // value (ex. 1000)
+    // this.url += '&variation=' + String(1);                                  // variation (ex. 1, 2, 3)
+    // this.url += '&unit=' + String("unit");                                  // unit (ex. banana, beats per minute)
+    // // this.url += '&type=' + String(image_arr[0]);                         // image type (ex. plain-domain-relevant-1)
+    // this.url += '&type=' + String("plain");                                 // image type (ex. plain-domain-relevant-1)
+    // // this.url += '&option=' + String(this.global.stickerInfo.animation);  // animation (ex. shake) 
+    // this.url += '&option=' + String("pulse");                               // animation (ex. shake) 
+    // this.url += '&goal=' + (this.global.stickerInfo.hasGoal ? String(this.global.stickerInfo.goal) : '0');  // goal (ex. 1000)
   }
 
   createImageFromBlob(image: Blob) {

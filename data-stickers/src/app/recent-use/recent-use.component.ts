@@ -24,7 +24,9 @@ export class RecentUseComponent implements OnInit {
 
   goToCreateStickerPage(image:string) {
     //It's not great that this is being hacked from the file path, but it should work...
+    console.log(image);
     this.global.stickerInfo.domain = image.substring(image.indexOf('stickers/') + 9, image.lastIndexOf('/'));
+    // TODO: need to check if the variation parameter is stored. 
     var config = this.global.sticker_dict[this.global.stickerInfo.domain].find(config => {
       return image.includes(config.imageURL);
     });
