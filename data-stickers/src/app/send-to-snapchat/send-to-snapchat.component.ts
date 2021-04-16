@@ -29,11 +29,13 @@ export class SendToSnapchatComponent implements OnInit {
   }
 
   get URL():string {
-    console.log(this.base_url + "/sticker?sticker=" + encodeURIComponent(this.sticker));
+    var args = this.sticker.substring(this.base_url.length);
+    console.log(args);
+    //console.log(this.base_url + "/sticker?sticker=" + encodeURIComponent(this.sticker));
     // return this.base_url + '/' + this.sticker;
     // return this.sticker;
     // return "https://denniswang.info/assets/images/test-sticker.png";
-    return this.base_url + "/sticker?sticker=" + encodeURIComponent(this.sticker);
+    return this.base_url + "/sticker" + args;
   }
 
 }
