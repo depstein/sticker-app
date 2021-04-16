@@ -1,5 +1,5 @@
 {
-  "appId": "net.depstein.datastickers",
+  "appId": "net.depstein.stickerapp",
   "appName": "data-stickers",
   "bundledWebRuntime": false,
   "npmClient": "npm",

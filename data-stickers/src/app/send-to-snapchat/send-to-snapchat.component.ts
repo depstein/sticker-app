@@ -32,7 +32,8 @@ export class SendToSnapchatComponent implements OnInit {
     console.log("sticker:" + this.sticker);
     // return this.base_url + '/' + this.sticker;
     // return this.sticker;
-    return "https://denniswang.info/assets/images/test-sticker.png";
+    // return "https://denniswang.info/assets/images/test-sticker.png";
+    return "https://sheltered-waters-08469.herokuapp.com/sticker?sticker=" + this.sticker;
   }
 
 }
