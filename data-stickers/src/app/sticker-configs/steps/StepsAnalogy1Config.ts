@@ -8,6 +8,7 @@ export class StepsAnalogy1Config extends GenericAnalogyConfig {
 		super(imageURL, svgURL);
 		this.totalDistance = {steps:3592, km:2.7, miles:1.7};
 		this.denominatorDescriptor = "the Golden Gate Bridge";
+		this.stickerRelevance = "domain-relevant";
 	}
 
 	updateText(el:ElementRef, options:{}=undefined) {

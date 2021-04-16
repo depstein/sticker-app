@@ -7,6 +7,7 @@ export class HeartbeatAnalogy1Config extends GenericAnalogyConfig {
 		super(imageURL, svgURL);
 		this.denominatorValue = 105;
 		this.denominatorDescriptor = "tempo of 'Rolling in the Deep'";
+		this.stickerRelevance = "domain-relevant";
 	}
 
 	updateText(el:ElementRef, options:{}=undefined) {

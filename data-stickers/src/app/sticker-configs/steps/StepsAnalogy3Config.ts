@@ -7,5 +7,6 @@ export class StepsAnalogy3Config extends StepsAnalogy1Config {
 		super(imageURL, svgURL);
 		this.denominatorValue = 3592;
 		this.denominatorDescriptor = "the Empire State Building";
+		this.stickerRelevance = "domain-relevant";
 	}
 }

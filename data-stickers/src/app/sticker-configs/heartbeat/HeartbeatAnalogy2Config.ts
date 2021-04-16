@@ -7,5 +7,6 @@ export class HeartbeatAnalogy2Config extends HeartbeatAnalogy1Config {
 		super(imageURL, svgURL);
 		this.denominatorValue = 80;
 		this.denominatorDescriptor = "resting heart rate";
+		this.stickerRelevance = "domain-relevant";
 	}
 }

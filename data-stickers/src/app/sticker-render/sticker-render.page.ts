@@ -29,8 +29,8 @@ export class StickerRenderPage implements OnInit {
   }
 
   ngOnInit() {
-    var url = this.url;
-    this.http.get(url, {responseType: 'blob'})
+    console.log(this.url);
+    this.http.get(this.url, {responseType: 'blob'})
       .subscribe(data => { 
         this.createImageFromBlob(data);
         this.imageLoading = false;
@@ -50,9 +50,13 @@ export class StickerRenderPage implements OnInit {
     //var image_arr = this.global.stickerInfo.image.split('/');
     //image_arr = image_arr[image_arr.length-1].split('.');
     
+    //this.url = 'http://localhost:5000/';                                  // base url
     this.url = 'https://sheltered-waters-08469.herokuapp.com/';           // base url
     // this.url = 'http://192.168.86.24:5000/';           // base url
-    if (String(this.global.stickerInfo.domain) == "calories") {
+    if(this.global.stickerInfo.stickerRelevance == "domain-agnostic") {
+      this.url += 'generic';
+    }
+    else if (String(this.global.stickerInfo.domain) == "calories") {
       this.url += "food";
     } else {
       this.url += String(this.global.stickerInfo.domain);                   // domain (ex. steps)
@@ -61,10 +65,13 @@ export class StickerRenderPage implements OnInit {
     this.url += '/?value=' + String(this.global.stickerInfo.value);             // value (ex. 1000)
     this.url += '&variation=' + String(this.global.stickerInfo.variation);      // variation (ex. 1, 2, 3)
     this.url += '&unit=' + String(this.global.stickerInfo.unit);                // unit (ex. banana, beats per minute)
-    this.url += '&type=' + String(this.global.stickerInfo.imageURL.split("-")[0].substr(22));                                     // image type (ex. plain-domain-relevant-1)
+    this.url += '&type=' + String(this.global.stickerInfo.stickerType);         // image type (ex. plain, chartjunk, analogy)
     this.url += '&option=' + String(this.global.stickerInfo.animation);         // animation (ex. shake) 
     if (this.global.stickerInfo.hasGoal) {
       this.url += '&goal=' + (this.global.stickerInfo.hasGoal ? String(this.global.stickerInfo.goal) : '0');  // goal (ex. 1000)
+    }
+    if(this.global.stickerInfo.color) {
+      this.url += '&color=' + this.global.stickerInfo.color;
     }
     // TODO: color? change type.
     

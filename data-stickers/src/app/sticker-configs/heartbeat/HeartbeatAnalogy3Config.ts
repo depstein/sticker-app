@@ -7,5 +7,6 @@ export class HeartbeatAnalogy3Config extends HeartbeatAnalogy1Config {
 		super(imageURL, svgURL);
 		this.denominatorValue = 75;
 		this.denominatorDescriptor = "walking pace";
+		this.stickerRelevance = "domain-relevant";
 	}
 }

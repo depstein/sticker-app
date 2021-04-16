@@ -10,6 +10,7 @@ export class CaloriesAnalogy1Config extends GenericAnalogyConfig {
 		super(imageURL, svgURL);
 		this.totalNutrients = {"calories": 540, "g fiber": 1, "g carbs": 40, "g sodium": 790, "g sugar": 1};
 		this.denominatorRoot = "a burger";
+		this.stickerRelevance = "domain-relevant";
 	}
 
 	updateText(el:ElementRef, options:{}=undefined) {
@@ -30,6 +31,10 @@ export class CaloriesAnalogy1Config extends GenericAnalogyConfig {
 
     	//TODO: this isn't implemented server-side, but isn't that hard to add.
     	var unitSel = el.nativeElement.querySelector('#unit');
-    	unitSel.textContent = "~" + this.denominatorValue + " " + options['unit'];
+    	if(this.unit in this.totalNutrients) {
+    		unitSel.textContent = "~" + this.denominatorValue + " " + options['unit'];
+    	} else {
+    		unitSel.textContent = "~" + this.denominatorValue + " calories";
+    	}
   	}
 }

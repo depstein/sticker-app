@@ -10,5 +10,6 @@ export class CaloriesAnalogy2Config extends CaloriesAnalogy1Config {
 		super(imageURL, svgURL);
 		this.totalNutrients = {"calories": 150, "g fiber": 1, "g carbs": 20, "g sodium": 90, "g sugar": 10};
 		this.denominatorRoot = "a chocolate chip cookie";
+		this.stickerRelevance = "domain-relevant";
 	}
 }

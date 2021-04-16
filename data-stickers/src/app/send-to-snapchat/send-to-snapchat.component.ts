@@ -29,11 +29,11 @@ export class SendToSnapchatComponent implements OnInit {
   }
 
   get URL():string {
-    console.log("sticker:" + this.sticker);
+    console.log(this.base_url + "/sticker?sticker=" + encodeURIComponent(this.sticker));
     // return this.base_url + '/' + this.sticker;
     // return this.sticker;
     // return "https://denniswang.info/assets/images/test-sticker.png";
-    return "https://sheltered-waters-08469.herokuapp.com/sticker?sticker=" + this.sticker;
+    return this.base_url + "/sticker?sticker=" + encodeURIComponent(this.sticker);
   }
 
 }
