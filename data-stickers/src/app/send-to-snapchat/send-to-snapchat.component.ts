@@ -8,6 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class SendToSnapchatComponent implements OnInit {
 	@Input() sticker:string;
   private base_url:string = "https://sheltered-waters-08469.herokuapp.com";
+  // private base_url:string = "http://localhost:5000";
 
   constructor() { 
 	}
@@ -30,11 +31,12 @@ export class SendToSnapchatComponent implements OnInit {
 
   get URL():string {
     var args = this.sticker.substring(this.base_url.length);
-    console.log(args);
+    console.log("args: " + args);
     //console.log(this.base_url + "/sticker?sticker=" + encodeURIComponent(this.sticker));
     // return this.base_url + '/' + this.sticker;
     // return this.sticker;
     // return "https://denniswang.info/assets/images/test-sticker.png";
+    console.log("send to snapchat: " + this.base_url + "/sticker" + args);
     return this.base_url + "/sticker" + args;
   }
 

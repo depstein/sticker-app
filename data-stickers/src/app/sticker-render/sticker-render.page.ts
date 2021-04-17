@@ -50,7 +50,7 @@ export class StickerRenderPage implements OnInit {
     //var image_arr = this.global.stickerInfo.image.split('/');
     //image_arr = image_arr[image_arr.length-1].split('.');
     
-    //this.url = 'http://localhost:5000/';                                  // base url
+    // this.url = 'http://localhost:5000/';                                  // base url
     this.url = 'https://sheltered-waters-08469.herokuapp.com/';           // base url
     // this.url = 'http://192.168.86.24:5000/';           // base url
     if(this.global.stickerInfo.stickerRelevance == "domain-agnostic") {
