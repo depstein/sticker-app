@@ -32,41 +32,47 @@
             <ion-input type="text" pattern="[0-9]*" decimal="true" allow-multiple-decimals="true" minlength="0" maxlength="2" button-char="," decimal-char="." [(ngModel)]="global.stickerInfo.min" (ngModelChange)="updateInputValue()"></ion-input>
         </ion-col>
 
-        <ion-col col-6>
+        <ion-col col-6 *ngIf="global.stickerInfo.domain != 'music'">
             <ion-select class="select" [(ngModel)]="global.stickerInfo.unit" [interfaceOptions]="customPopoverOptions" interface="popover" (ngModelChange)="unitChanged()">
                 <ion-select-option *ngFor="let op1 of unit_list" value="{{ op1 }}">
                     {{ op1 }}</ion-select-option>
                 <ion-select-option value="custom"> {{ custom }}</ion-select-option>
             </ion-select>
         </ion-col>
+
+        <ion-col col-6 *ngIf="global.stickerInfo.domain == 'music'">
+            <ion-select class="select" [(ngModel)]="music_unit" [interfaceOptions]="customPopoverOptions" interface="popover" (ngModelChange)="unitChanged()">
+                <ion-select-option *ngFor="let op1 of unit_list" value="{{ op1 }}">
+                    {{ op1 }}</ion-select-option>
+                <ion-select-option value="custom"> {{ custom }}</ion-select-option>
+            </ion-select>
+        </ion-col>
+    </ion-row>
+    <ion-row class="unit" *ngIf="global.stickerInfo.domain == 'music'">
+        <ion-col size="1">
+            <ion-text>of</ion-text>
+        </ion-col>
+        <ion-col size="6">
+            <ion-input [(ngModel)]="music_category" (ngModelChange)="updateMusicInputValue()">
+            </ion-input>
+        </ion-col>
+
+        <ion-col size="2">
+            <ion-button (click)="getplaylist()">
+                get playlist
+            </ion-button>
+        </ion-col>
     </ion-row>
 </ion-item>
 
 <!-- Additional input for music domain -->
-<ion-item *ngIf="global.stickerInfo.domain == 'music'" lines="none">
-    <ion-row class="unit">
-        <ion-col size="3">
-            <ion-text>of</ion-text>
-        </ion-col>
-        <ion-col>
-            <ion-input [(ngModel)]="global.stickerInfo.music_value" (ngModelChange)="updateMusicInputValue()">
-            </ion-input>
-        </ion-col>
-    </ion-row>
-</ion-item>
 
-<ion-item *ngIf="global.stickerInfo.domain == 'music'" lines="none">
-    <ion-button (click)="getplaylist()">
-        get playlist
-    </ion-button>
-</ion-item>
 <!-- Add/Remove Goal -->
 <ion-item *ngIf="canAddGoal" lines="none">
     <ion-row>
         <ion-col col-6 *ngIf="global.stickerInfo.hasGoal&&
     global.stickerInfo.unit != 'hour:minute'">
             <ion-input class="goal" [(ngModel)]="global.stickerInfo.goal" (ngModelChange)="updateInputValue()"></ion-input>
-            {{ music_str }}
         </ion-col>
         <ion-col col-3 *ngIf="global.stickerInfo.hasGoal&&
     global.stickerInfo.unit == 'hour:minute'">

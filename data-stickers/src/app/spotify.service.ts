@@ -11,7 +11,6 @@ export class SpotifyService {
 
   public sendRequestToExpress(endpoint:string):Promise<any> {
     var data = this.http.get(this.expressBaseUrl + endpoint).toPromise();
-    console.log(data);
     return data;
   }
 }

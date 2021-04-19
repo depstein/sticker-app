@@ -37,7 +37,6 @@ export class CreateStickersPage implements OnInit {
   ngOnInit() {
     this.global.stickerInfo.color = "red";
     this.global.stickerInfo.value = 0;
-    this.global.stickerInfo.music_value = "";
     this.global.stickerInfo.animation = "pulse";
     this.global.stickerInfo.hasGoal = false;
     this.global.stickerInfo.unit = this.global.domain_info[this.global.stickerInfo.domain].units[0].trim();

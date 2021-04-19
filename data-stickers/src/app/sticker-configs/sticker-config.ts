@@ -12,7 +12,6 @@ export abstract class StickerConfig {
   domain: string;
   value: number = 0;
   unit: string;
-  music_value: string;
   animation: string;
   canAddGoal:boolean = false;
   hasGoal: boolean;
