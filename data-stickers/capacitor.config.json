@@ -1,5 +1,5 @@
 {
-  "appId": "net.depstein.stickerapp",
+  "appId": "net.dwnnis.stickerapp",
   "appName": "data-stickers",
   "bundledWebRuntime": false,
   "npmClient": "npm",
