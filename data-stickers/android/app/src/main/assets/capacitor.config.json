@@ -1,5 +1,5 @@
 {
-  "appId": "net.depstein.stickerapp",
+  "appId": "net.dwnnis.stickerapp",
   "appName": "data-stickers",
   "bundledWebRuntime": false,
   "npmClient": "npm",
@@ -15,7 +15,7 @@
       "SplashScreen": "screen",
       "SplashScreenDelay": "3000"
     }
-  }, 
+  },
   "server": {
     "iosScheme": "ionic",
     "hostname": "app"
