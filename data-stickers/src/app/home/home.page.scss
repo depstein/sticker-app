@@ -3,7 +3,8 @@ ion-content {
 }
 
 ion-tab-bar {
-	// padding: 0.3em;
+	padding-left: 0.3em;
+	padding-right: 0.3em;
 }
 
 ion-tab-button {
@@ -17,7 +18,7 @@ ion-card{
 ion-card-content{
 	padding-bottom: 20px;
 }
-  
+
 ion-card-subtitle{
 	text-align: center;
 	padding: 20px;
@@ -51,7 +52,7 @@ ion-button {
 }
 
 .steps-tab.tab-selected {
-	--background: var(--ion-color-steps-tint) !important; 
+	--background: var(--ion-color-steps-tint) !important;
 }
 
 .heartbeat-tab.tab-selected {
@@ -73,5 +74,5 @@ ion-button {
 #login{
 	font-size: 20px;
 	padding:10px;
-	
+
 }
