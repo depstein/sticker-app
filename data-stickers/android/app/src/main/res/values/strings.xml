@@ -1,7 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources>
-    <string name="app_name">data-stickers</string>
-    <string name="title_activity_main">data-stickers</string>
-    <string name="package_name">net.depstein.datastickers</string>
-    <string name="custom_url_scheme">net.depstein.datastickers</string>
-</resources>
