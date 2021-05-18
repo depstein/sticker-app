@@ -31,7 +31,7 @@ export class CreateStickersPage implements OnInit {
     private http: HttpClient,
     private spotifyService: SpotifyService
   ) {
-    
+
   }
 
   ngOnInit() {
@@ -45,13 +45,6 @@ export class CreateStickersPage implements OnInit {
       this.spotifybutton = value;
       if(this.global.stickerInfo.domain == "music" && (this.spotifybutton == false || this.spotifybutton == null) && this.global.asked == false){
         this.presentAlertspotifyButtons();
-      }
-    })
-    this.storage.get('healthPermission')
-    .then((value) => {
-      this.healthbutton = value;
-      if(this.global.stickerInfo.domain == "steps" || this.global.stickerInfo.domain == "heartbeat"){
-        this.presentAlerthealthButtons();
       }
     })
   }
@@ -111,19 +104,5 @@ export class CreateStickersPage implements OnInit {
     })
     await alert.present();
   }
-  async presentAlerthealthButtons(){
-    const alert = await this.alertController.create({
-      message: 'Do you want to get your data from Healthkit?',
-      buttons: [
-        {
-          text: 'YES'
-        },
-        {
-          text: 'NO'
-        }],
-    })
-    await alert.present();
-  }
-
 
 }

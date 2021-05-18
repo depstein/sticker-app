@@ -64,7 +64,7 @@ export class InputComponent implements OnInit {
       this.music_category = "music";
       this.updateMusicInputValue();
     }
-    
+
     this.selected_unit = this.unit_list[0].trim();
     this.nutrient_data = {
       "calories": 0,
@@ -758,7 +758,20 @@ export class InputComponent implements OnInit {
 
   }
 
-
+  async presentAlerthealthButtons(){
+    const alert = await this.alertController.create({
+      message: 'Do you want to get your data from Healthkit?',
+      buttons: [
+        {
+          text: 'YES',
+          handler: () => this.openModal()
+        },
+        {
+          text: 'NO'
+        }],
+    })
+    await alert.present();
+  }
 
   async presentModal() {
     const modal = await this.modalController.create({
@@ -790,7 +803,7 @@ export class InputComponent implements OnInit {
         }
         this.music_category = data.data.title;
       }
-    });    
+    });
     console.log("check","day",this.lastDay,"hour",this.lastHour,"week",this.lastWeek,"month",this.lastMonth)
     return await modal.present();
   }
