@@ -443,7 +443,7 @@ export class InputComponent implements OnInit {
         console.log(this.artists);
         console.log(data);
         this.getPlaylistOfDifferentTime(data);
-        this.presentModal();
+        this.openSpotifyModal();
       });
   }
 
@@ -773,7 +773,7 @@ export class InputComponent implements OnInit {
     await alert.present();
   }
 
-  async presentModal() {
+  async openSpotifyModal() {
     const modal = await this.modalController.create({
       component: ModalPage,
       cssClass: "my-custom-class",
