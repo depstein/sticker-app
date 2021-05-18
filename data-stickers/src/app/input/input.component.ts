@@ -759,8 +759,16 @@ export class InputComponent implements OnInit {
   }
 
   async presentAlerthealthButtons(){
+    let message;
+    if (this.global.stickerInfo.domain == "calories") {
+      message = 'Do you want to get your data from the Nutritionix food database?';
+    }
+    else {
+      message = 'Do you want to get your data from HealthKit?';
+    }
+
     const alert = await this.alertController.create({
-      message: 'Do you want to get your data from Healthkit?',
+      message: message,
       buttons: [
         {
           text: 'YES',
