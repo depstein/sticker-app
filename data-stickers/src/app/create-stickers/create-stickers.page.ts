@@ -18,8 +18,6 @@ export class CreateStickersPage implements OnInit {
   img_list = [];
   health_test = '';
   expressBaseUrl:string = 'https://sticker-spotify.herokuapp.com';
-  spotifybutton:boolean;
-  healthbutton:boolean;
   @ViewChild(StickerComponent, {static:true}) stickerComponent;
 
   constructor(
@@ -40,13 +38,6 @@ export class CreateStickersPage implements OnInit {
     this.global.stickerInfo.animation = "pulse";
     this.global.stickerInfo.hasGoal = false;
     this.global.stickerInfo.unit = this.global.domain_info[this.global.stickerInfo.domain].units[0].trim();
-    this.storage.get('spotifyPermission')
-    .then((value) => {
-      this.spotifybutton = value;
-      if(this.global.stickerInfo.domain == "music" && (this.spotifybutton == false || this.spotifybutton == null) && this.global.asked == false){
-        this.presentAlertspotifyButtons();
-      }
-    })
   }
 
   rerender(args:any) {
@@ -79,30 +70,6 @@ export class CreateStickersPage implements OnInit {
 
   goToStickerRenderPage() {
     this.router.navigate(["sticker-render", {}]);
-  }
-
-  async presentAlertspotifyButtons() {
-    const alert = await this.alertController.create({
-      message: 'Do you want to get your playlist from spolify?',
-      buttons: [
-        {
-          text: 'YES',
-          handler: () => {
-            console.log("open webpage");
-            window.open("https://sticker-spotify.herokuapp.com/login", "_self");
-            this.storage.set('spotifyPermission', true);
-          }
-        },
-        {
-          text: 'NO',
-          handler:() =>{
-            this.global.asked = true;
-            console.log(this.global.asked);
-          }
-
-        }],
-    })
-    await alert.present();
   }
 
 }

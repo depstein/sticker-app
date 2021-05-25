@@ -1,6 +1,7 @@
 import { AlertController } from "@ionic/angular";
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { GlobalDataService } from "./../global-data.service";
+import { Storage } from "@ionic/storage";
 import { SpotifyService } from "../spotify.service";
 import { ModalController } from "@ionic/angular";
 import { ModalPage } from "../modals/modal/modal.page";
@@ -35,6 +36,7 @@ export class InputComponent implements OnInit {
   constructor(
     public alertController: AlertController,
     public global: GlobalDataService,
+    private storage: Storage,
     private spotifyService: SpotifyService,
     public modalController: ModalController
   ) {
@@ -364,7 +366,7 @@ export class InputComponent implements OnInit {
   }
 
   //Get all recenly played list including songs, artists and albums
-  getplaylist() {
+  getPlaylist() {
     this.spotifyService
       .sendRequestToExpress("/recently-played")
       .then((data) => {
@@ -758,7 +760,7 @@ export class InputComponent implements OnInit {
 
   }
 
-  async presentAlerthealthButtons(){
+  async presentHealthAlert(){
     let message;
     if (this.global.stickerInfo.domain == "calories") {
       message = 'Do you want to get your data from the Nutritionix food database?';
@@ -773,6 +775,33 @@ export class InputComponent implements OnInit {
         {
           text: 'YES',
           handler: () => this.openModal()
+        },
+        {
+          text: 'NO'
+        }],
+    })
+    await alert.present();
+  }
+
+  async presentSpotifyAlert() {
+    const alert = await this.alertController.create({
+      message: 'Do you want to get your playlist from Spotify?',
+      buttons: [
+        {
+          text: 'YES',
+          handler: () => {
+            this.storage.get('spotifyPermission')
+            .then((value) => {
+              if(value == false || value == null){
+                console.log("open webpage");
+                window.open("https://sticker-spotify.herokuapp.com/login", "_self");
+                this.storage.set('spotifyPermission', true);
+              }
+              else {
+                this.getPlaylist();
+              }
+            })
+          }
         },
         {
           text: 'NO'
