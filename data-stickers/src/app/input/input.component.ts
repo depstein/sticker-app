@@ -777,7 +777,8 @@ export class InputComponent implements OnInit {
           handler: () => this.openModal()
         },
         {
-          text: 'NO'
+          text: 'NO',
+          handler: () => this.presentInputAlert()
         }],
     })
     await alert.present();
@@ -804,9 +805,37 @@ export class InputComponent implements OnInit {
           }
         },
         {
-          text: 'NO'
+          text: 'NO',
+          handler: () => this.presentInputAlert()
         }],
     })
+    await alert.present();
+  }
+
+  async presentInputAlert() {
+    const alert = await this.alertController.create({
+      message: `Enter your amount of ${this.selected_unit}`,
+      inputs: [
+        {
+          name: 'value',
+          value: 0,
+          type: 'number'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel'
+        }, {
+          text: 'Ok',
+          handler: data => {
+            this.global.stickerInfo.value = data.value;
+            this.updateInputValue();
+          }
+        }
+      ]
+    });
+
     await alert.present();
   }
 
