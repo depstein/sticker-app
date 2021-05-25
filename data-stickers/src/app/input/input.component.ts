@@ -760,13 +760,17 @@ export class InputComponent implements OnInit {
 
   }
 
-  async presentHealthAlert(){
+  async presentServiceAlert() {
     let message;
-    if (this.global.stickerInfo.domain == "calories") {
-      message = 'Do you want to get your data from the Nutritionix food database?';
-    }
-    else {
-      message = 'Do you want to get your data from HealthKit?';
+    switch (this.global.stickerInfo.domain) {
+      case 'music':
+        message = 'Do you want to get your playlist from Spotify?';
+        break;
+      case 'calories':
+        message = 'Do you want to get your data from the Nutritionix food database?';
+        break;
+      default:
+        message = 'Do you want to get your data from HealthKit?';
     }
 
     const alert = await this.alertController.create({
@@ -774,34 +778,23 @@ export class InputComponent implements OnInit {
       buttons: [
         {
           text: 'YES',
-          handler: () => this.openModal()
-        },
-        {
-          text: 'NO',
-          handler: () => this.presentInputAlert()
-        }],
-    })
-    await alert.present();
-  }
-
-  async presentSpotifyAlert() {
-    const alert = await this.alertController.create({
-      message: 'Do you want to get your playlist from Spotify?',
-      buttons: [
-        {
-          text: 'YES',
           handler: () => {
-            this.storage.get('spotifyPermission')
-            .then((value) => {
-              if(value == false || value == null){
-                console.log("open webpage");
-                window.open("https://sticker-spotify.herokuapp.com/login", "_self");
-                this.storage.set('spotifyPermission', true);
-              }
-              else {
-                this.getPlaylist();
-              }
-            })
+            if (this.global.stickerInfo.domain == 'music') {
+              this.storage.get('spotifyPermission')
+              .then((value) => {
+                if(value == false || value == null){
+                  console.log("open webpage");
+                  window.open("https://sticker-spotify.herokuapp.com/login", "_self");
+                  this.storage.set('spotifyPermission', true);
+                }
+                else {
+                  this.getPlaylist();
+                }
+              })
+            }
+            else {
+              this.openModal();
+            }
           }
         },
         {
