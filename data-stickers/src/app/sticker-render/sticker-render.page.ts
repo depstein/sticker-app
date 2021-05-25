@@ -73,6 +73,11 @@ export class StickerRenderPage implements OnInit {
     if(this.global.stickerInfo.color) {
       this.url += '&color=' + this.global.stickerInfo.color;
     }
+    if(String(this.global.stickerInfo.domain) == "time") {
+      this.url += '&time=' + 'true';
+    } else {
+      this.url += '&time=' + 'false';
+    }
     // TODO: color? change type.
     
     //// testing parameters
