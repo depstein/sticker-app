@@ -18,6 +18,12 @@ import { HeartbeatAnalogy3Config } from './sticker-configs/heartbeat/HeartbeatAn
 import { StepsAnalogy1Config } from './sticker-configs/steps/StepsAnalogy1Config';
 import { StepsAnalogy2Config } from './sticker-configs/steps/StepsAnalogy2Config';
 import { StepsAnalogy3Config } from './sticker-configs/steps/StepsAnalogy3Config';
+import { TimeAnalogy1Config } from './sticker-configs/time/TimeAnalogy1Config';
+import { TimeAnalogy2Config } from './sticker-configs/time/TimeAnalogy2Config';
+import { TimeAnalogy3Config } from './sticker-configs/time/TimeAnalogy3Config';
+import { MusicAnalogy1Config } from './sticker-configs/music/MusicAnalogy1Config';
+import { MusicAnalogy2Config } from './sticker-configs/music/MusicAnalogy2Config';
+import { MusicAnalogy3Config } from './sticker-configs/music/MusicAnalogy3Config';
 
 @Injectable({
   providedIn: 'root'
@@ -78,9 +84,9 @@ export class GlobalDataService {
 				new SpecificHybridConfig("assets/stickers/steps/plain-domain-relevant-2.png", "assets/stickers/steps/plain-2.svg", "assets/stickers/steps/chartjunk-2.svg"),
 				new SpecificHybridConfig("assets/stickers/steps/plain-domain-relevant-3.png", "assets/stickers/steps/plain-3.svg", "assets/stickers/steps/chartjunk-3.svg"),
 				//These ones look incomplete; only some text is being rendered
-				// new StepsAnalogy1Config("assets/stickers/steps/analogy-domain-relevant-1.png", "assets/stickers/steps/analogy-1.svg"),
-				// new StepsAnalogy2Config("assets/stickers/steps/analogy-domain-relevant-2.png", "assets/stickers/steps/analogy-2.svg"),
-				// new StepsAnalogy3Config("assets/stickers/steps/analogy-domain-relevant-3.png", "assets/stickers/steps/analogy-3.svg")
+				new StepsAnalogy1Config("assets/stickers/steps/analogy-domain-relevant-1.png", "assets/stickers/steps/analogy-1.svg"),
+				new StepsAnalogy2Config("assets/stickers/steps/analogy-domain-relevant-2.png", "assets/stickers/steps/analogy-2.svg"),
+				new StepsAnalogy3Config("assets/stickers/steps/analogy-domain-relevant-3.png", "assets/stickers/steps/analogy-3.svg")
 			],
 			"heartbeat": [
 				new GenericPlainConfig("assets/stickers/heartbeat/plain-domain-agnostic-1.png", "assets/stickers/generic/plain-1.svg"),
@@ -93,9 +99,9 @@ export class GlobalDataService {
 				new GenericAnalogy2Config("assets/stickers/heartbeat/analogy-domain-agnostic-2.png", "assets/stickers/generic/analogy-2.svg"),
 				new GenericAnalogy3Config("assets/stickers/heartbeat/analogy-domain-agnostic-3.png", "assets/stickers/generic/analogy-3.svg"),
 				//These ones look incomplete; only some text is being rendered
-				// new HeartbeatAnalogy1Config("assets/stickers/heartbeat/analogy-domain-relevant-1.png", "assets/stickers/heartbeat/analogy-1.svg"),
-				// new HeartbeatAnalogy2Config("assets/stickers/heartbeat/analogy-domain-relevant-2.png", "assets/stickers/heartbeat/analogy-2.svg"),
-				// new HeartbeatAnalogy3Config("assets/stickers/heartbeat/analogy-domain-relevant-3.png", "assets/stickers/heartbeat/analogy-3.svg")
+				new HeartbeatAnalogy1Config("assets/stickers/heartbeat/analogy-domain-relevant-1.png", "assets/stickers/heartbeat/analogy-1.svg"),
+				new HeartbeatAnalogy2Config("assets/stickers/heartbeat/analogy-domain-relevant-2.png", "assets/stickers/heartbeat/analogy-2.svg"),
+				new HeartbeatAnalogy3Config("assets/stickers/heartbeat/analogy-domain-relevant-3.png", "assets/stickers/heartbeat/analogy-3.svg")
 				//TODO: implement chartjunk stickers for heartbeat
 				// new SpecificHybridConfig("assets/stickers/heartbeat/plain-domain-relevant-1.png", "assets/stickers/heartbeat/plain-1.svg", undefined),
 				// new SpecificHybridConfig("assets/stickers/heartbeat/plain-domain-relevant-2.png", "assets/stickers/heartbeat/plain-2.svg", undefined),
@@ -132,6 +138,10 @@ export class GlobalDataService {
 				new GenericAnalogy3Config("assets/stickers/time/analogy-domain-agnostic-3.png", "assets/stickers/generic/analogy-3.svg"),
 				//TODO: implement chartjunk stickers for time
 				//TODO: implement analogy stickers for time
+				new TimeAnalogy1Config("assets/stickers/time/analogy-domain-relevant-1.png", "assets/stickers/time/analogy-1.svg"),
+				new TimeAnalogy2Config("assets/stickers/time/analogy-domain-relevant-2.png", "assets/stickers/time/analogy-2.svg"),
+				new TimeAnalogy3Config("assets/stickers/time/analogy-domain-relevant-3.png", "assets/stickers/time/analogy-3.svg"),
+				
 				// {"sticker":"../../../assets/stickers/time/5-09.png", "stickerType":"analogy","relevance":"domain-agnostic" },
 				// {"sticker":"../../../assets/stickers/time/5-12.png", "stickerType":"analogy","relevance":"domain-agnostic" },
 				// {"sticker":"../../../assets/stickers/time/5-08.png", "stickerType":"analogy","relevance":"domain-relevant" },
@@ -149,6 +159,10 @@ export class GlobalDataService {
 				new GenericAnalogy3Config("assets/stickers/music/analogy-domain-agnostic-3.png", "assets/stickers/generic/analogy-3.svg"),
 				//TODO: implement chartjunk stickers for music
 				//TODO: implement analogy stickers for music
+				new MusicAnalogy1Config("assets/stickers/music/analogy-domain-relevant-1.png", "assets/stickers/music/analogy-1.svg"),
+				new MusicAnalogy2Config("assets/stickers/music/analogy-domain-relevant-2.png", "assets/stickers/music/analogy-2.svg"),
+				new MusicAnalogy3Config("assets/stickers/music/analogy-domain-relevant-3.png", "assets/stickers/music/analogy-3.svg"),
+				
 				// {"sticker":"../../../assets/stickers/music/6-08.png", "stickerType":"analogy","relevance":"domain-relevant" },
 				// {"sticker": "../../../assets/stickers/music/6-06.png", "stickerType":"analogy","relevance":"domain-relevant" },
 			]
