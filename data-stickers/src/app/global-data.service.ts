@@ -98,14 +98,15 @@ export class GlobalDataService {
 				new GenericAnalogyConfig("assets/stickers/heartbeat/analogy-domain-agnostic-1.png", "assets/stickers/generic/analogy-1.svg"),
 				new GenericAnalogy2Config("assets/stickers/heartbeat/analogy-domain-agnostic-2.png", "assets/stickers/generic/analogy-2.svg"),
 				new GenericAnalogy3Config("assets/stickers/heartbeat/analogy-domain-agnostic-3.png", "assets/stickers/generic/analogy-3.svg"),
+				new SpecificHybridConfig("assets/stickers/heartbeat/plain-domain-relevant-1.png", "assets/stickers/heartbeat/plain-1.svg", "assets/stickers/heartbeat/chartjunk-1.svg"),
+				new SpecificHybrid2Config("assets/stickers/heartbeat/plain-domain-relevant-2.png", "assets/stickers/heartbeat/plain-2.svg", "assets/stickers/heartbeat/chartjunk-2.svg"),
+				new SpecificHybridConfig("assets/stickers/heartbeat/plain-domain-relevant-3.png", "assets/stickers/heartbeat/plain-3.svg", "assets/stickers/heartbeat/chartjunk-3.svg"),
 				//These ones look incomplete; only some text is being rendered
 				new HeartbeatAnalogy1Config("assets/stickers/heartbeat/analogy-domain-relevant-1.png", "assets/stickers/heartbeat/analogy-1.svg"),
 				new HeartbeatAnalogy2Config("assets/stickers/heartbeat/analogy-domain-relevant-2.png", "assets/stickers/heartbeat/analogy-2.svg"),
-				new HeartbeatAnalogy3Config("assets/stickers/heartbeat/analogy-domain-relevant-3.png", "assets/stickers/heartbeat/analogy-3.svg")
+				new HeartbeatAnalogy3Config("assets/stickers/heartbeat/analogy-domain-relevant-3.png", "assets/stickers/heartbeat/analogy-3.svg"),
 				//TODO: implement chartjunk stickers for heartbeat
-				// new SpecificHybridConfig("assets/stickers/heartbeat/plain-domain-relevant-1.png", "assets/stickers/heartbeat/plain-1.svg", undefined),
-				// new SpecificHybridConfig("assets/stickers/heartbeat/plain-domain-relevant-2.png", "assets/stickers/heartbeat/plain-2.svg", undefined),
-				// new SpecificHybridConfig("assets/stickers/heartbeat/plain-domain-relevant-3.png", "assets/stickers/heartbeat/plain-3.svg", undefined)
+				
 			],
 			"calories":
 			[
@@ -137,6 +138,9 @@ export class GlobalDataService {
 				new GenericAnalogy2Config("assets/stickers/time/analogy-domain-agnostic-2.png", "assets/stickers/generic/analogy-2.svg"),
 				new GenericAnalogy3Config("assets/stickers/time/analogy-domain-agnostic-3.png", "assets/stickers/generic/analogy-3.svg"),
 				//TODO: implement chartjunk stickers for time
+				new SpecificHybridConfig("assets/stickers/time/plain-domain-relevant-1.png", "assets/stickers/time/plain-1.svg", "assets/stickers/time/chartjunk-1.svg"),
+				new SpecificHybridConfig("assets/stickers/time/plain-domain-relevant-2.png", "assets/stickers/time/plain-2.svg", "assets/stickers/time/chartjunk-2.svg"),
+				new SpecificHybrid2Config("assets/stickers/time/plain-domain-relevant-3.png", "assets/stickers/time/plain-3.svg", "assets/stickers/time/chartjunk-3.svg"),
 				//TODO: implement analogy stickers for time
 				new TimeAnalogy1Config("assets/stickers/time/analogy-domain-relevant-1.png", "assets/stickers/time/analogy-1.svg"),
 				new TimeAnalogy2Config("assets/stickers/time/analogy-domain-relevant-2.png", "assets/stickers/time/analogy-2.svg"),
@@ -158,6 +162,9 @@ export class GlobalDataService {
 				new GenericAnalogy2Config("assets/stickers/music/analogy-domain-agnostic-2.png", "assets/stickers/generic/analogy-2.svg"),
 				new GenericAnalogy3Config("assets/stickers/music/analogy-domain-agnostic-3.png", "assets/stickers/generic/analogy-3.svg"),
 				//TODO: implement chartjunk stickers for music
+				new SpecificHybridConfig("assets/stickers/music/plain-domain-relevant-1.png", "assets/stickers/music/plain-1.svg", "assets/stickers/music/chartjunk-1.svg"),
+				new SpecificHybridConfig("assets/stickers/music/plain-domain-relevant-2.png", "assets/stickers/music/plain-2.svg", "assets/stickers/music/chartjunk-2.svg"),
+				new SpecificHybrid2Config("assets/stickers/music/plain-domain-relevant-3.png", "assets/stickers/music/plain-3.svg", "assets/stickers/music/chartjunk-3.svg"),
 				//TODO: implement analogy stickers for music
 				new MusicAnalogy1Config("assets/stickers/music/analogy-domain-relevant-1.png", "assets/stickers/music/analogy-1.svg"),
 				new MusicAnalogy2Config("assets/stickers/music/analogy-domain-relevant-2.png", "assets/stickers/music/analogy-2.svg"),

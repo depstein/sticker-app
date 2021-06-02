@@ -22,8 +22,6 @@ export class MusicAnalogy1Config extends GenericAnalogyConfig {
 			denominatorString = " x " + this.denominatorDescriptor;
 			this.denominatorValue = this.totalMusic["plays"];
 		}
-		console.log(this.denominatorValue);
-		console.log(this.unit);
     	var analogy_value = (options['value']/this.denominatorValue).toFixed(1) + " " + options['unit'];
      	//if(options['domain'] == 'time') {
 		// 	analogy_value = this.processDefaultTimeText(options['value']/this.denominatorValue);

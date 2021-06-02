@@ -5,7 +5,7 @@ import { Chart } from "node_modules/chart.js";
 import { Health } from '@ionic-native/health/ngx';
 import * as moment from 'moment';
 
-const USING_HEALTH_DATA: boolean = true;
+const USING_HEALTH_DATA: boolean = false;
 
 const SAMPLE_DATA: object = {
   steps: {
