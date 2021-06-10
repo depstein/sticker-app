@@ -4,7 +4,6 @@ import { ToastController } from '@ionic/angular';
 import { NavController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { AnalyticsService } from '../../analytics.service';
-import { AlertController } from "@ionic/angular";
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +24,6 @@ export class SettingsPage implements OnInit {
     private navCtrl: NavController,
     private analyticsService: AnalyticsService,
     private storage: Storage,
-    public alertController: AlertController,
   ) { 
     this.getIdandPermissionsFromStorage();
     // this.getHealthPermission();
