@@ -40,18 +40,32 @@ export class CreateStickersPage implements OnInit {
     this.global.stickerInfo.animation = "pulse";
     this.global.stickerInfo.hasGoal = false;
     this.global.stickerInfo.unit = this.global.domain_info[this.global.stickerInfo.domain].units[0].trim();
+    // this.storage.get('spotifyPermission')
+    // .then((value) => {
+    //   this.spotifybutton = value;
+    //   if(this.global.stickerInfo.domain == "music" && (this.spotifybutton == false || this.spotifybutton == null) && this.global.asked == false){
+    //     this.presentAlertspotifyButtons();
+    //   }
+    // })
+    // this.storage.get('healthPermission')
+    // .then((value) => {
+    //   this.healthbutton = value;
+    //   if(this.global.stickerInfo.domain == "steps" || this.global.stickerInfo.domain == "heartbeat"){
+    //     this.presentAlerthealthButtons();
+    //   }
+    // })
     this.storage.get('spotifyPermission')
     .then((value) => {
       this.spotifybutton = value;
       if(this.global.stickerInfo.domain == "music" && (this.spotifybutton == false || this.spotifybutton == null) && this.global.asked == false){
-        this.presentAlertspotifyButtons();
+        this.presentSettingSpotifyAlert();
       }
     })
     this.storage.get('healthPermission')
     .then((value) => {
       this.healthbutton = value;
-      if(this.global.stickerInfo.domain == "steps" || this.global.stickerInfo.domain == "heartbeat"){
-        this.presentAlerthealthButtons();
+      if((this.global.stickerInfo.domain == "steps" || this.global.stickerInfo.domain == "heartbeat") && (this.healthbutton == false || this.healthbutton == null) && this.global.asked == false){
+        this.presentSettingHealthAlert();
       }
     })
   }
@@ -120,6 +134,34 @@ export class CreateStickersPage implements OnInit {
         },
         {
           text: 'NO'
+        }],
+    })
+    await alert.present();
+  }
+
+  async presentSettingHealthAlert(){
+    const alert = await this.alertController.create({
+      message: 'Permission to health data not granted. Please set up permission in \'Setting\'',
+      buttons: [
+        // {
+        //   text: 'YES'
+        // },
+        {
+          text: 'Okay'
+        }],
+    })
+    await alert.present();
+  }
+
+  async presentSettingSpotifyAlert(){
+    const alert = await this.alertController.create({
+      message: 'Permission to Spotify data not granted. Please set up permission in \'Setting\'',
+      buttons: [
+        // {
+        //   text: 'YES'
+        // },
+        {
+          text: 'Okay'
         }],
     })
     await alert.present();

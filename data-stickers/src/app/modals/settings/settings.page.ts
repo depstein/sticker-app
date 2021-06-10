@@ -4,6 +4,7 @@ import { ToastController } from '@ionic/angular';
 import { NavController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { AnalyticsService } from '../../analytics.service';
+import { AlertController } from "@ionic/angular";
 
 @Injectable({
   providedIn: 'root'
@@ -23,12 +24,24 @@ export class SettingsPage implements OnInit {
     private toastController: ToastController,
     private navCtrl: NavController,
     private analyticsService: AnalyticsService,
-    private storage: Storage
+    private storage: Storage,
+    public alertController: AlertController,
   ) { 
     this.getIdandPermissionsFromStorage();
+    // this.getHealthPermission();
+    // this.getSpotifyPermission();
+    this.storage.get('healthPermission')
+    .then((value) => {
+      console.log('healthPermission ' + value);
+    })
+    this.storage.get('spotifyPermission')
+    .then((value) => {
+      console.log('spotifyPermission ' + value);
+    })
   }
 
   ngOnInit() {
+    this.getIdandPermissionsFromStorage();
   }
 
   getIdandPermissionsFromStorage(){
@@ -42,10 +55,11 @@ export class SettingsPage implements OnInit {
     })
     this.storage.get('spotifyPermission')
     .then((value) => {
-      if (value == null)
+      if (value == null) {
         this.spotifyPermission = false;
-      else
+      } else {
         this.spotifyPermission = value;
+      }
     })
   }
 
@@ -59,14 +73,16 @@ export class SettingsPage implements OnInit {
   }
 
   clearAllSettings() {
-    this.storage.remove('id')
+    // this.storage.remove('id')
     this.storage.remove('domain')
     this.storage.remove('healthPermission')
     this.storage.remove('spotifyPermission')
     .then(() => {
-      this.idInput = null;
+      // this.idInput = null;
       this.healthPermission = false; 
       this.spotifyPermission = false;
+      this.storage.set('healthPermission', false);
+      this.storage.set('spotifyPermission', false);
       this.presentToast()
     })
   }
@@ -81,4 +97,38 @@ export class SettingsPage implements OnInit {
     })
   }
 
+  // if permission = true, hide button and display text
+  getSpotifyPermission() {
+    this.storage.get('spotifyPermission')
+      .then((value) => {
+        console.log('spotifyPermission ' + value);
+        if (value == true) {
+          console.log('spotifyPermission ' + value);
+        } else {
+          console.log("open webpage");
+          window.open("https://sticker-spotify.herokuapp.com/login", "_self");
+          this.storage.set('spotifyPermission', true);
+          this.spotifyPermission = true; 
+        }
+
+      })
+  }
+  
+  // if permission = true, hide button and display text
+  getHealthPermission() {
+    this.storage.get('healthPermission')
+      .then((value) => {
+        console.log('healthPermission ' + value);
+        if (value == true){
+          console.log('healthPermission ' + value);
+        } else {
+          this.storage.set('healthPermission', true);
+          this.healthPermission = true; 
+          console.log('healthPermission ' + value);
+        }
+      })
+  }
+
 }
+
+

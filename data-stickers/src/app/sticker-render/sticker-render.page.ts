@@ -105,7 +105,21 @@ export class StickerRenderPage implements OnInit {
       reader.readAsDataURL(image);
     }
   }
-  refreshPage(){}
+  refreshPage(){
+    this.imageLoading = true;
+    this.imageLoadedError = false;
+    this.http.get(this.url, {responseType: 'blob'})
+      .subscribe(data => { 
+        this.createImageFromBlob(data);
+        this.imageLoading = false;
+        this.imageLoadedSuccess = true;
+      }, error => {
+        console.log(error);
+        this.errorStatus = "Status: " + String(error.status) + ", " + error.statusText;
+        this.imageLoading = false;
+        this.imageLoadedError = true;
+      });
+  }
 
   shareToSocialMedia() {
     console.log("Share!");

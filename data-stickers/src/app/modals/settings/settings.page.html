@@ -11,10 +11,14 @@
   </ion-item>
   <ion-item>
     <ion-label>Health Permission</ion-label>
-    <ion-toggle [(ngModel)]="healthPermission"></ion-toggle>
+    <ion-button *ngIf="this.healthPermission == false" (click)="getHealthPermission()">Health</ion-button>
+    <ion-label class="ion-text-right" *ngIf="this.healthPermission == true">Granted</ion-label>
+    <!-- <ion-toggle [(ngModel)]="healthPermission"></ion-toggle> -->
   </ion-item><ion-item>
     <ion-label>Spotify Permission</ion-label>
-    <ion-toggle [(ngModel)]="spotifyPermission"></ion-toggle>
+    <ion-button *ngIf="this.spotifyPermission == false" (click)="getSpotifyPermission()">Spotify</ion-button>
+    <ion-label class="ion-text-right" *ngIf="this.spotifyPermission == true">Granted</ion-label>
+    <!-- <ion-toggle [(ngModel)]="spotifyPermission"></ion-toggle> -->
   </ion-item>
   <div class="buttonContainer">
     <ion-button (click)="clearAllSettings()">Clear All</ion-button>

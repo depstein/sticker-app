@@ -60,5 +60,6 @@ app-recent-use{
 
 @font-face {
 	font-family: MyDearWatson-Regular;
-	src: url("./assets/fonts/MyDearWatson-Regular.otf") format("otf");
+	src: url('./assets/fonts/MyDearWatson-Regular.woff2') format('woff2'),
+        url('./assets/fonts/MyDearWatson-Regular.woff') format('woff');
 }
