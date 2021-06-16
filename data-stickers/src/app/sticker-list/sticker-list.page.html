@@ -1,11 +1,15 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
-    <ion-title
+    <!-- <ion-title
       *ngIf="!recentUse.stickerArray"
       color="{{domain}}"
       >Select stickers</ion-title
+    > -->
+    <ion-title
+      color="{{domain}}"
+      >Select stickers</ion-title
     >
-    <ion-label
+    <!-- <ion-label
       *ngIf="recentUse.stickerArray && recentUse.stickerArray.length > 0"
       color="{{domain}}"
     >
@@ -18,7 +22,7 @@
       <app-recent-use
         [(stickerArray)]="recentUse.stickerArray"
       ></app-recent-use>
-    </ion-item>
+    </ion-item> -->
     <ion-buttons slot="end">
       <ion-button color={{domain}} (click)="presentSettingsModal()">
       <ion-icon name="settings"></ion-icon>
