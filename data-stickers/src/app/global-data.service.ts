@@ -119,6 +119,7 @@ export class GlobalDataService {
 				new CaloriesAnalogy2Config("assets/stickers/calories/analogy-domain-relevant-2.png", "assets/stickers/calories/analogy-2.svg"),
 				new CaloriesAnalogy3Config("assets/stickers/calories/analogy-domain-relevant-3.png", "assets/stickers/calories/analogy-3.svg")
 			],
+      // https://sheltered-waters-08469.herokuapp.com/time/plain-1.html?type=plain&variation=2&value=301000&unit=hour:minute&option=pulse&goal=1000
 			"time":
 			[
 				new GenericPlainConfig("assets/stickers/time/plain-domain-agnostic-1.png", "assets/stickers/generic/plain-1.svg"),
@@ -136,6 +137,7 @@ export class GlobalDataService {
 				// {"sticker":"../../../assets/stickers/time/5-12.png", "stickerType":"analogy","relevance":"domain-agnostic" },
 				// {"sticker":"../../../assets/stickers/time/5-08.png", "stickerType":"analogy","relevance":"domain-relevant" },
 			],
+      // https://sheltered-waters-08469.herokuapp.com/generic/plain-1.html?type=plain&variation=2&value=11&unit=Plays%20of%20the%20Beatles&option=pulse&goal=1000
 			"music":
 			[
 				new GenericPlainConfig("assets/stickers/music/plain-domain-agnostic-1.png", "assets/stickers/generic/plain-1.svg"),
