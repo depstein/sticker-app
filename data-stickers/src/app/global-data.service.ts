@@ -106,7 +106,7 @@ export class GlobalDataService {
 				new HeartbeatAnalogy2Config("assets/stickers/heartbeat/analogy-domain-relevant-2.png", "assets/stickers/heartbeat/analogy-2.svg"),
 				new HeartbeatAnalogy3Config("assets/stickers/heartbeat/analogy-domain-relevant-3.png", "assets/stickers/heartbeat/analogy-3.svg"),
 				//TODO: implement chartjunk stickers for heartbeat
-				
+
 			],
 			"calories":
 			[
@@ -146,7 +146,7 @@ export class GlobalDataService {
 				new TimeAnalogy1Config("assets/stickers/time/analogy-domain-relevant-1.png", "assets/stickers/time/analogy-1.svg"),
 				new TimeAnalogy2Config("assets/stickers/time/analogy-domain-relevant-2.png", "assets/stickers/time/analogy-2.svg"),
 				new TimeAnalogy3Config("assets/stickers/time/analogy-domain-relevant-3.png", "assets/stickers/time/analogy-3.svg"),
-				
+
 				// {"sticker":"../../../assets/stickers/time/5-09.png", "stickerType":"analogy","relevance":"domain-agnostic" },
 				// {"sticker":"../../../assets/stickers/time/5-12.png", "stickerType":"analogy","relevance":"domain-agnostic" },
 				// {"sticker":"../../../assets/stickers/time/5-08.png", "stickerType":"analogy","relevance":"domain-relevant" },
@@ -171,7 +171,7 @@ export class GlobalDataService {
 				new MusicAnalogy1Config("assets/stickers/music/analogy-domain-relevant-1.png", "assets/stickers/music/analogy-1.svg"),
 				new MusicAnalogy2Config("assets/stickers/music/analogy-domain-relevant-2.png", "assets/stickers/music/analogy-2.svg"),
 				new MusicAnalogy3Config("assets/stickers/music/analogy-domain-relevant-3.png", "assets/stickers/music/analogy-3.svg"),
-				
+
 				// {"sticker":"../../../assets/stickers/music/6-08.png", "stickerType":"analogy","relevance":"domain-relevant" },
 				// {"sticker": "../../../assets/stickers/music/6-06.png", "stickerType":"analogy","relevance":"domain-relevant" },
 			]
