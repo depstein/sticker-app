@@ -1,6 +1,7 @@
 import { AlertController } from "@ionic/angular";
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { GlobalDataService } from "./../global-data.service";
+import { Storage } from "@ionic/storage";
 import { SpotifyService } from "../spotify.service";
 import { ModalController } from "@ionic/angular";
 import { ModalPage } from "../modals/modal/modal.page";
@@ -35,6 +36,7 @@ export class InputComponent implements OnInit {
   constructor(
     public alertController: AlertController,
     public global: GlobalDataService,
+    private storage: Storage,
     private spotifyService: SpotifyService,
     public modalController: ModalController
   ) {
@@ -64,7 +66,7 @@ export class InputComponent implements OnInit {
       this.music_category = "music";
       this.updateMusicInputValue();
     }
-    
+
     this.selected_unit = this.unit_list[0].trim();
     this.nutrient_data = {
       "calories": 0,
@@ -364,7 +366,7 @@ export class InputComponent implements OnInit {
   }
 
   //Get all recenly played list including songs, artists and albums
-  getplaylist() {
+  getPlaylist() {
     this.spotifyService
       .sendRequestToExpress("/recently-played")
       .then((data) => {
@@ -443,7 +445,7 @@ export class InputComponent implements OnInit {
         console.log(this.artists);
         console.log(data);
         this.getPlaylistOfDifferentTime(data);
-        this.presentModal();
+        this.openSpotifyModal();
       });
   }
 
@@ -758,9 +760,79 @@ export class InputComponent implements OnInit {
 
   }
 
+  async presentServiceAlert() {
+    let message;
+    switch (this.global.stickerInfo.domain) {
+      case 'music':
+        message = 'Do you want to get your playlist from Spotify?';
+        break;
+      case 'calories':
+        message = 'Do you want to get your data from the Nutritionix food database?';
+        break;
+      default:
+        message = 'Do you want to get your data from HealthKit?';
+    }
 
+    const alert = await this.alertController.create({
+      message: message,
+      buttons: [
+        {
+          text: 'YES',
+          handler: () => {
+            if (this.global.stickerInfo.domain == 'music') {
+              this.storage.get('spotifyPermission')
+              .then((value) => {
+                if(value == false || value == null){
+                  console.log("open webpage");
+                  window.open("https://sticker-spotify.herokuapp.com/login", "_self");
+                  this.storage.set('spotifyPermission', true);
+                }
+                else {
+                  this.getPlaylist();
+                }
+              })
+            }
+            else {
+              this.openModal();
+            }
+          }
+        },
+        {
+          text: 'NO',
+          handler: () => this.presentInputAlert()
+        }],
+    })
+    await alert.present();
+  }
 
-  async presentModal() {
+  async presentInputAlert() {
+    const alert = await this.alertController.create({
+      message: `Enter your amount of ${this.selected_unit}`,
+      inputs: [
+        {
+          name: 'value',
+          value: 0,
+          type: 'number'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel'
+        }, {
+          text: 'Ok',
+          handler: data => {
+            this.global.stickerInfo.value = data.value;
+            this.updateInputValue();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async openSpotifyModal() {
     const modal = await this.modalController.create({
       component: ModalPage,
       cssClass: "my-custom-class",
@@ -790,7 +862,7 @@ export class InputComponent implements OnInit {
         }
         this.music_category = data.data.title;
       }
-    });    
+    });
     console.log("check","day",this.lastDay,"hour",this.lastHour,"week",this.lastWeek,"month",this.lastMonth)
     return await modal.present();
   }
