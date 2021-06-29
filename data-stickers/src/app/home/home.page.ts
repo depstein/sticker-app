@@ -39,7 +39,11 @@ export class HomePage {
         this.analyticsService.setUser(value);
         this.checkForDomain();
       } else {
-        this.presentIdInputPrompt()
+        // User ID input prompt at the beginning of app.
+        // this.presentIdInputPrompt()
+        this.presentInitialSetupAlert();
+        this.setUserId("change-user-id");
+        this.analyticsService.setUser("change-user-id");
       }
     })
   }
@@ -62,6 +66,22 @@ export class HomePage {
         this.healthPermission = value;
       }
     })
+  }
+
+  async presentInitialSetupAlert() {
+    const alert = await this.alertController.create({
+      header: 'Hello! Welcome to SnapPI!',
+      message: 'Please go to the Setting page to set up your user id and permissions.',
+      buttons: [
+        {
+          text: 'OK',
+          handler: () => {
+            this.router.navigate(['home/steps']);
+          }
+        }  
+      ]
+    });
+    await alert.present();
   }
 
   async presentIdInputPrompt() {
