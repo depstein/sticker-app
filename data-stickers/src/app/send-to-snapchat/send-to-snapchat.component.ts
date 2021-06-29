@@ -7,7 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class SendToSnapchatComponent implements OnInit {
 	@Input() sticker:string;
-  private base_url:string = "https://sheltered-waters-08469.herokuapp.com";
+  private base_url:string = "https://snap-pi.herokuapp.com";
   // private base_url:string = "http://localhost:5000";
 
   constructor() { 
