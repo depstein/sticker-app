@@ -49,7 +49,11 @@ export class SettingsPage implements OnInit {
     })  
     this.storage.get('healthPermission')
     .then((value) => {
-      this.healthPermission = value;
+      if (value == null) {
+        this.healthPermission = false;
+      } else {
+        this.healthPermission = value;
+      }
     })
     this.storage.get('spotifyPermission')
     .then((value) => {
