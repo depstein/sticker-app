@@ -4,6 +4,7 @@ import { ToastController } from '@ionic/angular';
 import { NavController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { AnalyticsService } from '../../analytics.service';
+import { Health } from '@ionic-native/health/ngx';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,7 @@ export class SettingsPage implements OnInit {
     private navCtrl: NavController,
     private analyticsService: AnalyticsService,
     private storage: Storage,
+    private health: Health
   ) { 
     this.getIdandPermissionsFromStorage();
     // this.getHealthPermission();
@@ -124,9 +126,19 @@ export class SettingsPage implements OnInit {
         if (value == true){
           console.log('healthPermission ' + value);
         } else {
-          this.storage.set('healthPermission', true);
-          this.healthPermission = true; 
-          console.log('healthPermission ' + value);
+          this.health.isAvailable()
+          .then(() => {
+            this.health.requestAuthorization([{
+                read: ['steps', 'heart_rate', 'calories']
+            }])
+            .then(() => {
+              this.storage.set('healthPermission', true);
+              this.healthPermission = true; 
+              console.log('healthPermission ' + value);
+            })
+            .catch(e => console.log(e));
+          })
+          .catch(e => console.log(e));
         }
       })
   }
