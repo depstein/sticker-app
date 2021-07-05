@@ -14,7 +14,8 @@ export const environment = {
     measurementId: "G-24Y1FMRDRL"
   },
   nutritionixID: '67853ab2',
-  nutritionixKey: 'd27556fd8ab42acd7a7def7d91347f0e'
+  nutritionixKey: 'd27556fd8ab42acd7a7def7d91347f0e',
+  usingHealthData: false,
 };
 
 /*
