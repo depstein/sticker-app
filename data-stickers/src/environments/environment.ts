@@ -16,7 +16,8 @@ export const environment = {
   nutritionixID: '67853ab2',
   nutritionixKey: 'd27556fd8ab42acd7a7def7d91347f0e',
   usingHealthData: false,
-  spotifyServerURL: 'https://sticker-spotify.herokuapp.com'
+  spotifyServerURL: 'https://sticker-spotify.herokuapp.com',
+  serverURL: 'https://snap-pi.herokuapp.com'
 };
 
 /*
