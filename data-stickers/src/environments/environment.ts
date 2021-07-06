@@ -13,8 +13,12 @@ export const environment = {
     appId: "1:740150109623:web:c96af3527449f06b227432",
     measurementId: "G-24Y1FMRDRL"
   },
-  nutritionixID: '67853ab2',
-  nutritionixKey: 'd27556fd8ab42acd7a7def7d91347f0e',
+  nutritionix: {
+    searchURL: 'https://trackapi.nutritionix.com/v2/search/instant',
+    nutrientsURL: 'https://trackapi.nutritionix.com/v2/natural/nutrients',
+    id: '67853ab2',
+    key: 'd27556fd8ab42acd7a7def7d91347f0e'
+  },
   usingHealthData: false,
   spotifyServerURL: 'https://sticker-spotify.herokuapp.com',
   serverURL: 'https://snap-pi.herokuapp.com'

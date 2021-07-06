@@ -12,31 +12,25 @@ export class FoodDataService {
   constructor(private http: HttpClient) { }
 
   searchForFoodItems(query: string) {
-    return this.http.get(
-      'https://trackapi.nutritionix.com/v2/search/instant',
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'x-app-id': environment.nutritionixID,
-          'x-app-key': environment.nutritionixKey
-        },
-        params: {
-          "query": query
-        }
+    return this.http.get(environment.nutritionix.searchURL, {
+      headers: {
+        'Content-Type': 'application/json',
+        'x-app-id': environment.nutritionix.id,
+        'x-app-key': environment.nutritionix.key
+      },
+      params: {
+        "query": query
       }
-    );
+    });
   }
 
   getFoodData(query: string) {
-    return this.http.post(
-      'https://trackapi.nutritionix.com/v2/natural/nutrients', {'query': query},
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'x-app-id': environment.nutritionixID,
-          'x-app-key': environment.nutritionixKey
-        }
+    return this.http.post(environment.nutritionix.nutrientsURL, {'query': query}, {
+      headers: {
+        'Content-Type': 'application/json',
+        'x-app-id': environment.nutritionix.id,
+        'x-app-key': environment.nutritionix.key
       }
-    );
+    });
   }
 }
