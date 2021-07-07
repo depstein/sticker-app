@@ -1,9 +1,9 @@
-div.overlay {
-  background-color: rgba(255, 255, 255, 0);
+.overlay {
+  background-color: rgba(255, 255, 255, 0.5);
 }
 
 ion-grid {
-  padding-top: 0px;
+  padding: 0px;
 }
 
 ion-label{

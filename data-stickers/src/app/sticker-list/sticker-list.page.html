@@ -32,13 +32,11 @@
 </ion-header>
 
 <ion-content class="hide-scrollbar" color="{{domain}}">
-  <div class="overlay">
-    <ion-grid>
-      <ion-row *ngFor="let row of imageArray">
-        <ion-col *ngFor="let config of row">
-          <img [src]="config.imageURL" (click)="goToCreateStickerPage(config)" />
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </div>
+  <ion-grid>
+    <ion-row *ngFor="let row of imageArray; let i = index" [ngClass]="{'overlay': i % 2 == 1}">
+      <ion-col *ngFor="let config of row">
+        <img [src]="config.imageURL" (click)="goToCreateStickerPage(config)" />
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
