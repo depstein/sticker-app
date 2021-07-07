@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { GlobalDataService } from './../global-data.service';
 import { RecentUseService } from './../recent-use.service'
 import { Meta } from '@angular/platform-browser';
+import { environment } from './../../environments/environment';
 
 @Component({
   selector: 'app-sticker-render',
@@ -17,7 +18,7 @@ export class StickerRenderPage implements OnInit {
   imageLoadedError: boolean;
   errorStatus: string;
   url: string;
-  
+
   constructor(private route: ActivatedRoute, private http: HttpClient, public global: GlobalDataService, private recentUse:RecentUseService, public meta: Meta) {
     this.imageLoading = true;
     this.imageLoadedSuccess = false;
@@ -31,7 +32,7 @@ export class StickerRenderPage implements OnInit {
   ngOnInit() {
     console.log(this.url);
     this.http.get(this.url, {responseType: 'blob'})
-      .subscribe(data => { 
+      .subscribe(data => {
         this.createImageFromBlob(data);
         this.imageLoading = false;
         this.imageLoadedSuccess = true;
@@ -49,9 +50,9 @@ export class StickerRenderPage implements OnInit {
   constructUrl() {
     //var image_arr = this.global.stickerInfo.image.split('/');
     //image_arr = image_arr[image_arr.length-1].split('.');
-    
+
     // this.url = 'http://localhost:5000/';                                  // base url
-    this.url = 'https://snap-pi.herokuapp.com/';           // base url
+    this.url = `${environment.serverURL}/`;               // base url
     // this.url = 'http://192.168.86.24:5000/';           // base url
     if(this.global.stickerInfo.stickerRelevance == "domain-agnostic") {
       this.url += 'generic';
@@ -66,7 +67,7 @@ export class StickerRenderPage implements OnInit {
     this.url += '&variation=' + String(this.global.stickerInfo.variation);      // variation (ex. 1, 2, 3)
     this.url += '&unit=' + String(this.global.stickerInfo.unit);                // unit (ex. banana, beats per minute)
     this.url += '&type=' + String(this.global.stickerInfo.stickerType);         // image type (ex. plain, chartjunk, analogy)
-    this.url += '&option=' + String(this.global.stickerInfo.animation);         // animation (ex. shake) 
+    this.url += '&option=' + String(this.global.stickerInfo.animation);         // animation (ex. shake)
     if (this.global.stickerInfo.hasGoal) {
       this.url += '&goal=' + (this.global.stickerInfo.hasGoal ? String(this.global.stickerInfo.goal) : '0');  // goal (ex. 1000)
     }
@@ -79,15 +80,15 @@ export class StickerRenderPage implements OnInit {
       this.url += '&time=' + 'false';
     }
     // TODO: color? change type.
-    
+
     //// testing parameters
     // this.url += '/?value=' + String(this.global.stickerInfo.value);         // value (ex. 1000)
     // this.url += '&variation=' + String(1);                                  // variation (ex. 1, 2, 3)
     // this.url += '&unit=' + String("unit");                                  // unit (ex. banana, beats per minute)
     // // this.url += '&type=' + String(image_arr[0]);                         // image type (ex. plain-domain-relevant-1)
     // this.url += '&type=' + String("plain");                                 // image type (ex. plain-domain-relevant-1)
-    // // this.url += '&option=' + String(this.global.stickerInfo.animation);  // animation (ex. shake) 
-    // this.url += '&option=' + String("pulse");                               // animation (ex. shake) 
+    // // this.url += '&option=' + String(this.global.stickerInfo.animation);  // animation (ex. shake)
+    // this.url += '&option=' + String("pulse");                               // animation (ex. shake)
     // this.url += '&goal=' + (this.global.stickerInfo.hasGoal ? String(this.global.stickerInfo.goal) : '0');  // goal (ex. 1000)
   }
 
@@ -109,7 +110,7 @@ export class StickerRenderPage implements OnInit {
     this.imageLoading = true;
     this.imageLoadedError = false;
     this.http.get(this.url, {responseType: 'blob'})
-      .subscribe(data => { 
+      .subscribe(data => {
         this.createImageFromBlob(data);
         this.imageLoading = false;
         this.imageLoadedSuccess = true;
@@ -125,5 +126,5 @@ export class StickerRenderPage implements OnInit {
     console.log("Share!");
     //Does nothing right now; is there something which needs to be merged in?
   }
-  
+
 }

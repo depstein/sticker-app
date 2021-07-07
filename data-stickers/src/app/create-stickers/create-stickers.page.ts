@@ -8,6 +8,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { send } from 'process';
 import { SpotifyService } from '../spotify.service';
 import { StickerComponent } from '../sticker/sticker.component';
+import { environment } from './../../environments/environment';
 
 @Component({
   selector: "app-create-stickers",
@@ -17,7 +18,7 @@ import { StickerComponent } from '../sticker/sticker.component';
 export class CreateStickersPage implements OnInit {
   img_list = [];
   health_test = '';
-  expressBaseUrl:string = 'https://sticker-spotify.herokuapp.com';
+  expressBaseUrl:string = environment.spotifyServerURL;
   @ViewChild(StickerComponent, {static:true}) stickerComponent;
 
   constructor(
