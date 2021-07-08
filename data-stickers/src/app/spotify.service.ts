@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from './../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SpotifyService {
-	expressBaseUrl:string = 'https://sticker-spotify.herokuapp.com';
+	expressBaseUrl:string = environment.spotifyServerURL;
 
   constructor(private http:HttpClient) { }
 

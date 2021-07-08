@@ -6,6 +6,7 @@ import { SpotifyService } from "../spotify.service";
 import { ModalController } from "@ionic/angular";
 import { ModalPage } from "../modals/modal/modal.page";
 import { conditionallyCreateMapObjectLiteral } from '@angular/compiler/src/render3/view/util';
+import { environment } from './../../environments/environment';
 
 import { SelectDataModalPage } from '../select-data-modal/select-data-modal.page';
 
@@ -471,7 +472,7 @@ export class InputComponent implements OnInit {
         .catch(error => {
           this.presentErrorSpotifyLogin();
         });
-    })  
+    })
   }
 
   getPlaylistOfDifferentTime(data){
@@ -814,7 +815,7 @@ export class InputComponent implements OnInit {
                     .then((value) => {
                       userid = value;
                     }).then(() => {
-                      window.open("https://sticker-spotify.herokuapp.com/login/" + String(userid), "_self");
+                      window.open(`${environment.spotifyServerURL}/login/` + String(userid), "_self");
                       this.storage.set('spotifyPermission', true);
                     })  
 

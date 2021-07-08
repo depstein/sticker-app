@@ -6,6 +6,7 @@ import { AlertController } from "@ionic/angular";
 import { Storage } from '@ionic/storage';
 import { AnalyticsService } from '../../analytics.service';
 import { Health } from '@ionic-native/health/ngx';
+import { environment } from './../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +29,7 @@ export class SettingsPage implements OnInit {
     private storage: Storage,
     private health: Health,
     private alertController: AlertController
-  ) { 
+  ) {
     this.getIdandPermissionsFromStorage();
     // this.getHealthPermission();
     // this.getSpotifyPermission();
@@ -50,7 +51,7 @@ export class SettingsPage implements OnInit {
     this.storage.get('id')
     .then((value) => {
       this.idInput = value;
-    })  
+    })
     this.storage.get('healthPermission')
     .then((value) => {
       if (value == null) {
@@ -85,7 +86,7 @@ export class SettingsPage implements OnInit {
     this.storage.remove('spotifyPermission')
     .then(() => {
       // this.idInput = null;
-      this.healthPermission = false; 
+      this.healthPermission = false;
       this.spotifyPermission = false;
       this.storage.set('healthPermission', false);
       this.storage.set('spotifyPermission', false);
@@ -102,7 +103,7 @@ export class SettingsPage implements OnInit {
       this.navCtrl.navigateRoot('/home'); // Navigation currently doesn't work
     })
   }
-  
+
   async presenUserIdInputAlert() {
     const alert = await this.alertController.create({
       message: `Enter your user id`,
@@ -145,16 +146,16 @@ export class SettingsPage implements OnInit {
             .then((value) => {
               userid = value;
               console.log(userid);
-              window.open("https://sticker-spotify.herokuapp.com/login/" + String(userid), "_self");
+              window.open(`${environment.spotifyServerURL}/login/` + String(userid), "_self");
               this.storage.set('spotifyPermission', true);
-              this.spotifyPermission = true; 
-            })  
-          
+              this.spotifyPermission = true;
+            })
+
         }
 
       })
   }
-  
+
   // if permission = true, hide button and display text
   getHealthPermission() {
     this.storage.get('healthPermission')
@@ -170,7 +171,7 @@ export class SettingsPage implements OnInit {
             }])
             .then(() => {
               this.storage.set('healthPermission', true);
-              this.healthPermission = true; 
+              this.healthPermission = true;
               console.log('healthPermission ' + value);
             })
             .catch(e => console.log(e));
@@ -181,5 +182,3 @@ export class SettingsPage implements OnInit {
   }
 
 }
-
-

@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { environment } from './../../environments/environment';
 
 @Component({
   selector: 'app-send-to-snapchat',
@@ -7,10 +8,8 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class SendToSnapchatComponent implements OnInit {
 	@Input() sticker:string;
-  private base_url:string = "https://snap-pi.herokuapp.com";
-  // private base_url:string = "http://localhost:5000";
 
-  constructor() { 
+  constructor() {
 	}
 
   ngOnInit() {
@@ -23,21 +22,21 @@ export class SendToSnapchatComponent implements OnInit {
       tag.parentNode.removeChild(tag);
       sjs = document.getElementsByTagName('script')[0];
 		}
-  	js = document.createElement('script'); 
+  	js = document.createElement('script');
     js.id = 'snapkit-creative-kit-sdk';
   	js.src = "https://sdk.snapkit.com/js/v1/create.js";
   	sjs.parentNode.insertBefore(js, sjs);
   }
 
   get URL():string {
-    var args = this.sticker.substring(this.base_url.length);
+    var args = this.sticker.substring(environment.serverURL.length);
     console.log("args: " + args);
-    //console.log(this.base_url + "/sticker?sticker=" + encodeURIComponent(this.sticker));
-    // return this.base_url + '/' + this.sticker;
+    //console.log(environment.serverURL + "/sticker?sticker=" + encodeURIComponent(this.sticker));
+    // return environment.serverURL + '/' + this.sticker;
     // return this.sticker;
     // return "https://denniswang.info/assets/images/test-sticker.png";
-    console.log("send to snapchat: " + this.base_url + "/sticker" + args);
-    return this.base_url + "/sticker" + args;
+    console.log("send to snapchat: " + environment.serverURL + "/sticker" + args);
+    return environment.serverURL + "/sticker" + args;
   }
 
 }
