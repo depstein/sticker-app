@@ -2,6 +2,7 @@ import { Component, OnInit, Injectable } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
 import { NavController } from '@ionic/angular';
+import { AlertController } from "@ionic/angular";
 import { Storage } from '@ionic/storage';
 import { AnalyticsService } from '../../analytics.service';
 import { Health } from '@ionic-native/health/ngx';
@@ -25,7 +26,8 @@ export class SettingsPage implements OnInit {
     private navCtrl: NavController,
     private analyticsService: AnalyticsService,
     private storage: Storage,
-    private health: Health
+    private health: Health,
+    private alertController: AlertController
   ) { 
     this.getIdandPermissionsFromStorage();
     // this.getHealthPermission();
@@ -100,6 +102,34 @@ export class SettingsPage implements OnInit {
       this.navCtrl.navigateRoot('/home'); // Navigation currently doesn't work
     })
   }
+  
+  async presenUserIdInputAlert() {
+    const alert = await this.alertController.create({
+      message: `Enter your user id`,
+      inputs: [
+        {
+          name: 'value',
+          value: this.idInput,
+          type: 'text'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel'
+        }, {
+          text: 'Ok',
+          handler: data => {
+            console.log(data.value);
+            this.idInput = data.value;
+            this.storage.set('id', data.value);
+            this.analyticsService.setUser(data.value);
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
 
   // if permission = true, hide button and display text
   getSpotifyPermission() {
@@ -110,9 +140,16 @@ export class SettingsPage implements OnInit {
           console.log('spotifyPermission ' + value);
         } else {
           console.log("open webpage");
-          window.open("https://sticker-spotify.herokuapp.com/login", "_self");
-          this.storage.set('spotifyPermission', true);
-          this.spotifyPermission = true; 
+          var userid: string = "";
+          this.storage.get('id')
+            .then((value) => {
+              userid = value;
+              console.log(userid);
+              window.open("https://sticker-spotify.herokuapp.com/login/" + String(userid), "_self");
+              this.storage.set('spotifyPermission', true);
+              this.spotifyPermission = true; 
+            })  
+          
         }
 
       })

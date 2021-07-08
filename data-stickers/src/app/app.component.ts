@@ -12,6 +12,7 @@ import { SettingsPage } from './modals/settings/settings.page';
 
 import { AnalyticsService } from './analytics.service';
 import { Health } from '@ionic-native/health/ngx';
+import { AlertController } from "@ionic/angular";
 
 @Component({
   selector: 'app-root',
@@ -29,10 +30,11 @@ export class AppComponent {
     private storage: Storage,
     private settingsPage: SettingsPage,
     private analyticsService: AnalyticsService,
-    private health: Health
+    private health: Health,
+    private alertController: AlertController
   ) {
     this.initializeApp();
-    this.settingsPage = new SettingsPage(modalController, toastController, navCtrl, analyticsService, storage, health);
+    this.settingsPage = new SettingsPage(modalController, toastController, navCtrl, analyticsService, storage, health, alertController);
   }
 
   initializeApp() {

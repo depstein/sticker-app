@@ -32,6 +32,8 @@ export class InputComponent implements OnInit {
   lastDay: any[] = [];
   lastWeek: any[] = [];
   lastMonth: any[] = [];
+  // user id
+  userid: string;
 
   constructor(
     public alertController: AlertController,
@@ -252,7 +254,7 @@ export class InputComponent implements OnInit {
       // Error prevention
       if (this.global.stickerInfo.domain == "time") {
         if (
-          this.global.stickerInfo.min <= 0 &&
+          this.global.stickerInfo.min < 0 &&
           this.global.stickerInfo.hour <= 0
         ) {
           this.presentErrorPrompt();
@@ -264,7 +266,7 @@ export class InputComponent implements OnInit {
         }
       } else {
         if (
-          this.global.stickerInfo.value <= 0 ||
+          this.global.stickerInfo.value < 0 ||
           this.global.stickerInfo.value == undefined
         ) {
           this.presentErrorPrompt();
@@ -365,88 +367,111 @@ export class InputComponent implements OnInit {
     await alert.present();
   }
 
+  async presentErrorSpotifyLogin() {
+    const alert = await this.alertController.create({
+      header: "Error: Spotify Authorization Expired",
+      message: 'Please go to the Setting page to set up your permissions again.',
+      buttons: [
+        {
+          text: "Got It!",
+        },
+      ],
+    });
+    await alert.present();
+  }
+
   //Get all recenly played list including songs, artists and albums
   getPlaylist() {
-    this.spotifyService
-      .sendRequestToExpress("/recently-played")
-      .then((data) => {
-        console.log(data);
-        if (data["items"] != null) {
-          for (var song of data["items"]) {
-            if (!Object.keys(this.songName).includes(song["track"]["name"])) {
-              this.songName[song["track"]["name"]] = {
-                plays: 1,
-                minutes: 0,
-                hours: 0,
-              };
-              this.songName[song["track"]["name"]]["minutes"] = Number(
-                (song["track"]["duration_ms"] / 1000 / 60).toFixed(2)
-              );
-              this.songName[song["track"]["name"]]["hours"] = Number(
-                (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
-              );
-            } else {
-              this.songName[song["track"]["name"]]["plays"] += 1;
-              this.songName[song["track"]["name"]]["minutes"] += Number(
-                (song["track"]["duration_ms"] / 1000 / 60).toFixed(2)
-              );
-              this.songName[song["track"]["name"]]["hours"] += Number(
-                (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
-              );
-            }
-
-            for (var a of song["track"]["album"]["artists"]) {
-              if (!Object.keys(this.artists).includes(a["name"])) {
-                this.artists[a["name"]] = { plays: 1, minutes: 0, hours: 0 };
-                this.artists[a["name"]]["minutes"] = Number(
+    this.storage.get('id')
+    .then((value) => {
+      this.userid = value;
+    }).then(() => {
+      this.spotifyService
+        // .sendRequestToExpress("/recently-played")
+        .sendRequestToExpress("/recently-played/"+String(this.userid))
+        .then((data) => {
+          console.log("userid: " + this.userid);
+          console.log(data);
+          if (data["items"] != null) {
+            for (var song of data["items"]) {
+              if (!Object.keys(this.songName).includes(song["track"]["name"])) {
+                this.songName[song["track"]["name"]] = {
+                  plays: 1,
+                  minutes: 0,
+                  hours: 0,
+                };
+                this.songName[song["track"]["name"]]["minutes"] = Number(
                   (song["track"]["duration_ms"] / 1000 / 60).toFixed(2)
                 );
-                this.artists[a["name"]]["hours"] = Number(
+                this.songName[song["track"]["name"]]["hours"] = Number(
                   (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
                 );
               } else {
-                this.artists[a["name"]]["plays"] += 1;
-                this.artists[a["name"]]["minutes"] += Number(
+                this.songName[song["track"]["name"]]["plays"] += 1;
+                this.songName[song["track"]["name"]]["minutes"] += Number(
                   (song["track"]["duration_ms"] / 1000 / 60).toFixed(2)
                 );
-                this.artists[a["name"]]["hours"] += Number(
+                this.songName[song["track"]["name"]]["hours"] += Number(
+                  (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
+                );
+              }
+
+              for (var a of song["track"]["album"]["artists"]) {
+                if (!Object.keys(this.artists).includes(a["name"])) {
+                  this.artists[a["name"]] = { plays: 1, minutes: 0, hours: 0 };
+                  this.artists[a["name"]]["minutes"] = Number(
+                    (song["track"]["duration_ms"] / 1000 / 60).toFixed(2)
+                  );
+                  this.artists[a["name"]]["hours"] = Number(
+                    (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
+                  );
+                } else {
+                  this.artists[a["name"]]["plays"] += 1;
+                  this.artists[a["name"]]["minutes"] += Number(
+                    (song["track"]["duration_ms"] / 1000 / 60).toFixed(2)
+                  );
+                  this.artists[a["name"]]["hours"] += Number(
+                    (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
+                  );
+                }
+              }
+              if (
+                !Object.keys(this.albums).includes(song["track"]["album"]["name"])
+              ) {
+                this.albums[song["track"]["album"]["name"]] = {
+                  plays: 1,
+                  minutes: 0,
+                  hours: 0,
+                };
+                this.albums[song["track"]["album"]["name"]]["minutes"] = Number(
+                  (song["track"]["duration_ms"] / 1000 / 60).toFixed(2)
+                );
+                this.albums[song["track"]["album"]["name"]]["hours"] = Number(
+                  (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
+                );
+              } else {
+                this.albums[song["track"]["album"]["name"]]["plays"] += 1;
+                this.albums[song["track"]["album"]["name"]]["minutes"] += Number(
+                  (song["track"]["duration_ms"] / 1000 / 60).toFixed(2)
+                );
+                this.albums[song["track"]["album"]["name"]]["hours"] += Number(
                   (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
                 );
               }
             }
-            if (
-              !Object.keys(this.albums).includes(song["track"]["album"]["name"])
-            ) {
-              this.albums[song["track"]["album"]["name"]] = {
-                plays: 1,
-                minutes: 0,
-                hours: 0,
-              };
-              this.albums[song["track"]["album"]["name"]]["minutes"] = Number(
-                (song["track"]["duration_ms"] / 1000 / 60).toFixed(2)
-              );
-              this.albums[song["track"]["album"]["name"]]["hours"] = Number(
-                (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
-              );
-            } else {
-              this.albums[song["track"]["album"]["name"]]["plays"] += 1;
-              this.albums[song["track"]["album"]["name"]]["minutes"] += Number(
-                (song["track"]["duration_ms"] / 1000 / 60).toFixed(2)
-              );
-              this.albums[song["track"]["album"]["name"]]["hours"] += Number(
-                (song["track"]["duration_ms"] / 1000 / 60 / 60).toFixed(2)
-              );
-            }
           }
-        }
-        console.log("Got playlist");
-        console.log(this.songName);
-        console.log(this.albums);
-        console.log(this.artists);
-        console.log(data);
-        this.getPlaylistOfDifferentTime(data);
-        this.openSpotifyModal();
-      });
+          console.log("Got playlist");
+          console.log(this.songName);
+          console.log(this.albums);
+          console.log(this.artists);
+          console.log(data);
+          this.getPlaylistOfDifferentTime(data);
+          this.openSpotifyModal();
+        })
+        .catch(error => {
+          this.presentErrorSpotifyLogin();
+        });
+    })  
   }
 
   getPlaylistOfDifferentTime(data){
@@ -784,8 +809,15 @@ export class InputComponent implements OnInit {
               .then((value) => {
                 if(value == false || value == null){
                   console.log("open webpage");
-                  window.open("https://sticker-spotify.herokuapp.com/login", "_self");
-                  this.storage.set('spotifyPermission', true);
+                  var userid: string = "";
+                  this.storage.get('id')
+                    .then((value) => {
+                      userid = value;
+                    }).then(() => {
+                      window.open("https://sticker-spotify.herokuapp.com/login/" + String(userid), "_self");
+                      this.storage.set('spotifyPermission', true);
+                    })  
+
                 }
                 else {
                   this.getPlaylist();

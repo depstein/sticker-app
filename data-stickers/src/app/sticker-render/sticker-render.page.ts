@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { GlobalDataService } from './../global-data.service';
 import { RecentUseService } from './../recent-use.service'
@@ -17,8 +17,9 @@ export class StickerRenderPage implements OnInit {
   imageLoadedError: boolean;
   errorStatus: string;
   url: string;
+  clickedShare: boolean;
   
-  constructor(private route: ActivatedRoute, private http: HttpClient, public global: GlobalDataService, private recentUse:RecentUseService, public meta: Meta) {
+  constructor(private route: ActivatedRoute, private router: Router, private http: HttpClient, public global: GlobalDataService, private recentUse:RecentUseService, public meta: Meta) {
     this.imageLoading = true;
     this.imageLoadedSuccess = false;
     this.imageLoadedError = false;
@@ -30,6 +31,7 @@ export class StickerRenderPage implements OnInit {
 
   ngOnInit() {
     console.log(this.url);
+    this.clickedShare = false;
     this.http.get(this.url, {responseType: 'blob'})
       .subscribe(data => { 
         this.createImageFromBlob(data);
@@ -119,6 +121,14 @@ export class StickerRenderPage implements OnInit {
         this.imageLoading = false;
         this.imageLoadedError = true;
       });
+  }
+
+  backToMenu(){
+    this.router.navigate(['home/'+this.global.stickerInfo.domain]);
+  }
+
+  clickedShare(){
+    this.clickedShare = true;
   }
 
   shareToSocialMedia() {
