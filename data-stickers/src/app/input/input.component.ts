@@ -373,7 +373,7 @@ export class InputComponent implements OnInit {
   async presentErrorSpotifyLogin() {
     const alert = await this.alertController.create({
       header: "Error: Could not load Spotify data",
-      message: 'Please try again. If error persists, please go to the Setting page to reset your permissions.',
+      message: 'Please try again. If the error persists, please go to the Setting page to reset your permissions.',
       buttons: [
         {
           text: "Got It!",
