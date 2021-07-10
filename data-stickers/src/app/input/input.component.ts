@@ -7,6 +7,7 @@ import { ModalController } from "@ionic/angular";
 import { ModalPage } from "../modals/modal/modal.page";
 import { conditionallyCreateMapObjectLiteral } from '@angular/compiler/src/render3/view/util';
 import { environment } from './../../environments/environment';
+import { AnalyticsService } from '../analytics.service';
 
 import { SelectDataModalPage } from '../select-data-modal/select-data-modal.page';
 
@@ -41,7 +42,8 @@ export class InputComponent implements OnInit {
     public global: GlobalDataService,
     private storage: Storage,
     private spotifyService: SpotifyService,
-    public modalController: ModalController
+    public modalController: ModalController,
+    private analyticsService: AnalyticsService
   ) {
     this.custom = "custom";
   }
@@ -215,7 +217,7 @@ export class InputComponent implements OnInit {
     } else if(this.global.stickerInfo.domain == "music") {
       this.updateMusicInputValue();
     }
-
+    this.analyticsService.changeInputValue(this.global.stickerInfo.value + " " + this.global.stickerInfo.unit);
     this.changeInput.emit();
   }
 
@@ -241,7 +243,6 @@ export class InputComponent implements OnInit {
     if(this.global.stickerInfo.domain == "music") {
       this.updateMusicInputValue();
     }
-
     this.changeInput.emit();
   }
 
@@ -249,6 +250,7 @@ export class InputComponent implements OnInit {
   toggleGoal() {
     //TODO: error handling really shouldn't be on the toggle goal button, but rather on the input fields themselves.
     if (this.global.stickerInfo.hasGoal) {
+      this.analyticsService.goalButtonEvent("remove goal");
       this.global.stickerInfo.hasGoal = false;
       this.global.stickerInfo.goal = 0;
     } else {
@@ -278,7 +280,7 @@ export class InputComponent implements OnInit {
           return;
         }
       }
-
+      this.analyticsService.goalButtonEvent("add goal");
       this.global.stickerInfo.hasGoal = true;
       this.global.stickerInfo.goal = this.global.stickerInfo.value;
     }
@@ -391,6 +393,15 @@ export class InputComponent implements OnInit {
         // .sendRequestToExpress("/recently-played")
         .sendRequestToExpress("/recently-played/"+String(this.userid))
         .then((data) => {
+          // reset count of all stored music data
+          this.songName = { songName: { plays: 1, minutes: 0, hours: 0 } };
+          this.artists = { artistName: { plays: 1, minutes: 0, hours: 0 } };
+          this.albums = { albums: { plays: 1, minutes: 0, hours: 0 } };
+          this.lastMonth = [];
+          this.lastHour = [];
+          this.lastWeek = [];
+          this.lastMonth = [];
+
           console.log("userid: " + this.userid);
           console.log(data);
           if (data["items"] != null) {
@@ -805,6 +816,7 @@ export class InputComponent implements OnInit {
         {
           text: 'YES',
           handler: () => {
+            this.analyticsService.incorporateDataEvent("yes");
             if (this.global.stickerInfo.domain == 'music') {
               this.storage.get('spotifyPermission')
               .then((value) => {
@@ -832,7 +844,10 @@ export class InputComponent implements OnInit {
         },
         {
           text: 'NO',
-          handler: () => this.presentInputAlert()
+          handler: () => {
+            this.analyticsService.incorporateDataEvent("no");
+            this.presentInputAlert()
+          }
         }],
     })
     await alert.present();

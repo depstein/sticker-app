@@ -40,7 +40,7 @@
         <ion-item class="share-banner" lines="none">
           <!--NOTE: sticker must be 1000x1000 pixels or it will not load-->
           <div class="share-banner-content">
-            <app-send-to-snapchat class="share-button" [sticker]="imageFromServer" (click)="clickedShare()" ></app-send-to-snapchat>
+            <app-send-to-snapchat class="share-button" [sticker]="imageFromServer" (click)="finishSharing()" ></app-send-to-snapchat>
           </div>
         </ion-item>
         <!-- <p>Or other social communities<p>

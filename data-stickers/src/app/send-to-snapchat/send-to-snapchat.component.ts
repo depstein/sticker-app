@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { environment } from './../../environments/environment';
+import { AnalyticsService } from '../analytics.service';
 
 @Component({
   selector: 'app-send-to-snapchat',
@@ -9,7 +10,7 @@ import { environment } from './../../environments/environment';
 export class SendToSnapchatComponent implements OnInit {
 	@Input() sticker:string;
 
-  constructor() {
+  constructor(private analyticsService: AnalyticsService) {
 	}
 
   ngOnInit() {

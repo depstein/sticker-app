@@ -5,6 +5,7 @@ import { GlobalDataService } from './../global-data.service';
 import { RecentUseService } from './../recent-use.service'
 import { Meta } from '@angular/platform-browser';
 import { environment } from './../../environments/environment';
+import { AnalyticsService } from '../analytics.service';
 
 @Component({
   selector: 'app-sticker-render',
@@ -20,7 +21,7 @@ export class StickerRenderPage implements OnInit {
   url: string;
   clickedShare: boolean;
 
-  constructor(private route: ActivatedRoute, private router: Router, private http: HttpClient, public global: GlobalDataService, private recentUse:RecentUseService, public meta: Meta) {
+  constructor(private route: ActivatedRoute, private router: Router, private http: HttpClient, public global: GlobalDataService, private recentUse:RecentUseService, public meta: Meta, private analyticsService: AnalyticsService) {
     this.imageLoading = true;
     this.imageLoadedSuccess = false;
     this.imageLoadedError = false;
@@ -81,6 +82,7 @@ export class StickerRenderPage implements OnInit {
     } else {
       this.url += '&time=' + 'false';
     }
+    this.analyticsService.renderStickerEvent(this.url);
     // TODO: color? change type.
 
     //// testing parameters
@@ -128,7 +130,7 @@ export class StickerRenderPage implements OnInit {
     this.router.navigate(['home/'+this.global.stickerInfo.domain]);
   }
 
-  clickedShare(){
+  finishSharing(){
     this.clickedShare = true;
   }
 
