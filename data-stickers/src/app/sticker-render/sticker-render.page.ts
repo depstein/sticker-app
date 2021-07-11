@@ -33,6 +33,7 @@ export class StickerRenderPage implements OnInit {
 
   ngOnInit() {
     console.log(this.url);
+    this.analyticsService.renderStickerEvent(this.url);
     this.clickedShare = false;
     this.http.get(this.url, {responseType: 'blob'})
       .subscribe(data => {
@@ -82,7 +83,6 @@ export class StickerRenderPage implements OnInit {
     } else {
       this.url += '&time=' + 'false';
     }
-    this.analyticsService.renderStickerEvent(this.url);
     // TODO: color? change type.
 
     //// testing parameters

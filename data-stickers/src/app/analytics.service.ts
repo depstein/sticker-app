@@ -104,11 +104,11 @@ export class AnalyticsService {
   }
 
   renderStickerEvent(result) {
-    console.log("sticker rendered: " + result);
+    console.log("sticker rendered: " + result.substring(environment.serverURL.length));
     FirebaseAnalytics.logEvent({
       name: "sticker_rendered",
       params: {
-        userEvent: result,
+        userEvent: result.substring(environment.serverURL.length),
         time: Date.now()
       }
     });
