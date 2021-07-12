@@ -217,7 +217,11 @@ export class InputComponent implements OnInit {
     } else if(this.global.stickerInfo.domain == "music") {
       this.updateMusicInputValue();
     }
-    this.analyticsService.changeInputValue(this.global.stickerInfo.value + " " + this.global.stickerInfo.unit);
+    if (this.global.stickerInfo.hasGoal){
+      this.analyticsService.changeInputValue(this.global.stickerInfo.value + " " + this.global.stickerInfo.unit + " Goal: " + this.global.stickerInfo.goal);
+    } else {
+      this.analyticsService.changeInputValue(this.global.stickerInfo.value + " " + this.global.stickerInfo.unit);
+    }
     this.changeInput.emit();
   }
 

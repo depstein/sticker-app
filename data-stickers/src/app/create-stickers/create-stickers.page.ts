@@ -9,6 +9,7 @@ import { send } from 'process';
 import { SpotifyService } from '../spotify.service';
 import { StickerComponent } from '../sticker/sticker.component';
 import { environment } from './../../environments/environment';
+import { AnalyticsService } from '../analytics.service';
 
 @Component({
   selector: "app-create-stickers",
@@ -28,7 +29,8 @@ export class CreateStickersPage implements OnInit {
     public global: GlobalDataService,
     private storage: Storage,
     private http: HttpClient,
-    private spotifyService: SpotifyService
+    private spotifyService: SpotifyService,
+    private analyticsService: AnalyticsService
   ) {
 
   }
