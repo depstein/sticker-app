@@ -5,6 +5,7 @@ import { SettingsPage } from '../modals/settings/settings.page'
 import { Storage } from '@ionic/storage';
 import { GlobalDataService } from "./../global-data.service";
 import { RecentUseService } from "./../recent-use.service";
+import { AnalyticsService } from '../analytics.service';
 import { StickerConfig } from '../sticker-configs/sticker-config';
 
 @Component({
@@ -25,7 +26,8 @@ export class StickerListPage implements OnInit {
     private modalController: ModalController,
     private storage: Storage,
     private global: GlobalDataService,
-    private recent: RecentUseService
+    private recent: RecentUseService,
+    private analyticsService: AnalyticsService
   ) {
     this.domain = this.router.url;
     this.domain = this.domain.substring(6);
@@ -70,9 +72,12 @@ export class StickerListPage implements OnInit {
   goToCreateStickerPage(config) {
     config.domain = this.domain;
     this.global.stickerInfo = config;
+    this.global.stickerInfo.variation = Number(this.global.stickerInfo.imageURL.substr(-5,1));
     this.router.navigate([
       'create-sticker',
       { },
     ]);
+    // this.analyticsService.setUser();
+    this.analyticsService.stickerButtonEvent(config, this.domain);
   }
 }

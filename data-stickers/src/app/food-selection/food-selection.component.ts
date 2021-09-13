@@ -49,12 +49,12 @@ export class FoodSelectionComponent {
         }
       });
 
-      var promises = trimmedData.map(item => {
-        return this.foodDataService.getFoodData(item.food_name).toPromise()
-        .then((nutritionData: any) => {
+      trimmedData.forEach((item, index) => {
+        return this.foodDataService.getFoodData(item.food_name)
+        .subscribe((nutritionData: any) => {
           console.log(nutritionData);
 
-          return {
+          this.foodData[index] = {
             name: item.food_name,
             image: item.photo.thumb,
             nutrients: {
@@ -67,8 +67,6 @@ export class FoodSelectionComponent {
           };
         });
       });
-
-      Promise.all(promises).then(results => this.foodData = results);
     });
   }
 

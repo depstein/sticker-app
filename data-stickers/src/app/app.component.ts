@@ -10,6 +10,10 @@ import { Storage } from '@ionic/storage';
 
 import { SettingsPage } from './modals/settings/settings.page';
 
+import { AnalyticsService } from './analytics.service';
+import { Health } from '@ionic-native/health/ngx';
+import { AlertController } from "@ionic/angular";
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -24,10 +28,13 @@ export class AppComponent {
     private toastController: ToastController,
     private navCtrl: NavController,
     private storage: Storage,
-    private settingsPage: SettingsPage
+    private settingsPage: SettingsPage,
+    private analyticsService: AnalyticsService,
+    private health: Health,
+    private alertController: AlertController
   ) {
     this.initializeApp();
-    this.settingsPage = new SettingsPage(modalController, toastController, navCtrl, storage);
+    this.settingsPage = new SettingsPage(modalController, toastController, navCtrl, analyticsService, storage, health, alertController);
   }
 
   initializeApp() {
@@ -35,5 +42,6 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
+    // this.analyticsService.setUser();
   }
 }

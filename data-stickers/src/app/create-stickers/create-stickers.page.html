@@ -2,7 +2,7 @@
     <ion-toolbar>
         <ion-title>Edit Sticker </ion-title>
         <ion-buttons slot="start">
-            <ion-back-button text=""></ion-back-button>
+            <ion-back-button text="" defaultHref="home/{{this.global.stickerInfo.domain}}"></ion-back-button>
         </ion-buttons>
 
     </ion-toolbar>
@@ -10,8 +10,7 @@
 
 <ion-content class="hide-scrollbar">
     <!-- Sticker image component-->
-    <app-sticker
-    [stickerInfo]="this.global.stickerInfo"></app-sticker>
+    <app-sticker [stickerInfo]="this.global.stickerInfo"></app-sticker>
 
     <!-- Animation buttons component -->
     <app-animation-buttons (changeAnimation)="rerender()"></app-animation-buttons>
@@ -27,13 +26,15 @@
 
 </ion-content>
 
-<ion-toolbar color={{global.stickerInfo.domain}}>
-    <!-- Share to Snapchat banner -->
-    <ion-item class="share-banner" lines="none" color={{global.stickerInfo.domain}} (click)="goToStickerRenderPage()">
-        <!--NOTE: sticker must be 1000x1000 pixels or it will not load-->
-        <div class="share-banner-content">
-            Share to Snapchat &nbsp;
-            <ion-icon name="md-share"></ion-icon>
-        </div>
-    </ion-item>
-</ion-toolbar>
+<ion-footer>
+  <ion-toolbar color={{global.stickerInfo.domain}}>
+      <!-- Share to Snapchat banner -->
+      <ion-item class="share-banner" lines="none" color={{global.stickerInfo.domain}} (click)="goToStickerRenderPage()">
+          <!--NOTE: sticker must be 1000x1000 pixels or it will not load-->
+          <div class="share-banner-content">
+              Share to Snapchat &nbsp;
+              <ion-icon name="md-share"></ion-icon>
+          </div>
+      </ion-item>
+  </ion-toolbar>
+</ion-footer>

@@ -32,3 +32,6 @@ npm-debug.log*
 /.vs
 
 /src/environments
+
+/ios
+/android

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { GlobalDataService } from './../global-data.service';
+import { AnalyticsService } from '../analytics.service';
 
 @Component({
   selector: 'app-color-buttons',
@@ -7,12 +8,13 @@ import { GlobalDataService } from './../global-data.service';
   styleUrls: ['./color-buttons.component.scss'],
 })
 export class ColorButtonsComponent implements OnInit {
+  enabled = this.analyticsService.analyticsEnabled;
 	@Output() changeColor:EventEmitter<any> = new EventEmitter();
   color_map = {};
 
   colors = [];
 
-  constructor(public global: GlobalDataService) { }
+  constructor(public global: GlobalDataService, private analyticsService: AnalyticsService) { }
 
   ngOnInit() {
     this.colors = Object.keys(this.global.stickerInfo.colorMap);
@@ -28,7 +30,12 @@ export class ColorButtonsComponent implements OnInit {
 
   updateColor(color: string) {
     this.global.stickerInfo.color = color;
+    // this.analyticsService.setUser();
+    this.analyticsService.colorButtonEvent(color);
     this.changeColor.emit(color);
   }
+  // logEvent(color: string) {
+  //   this.analyticsService.logEvent(color);
+  // }
 
 }

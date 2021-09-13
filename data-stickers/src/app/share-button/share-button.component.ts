@@ -17,7 +17,7 @@ export class ShareButtonComponent implements OnInit {
   ngOnInit() {}
 
   async sendLocalFile(){
-    return this.file.copyFile('${this.file.applicationDirectory}../../../assets/stickers', 'foot.png', this.file.cacheDirectory, '${new Date().getTime()}.png}')
+    return this.file.copyFile(`${this.file.applicationDirectory}../../../assets/stickers`, 'foot.png', this.file.cacheDirectory, `${new Date().getTime()}.png}`)
   }
 
   removeTempFile(name){
@@ -25,7 +25,7 @@ export class ShareButtonComponent implements OnInit {
   }
 
   async shareFacebook() {
-    
+
     //let file = await this.sendLocalFile();
     //console.log('File',file);
 
@@ -34,7 +34,7 @@ export class ShareButtonComponent implements OnInit {
     }).catch(e => {
      // this.removeTempFile(file.name);
     })
-  }  
+  }
   async shareTwitter(){
     this.socialSharing.shareViaTwitter(this.text).then( ()=>{
 
@@ -50,7 +50,7 @@ export class ShareButtonComponent implements OnInit {
       // this.removeTempFile(file.name);
      })
   }
-  
+
   async shareIns(){
     this.socialSharing.shareViaInstagram(this.text,this.img).then( ()=>{
 
@@ -58,6 +58,6 @@ export class ShareButtonComponent implements OnInit {
       // this.removeTempFile(file.name);
      })
   }
-  
-  
+
+
 }

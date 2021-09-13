@@ -11,28 +11,28 @@
 <ion-tabs *ngIf="idEntered">
     <ion-tab-bar slot="bottom">
 
-        <ion-tab-button class="steps-tab" tab="steps">
+        <ion-tab-button class="steps-tab" tab="steps" (click)="tabClickedEvent('steps')">
             <ion-icon src="../../assets/icon/footprint.svg"></ion-icon>
             <ion-label>Steps</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button class="heartbeat-tab" tab="heartbeat">
-            <ion-icon src="../../assets/icon/bxs-heart.svg"></ion-icon>
+        <ion-tab-button class="heartbeat-tab" tab="heartbeat" (click)="tabClickedEvent('heartbeat')">
+            <ion-icon name="heart"></ion-icon>
             <ion-label>Heartbeat</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button class="calories-tab" tab="calories">
-            <ion-icon src="../../assets/icon/bxs-hot.svg"></ion-icon>
-            <ion-label>Calories</ion-label>
+        <ion-tab-button class="calories-tab" tab="calories" (click)="tabClickedEvent('calories')">
+            <ion-icon name="pizza"></ion-icon>
+            <ion-label>Food</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button class="time-tab" tab="time">
-            <ion-icon src="../../assets/icon/bxs-time-five.svg"></ion-icon>
+        <ion-tab-button class="time-tab" tab="time" (click)="tabClickedEvent('time')">
+            <ion-icon name="time"></ion-icon>
             <ion-label>Time</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button class="music-tab" tab="music">
-            <ion-icon src="../../assets/icon/bxs-music.svg"></ion-icon>
+        <ion-tab-button class="music-tab" tab="music" (click)="tabClickedEvent('music')">
+            <ion-icon name="musical-notes"></ion-icon>
             <ion-label>Music</ion-label>
         </ion-tab-button>
 

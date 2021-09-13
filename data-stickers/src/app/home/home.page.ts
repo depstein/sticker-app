@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { AlertController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { StylesCompileDependency } from '@angular/compiler';
+import { AnalyticsService } from '../analytics.service';
 
 @Component({
   selector: 'app-home',
@@ -20,6 +21,7 @@ export class HomePage {
   constructor(
     private storage: Storage, 
     private router: Router, 
+    private analyticsService: AnalyticsService,
     private alertController: AlertController
   ) {
     this.idEntered = false;
@@ -34,9 +36,14 @@ export class HomePage {
       if (value != null){
         this.userId = value;
         this.idEntered = true; 
+        this.analyticsService.setUser(value);
         this.checkForDomain();
       } else {
-        this.presentIdInputPrompt()
+        // User ID input prompt at the beginning of app.
+        // this.presentIdInputPrompt()
+        this.presentInitialSetupAlert();
+        this.setUserId("change-user-id");
+        this.analyticsService.setUser("change-user-id");
       }
     })
   }
@@ -61,6 +68,22 @@ export class HomePage {
     })
   }
 
+  async presentInitialSetupAlert() {
+    const alert = await this.alertController.create({
+      header: 'Hello! Welcome to SnapPI!',
+      message: 'Please go to the Setting page to set up your user id and permissions.',
+      buttons: [
+        {
+          text: 'OK',
+          handler: () => {
+            this.router.navigate(['home/steps']);
+          }
+        }  
+      ]
+    });
+    await alert.present();
+  }
+
   async presentIdInputPrompt() {
     const alert = await this.alertController.create({
       header: 'Please enter your user ID:',
@@ -76,6 +99,7 @@ export class HomePage {
           text: 'Submit',
           handler: data => {
             this.setUserId(data.id);
+            this.analyticsService.setUser(data.id);
             //this.presentHealthPrompt();
           }
         }
@@ -117,6 +141,11 @@ export class HomePage {
   setHealthPermission(permission: boolean){
     this.storage.set('healthPermission', permission);
     this.healthPermission = permission;
+  }
+
+  tabClickedEvent(domain: String) {
+    // this.analyticsService.setUser();
+    this.analyticsService.domainButtonEvent(domain);
   }
 
 }

@@ -10,5 +10,6 @@ export class CaloriesAnalogy3Config extends CaloriesAnalogy1Config {
 		super(imageURL, svgURL);
 		this.totalNutrients = {"calories": 290, "g fiber": 3, "g carbs": 40, "g sodium": 640, "g sugar": 4};
 		this.denominatorRoot = "a slice of pizza";
+		this.stickerRelevance = "domain-relevant";
 	}
 }

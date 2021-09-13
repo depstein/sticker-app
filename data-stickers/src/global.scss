@@ -40,10 +40,10 @@ ion-col {
 	text-align: center;
 }
 
-img {
-	height: 100px;
-	width: 100px;
-}
+// img {
+// 	height: 100px;
+// 	width: 100px;
+// }
 
 app-recent-use{
 	margin:auto;
@@ -60,5 +60,6 @@ app-recent-use{
 
 @font-face {
 	font-family: MyDearWatson-Regular;
-	src: url("./assets/fonts/MyDearWatson-Regular.otf") format("otf");
+	src: url('./assets/fonts/MyDearWatson-Regular.woff2') format('woff2'),
+        url('./assets/fonts/MyDearWatson-Regular.woff') format('woff');
 }

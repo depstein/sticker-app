@@ -1,5 +1,5 @@
 {
-  "appId": "net.depstein.datastickers",
+  "appId": "com.ryanmohta.stickerapp",
   "appName": "data-stickers",
   "bundledWebRuntime": false,
   "npmClient": "npm",
@@ -15,5 +15,9 @@
       "SplashScreen": "screen",
       "SplashScreenDelay": "3000"
     }
+  },
+  "server": {
+    "iosScheme": "ionic",
+    "hostname": "app"
   }
 }

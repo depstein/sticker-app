@@ -6,6 +6,7 @@ export class StepsAnalogy2Config extends StepsAnalogy1Config {
 	constructor(imageURL:string, svgURL:string) {
 		super(imageURL, svgURL);
 		this.denominatorValue = 525;
-		this.denominatorDescriptor = "a track";
+		this.denominatorDescriptor = "around a track";
+		this.stickerRelevance = "domain-relevant";
 	}
 }

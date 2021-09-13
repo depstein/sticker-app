@@ -114,9 +114,9 @@ export class ModalPage implements OnInit {
   }
   // e.g. day[0] = songName for lastDay, day[1] = artists for lastDay, day[2] = albums for last Month
   unitChanged(selected:any){
-    let songName = {"songName":{'times':1,"minutes":0,"hours":0}};
-    let artists= {"artistName":{'times':1,"minutes":0,"hours":0}};
-    let albums = {"albums":{'times':1,"minutes":0,"hours":0}};
+    let songName = {"songName":{'plays':1,"minutes":0,"hours":0}};
+    let artists= {"artistName":{'plays':1,"minutes":0,"hours":0}};
+    let albums = {"albums":{'plays':1,"minutes":0,"hours":0}};
     if(selected["detail"]["value"] == "hour"){
       console.log(this.hour[0]);
       songName = this.hour[0];

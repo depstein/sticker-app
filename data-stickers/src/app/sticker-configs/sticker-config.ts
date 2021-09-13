@@ -6,12 +6,12 @@ export abstract class StickerConfig {
 	svgURL: string;
 	stickerType: string;
 	stickerRelevance: string;
+  variation: number = 1;
   colorMap:{};
   color: string;
   domain: string;
   value: number = 0;
   unit: string;
-  music_value: string;
   animation: string;
   canAddGoal:boolean = false;
   hasGoal: boolean;

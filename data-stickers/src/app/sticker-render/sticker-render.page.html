@@ -4,10 +4,13 @@
     <ion-buttons slot="start">
       <ion-back-button text=""></ion-back-button>
     </ion-buttons>
-    <ion-buttons slot="end">
-      <ion-button *ngIf="imageLoadedSuccess" (click)="shareToSocialMedia()">
-        <ion-icon name="download"></ion-icon>
+    <ion-buttons slot="end" *ngIf="imageLoadedSuccess">
+      <ion-button (click)="backToMenu()" *ngIf="clickedShare">
+        Done
       </ion-button>
+      <!-- <ion-button *ngIf="imageLoadedSuccess" (click)="shareToSocialMedia()">
+        <ion-icon name="download"></ion-icon>
+      </ion-button> -->
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -37,11 +40,11 @@
         <ion-item class="share-banner" lines="none">
           <!--NOTE: sticker must be 1000x1000 pixels or it will not load-->
           <div class="share-banner-content">
-            <app-send-to-snapchat class="share-button" sticker="testanim_meta" ></app-send-to-snapchat>
+            <app-send-to-snapchat class="share-button" [sticker]="imageFromServer" (click)="finishSharing()" ></app-send-to-snapchat>
           </div>
         </ion-item>
-        <p>Or other social communities<p>
-        <app-share-button></app-share-button>
+        <!-- <p>Or other social communities<p>
+        <app-share-button></app-share-button> -->
         <!-- Share to Snapchat banner -->
         
       </ion-card-content>
